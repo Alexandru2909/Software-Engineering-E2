@@ -5,7 +5,7 @@
 
 Students currently working on this module:
 
-1. Paul Alexandru Reftu (ScrumMaster)
+1. Paul Alexandru Reftu (Scrum Master) (user "Atroxyph" on GitHub)
 2. Radu Mugur-Bogdan
 3. Lungu Stefan
 4. Ilisei Bogdan-Razvan
