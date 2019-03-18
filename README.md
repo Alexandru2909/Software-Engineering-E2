@@ -1,14 +1,15 @@
-# Software-Engineering-E2
-# BACK END MODULE TEAM
-Repo for all modules of the AR Guide project developed by E2
+# Software Engineering 2018-2019, Project "AR Guide", Back-End Module, Study Group IIE2
 
-Team Members:
+# Link to Trello Board 1 (Back-End Module): https://trello.com/b/WDHkhf5I/project-ar-guide-back-end-module
+# Link to Trello Board 1 (All Modules): https://trello.com/b/SpK5cEZY/project-ar-guide-all-modules
 
-# Paul Alexandru Reftu (ScrumMaster)
-# Radu Mugur-Bogdan
-# Lungu Stefan
-# Ilisei Bogdan-Razvan
-# Balan Ioana Maria
-# Gemeniuc Adrian-Gheorghita
-# Munteanu Cosmin
-# Cristian Andrei
+Students currently working on this module:
+
+1. Paul Alexandru Reftu (ScrumMaster)
+2. Radu Mugur-Bogdan
+3. Lungu Stefan
+4. Ilisei Bogdan-Razvan
+5. Balan Ioana Maria
+6. Gemeniuc Adrian-Gheorghita
+7. Munteanu Cosmin
+8. Cristian Andrei
