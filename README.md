@@ -13,4 +13,4 @@ Students currently working on this module:
 5. Balan Ioana Maria
 6. Gemeniuc Adrian-Gheorghita
 7. Munteanu Cosmin
-8. Cristian Andrei
+8. Cristian Andrei (andreicristian6(at)protonmail(dot)com)
