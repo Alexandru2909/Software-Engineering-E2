@@ -1,6 +1,6 @@
-Ghiran Andrei - team 1
-Curea Paul - team 3
-Mihai Dumitru - team 2
-Putanu Alexandru -team 1 
-Caloian Andrei - team 3
-Pricop George - team 2
+Ghiran Andrei - front-end team 
+Curea Paul -  back-end team 
+Mihai Dumitru -  back-end team 
+Putanu Alexandru - front-end team  
+Caloian Andrei - back-end team 
+Pricop George - back-end team 
