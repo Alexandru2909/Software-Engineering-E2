@@ -5,7 +5,7 @@ import org.junit.*;
 public class TestImageProssesing {
 
 	@Test 
-	public void ImageRecognitionConsistenciTest() {
+	public void ImageRecognitionConsistenciTest() throws Exception{
 		//the application should be able to recognize the room in a variety of conditions (different times of day, different image quality)  
 	}
 	
