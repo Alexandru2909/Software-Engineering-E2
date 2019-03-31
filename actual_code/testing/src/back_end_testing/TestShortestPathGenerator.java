@@ -1,6 +1,6 @@
-import static org.junit.jupiter.api.Assertions.assertEquals;
+package back_end_testing;
 
-        import org.junit.jupiter.api.Test;
+import org.junit.*;
 
 public class TestShortestPathGenerator {
 

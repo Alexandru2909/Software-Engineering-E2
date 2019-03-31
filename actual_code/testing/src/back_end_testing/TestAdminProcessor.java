@@ -1,4 +1,6 @@
-import org.junit.jupiter.api.Test;
+package back_end_testing;
+
+import org.junit.*;
 
 public class TestAdminProcessor {
     @Test
