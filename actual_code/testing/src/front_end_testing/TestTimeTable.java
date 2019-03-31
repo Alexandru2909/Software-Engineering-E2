@@ -5,7 +5,7 @@ import org.junit.*;
 public class TestTimeTable {
 
 	@Test 
-	public void shouldGetTimeTable() {
+	public void gGetTimeTableTest() {
 		
 	}
 	

@@ -5,7 +5,7 @@ import org.junit.*;
 public class TestRoom {
 
 	@Test
-	public void shouldDisplayRoomInfo() {
+	public void displayRoomInfoTest() {
 		
 	}
 	

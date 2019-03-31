@@ -5,7 +5,7 @@ import org.junit.*;
 public class TestCamera {
 
 	@Test
-	public void shouldGetImageFromCamera() {
+	public void getImageFromCameraTest() {
 		
 	}
 }

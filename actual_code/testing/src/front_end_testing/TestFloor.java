@@ -5,7 +5,7 @@ import org.junit.*;
 public class TestFloor {
 
 	@Test
-	public void shouldDisplayFloorPlan() {
+	public void displayFloorPlanTest() {
 		
 	}
 	

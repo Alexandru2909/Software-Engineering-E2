@@ -10,7 +10,7 @@ public class TestImageProssesing {
 	}
 	
 	@Test
-	public void shouldGetCurentRoom() {
+	public void getCurentRoomTest() {
 		
 	}
 }

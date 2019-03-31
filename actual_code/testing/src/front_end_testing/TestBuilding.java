@@ -5,7 +5,7 @@ import org.junit.*;
 public class TestBuilding {
 
 	@Test
-	public void shouldDislayBuildingPlan() {
+	public void dislayBuildingPlanTest() {
 		
 	}
 	
