@@ -1,5 +1,6 @@
-import org.junit.Test;
+package back_end_testing;
 
+import org.junit.Test;
 
 public class UnitTestAmphitheater extends junit.framework.TestCase {
     public UnitTestAmphitheater(){
