@@ -1,8 +1,0 @@
-Product Backlog:
-
--the interface that the user will be interacting with -> will be selecting the destination
-										->will be able to see the floor's plan and will interact with the arrows
--the image processing ->location identification (In any given moment)
--will be connected with the building plan/schema. Will receive the path from the backend team and translate it into visual representation
--show building plan
--show timetable
