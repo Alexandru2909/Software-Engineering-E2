@@ -25,7 +25,10 @@ import com.google.android.gms.vision.text.TextRecognizer;
 
 import java.io.IOException;
 
-public class ScanRoomActivity extends AppCompatActivity {
+/**
+ * Tools for the pattern recognition and the camera functionality.
+ */
+public class ImageProcessing extends AppCompatActivity {
 
     private Button getRoomBtn;
     private CameraSource cameraSource;
@@ -142,6 +145,14 @@ public class ScanRoomActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Callback for the result from requesting permissions.
+     * This method is invoked for every call on requestPermissions(android.app.Activity, String[], int)
+     * @param requestCode int: The request code passed in requestPermissions()
+     * @param permissions String: The requested permissions. Never null.
+     * @param grantResults int: The grant result for the corresponding permissions
+     *                     which is either PERMISSION_GRANTER or PERMISSION_DENIED. Never null
+     */
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            @NonNull String[] permissions,
@@ -157,6 +168,9 @@ public class ScanRoomActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Ask for the user in order to get access to the camera.
+     */
     private void askCameraPermission() {
         final String[] permissions = new String[]{Manifest.permission.CAMERA};
         if (!ActivityCompat.shouldShowRequestPermissionRationale(this,

@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void startOCR() {
-        Intent ocrActivity = new Intent(getApplicationContext(), ScanRoomActivity.class);
+        Intent ocrActivity = new Intent(getApplicationContext(), ImageProcessing.class);
         startActivityForResult(ocrActivity, 1);
     }
 
