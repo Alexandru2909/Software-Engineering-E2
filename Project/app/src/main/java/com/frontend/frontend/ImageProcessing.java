@@ -77,7 +77,9 @@ public class ImageProcessing extends AppCompatActivity {
         cameraSource.release();
     }
 
-
+    /**
+     * Initializes text recognition
+     */
     private void startTextRecognizer() {
         textRecognizer = new TextRecognizer.Builder(getApplicationContext()).build();
         if (!textRecognizer.isOperational()){
