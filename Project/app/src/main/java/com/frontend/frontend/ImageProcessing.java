@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.frontend.frontend.Main.MainActivity;
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.text.TextBlock;
@@ -31,6 +32,7 @@ import java.io.IOException;
 public class ImageProcessing extends AppCompatActivity {
 
     private Button getRoomBtn;
+    private Button returnButton;
     private CameraSource cameraSource;
     private TextRecognizer textRecognizer;
     private SurfaceView cameraView;
@@ -46,6 +48,7 @@ public class ImageProcessing extends AppCompatActivity {
         setContentView(R.layout.scan_room);
 
         getRoomBtn = findViewById(R.id.getRoomBtn);
+        returnButton = findViewById(R.id.returnButton);
         cameraView = findViewById(R.id.cameraViewSurface);
         ocrTextView = findViewById(R.id.ocrTextView);
 
@@ -68,8 +71,19 @@ public class ImageProcessing extends AppCompatActivity {
                 }
             }
         });
+
+        returnButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openMenu();
+            }
+        });
     }
 
+    public void openMenu(){
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
 
     @Override
     protected void onDestroy() {
