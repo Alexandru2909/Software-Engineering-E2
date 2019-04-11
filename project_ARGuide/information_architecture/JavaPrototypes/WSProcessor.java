@@ -6,7 +6,7 @@ import java.util.Map;
  */
 public class WSProcessor {
  /**
-   * Parses the building plan 
+   * Parses the working schedule 
    * @param schedule the working schedule we want to parse
    * @return timetable a map of the form Day-(Hour,Subject) representing the timetable
    */
