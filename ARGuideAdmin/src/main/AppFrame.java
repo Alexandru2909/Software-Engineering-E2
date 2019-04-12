@@ -43,9 +43,9 @@ public class AppFrame extends JFrame {
 		/* We may certainly need to pass certain components to others when we will provide the inner functionalities
 		 * of the application - otherwise interoperability will not be possible.
 		 */
-		menu = new AppMenu();
+		menu = new AppMenu(this);
 		buildingTree = new AppBuildingTree();
-		filePane = new AppFilePane();
+		filePane = new AppFilePane(this);
 		controlPanel = new AppControlPanel();
 		
 		add(menu, BorderLayout.NORTH);

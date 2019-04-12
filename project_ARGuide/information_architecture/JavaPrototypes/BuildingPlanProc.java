@@ -4,7 +4,7 @@
  *
  */
 import java.util.Map;
-public class BuildingPlanProc {
+public class BuildingPlanProc throws BuildingPlanException {
   /**
    * Parses the building plan 
    * @param building the building plan we want to parse

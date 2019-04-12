@@ -4,7 +4,7 @@ import java.util.Map;
  * @author stefan
  *
  */
-public class WSProcessor {
+public class WSProcessor throws WorkingScheduleException {
  /**
    * Parses the working schedule 
    * @param schedule the working schedule we want to parse

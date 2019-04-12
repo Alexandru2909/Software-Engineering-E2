@@ -1,6 +1,11 @@
 
 package main;
 
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
+
+import javax.swing.JComponent;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
@@ -9,10 +14,11 @@ public class AppFilePane extends JPanel {
     
  
     private static final long serialVersionUID = -6663025488807576018L;
-    
+    AppFrame frame;
     
    
-    public AppFilePane() {
+    public AppFilePane(AppFrame frame) {
+    	this.frame = frame;
         init();
         createAndShowGUI();
     }

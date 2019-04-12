@@ -15,8 +15,10 @@ public class AppMenu extends JPanel {
 
 	
 	private static final long serialVersionUID = 199316383000490255L;
+	AppFrame frame;
 	
-	public AppMenu() {
+	public AppMenu(AppFrame frame) {
+		this.frame = frame;
 		init();
 		
 		// here I need the main frame of the application somehow
