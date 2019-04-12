@@ -1,234 +1,197 @@
-package WebParser;
+/*
+* Inainte de utilizare este necesara instalarea librariei Jsoup
+*
+*
+* */
 
-import java.io.IOException;
-import java.net.URL;
+
+package WebParserV2;
+import com.sun.org.apache.bcel.internal.generic.LoadClass;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.*;
 
 
+class Eveniment{
+    public LocalTime oraStart;
+    public LocalTime oraFinal;
+    public String numeEveniment;
+    public String tipEveniment;//laborator curs
+    public LinkedList<String> listaProfesori=new LinkedList<>();
+    public LinkedList<String> listaGrupe=new LinkedList<>();
+    /**************************************************************/
+    public LocalTime getOraStart(){
+        return this.oraStart;
+    }
+    public LocalTime getOraFinal(){
+        return this.oraFinal;
+    }
+    public String getNumeEveniment(){
+        return this.numeEveniment;
+    }
+    public String getTipEveniment(){
+        return this.tipEveniment;
+    }
+    public LinkedList<String> getListaProfesori(){
+        return this.listaProfesori;
+    }
+    public LinkedList<String> getListaGrupe(){
+        return this.listaGrupe;
+    }
+
+    /************************************************************/
+    public Eveniment(LocalTime oraStart,LocalTime oraFinal,String numeEveniment,String tipEveniment,LinkedList<String> listaProfesori,LinkedList<String> listaGrupe){
+        this.oraStart=oraStart;
+        this.oraFinal=oraFinal;
+        this.numeEveniment=numeEveniment;
+        this.tipEveniment=tipEveniment;
+        this.listaProfesori=listaProfesori;
+        this.listaGrupe=listaGrupe;
+    }
+    public Eveniment(){}
+    public String toString(){
+        String returnString=new String("Ora de inceput :"+this.oraStart.toString()+"\n"+"Ora de terminare :"+this.oraFinal.toString()+"\n"+"Numele evenimentului :"+this.numeEveniment+"\n"+"Tipul evenimentului :"+this.tipEveniment+"\n");
+        String profesori=new String("");
+        String grupe=new String("");
+        for(String name:listaProfesori){profesori=profesori+name;}
+        for(String grupa:listaGrupe){grupe=grupe+grupa;}
+        returnString=returnString+"lista profesori:"+profesori+"\nlista grupelor:"+grupe+"\n\n";
+        return returnString;
+    }
+}
 
 class DayRecord{
-    public LocalTime startHour;
-    public LocalTime endHour;
-    public String courseName;
-    public String actType;
-    public ArrayList<String> teachersNames;
-    public ArrayList<String> studentsGroups;
-    public DayRecord(LocalTime startHour,LocalTime endHour,String courseName,String actType,ArrayList<String> teachersNames,ArrayList<String> studentsGroups){
-        this.startHour=startHour;
-        this.endHour=endHour;
-        this.courseName=courseName;
-        this.actType=actType;
-        this.teachersNames=teachersNames;
-        this.studentsGroups=studentsGroups;
+    public LinkedList<Eveniment> listaEvenimente=new LinkedList<Eveniment>();
+    public String toString(){
+        String returnValue=new String("");
+        for(Eveniment e:listaEvenimente){
+            returnValue=returnValue+e;
+        }
+        return returnValue;
     }
-    /*
-    public static DayRecord parseDayRecord(String line){
-        Pattern pattern=Pattern.compile("<td>[^<]*</td>");
-        Matcher matcher=pattern.matcher(line);
-        LocalTime startHour;
-        LocalTime endHour;
-        String courseName;
-        String actType;
-        ArrayList<String> teachersNames=new ArrayList<String>();
-        ArrayList<String> studentsGroups=new ArrayList<String>();
-
-        int firstIdnex;
-        int lastIndex;
-        if(matcher.find()==true){//determinam startHour
-            firstIdnex=matcher.start();
-            lastIndex=matcher.end();
-            startHour=LocalTime.parse(line.substring(firstIdnex+4,lastIndex-5));
-        }
-
-        if(matcher.find()==true){//determinam endHour
-            firstIdnex=matcher.start();
-            lastIndex=matcher.end();
-            endHour=LocalTime.parse(line.substring(firstIdnex+4,lastIndex-5));
-        }
-
-        if(matcher.find()==true){//determinam courseName
-            firstIdnex=matcher.start();
-            lastIndex=matcher.end();
-            courseName=line.substring(firstIdnex+4,lastIndex-5);
-        }
-
-        if(matcher.find()==true){//determinam actType
-            firstIdnex=matcher.start();
-            lastIndex=matcher.end();
-            actType=line.substring(firstIdnex+4,lastIndex-5);
-        }
-        if(matcher.find()==true){//determinal numele profesorilor
-            firstIdnex=matcher.start();
-            lastIndex=matcher.end();
-            String auxString=line.substring(firstIdnex+4,lastIndex-5);
-            try {
-                Scanner myScanner = new Scanner(auxString);
-                while (myScanner.hasNext() == true) {
-                    teachersNames.add(myScanner.nextLine());
-                }
-                myScanner.close();
-            }catch(Exception e){
-                System.out.println("exception happend");
-            }
-        }
-        if(matcher.find()==true){
-            firstIdnex=matcher.start();
-            lastIndex=matcher.end();
-
-            String auxString=line.substring(firstIdnex+4,lastIndex-5);
-            try {
-                Scanner myScanner = new Scanner(auxString);
-                myScanner.useDelimiter(" ,\n");
-                while (myScanner.hasNext() == true) {
-                    studentsGroups.add(myScanner.next());
-                }
-                myScanner.close();
-            }catch(Exception e){
-                System.out.println("exception happend");
-            }
-        }
-    }
-     */
 }
 
-class DayData{
-    public String dayName;
-    public DayRecord dayRecord;
-    public DayData(String dayName,DayRecord dayRecord){
-        this.dayName=dayName;
-        this.dayRecord=dayRecord;
+class DataRecord{
+    public String roomCode="roomCode";
+    public HashMap<String,DayRecord> roomRecord=new HashMap<String,DayRecord>();
+    public void setValue(String day,DayRecord dayRecord){
+        day=day.toUpperCase();
+        roomRecord.put(day,dayRecord);
+    }
+    public String getRoomCode(){
+        return this.roomCode;
+    }
+    public String toString(){
+        Set<String> keysSet = roomRecord.keySet();
+        String returnValue=new String(this.roomCode+"\n");
+        for(String day:keysSet){
+            DayRecord auxDayRecord=roomRecord.get(day);
+            returnValue=returnValue+day+"\n"+auxDayRecord;
+        }
+        return returnValue;
     }
 
-}
-
-
-class MyData{
-    public String roomCode;
-    public DayData dayData;
-    public MyData(String roomCode,DayData dayData){
+    public DataRecord(String roomCode){
         this.roomCode=roomCode;
-        this.dayData=dayData;
+    }
+    public DataRecord(){
+
+    }
+    public void setRoomCode(String roomCode){
+        this.roomCode=roomCode;
     }
 }
 
+public class WebParser {
+    public static String siteAddress="https://profs.info.uaic.ro/~orar/orar_resurse.html";
+    public static LinkedList<String> linksList=new LinkedList<String>();
+    public static Document mainDocument;
+    public static LinkedList<Document> documentsList=new LinkedList<Document>();
+    public static LinkedList<DataRecord> recordsList=new LinkedList<DataRecord>();
 
-public class MyParser {
-    public static LinkedList<String> linksList=new LinkedList<>();
-    public static LinkedList<String> pagesList=new LinkedList<>();
-    public static URL pageURL;
-    public static Scanner inputPage;
-    public static String pageContent;
-    public static void main(String args[]){
-        /************************************************************************/
-        /*
-        * Extragem din pagina taote url-urile si le memoram in lista linksList
-        * */
+    public static void getDataFromPage(Document doc,DataRecord dataRecord){
+
+        if(dataRecord==null||doc==null){
+            return;
+        }
+
+        Element tableTag=doc.getElementsByTag("table").get(0);
+        Elements trTags=tableTag.getElementsByTag("tr");
+        DayRecord dayRecord=null;
+        for(int i=1;i<trTags.size();i++){
+            String trTagContent=trTags.get(i).toString();
+            Elements tdTags=trTags.get(i).getElementsByTag("td");
+            if(tdTags.size()==1){
+                String day=tdTags.get(0).text();//extragem ziua din tabel
+                Scanner dayScanner=new Scanner(day);
+                dayScanner.useDelimiter(" ");
+                day=dayScanner.next();
+                dayRecord=new DayRecord();
+                dataRecord.setValue(day,dayRecord);
+            }else{
+                Eveniment eveniment=new Eveniment();
+                eveniment.oraStart=LocalTime.parse(tdTags.get(0).text());//extragem ora de inceput
+                eveniment.oraFinal=LocalTime.parse(tdTags.get(1).text());//extragem ora de final
+                eveniment.numeEveniment=new String(tdTags.get(2).text());//extragem numele disciplinei
+                eveniment.tipEveniment=new String(tdTags.get(3).text());//extragem tipul activitatii
+                LinkedList<String> auxList=new LinkedList<>(); //extragem lista de profesori
+                Scanner scanner=new Scanner(tdTags.get(4).text());
+                scanner.useDelimiter("\n");
+                while(scanner.hasNext()==true){
+                    auxList.add(scanner.next());
+                }
+                eveniment.listaProfesori=auxList;
+                auxList=new LinkedList<>();
+                scanner=new Scanner(tdTags.get(5).text());
+                scanner.useDelimiter("\n, ");
+                while(scanner.hasNext()==true){
+                    auxList.add(scanner.next());
+                }
+                eveniment.listaGrupe=auxList;
+                auxList=null;
+                if(dayRecord!=null){
+                    dayRecord.listaEvenimente.add(eveniment);
+                }
+            }
+
+        }
+
+    }
+
+    public static void main(String[] args){
         try{
-            pageURL=new URL("https://profs.info.uaic.ro/~orar/orar_resurse.html");
-            inputPage=new Scanner(pageURL.openStream());
-            pageContent="";
-            while(inputPage.hasNext()==true){
-                pageContent=pageContent+inputPage.nextLine();
-            }
-            inputPage.close();
+            mainDocument=Jsoup.connect(siteAddress).get();
         }catch(Exception e){
-            System.out.println("problema la accesarea fisierului");
+            System.out.println("problema la gasirea paginii principale");
+            System.exit(0);
         }
-        //System.out.println(pageContent);
-        Pattern firstPattern =Pattern.compile("<a [^>]*>[^(</a>)]*</a>");
-        Matcher matcher= firstPattern.matcher(pageContent);
-
-        int firstIndex;
-        int lastIndex;
-        while(matcher.find()==true){
-            linksList.add(pageContent.substring(matcher.start(),matcher.end()));
-        }
-
-        /*************************************************************************/
-
-        /*************************************************************************/
-        /*
-        * selectam din rezultatul expresiilor doar valoarea ce reprezinta adresa paginii web
-        *
-        */
-        int index=0;
-        for(String path:linksList){
-            firstPattern =Pattern.compile("\"[^\"]*\"");
-            matcher=firstPattern.matcher(path);
-            if(matcher.find()==true){
-                linksList.set(index,path.substring(matcher.start()+1,matcher.end()-1));
-                //System.out.println(path.substring(matcher.start(),matcher.end()));
-                index++;
-            }
-        }
-        /*****************************************************************************/
-
-        for(String path:linksList){
+        Elements links=mainDocument.getElementsByTag("a");
+        for(int i=0;i< links.size()-2;i++){//eliminam ultimele doua linkuri
+            Document auxDocument;
+            String link=links.get(i).attr("href");
             try{
-                URL nextPageURL=new URL("https://profs.info.uaic.ro/~orar/"+path);
-                Scanner pageScanner=new Scanner(nextPageURL.openStream());
-                String  pageContent="";
-                while(pageScanner.hasNext()==true){
-                    pageContent=pageContent+pageScanner.nextLine();
-                }
-                Pattern tablePattern;
-                Matcher tableMatcher;
-                tablePattern=Pattern.compile("<table [^>]*>[^</table>]*</table>");
-                tableMatcher=tablePattern.matcher(pageContent);
-                if(tableMatcher.find()==true){
-                    pagesList.add(pageContent.substring(tableMatcher.start(),tableMatcher.end()));
-                }else{
-                    System.out.println("pattern no found");
-                }
-                pageScanner.close();
+                auxDocument=Jsoup.connect("https://profs.info.uaic.ro/~orar/"+"/"+link).get();
+                DataRecord dataRecord=new DataRecord();
+                dataRecord.setRoomCode(links.get(i).text());
+                getDataFromPage(auxDocument,dataRecord);
+                recordsList.add(dataRecord);
             }catch(Exception e){
-                System.out.println("problema la conectarea cu pagina ceruta " + "https://profs.info.uaic.ro/~orar/"+path);
+                continue;
             }
+            documentsList.add(auxDocument);
         }
-        /***********************************************************************************/
-
-        for(String table:pagesList){
-            System.out.println(table);
-            System.out.println("\n------------------------------------------------------------------\n");
-        }
-
         /*
-        for(String page: pagesList){
-            Pattern myPattern;
-            Matcher myMatcher;
-            myPattern=Pattern.compile("<tr>[^(</tr>)]*</tr>");
-            myMatcher=myPattern.matcher(page);
-            int fIndex;
-            int lIndex;
-            if(myMatcher.find()==true){
-                fIndex=myMatcher.start();
-                lIndex=myMatcher.end();
-
-                while(myMatcher.find()==true){
-                    firstIndex=myMatcher.start();
-                    lastIndex=myMatcher.end();
-                    String subText=page.substring(fIndex,lIndex);
-                    Pattern innerPattern;
-                    Matcher innerMathcer;
-                    innerPattern=Pattern.compile("<td>[^</td>]*</td>");
-                    innerMathcer=innerPattern.matcher(subText);
-
-
-                    System.out.println(subText);
-                    if(innerMathcer.groupCount()==1){
-
-                    }else{
-
-                    }
-
-                }
-
+        for(DataRecord data:recordsList){
+            System.out.println(data.roomCode);
+            for(String s : data.roomRecord.keySet()){
+                System.out.println(s);
             }
-        }*/
+            System.out.println("\n--------------------------------------\n");
+        }
+        */
     }
 }
