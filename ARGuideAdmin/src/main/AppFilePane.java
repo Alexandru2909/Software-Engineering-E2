@@ -1,12 +1,8 @@
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
-import java.awt.Window;
+package main;
 
-import javax.swing.BoxLayout;
+import java.awt.Dimension;
+import java.awt.GridLayout;
 import javax.swing.JComponent;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;

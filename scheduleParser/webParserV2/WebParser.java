@@ -1,13 +1,12 @@
 /*
 * Inainte de utilizare este necesara instalarea librariei Jsoup
-*
+* Paul Reftu: The GSON library is also required
 *
 * */
 
 
-package WebParserV2;
+package webParserV2;
 import com.google.gson.Gson;
-import com.sun.org.apache.bcel.internal.generic.LoadClass;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -18,158 +17,6 @@ import java.io.FileWriter;
 import java.time.LocalTime;
 import java.util.*;
 
-/**
- * Clasa Eveniment retine o linie din tabelul parsat
- *
- */
-class Eveniment{
-    /**
-     * ora de inceput a evenimentului
-     */
-    public LocalTime oraStart;
-    /**
-     * ora de final a evenimentului
-     */
-    public LocalTime oraFinal;
-    /**
-     *numele evenimentului
-     */
-    public String numeEveniment;
-    /**
-     * tipul evenimentului curs sau  laborator
-     */
-    public String tipEveniment;
-    /**
-     * lista profesorilor
-     */
-    public LinkedList<String> listaProfesori=new LinkedList<>();
-    /**
-     *Lista grupelor de studenti
-     */
-
-    public LinkedList<String> listaGrupe=new LinkedList<>();
-
-    /**************************************************************/
-    /**
-     * functia care returneaza ora de start
-     */
-    public LocalTime getOraStart(){
-        return this.oraStart;
-    }
-    /**
-     * functia care returneaza ora de final
-     */
-
-    public LocalTime getOraFinal(){
-        return this.oraFinal;
-    }
-    /**
-     * functia care returneza numele evenimentului
-     */
-
-    public String getNumeEveniment(){
-        return this.numeEveniment;
-    }
-    /**
-     * functia care returneaza tipul evenimentului
-     */
-    public String getTipEveniment(){
-        return this.tipEveniment;
-    }
-    /**
-     * functia care returneaza lista profesorilor
-     */
-    public LinkedList<String> getListaProfesori(){
-        return this.listaProfesori;
-    }
-    /**
-     * functia care returneaza lista grupelor de studenti
-     */
-    public LinkedList<String> getListaGrupe(){
-        return this.listaGrupe;
-    }
-
-
-    /************************************************************/
-    public Eveniment(LocalTime oraStart,LocalTime oraFinal,String numeEveniment,String tipEveniment,LinkedList<String> listaProfesori,LinkedList<String> listaGrupe){
-        this.oraStart=oraStart;
-        this.oraFinal=oraFinal;
-        this.numeEveniment=numeEveniment;
-        this.tipEveniment=tipEveniment;
-        this.listaProfesori=listaProfesori;
-        this.listaGrupe=listaGrupe;
-    }
-    public Eveniment(){}
-    public String toString(){
-        String returnString=new String("Ora de inceput :"+this.oraStart.toString()+"\n"+"Ora de terminare :"+this.oraFinal.toString()+"\n"+"Numele evenimentului :"+this.numeEveniment+"\n"+"Tipul evenimentului :"+this.tipEveniment+"\n");
-        String profesori=new String("");
-        String grupe=new String("");
-        for(String name:listaProfesori){profesori=profesori+name;}
-        for(String grupa:listaGrupe){grupe=grupe+grupa;}
-        returnString=returnString+"lista profesori:"+profesori+"\nlista grupelor:"+grupe+"\n\n";
-        return returnString;
-    }
-}
-
-class DayRecord{
-    /**
-     * lista evenimentelor din ziua desemnata de obiectul curent
-     */
-
-    public LinkedList<Eveniment> listaEvenimente=new LinkedList<Eveniment>();
-    public String toString(){
-        String returnValue=new String("");
-        for(Eveniment e:listaEvenimente){
-            returnValue=returnValue+e;
-        }
-        return returnValue;
-    }
-}
-
-class DataRecord{
-    /**
-     * codul camerei
-     */
-
-    public String roomCode="roomCode";
-    /**
-     * lista evenimentelor din camera grupate in functie de ziua
-     */
-
-    public HashMap<String,DayRecord> roomRecord=new HashMap<String,DayRecord>();
-    /**
-     * functia care seteaza o lista de evenimente pentru o anumita zi
-     * @param day este ziua
-     * @param dayRecord este lista de evenimente din ziua specificata
-     */
-    public void setValue(String day,DayRecord dayRecord){
-        day=day.toUpperCase();
-        roomRecord.put(day,dayRecord);
-    }
-    public String getRoomCode(){
-        return this.roomCode;
-    }
-    public String toString(){
-        Set<String> keysSet = roomRecord.keySet();
-        String returnValue=new String(this.roomCode+"\n");
-        for(String day:keysSet){
-            DayRecord auxDayRecord=roomRecord.get(day);
-            returnValue=returnValue+day+"\n"+auxDayRecord;
-        }
-        return returnValue;
-    }
-
-
-    public DataRecord(){}
-
-    /**
-     * functia seteaza o noua valoare pentru atributul roomCode
-     * @param roomCode este noua valoare a atributului roomCode
-     */
-    public void setRoomCode(String roomCode){
-        this.roomCode=roomCode;
-    }
-}
 
 public class WebParser {
     /**
@@ -204,13 +51,14 @@ public class WebParser {
         Elements trTags=tableTag.getElementsByTag("tr");
         DayRecord dayRecord=null;
         for(int i=1;i<trTags.size();i++){
-            String trTagContent=trTags.get(i).toString();
+            //String trTagContent=trTags.get(i).toString(); /* Paul Reftu:  "trTagContent" does not appear to be necessary */
             Elements tdTags=trTags.get(i).getElementsByTag("td");
             if(tdTags.size()==1){
                 String day=tdTags.get(0).text();//extragem ziua din tabel
                 Scanner dayScanner=new Scanner(day);
                 dayScanner.useDelimiter(" ");
                 day=dayScanner.next();
+                dayScanner.close();
                 dayRecord=new DayRecord();
                 dataRecord.setValue(day,dayRecord);
             }else{
@@ -227,6 +75,7 @@ public class WebParser {
                 }
                 eveniment.listaProfesori=auxList;
                 auxList=new LinkedList<>();
+                scanner.close();
                 scanner=new Scanner(tdTags.get(5).text());
                 scanner.useDelimiter("\n, ");
                 while(scanner.hasNext()==true){
@@ -237,6 +86,7 @@ public class WebParser {
                 if(dayRecord!=null){
                     dayRecord.listaEvenimente.add(eveniment);
                 }
+                scanner.close();
             }
 
         }
@@ -266,16 +116,11 @@ public class WebParser {
             documentsList.add(auxDocument);
         }
 
-
-
-
-
-
-        String mainPath="C:\\Users\\Bogdan\\Desktop\\filesResult\\";
+        String mainPath="./scheduleParser/schedules/faculty_";
         File file;
         String filePath;
         for(DataRecord data:recordsList){
-            filePath=mainPath+data.roomCode+".txt";
+            filePath=mainPath+data.roomCode+".json";
             file=new File(filePath);
             try {
                 if (file.createNewFile() == true) {

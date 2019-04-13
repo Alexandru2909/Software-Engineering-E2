@@ -1,7 +1,6 @@
+package main;
 
-import java.awt.*;
 import javax.swing.*;
-import java.awt.event.*;
 import javax.swing.JMenu;
 import javax.swing.JPanel;
 

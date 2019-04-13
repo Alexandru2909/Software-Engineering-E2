@@ -3,5 +3,8 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="src" path="ARGuideAdmin/src"/>
 	<classpathentry kind="src" path="Laboratory 4/Reverse Engineering/Sal"/>
+	<classpathentry kind="src" path="scheduleParser"/>
+	<classpathentry kind="lib" path="D:/Downloads/java libraries/gson-2.8.5.jar"/>
+	<classpathentry kind="lib" path="D:/Downloads/java libraries/jsoup-1.11.3.jar"/>
 	<classpathentry kind="output" path="ARGuideAdmin/bin"/>
 </classpath>
