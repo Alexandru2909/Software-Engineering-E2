@@ -44,9 +44,9 @@ public class AppFrame extends JFrame {
 		 * of the application - otherwise interoperability will not be possible.
 		 */
 		menu = new AppMenu(this);
-		buildingTree = new AppBuildingTree();
+		buildingTree = new AppBuildingTree(this);
 		filePane = new AppFilePane(this);
-		controlPanel = new AppControlPanel();
+		controlPanel = new AppControlPanel(this);
 		
 		add(menu, BorderLayout.NORTH);
 		add(buildingTree, BorderLayout.WEST);
