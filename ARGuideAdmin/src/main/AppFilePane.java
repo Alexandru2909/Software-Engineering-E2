@@ -24,12 +24,10 @@ public class AppFilePane extends JPanel {
     	super(new GridLayout(1, 1));
 		this.frame = frame;
         init();
-       // createAndShowGUI();
-		
-       
-         
+          
        JTabbedPane tabbedPane = new JTabbedPane();
        
+	//some examples of adding a tab name (Building1) and a tab content (panel1) to the tabbedPane
         addPanel(tabbedPane,"Building1.json", "panel1");   
         addPanel(tabbedPane,"Building2.json", "panel2");   
         addPanel(tabbedPane,"Building3.json", "panel3");  
@@ -58,8 +56,6 @@ public class AppFilePane extends JPanel {
         
         JPanel panel = new JPanel(false);
         JLabel filler = new JLabel(text);
-        //Dimension d = new Dimension(30, 100);
-		//filler.setHorizontalAlignment(JLabel.CENTER);
        
         filler.setVerticalAlignment(JLabel.TOP);
         filler.setPreferredSize(new Dimension(100, 100));
@@ -81,7 +77,7 @@ public class AppFilePane extends JPanel {
 	public void addPanel(JTabbedPane tabbedPane,String fileName, String content)
 	{
 		JComponent panel = makeTextPanel(content);
-        tabbedPane.addTab(fileName, panel);
+        	tabbedPane.addTab(fileName, panel);
         
 	}
 
