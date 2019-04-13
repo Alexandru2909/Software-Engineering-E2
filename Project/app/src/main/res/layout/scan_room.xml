@@ -41,7 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:scrollHorizontally="false"
-        android:text=""
+        android:text="@string/locate"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"

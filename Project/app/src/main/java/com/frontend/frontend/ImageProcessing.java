@@ -11,12 +11,15 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.SparseArray;
+import android.view.Gravity;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.Arrays;
 
 import com.frontend.frontend.Main.MainActivity;
 import com.google.android.gms.vision.CameraSource;
@@ -42,6 +45,8 @@ public class ImageProcessing extends AppCompatActivity {
 
     private static int CAMERA_PERM = 2;
 
+    private String[] roomsList = { "123","401","305","202"};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +57,9 @@ public class ImageProcessing extends AppCompatActivity {
         cameraView = findViewById(R.id.cameraViewSurface);
         ocrTextView = findViewById(R.id.ocrTextView);
 
+        final Toast warning = Toast.makeText(getApplicationContext(), "Room not found.", Toast.LENGTH_SHORT);
+        warning.setGravity(Gravity.CENTER, 0, 0);
+
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
             startTextRecognizer();
         } else {
@@ -61,13 +69,13 @@ public class ImageProcessing extends AppCompatActivity {
         getRoomBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!finalText.isEmpty()) {
+                if (Arrays.asList(roomsList).contains(finalText.trim()) ){
                     Intent returnIntent = new Intent();
-                    returnIntent.putExtra("room", finalText);
+                    returnIntent.putExtra("room", finalText.trim());
                     setResult(Activity.RESULT_OK,returnIntent);
                     finish();
                 } else {
-                    Toast.makeText(getApplicationContext(), "Try again!", Toast.LENGTH_LONG).show();
+                    warning.show();
                 }
             }
         });
