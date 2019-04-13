@@ -22,6 +22,7 @@ import android.widget.Toast;
 import java.util.Arrays;
 
 import com.frontend.frontend.Main.MainActivity;
+import com.frontend.frontend.Timetable.TimetableScreen;
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.text.TextBlock;
@@ -36,6 +37,7 @@ public class ImageProcessing extends AppCompatActivity {
 
     private Button getRoomBtn;
     private Button returnButton;
+    private Button getRoomTimetable;
     private CameraSource cameraSource;
     private TextRecognizer textRecognizer;
     private SurfaceView cameraView;
@@ -53,6 +55,7 @@ public class ImageProcessing extends AppCompatActivity {
         setContentView(R.layout.scan_room);
 
         getRoomBtn = findViewById(R.id.getRoomBtn);
+        getRoomTimetable = findViewById(R.id.getRoomTimeTable);
         returnButton = findViewById(R.id.returnButton);
         cameraView = findViewById(R.id.cameraViewSurface);
         ocrTextView = findViewById(R.id.ocrTextView);
@@ -80,6 +83,13 @@ public class ImageProcessing extends AppCompatActivity {
             }
         });
 
+        getRoomTimetable.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openTimetable(); /// not working
+            }
+        });
+
         returnButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,6 +101,12 @@ public class ImageProcessing extends AppCompatActivity {
     public void openMenu(){
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+    }
+
+    private void openTimetable(){
+        Intent intent = new Intent(this, TimetableScreen.class);
+        startActivity(intent);
+//        System.out.print("Rs");
     }
 
     @Override
