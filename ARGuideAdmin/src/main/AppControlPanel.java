@@ -7,7 +7,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 /**
- * @author Paul-Reftu
+ * @author Ioana-Balan
  *
  */
 public class AppControlPanel extends JPanel {
@@ -21,6 +21,7 @@ public class AppControlPanel extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	public  AppFrame frame;
 	JButton previewPlanBtn;
 	JButton previewScheduleBtn;
 	JButton computePathBtn;
@@ -28,7 +29,8 @@ public class AppControlPanel extends JPanel {
 	/**
 	 * 
 	 */
-	public AppControlPanel() {
+	public AppControlPanel(AppFrame frame) {
+		this.frame=frame;
 		init();
 	}
 	
@@ -37,6 +39,15 @@ public class AppControlPanel extends JPanel {
 	 */
 	private void init() {
 		/* main interface implementation occurs here */
+		
+		previewPlanBtn=new JButton("Preview Plan");
+		previewScheduleBtn=new JButton("Preview Schedule");
+		computePathBtn=new JButton("Compute Shortest Path");
+		
+		this.add(previewPlanBtn);
+		this.add(previewScheduleBtn);
+		this.add(computePathBtn);
+		
 	}
 
 }
