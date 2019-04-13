@@ -34,7 +34,7 @@ public class AppFilePane extends JPanel {
          
        JTabbedPane tabbedPane = new JTabbedPane();
        
-        addPanel(tabbedPane,"Building1.json", "panel1QKWEQWEQKWJEHQKWJEHQKWJEHKJQWHEKQJWHEKQWJEHQKWJEHQWKJEHQWJKNNSZKNDKSJNDAMNSDASNDSAKJDASJKDASKJDSAJDKHQJKWEHQKJWHEQKWJEQWUEUIFHDUSDIHAIUSDHSAIHDUIASHQIUHEIQWHEQWIUHEQIWEHQUWIHEIQWHEQWIEHQIWHEQIH656464");   
+        addPanel(tabbedPane,"Building1.json", "panel1");   
         addPanel(tabbedPane,"Building2.json", "panel2");   
         addPanel(tabbedPane,"Building3.json", "panel3");  
         addPanel(tabbedPane,"Building4.json", "panel4");
