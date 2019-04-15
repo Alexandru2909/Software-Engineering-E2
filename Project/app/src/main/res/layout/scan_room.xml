@@ -22,17 +22,18 @@
 
     <Button
         android:id="@+id/returnButton"
-        android:layout_width="42dp"
-        android:layout_height="33dp"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="49dp"
+        android:layout_marginBottom="8dp"
         android:background="@drawable/back_button_bg"
-        app:layout_constraintBottom_toBottomOf="@+id/cameraViewSurface"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.043"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/cameraViewSurface"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.028" />
 
     <Button

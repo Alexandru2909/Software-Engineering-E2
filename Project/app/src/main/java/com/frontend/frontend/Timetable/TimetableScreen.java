@@ -28,6 +28,6 @@ public class TimetableScreen extends AppCompatActivity {
 
     private void addDays(String... days){
         for(String day : days)
-            this.daysList.add(new CarouselPicker.TextItem(day, 10));
+            this.daysList.add(new CarouselPicker.TextItem(day, 12));
     }
 }

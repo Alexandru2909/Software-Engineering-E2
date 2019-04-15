@@ -14,7 +14,7 @@
         android:id="@+id/dayPicker"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="50dp"
         android:layout_marginBottom="20dp"
         android:background="@drawable/gradient_day_picker"
         app:items_visible="three"
