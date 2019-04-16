@@ -86,7 +86,7 @@ public class ImageProcessing extends AppCompatActivity {
         getRoomTimetable.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openTimetable(); /// not working
+                openTimetable();
             }
         });
 
@@ -106,7 +106,6 @@ public class ImageProcessing extends AppCompatActivity {
     private void openTimetable(){
         Intent intent = new Intent(this, TimetableScreen.class);
         startActivity(intent);
-//        System.out.print("Rs");
     }
 
     @Override
