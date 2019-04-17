@@ -1,0 +1,4 @@
+BuildingPlanProc and WSProcessor - a class can't throw exceptions, it's contructor can; delete throws from class declaration put in contructor declaration
+
+Exception classes - all exception classes should extend 'Exception'
+
