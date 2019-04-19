@@ -47,10 +47,11 @@ public class WSProcessor extends WorkingSchedule{
     }
     public void updateWorkingSchedule() throws WorkingScheduleException{
         scheduleStatus=ScheduleStatus.WS_PROCESSOR_SUCCESS;
+        //functii de update
 
     }
     public void removeWorkingSchedule()throws WorkingScheduleException{
         scheduleStatus=ScheduleStatus.WS_PROCESSOR_SUCCESS;
-
+            //functii de stergere
     }
 }
