@@ -1,37 +1,70 @@
 /*
- * @author="Paul Reftu"
+ * @author="Paul-Reftu"
  */
- /*
-  * Remark: Testing still has to be made along with several optimizations - but the database *should* 
-  * have the correct information inserted w.r.t the courses and their schedule
-  */
- 
 
 SET SERVEROUTPUT ON;
 
-/*
- * must be replaced by a relative path or your own device's absolute path
- */
-CREATE OR REPLACE DIRECTORY SCHEDULES_SOURCE_DIR AS 'D:\Users\Atroxyph\Documents\GitHub\Software-Engineering-E2\scheduleParser\schedules';
-/*
- * command below must be executed by an admin (such as SYS)
- */
---GRANT READ ON DIRECTORY SCHEDULES_SOURCE_DIR TO STUDENT;
-
-CREATE OR REPLACE PACKAGE ScheduleMaster AS
+CREATE OR REPLACE PACKAGE ScheduleMaster AS  
   /*
-   * @param filePath - the path to the file (w/o the file name itself)
-   * @param fileName - the name of the file
+   * current working directory to extract the schedule
+   */
+  v_currDir VARCHAR2(50);
+  
+  /*
+   * @param p_dirName - the name of the DIRECTORY variable to be created
+   * @param p_dir - the path of the directory
+   * creates or replaces the DIRECTORY var. named 'p_dirName' with the value 'p_dir'
+   */
+  PROCEDURE createDirectory (p_dirName VARCHAR2, p_dir VARCHAR2);
+
+  /*
+   * @param p_filePath - the path to the file (w/o the file name itself)
+   * @param p_fileName - the name of the file
    * stores the given JSON schedule for a classroom inside the database
    */
-  PROCEDURE storeSchedule (fileName VARCHAR2);
-  PROCEDURE storeDay (l_jsonString CLOB, p_day VARCHAR2, p_isNewNode BOOLEAN DEFAULT FALSE);
+  PROCEDURE storeSchedule (p_filePath VARCHAR2, p_fileName VARCHAR2);
+
+  /*
+   * @param l_jsonString - the character large object that holds the JSON string
+   * auxiliary method of storeSchedule() method - it carries out the latter's job
+   */
+  PROCEDURE storeScheduleAux (l_jsonString CLOB);
+  
+  /*
+   * remove already-existing schedule from our database
+   */
+  PROCEDURE removeSchedule;
+  
+  /*
+   * @param p_newFilePath - the file path of the new schedule
+   * @param p_newFileName - the file name of the new schedule
+   * update our already-existing schedule with a new one
+   */
+  PROCEDURE updateSchedule (p_newFilePath VARCHAR2, p_newFileName VARCHAR2);
 END ScheduleMaster;
 /
 
 CREATE OR REPLACE PACKAGE BODY ScheduleMaster AS
+  PROCEDURE createDirectory (p_dirName VARCHAR2, p_dir VARCHAR2) AS
+  v_creationQuery VARCHAR2(500);
+  BEGIN
+    /*
+     * also set package's 'v_currDir' var. to 'p_dirName' so that we
+     * can use it to know where to extract the schedule from
+     */
+    v_currDir := p_dirName;
+    v_creationQuery := 'CREATE OR REPLACE DIRECTORY ' || p_dirName ||
+      ' AS ''' || p_dir || '''';
+    EXECUTE IMMEDIATE (v_creationQuery);
+    
+    DBMS_OUTPUT.PUT_LINE('IMPORTANT NOTICE: You must execute ' ||
+      'the following command as an administrator (e.g SYS) for ' ||
+      'the storeSchedule() method to successfully complete its task!');
+    DBMS_OUTPUT.PUT_LINE('GRANT READ ON DIRECTORY ' ||
+      p_dirName || ' TO <yourUsername>;');
+  END createDirectory;
 
-  PROCEDURE storeSchedule (fileName VARCHAR2) AS
+  PROCEDURE storeSchedule (p_filePath VARCHAR2, p_fileName VARCHAR2) AS
   /*
    * file handler for reading an external large object
    */
@@ -48,9 +81,14 @@ CREATE OR REPLACE PACKAGE BODY ScheduleMaster AS
   l_warning NUMBER;
   BEGIN
     /*
+     * create dir. var. corresponding to the given path
+     */
+    createDirectory('SCHEDULES_SOURCE_DIR', p_filePath);
+  
+    /*
      * Open, read and close the JSON file
      */
-    l_fileHandler := BFileName('SCHEDULES_SOURCE_DIR', fileName);
+    l_fileHandler := BFileName(v_currDir, p_fileName);
     DBMS_LOB.OPEN(l_fileHandler, DBMS_LOB.LOB_READONLY);
     
     DBMS_LOB.CREATETEMPORARY(l_jsonString, true);
@@ -61,18 +99,22 @@ CREATE OR REPLACE PACKAGE BODY ScheduleMaster AS
     
     DBMS_LOB.CLOSE(l_fileHandler);
     
-    storeDay(l_jsonString, 'LUNI', TRUE);
-    storeDay(l_jsonString, 'MARTI');
-    storeDay(l_jsonString, 'MIERCURI');
-    storeDay(l_jsonString, 'JOI');
-    storeDay(l_jsonString, 'VINERI');
+    /*
+     * store the schedule information
+     */
+    storeScheduleAux(l_jsonString);
     
+    DBMS_OUTPUT.PUT_LINE('');
   END storeSchedule;
 
-  PROCEDURE storeDay (l_jsonString CLOB, p_day VARCHAR2, p_isNewNode BOOLEAN DEFAULT FALSE) AS
+  PROCEDURE storeScheduleAux (l_jsonString CLOB) AS
   j_emptyObject JSON := JSON('{}');
   
   j_string JSON;
+  
+  j_roomScheduleList JSON_LIST;
+  j_roomSchedule JSON;
+  
   j_roomCode JSON_VALUE;
   j_roomRecord JSON;
   j_dayRecord JSON;
@@ -81,7 +123,6 @@ CREATE OR REPLACE PACKAGE BODY ScheduleMaster AS
   j_event JSON;
   j_eventStart JSON;
   j_eventEnd JSON;
-  
   j_eventStartHour JSON_VALUE;
   j_eventStartMinute JSON_VALUE;
   j_eventStartSecond JSON_VALUE;
@@ -104,154 +145,163 @@ CREATE OR REPLACE PACKAGE BODY ScheduleMaster AS
   
   v_temp_nodes nodes.name%TYPE;
   v_temp_courses courses.name%TYPE;
-  BEGIN
   
-    DBMS_OUTPUT.PUT_LINE('Call to new day using ' || p_day);
+  v_currDay VARCHAR(30);
+  BEGIN
     j_string := JSON(l_jsonString);
-    j_roomCode := j_string.get('roomCode');
+    j_roomScheduleList := JSON_LIST(j_string.get('roomSchedules'));
     
-    DBMS_OUTPUT.PUT_LINE('Room code: ' || j_roomCode.get_string);
-    
-    /*
-     * insert room node
-     */
-    BEGIN
-      IF (p_isNewNode = TRUE) THEN
-        SELECT name INTO v_temp_nodes FROM nodes WHERE name=j_roomCode.get_string;
-      END IF;
-      EXCEPTION WHEN NO_DATA_FOUND THEN
-        INSERT INTO nodes VALUES(0, null, j_roomCode.get_string, null);
-        COMMIT;
-    END;
-    
-    j_roomRecord := JSON(j_string.get('roomRecord'));
-    
-     IF j_roomRecord.get(p_day) IS NULL THEN
-      RETURN;
-    END IF;
-    
-    j_dayRecord := JSON(j_roomRecord.get(p_day));
-    
-    j_eventList := JSON_LIST(j_dayRecord.get('listaEvenimente'));
-    
-    DBMS_OUTPUT.PUT_LINE('Evenimente ' || p_day || ': ');
-
-    FOR i IN 1 .. j_eventList.count LOOP
-      j_event := JSON(j_eventList.get(i));
-      j_eventStart := JSON(j_event.get('oraStart'));
-      j_eventStartHour := j_eventStart.get('hour');
-      j_eventStartMinute := j_eventStart.get('minute');
-      j_eventStartSecond := j_eventStart.get('second');
-      j_eventStartNano := j_eventStart.get('nano');
+    FOR i IN 1 .. j_roomScheduleList.count LOOP
+      j_roomSchedule := JSON(j_roomScheduleList.get(i));
       
-      j_eventEnd := JSON(j_event.get('oraFinal'));
-      j_eventEndHour := j_eventEnd.get('hour');
-      j_eventEndMinute := j_eventEnd.get('minute');
-      j_eventEndSecond := j_eventEnd.get('second');
-      j_eventEndNano := j_eventEnd.get('nano');
+      j_roomCode := j_roomSchedule.get('roomCode');
       
-      v_eventStartTime := (j_eventStartHour.get_number || ':' || j_eventStartMinute.get_number || ':' 
-        || j_eventStartSecond.get_number || ':' || j_eventStartNano.get_number);
-      v_eventEndTime := (j_eventEndHour.get_number || ':' || j_eventEndMinute.get_number || ':' 
-        || j_eventEndSecond.get_number || ':' || j_eventEndNano.get_number);
-      
-      DBMS_OUTPUT.PUT_LINE('Event start: ' || v_eventStartTime);
-      DBMS_OUTPUT.PUT_LINE('Event end: ' || v_eventEndTime);
-      
-      j_eventName := j_event.get('numeEveniment');
-      j_eventType := j_event.get('tipEveniment');
-      
-      DBMS_OUTPUT.PUT_LINE('Event name: ' || j_eventName.get_string);
-      DBMS_OUTPUT.PUT_LINE('Event type: ' || j_eventType.get_string);
-      
-      j_professorList := JSON_LIST(j_event.get('listaProfesori'));
-      
-      FOR i IN 1 .. j_professorList.count LOOP
-        j_professorName := j_professorList.get(i);
-        
-        DBMS_OUTPUT.PUT_LINE('Professor name: ' || j_professorName.get_string);
-      END LOOP;
-      
-      j_groupList := JSON_LIST(j_event.get('listaGrupe'));
-      
-      FOR i IN 1 .. j_groupList.count LOOP
-        j_groupName := j_groupList.get(i);
-        
-        DBMS_OUTPUT.PUT_LINE('Group name: ' || j_groupName.get_string);
-      END LOOP;
-      
-      DBMS_OUTPUT.PUT_LINE('');
-      
+      /*
+       * insert room node, if it doesn't already exist
+       */
       BEGIN
-        SELECT name INTO v_temp_courses FROM courses WHERE name=j_eventName.get_string;
+        SELECT name INTO v_temp_nodes FROM nodes WHERE name=j_roomCode.get_string;
         EXCEPTION WHEN NO_DATA_FOUND THEN
-          INSERT INTO courses VALUES (0, j_eventName.get_string, j_groupName.get_string);
+          INSERT INTO nodes VALUES(0, null, j_roomCode.get_string, null);
           COMMIT;
       END;
       
-      INSERT INTO schedule VALUES ((SELECT id FROM nodes WHERE name=j_roomCode.get_string), (SELECT id FROM courses WHERE name=j_eventName.get_string), 
-        v_eventStartTime, v_eventEndTime, p_day);
-      COMMIT;
-    END LOOP;
-    
-    DBMS_OUTPUT.PUT_LINE('Read JSON string: ' || l_jsonString);
-  END storeDay;
+      j_roomRecord := JSON(j_roomSchedule.get('roomRecord'));
+      
+      /*
+       * loop through every set of events in every working day
+       */
+      FOR dayIdx IN 1 .. 5 LOOP
+        IF (dayIdx = 1) THEN
+          v_currDay := 'LUNI';
+        ELSIF (dayIdx = 2) THEN
+          v_currDay := 'MARTI';
+        ELSIF (dayIdx = 3) THEN
+          v_currDay := 'MIERCURI';
+        ELSIF (dayIdx = 4) THEN
+          v_currDay := 'JOI';
+        ELSIF (dayIdx = 5) THEN
+          v_currDay := 'VINERI';
+        END IF;
+        
+        IF j_roomRecord.get(v_currDay) IS NULL THEN
+          CONTINUE;
+        END IF;
+        
+        j_dayRecord := JSON(j_roomRecord.get(v_currDay));
+        
+        j_eventList := JSON_LIST(j_dayRecord.get('listaEvenimente'));
+        
+        FOR j IN 1 .. j_eventList.count LOOP
+          j_event := JSON(j_eventList.get(j));
+          
+          /*
+           * get the time info. regarding the event's start
+           */
+          j_eventStart := JSON(j_event.get('oraStart'));
+          j_eventStartHour := j_eventStart.get('hour');
+          j_eventStartMinute := j_eventStart.get('minute');
+          j_eventStartSecond := j_eventStart.get('second');
+          j_eventStartNano := j_eventStart.get('nano');
+        
+          /*
+           * get the time info. regarding the event's end
+           */
+          j_eventEnd := JSON(j_event.get('oraFinal'));
+          j_eventEndHour := j_eventEnd.get('hour');
+          j_eventEndMinute := j_eventEnd.get('minute');
+          j_eventEndSecond := j_eventEnd.get('second');
+          j_eventEndNano := j_eventEnd.get('nano');
+          
+          
+          /*
+           * store the event start time as 'HH:MM:SS:NN'
+           */
+          v_eventStartTime := (j_eventStartHour.get_number || ':' || j_eventStartMinute.get_number || ':' 
+            || j_eventStartSecond.get_number || ':' || j_eventStartNano.get_number);
+          /*
+           * store the event end time as 'HH:MM:SS:NN'
+           */
+          v_eventEndTime := (j_eventEndHour.get_number || ':' || j_eventEndMinute.get_number || ':' 
+            || j_eventEndSecond.get_number || ':' || j_eventEndNano.get_number);
+        
+          j_eventName := j_event.get('numeEveniment');
+          j_eventType := j_event.get('tipEveniment');
+          
+          j_professorList := JSON_LIST(j_event.get('listaProfesori'));
+          
+          /*
+           * get the info. regarding the professors holding the curr. event
+           */
+          FOR k IN 1 .. j_professorList.count LOOP
+            j_professorName := j_professorList.get(k);
+          END LOOP; -- end of professor list loop
+          
+          j_groupList := JSON_LIST(j_event.get('listaGrupe'));
+        
+          /*
+           * get the info. regarding the study groups attending the curr. event
+           */
+          FOR k IN 1 .. j_groupList.count LOOP
+            j_groupName := j_groupList.get(k);
+          END LOOP; -- end of group list loop
+          
+          /*
+           * insert new course unless it already exists
+           */
+          BEGIN
+            SELECT name INTO v_temp_courses FROM courses WHERE name=j_eventName.get_string;
+            EXCEPTION WHEN NO_DATA_FOUND THEN
+              INSERT INTO courses VALUES (0, j_eventName.get_string, j_groupName.get_string);
+              COMMIT;
+          END;
+          
+          /*
+           * insert new schedule information for the current room and course
+           */
+          INSERT INTO schedule VALUES ((SELECT id FROM nodes WHERE name=j_roomCode.get_string), (SELECT id FROM courses WHERE name=j_eventName.get_string), 
+            v_eventStartTime, v_eventEndTime, v_currDay);
+          COMMIT;
+        END LOOP; -- end of event list loop
+      END LOOP; -- end of working day loop
+    END LOOP; -- end of schedule list loop
+  END storeScheduleAux;
+
+  PROCEDURE removeSchedule AS
+  v_truncScheduleQuery VARCHAR(100);
+  BEGIN
+    v_truncScheduleQuery := 'TRUNCATE TABLE schedule';
+  
+    EXECUTE IMMEDIATE (v_truncScheduleQuery);
+  END removeSchedule;
+  
+  PROCEDURE updateSchedule (p_newFilePath VARCHAR2, p_newFileName VARCHAR2) AS
+  BEGIN
+    removeSchedule();
+    storeSchedule (p_newFilePath, p_newFileName);
+  END;
 END ScheduleMaster;
 /
 
 /*
- * Oracle 11g XE does not support Java or its installation ; therefore the following code will not work on that version
+ * example of 'ScheduleMaster' package usage
  */
 /*
-CREATE OR REPLACE AND COMPILE JAVA SOURCE NAMED "DirSeeker" AS
-  import java.io.*;
-  import java.sql.*;
-  
-  public class DirSeeker {
-    public static void main(String dir) throws SQLException {
-      File f = new File(dir);
-      String[] fileList = f.list();
-      
-      for (int i = 0; i < fileList.length; i++) {
-        #sql {
-          ScheduleMaster.storeSchedule(fileList[i]);
-        };
-      }
-    }
-  }
-
-*/
-
 BEGIN
-  /*
-   * obviously the following has to be optimized (easiest to do in JAVA)
-   */
-
-  ScheduleMaster.storeSchedule('faculty_Acvariu.json');
-  ScheduleMaster.storeSchedule('faculty_C2.json');
-  ScheduleMaster.storeSchedule('faculty_C112.json');
-  ScheduleMaster.storeSchedule('faculty_C114.json');
-  ScheduleMaster.storeSchedule('faculty_C210.json');
-  ScheduleMaster.storeSchedule('faculty_C308.json');
-  ScheduleMaster.storeSchedule('faculty_C309.json');
-  ScheduleMaster.storeSchedule('faculty_C401.json');
-  ScheduleMaster.storeSchedule('faculty_C403.json');
-  ScheduleMaster.storeSchedule('faculty_C405.json');
-  ScheduleMaster.storeSchedule('faculty_C409.json');
-  ScheduleMaster.storeSchedule('faculty_C411.json');
-  ScheduleMaster.storeSchedule('faculty_C412.json');
-  ScheduleMaster.storeSchedule('faculty_C413.json');
-  ScheduleMaster.storeSchedule('faculty_C901.json');
-  ScheduleMaster.storeSchedule('faculty_C903.json');
-  ScheduleMaster.storeSchedule('faculty_C905.json');
-  ScheduleMaster.storeSchedule('faculty_C909.json');
-  ScheduleMaster.storeSchedule('faculty_laptop.json');
-  ScheduleMaster.storeSchedule('faculty_Videoproiector+Laptop.json');
+  ScheduleMaster.storeSchedule('C:\Users\Atroxyph\git\Software-Engineering-E2\scheduleParser\schedules', 'facultySchedule.json');
+  ScheduleMaster.removeSchedule();
+  ScheduleMaster.updateSchedule('C:\Users\Atroxyph\git\Software-Engineering-E2\scheduleParser\schedules', 'facultySchedule.json');
 END;
 /
+*/
 
+/*
+ * the following are the modified tables
+ */
+/*
 SELECT * FROM nodes;
 SELECT * FROM courses;
 SELECT * FROM schedule;
+*/
 
 SET SERVEROUTPUT OFF;
