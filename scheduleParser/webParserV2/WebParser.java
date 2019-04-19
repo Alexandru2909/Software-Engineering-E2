@@ -35,7 +35,7 @@ public class WebParser {
     /**
      * lista inregistrarilor
      */
-    public static LinkedList<DataRecord> recordsList=new LinkedList<DataRecord>();
+    private static Schedule recordsList = new Schedule();
 
     /**
      * functia care extrage datele dintr-un document specificat intr-un obiect de tip DataRecord
@@ -116,28 +116,27 @@ public class WebParser {
             documentsList.add(auxDocument);
         }
 
-        String mainPath="./scheduleParser/schedules/faculty_";
+        String mainPath="./scheduleParser/schedules/";
         File file;
         String filePath;
-        for(DataRecord data:recordsList){
-            filePath=mainPath+data.roomCode+".json";
-            file=new File(filePath);
-            try {
-                if (file.createNewFile() == true) {
-                    System.out.println("fisierul a fost creat");
-                }else{
-                    System.out.println("problema la crearea fisierului");
-                }
-                Gson json=new Gson();
-                String response=json.toJson(data);
-                FileWriter output=new FileWriter(filePath);
-                output.write(response);
-                output.close();
-            }catch(Exception e){
-                System.out.println("problema la crearea fisierului");
-            }
-
+        
+        filePath = mainPath + "facultySchedule.json";
+        file = new File(filePath);
+        
+        try {
+        	if (file.createNewFile())
+        		System.out.println("Orarul a fost creat cu succes la destinatia " + filePath + "!");
+        	else
+        		System.out.println("Eroare la crearea orarului!");
+        	
+        	Gson json = new Gson();
+        	String response = json.toJson(recordsList);
+        	
+        	FileWriter output = new FileWriter(filePath);
+        	output.write(response);
+        	output.close();
+        } catch (Exception e) {
+        	e.printStackTrace();
         }
-
     }
 }
