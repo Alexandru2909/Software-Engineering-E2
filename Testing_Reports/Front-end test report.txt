@@ -1,0 +1,15 @@
+Buildings.java
+
+ O problema este ca nu sunt impuse nici un fel de restrictii intre numberOfFloors, 
+numberOfAvailableFloots si lista de obiecte floors care se genereaza,
+in momentul de fata numberOfAvailableFloors poate fi mai mare decat numberOfFloors 
+si poate fi diferit de cate elemente sunt in arraiul dat ca parametru 
+constructorului Buildings().
+
+Floors.java
+
+ -setNumberOfRooms
+   Metoda nu ar trebui sa fie o metoda care sa poata fii apelata independent de 
+numarul camerelor din lisra, cand se face addRoom() ar trebui sa se mareasca si 
+numarul camerelor, faptul ca pot modifica numarul de camere fara ca sa adaug sau 
+sa elimin camere din lista e o problema
