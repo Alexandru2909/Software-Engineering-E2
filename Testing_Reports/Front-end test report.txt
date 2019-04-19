@@ -13,3 +13,6 @@ Floors.java
 numarul camerelor din lisra, cand se face addRoom() ar trebui sa se mareasca si 
 numarul camerelor, faptul ca pot modifica numarul de camere fara ca sa adaug sau 
 sa elimin camere din lista e o problema
+
+libocr.so Fails to download on Android 7 devices when opening the app for the first time, but a "delete app data" solves it
+Everything else works fine
