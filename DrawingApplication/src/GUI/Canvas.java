@@ -13,6 +13,8 @@ import java.util.Collections;
 import Shapes.NodeShape;
 import org.w3c.dom.Node;
 
+import static java.lang.StrictMath.abs;
+
 public class Canvas extends JPanel {
 
     class Edge {
@@ -21,11 +23,22 @@ public class Canvas extends JPanel {
         final Integer y1;
         final Integer y2;
 
+        private double weight;
+
         public Edge(Integer x1, Integer x2, Integer y1, Integer y2) {
             this.x1 = x1;
             this.x2 = x2;
             this.y1 = y1;
             this.y2 = y2;
+            this.weight = 0.00;
+        }
+
+        public double getWeight() {
+            return weight;
+        }
+
+        public void setWeight(double weight) {
+            this.weight = weight;
         }
     }
 
@@ -49,10 +62,9 @@ public class Canvas extends JPanel {
     }
 
     private void drawNode(int x, int y) {
-        if (frame.toolbar.color != null) {
-            Integer radius = (Integer) frame.toolbar.radiusSizeSpinner.getValue();
+            Integer radius = (Integer) 7;
             if (radius > 0) {
-                graphics.setColor(frame.toolbar.color);
+                graphics.setColor(Color.BLACK);
                 NodeShape shape = new NodeShape(x, y, radius);
                 graphics.fill(shape);
                 this.nodes.add(shape);
@@ -61,7 +73,6 @@ public class Canvas extends JPanel {
                 this.frame.toolbar.nodeJSpinner.setModel(new SpinnerNumberModel(1,1,nodes.size(), 1));
                 //this.frame.toolbar.nodeSpinner.setModel(new SpinnerNumberModel(1, 1, nodes.size(), 1));
             }
-        }
     }
 
     void drawEdge(int i, int j) {
@@ -76,6 +87,7 @@ public class Canvas extends JPanel {
             graphics.setColor(Color.BLACK);
             graphics.setStroke(new BasicStroke(3));
             graphics.drawLine(x1, y1, x2, y2);
+            graphics.drawString(String.valueOf(newEdge.getWeight()), x1 + (x2 - x1)/2, y1 + (y2-y1)/2);
             repaint();
         }
     }
@@ -92,7 +104,7 @@ public class Canvas extends JPanel {
                 drawNode(e.getX(), e.getY());
                 graphics.setColor(Color.BLACK);
                 graphics.setFont(new Font("Arial", Font.BOLD, 12));
-                Integer radius = (Integer) frame.toolbar.radiusSizeSpinner.getValue();
+                Integer radius = (Integer) 7;
                 graphics.drawString("Node" + nodes.size(), e.getX() - (radius * 3 / 2), e.getY() - radius);
             }
         });
