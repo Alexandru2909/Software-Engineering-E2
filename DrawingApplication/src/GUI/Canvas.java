@@ -111,12 +111,12 @@ public class Canvas extends JPanel {
 //                            ok=false;
 //                }
 //                if (ok) {
-                    Integer radius = (Integer) 7;
+                    Integer radius = (Integer) 12;
 
                     drawNode(e.getX(), e.getY());
-                    graphics.setColor(Color.BLACK);
+                    graphics.setColor(Color.LIGHT_GRAY);
                     graphics.setFont(new Font("Arial", Font.BOLD, 12));
-                    graphics.drawString("Node" + nodes.size(), e.getX() - (radius * 3 / 2), e.getY() - radius);
+                    graphics.drawString("" + nodes.size(), e.getX(), e.getY());
 //                }
             }
         });
