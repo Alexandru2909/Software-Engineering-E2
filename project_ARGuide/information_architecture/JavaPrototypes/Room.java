@@ -9,7 +9,13 @@ import java.util.*;
  */
 public class Room {
   
-  public int roomNumber;
+  public int code;
+  public int getCode(){
+      return this.code;
+  }
+  public void setCode(int codee){
+      this.code=codee;
+  }
   /**
    * A map of the form Day-(Hour,Subject) representing the timetable
    */
