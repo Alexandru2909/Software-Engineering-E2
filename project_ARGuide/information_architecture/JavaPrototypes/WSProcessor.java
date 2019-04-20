@@ -11,7 +11,7 @@ public class WSProcessor throws WorkingScheduleException {
    * @return timetable a map of the form Day-(Hour,Subject) representing the timetable
    */
 
-  public Map<String, Map<Integer,String> > parseWorkingSchedule(WorkingSchedule schedule) {
+  public Map<String, Map<Integer,String> > parseWS(WorkingSchedule schedule) {
 	  Map<String, Map<Integer,String> > timetable = null;
 	  return timetable;
   }
@@ -19,21 +19,21 @@ public class WSProcessor throws WorkingScheduleException {
    * Saves the given working schedule
    * @param schedule the working schedule we want to save 
    */
-  public void saveWorkingSchedule(WorkingSchedule schedule) {
+  public void saveWS(WorkingSchedule schedule) {
   }
   /**
    * Updates the given working schedule
    * @param schedule the working schedule we want to update 
    */
 
-  public void updateWorkingSchedule(WorkingSchedule schedule) {
+  public void updateWS(WorkingSchedule schedule) {
   }
   /**
    * Removes the given working schedule
    * @param schedule the working schedule we want to remove
    */
 
-  public void removeWorkingSchedule(WorkingSchedule schedule) {
+  public void removeWS(WorkingSchedule schedule) {
   }
 
 }
