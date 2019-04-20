@@ -21,7 +21,7 @@ public class User {
    */
   
   public void setCurrentLocation(Location currentloc) {
-	  
+	  this.currentLocation=currentloc;
   }
   
   /**
@@ -31,7 +31,7 @@ public class User {
    */
   
   public void setDestinationn(Location destination) {
-	  
+	  this.destination=destination;
   }
   
   /**
