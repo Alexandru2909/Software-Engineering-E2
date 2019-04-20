@@ -65,7 +65,7 @@ public class WSProcessor extends WorkingSchedule{
     public void removeWorkingSchedule(Schedule schedule)throws WorkingScheduleException{
         scheduleStatus=ScheduleStatus.WS_PROCESSOR_SUCCESS;
         try{
-            CallableStatement statement=connection.prepareCall("{call ScheduleMaster.updateSchedule(?,?)}");
+            CallableStatement statement=connection.prepareCall("{call ScheduleMaster.removeSchedule(?,?)}");
             statement.registerOutParameter(1, Types.VARCHAR);
             statement.registerOutParameter(2,Types.VARCHAR);
             statement.setString(1,schedule.getFilePath());
