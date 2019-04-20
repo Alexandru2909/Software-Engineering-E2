@@ -24,7 +24,6 @@ public class NodeShape extends Ellipse2D.Double {
 
     public void select(int x, int y) {
         if (this.contains(x, y)) {
-
             this.isSelected = false;
         }
     }
@@ -33,10 +32,10 @@ public class NodeShape extends Ellipse2D.Double {
         if (this.contains(x,y)) {
             textBox();
         }
-                this.isSelected = false;
+        this.isSelected = false;
     }
 
-    public void textBox(){
+    private void textBox(){
         JTextField nameTF = new JTextField(this.getName());
         JTextField typeTF = new JTextField(this.getType());
         JTextField floorTF = new JTextField(this.getFloor().toString());
@@ -73,7 +72,7 @@ public class NodeShape extends Ellipse2D.Double {
         return name;
     }
 
-    public void setName(String name) {
+    private void setName(String name) {
         this.name = name;
     }
 
@@ -81,7 +80,7 @@ public class NodeShape extends Ellipse2D.Double {
         return type;
     }
 
-    public void setType(String type) {
+    private void setType(String type) {
         this.type = type;
     }
 
@@ -89,7 +88,7 @@ public class NodeShape extends Ellipse2D.Double {
         return floor;
     }
 
-    public void setFloor(Integer floor) {
+    private void setFloor(Integer floor) {
         this.floor = floor;
     }
 }

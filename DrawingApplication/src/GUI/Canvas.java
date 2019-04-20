@@ -11,40 +11,41 @@ import java.util.Collections;
 
 
 import Shapes.NodeShape;
+import Shapes.EdgeShape;
 import org.w3c.dom.Node;
 
 import static java.lang.StrictMath.abs;
 
 public class Canvas extends JPanel {
 
-    class Edge {
-        final Integer x1;
-        final Integer x2;
-        final Integer y1;
-        final Integer y2;
-
-        private double weight;
-
-        public Edge(Integer x1, Integer x2, Integer y1, Integer y2) {
-            this.x1 = x1;
-            this.x2 = x2;
-            this.y1 = y1;
-            this.y2 = y2;
-            this.weight = 0.00;
-        }
-
-        public double getWeight() {
-            return weight;
-        }
-
-        public void setWeight(double weight) {
-            this.weight = weight;
-        }
-    }
+//    class Edge {
+//        final Integer x1;
+//        final Integer x2;
+//        final Integer y1;
+//        final Integer y2;
+//
+//        private double weight;
+//
+//        public Edge(Integer x1, Integer x2, Integer y1, Integer y2) {
+//            this.x1 = x1;
+//            this.x2 = x2;
+//            this.y1 = y1;
+//            this.y2 = y2;
+//            this.weight = 0.00;
+//        }
+//
+//        public double getWeight() {
+//            return weight;
+//        }
+//
+//        public void setWeight(double weight) {
+//            this.weight = weight;
+//        }
+//    }
 
 
     ArrayList<NodeShape> nodes = new ArrayList<>();
-    ArrayList<Edge> edges = new ArrayList<>();
+    ArrayList<EdgeShape> edges = new ArrayList<>();
 
     private final DrawingFrame frame;
     private Graphics2D graphics;
@@ -81,7 +82,7 @@ public class Canvas extends JPanel {
         Integer x2 = new Double(nodes.get(j).getCenterX()).intValue();
         Integer y2 = new Double(nodes.get(j).getCenterY()).intValue();
 
-        Edge newEdge = new Edge(x1, x2, y1, y2);
+        EdgeShape newEdge = new EdgeShape(x1, x2, y1, y2);
         if (!edges.contains(newEdge)) {
             this.edges.add(newEdge);
             graphics.setColor(Color.BLACK);
@@ -102,12 +103,21 @@ public class Canvas extends JPanel {
             @Override
             public void mouseClicked(MouseEvent e) {
 
-                Integer radius = (Integer) 7;
+//                boolean ok = true;
+//
+//                mousePt = e.getPoint();
+//                for (EdgeShape s: edges){
+//                    if (s.contains(mousePt.x-3,mousePt.x+3,mousePt.y-3,mousePt.y+3))
+//                            ok=false;
+//                }
+//                if (ok) {
+                    Integer radius = (Integer) 7;
 
-                drawNode(e.getX(), e.getY());
-                graphics.setColor(Color.BLACK);
-                graphics.setFont(new Font("Arial", Font.BOLD, 12));
-                graphics.drawString("Node" + nodes.size(), e.getX() - (radius * 3 / 2), e.getY() - radius);
+                    drawNode(e.getX(), e.getY());
+                    graphics.setColor(Color.BLACK);
+                    graphics.setFont(new Font("Arial", Font.BOLD, 12));
+                    graphics.drawString("Node" + nodes.size(), e.getX() - (radius * 3 / 2), e.getY() - radius);
+//                }
             }
         });
 
@@ -118,6 +128,7 @@ public class Canvas extends JPanel {
                 for (NodeShape s: nodes) {
                     s.select(mousePt.x, mousePt.y);
                 }
+
             }
         });
 
