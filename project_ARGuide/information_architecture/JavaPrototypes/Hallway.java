@@ -4,7 +4,7 @@
  *
  */
 
-public class Hallway extends Room {
+public class Hallway extends Location {
 /**
  * The specific name of this hallway
  */
