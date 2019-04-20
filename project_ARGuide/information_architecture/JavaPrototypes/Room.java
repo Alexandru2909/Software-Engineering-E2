@@ -9,7 +9,7 @@ import java.util.*;
  */
 public class Room {
   
-  public int code;
+  private int code;
   public int getCode(){
       return this.code;
   }
