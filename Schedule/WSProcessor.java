@@ -32,26 +32,52 @@ public class WSProcessor extends WorkingSchedule{
     public void saveWorkingSchedule(Schedule schedule) throws WorkingScheduleException{
         scheduleStatus=ScheduleStatus.WS_PROCESSOR_SUCCESS;
         try{
-            CallableStatement statement=connection.prepareCall("{call ScheduleMaster.storeSchedule(?)}");
+            CallableStatement statement=connection.prepareCall("{call ScheduleMaster.storeSchedule(?,?)}");
             statement.registerOutParameter(1, Types.VARCHAR);
-            statement.setString(1,schedule.getFileName());
+            statement.registerOutParameter(2, Types.VARCHAR);
+            statement.setString(1,schedule.getFilePath());
+            statement.setString(2,schedule.getFileName());
             Boolean result=statement.execute();
-            if(result==true){
+            if(result==false){
                 this.scheduleStatus=ScheduleStatus.WS_PROCESSOR_SUCCESS;
-            }else{
-                this.scheduleStatus=ScheduleStatus.WS_PROCESSOR_FAILURE;
             }
         }catch(Exception e){
             throw new WorkingScheduleException("Problema la apelarea functiei saveWorkingSchedule");
         }
     }
-    public void updateWorkingSchedule() throws WorkingScheduleException{
+    public void updateWorkingSchedule(Schedule schedule) throws WorkingScheduleException{
         scheduleStatus=ScheduleStatus.WS_PROCESSOR_SUCCESS;
-        //functii de update
+        try{
+            CallableStatement statement=connection.prepareCall("{call ScheduleMaster.updateSchedule(?,?)}");
+            statement.registerOutParameter(1, Types.VARCHAR);
+            statement.registerOutParameter(2,Types.VARCHAR);
+            statement.setString(1,schedule.getFilePath());
+            statement.setString(2,schedule.getFileName());
+            Boolean result=statement.execute();
+            if(result==true){
+                this.scheduleStatus=ScheduleStatus.WS_PROCESSOR_SUCCESS;
+            }
+        }catch(Exception e){
+            throw new WorkingScheduleException("Problema la apelarea functiei saveWorkingSchedule");
+        }
 
     }
-    public void removeWorkingSchedule()throws WorkingScheduleException{
+    public void removeWorkingSchedule(Schedule schedule)throws WorkingScheduleException{
         scheduleStatus=ScheduleStatus.WS_PROCESSOR_SUCCESS;
-            //functii de stergere
+        try{
+            CallableStatement statement=connection.prepareCall("{call ScheduleMaster.updateSchedule(?,?)}");
+            statement.registerOutParameter(1, Types.VARCHAR);
+            statement.registerOutParameter(2,Types.VARCHAR);
+            statement.setString(1,schedule.getFilePath());
+            statement.setString(2,schedule.getFileName());
+            Boolean result=statement.execute();
+            if(result==true){
+                this.scheduleStatus=ScheduleStatus.WS_PROCESSOR_SUCCESS;
+            }
+        }catch(Exception e){
+            throw new WorkingScheduleException("Problema la apelarea functiei saveWorkingSchedule");
+        }
+
+
     }
 }

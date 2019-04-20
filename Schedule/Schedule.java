@@ -27,8 +27,11 @@ public class Schedule {
     public String getScheduleContent(){
         return scheduleContent;
     }
+    public String getFilePath(){
+        return scheduleFile.getParentFile().getAbsolutePath();
+    }
     public String getFileName(){
-        return scheduleFile.getAbsolutePath();
+        return scheduleFile.getName();
     }
 
 }
