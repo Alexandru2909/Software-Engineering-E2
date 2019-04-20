@@ -6,16 +6,16 @@
 
 public class Location {
 
-  public int id;
+  private int id;
   /**
  * The floor on which this location is found
  */
-  public int floor;
+  private int floor;
   /**
    * The number of the room, if it is the case
    */
 
-  public String name;
+  private String name;
   /**
    * Returns the floor of this location
    */
