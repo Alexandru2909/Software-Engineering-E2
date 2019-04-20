@@ -11,7 +11,7 @@ public class BuildingPlanProc throws BuildingPlanException {
    * @return graph a map of the form floor->adjacency matrix of the floor graph
    */
 
-  public Map<Integer,Integer[][]> parseBuildingPlan(BuildingPlan building) {
+  public Map<Integer,Integer[][]> parseBP(BuildingPlan building) {
 	  Map<Integer,Integer[][]> graph = null;
 	  return graph;
   }
@@ -19,21 +19,21 @@ public class BuildingPlanProc throws BuildingPlanException {
    * Saves the given building plan
    * @param plan the building plan we want to save
    */
-  public void saveBuildingPlan(BuildingPlan plan) {
+  public void saveBP(BuildingPlan plan) {
   }
   /**
    * Removes the given building plan
    * @param plan the building plan we want to remove
    */
 
-  public void removeBuildingPlan(BuildingPlan plan) {
+  public void removeBP(BuildingPlan plan) {
   }
   /**
    * Updates the given building plan
    * @param plan the building plan we want to update
    */
 
-  public void updateBuildingPlan(BuildingPlan plan) {
+  public void updateBP(BuildingPlan plan) {
   }
 
 }
