@@ -3,6 +3,6 @@
  * @author stefan
  *
  */
-public class Bathroom {
+public class Bathroom extends Location {
 
 }
