@@ -20,27 +20,27 @@ public class Location {
    * Returns the floor of this location
    */
   
-  public int getid(){
+  public int getId(){
       return this.id;
   };
   
-  public int getfloor(){
+  public int getFloor(){
       return this.floor;
   };
   
-  public string getname(){
+  public string getName(){
       return this.name;
   };
   
-  public void setid(int idd){
+  public void setId(int idd){
       this.id=idd;
   };
   
-  public void setfloor(int floorr){
+  public void setFloor(int floorr){
       this.floor=floorr;
   };
   
-  public void setname(string namee){
+  public void setName(string namee){
       this.name=namee;
   };
 
