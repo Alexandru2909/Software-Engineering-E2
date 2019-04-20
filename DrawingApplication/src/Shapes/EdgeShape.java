@@ -12,20 +12,21 @@ public class EdgeShape extends Line2D.Double{
 
     private double weight;
 
-    public EdgeShape(Integer x1, Integer x2, Integer y1, Integer y2){
-        super(x1,x2,y1,y2);
+    public EdgeShape(Integer x1, Integer y1, Integer x2, Integer y2){
+//        super();
+        super.setLine(x1,y1,x2,y2);
         this.isSelected = false;
         this.weight = 0.00;
     }
 
     public void select(int x, int y){
         if (this.contains(x,y)) {
-            this.isSelected = false;
+            this.isSelected = true;
         }
     }
 
     public void unselect(int x, int y){
-        if (this.contains(x,y)) {
+        if (this.contains(x,y) && this.isSelected) {
             textBox();
         }
         this.isSelected=false;
@@ -37,7 +38,7 @@ public class EdgeShape extends Line2D.Double{
         JPanel panel = new JPanel(new GridLayout(0, 1));
         panel.add(new JLabel("Weight:"));
         panel.add(weightTF);
-        int result = JOptionPane.showConfirmDialog(null, panel, "Node info", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+        int result = JOptionPane.showConfirmDialog(null, panel, "Edge info", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 
         if (result == JOptionPane.OK_OPTION) {
 
@@ -48,7 +49,7 @@ public class EdgeShape extends Line2D.Double{
                 System.out.println("Weight: 0.00");
                 this.setWeight(0.00);
             }
-            System.out.println();
+//            System.out.println();
 
         }
     }

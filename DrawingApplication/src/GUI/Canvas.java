@@ -55,6 +55,7 @@ public class Canvas extends JPanel {
     private int width = 800;
     private int height = 600;
 
+
     private Point mousePt;
 
     Canvas(DrawingFrame frame) {
@@ -63,17 +64,15 @@ public class Canvas extends JPanel {
     }
 
     private void drawNode(int x, int y) {
-            Integer radius = (Integer) 7;
-            if (radius > 0) {
-                graphics.setColor(Color.BLACK);
-                NodeShape shape = new NodeShape(x, y, radius);
-                graphics.fill(shape);
-                this.nodes.add(shape);
-                repaint();
-                this.frame.toolbar.nodeISpinner.setModel(new SpinnerNumberModel(1,1,nodes.size(), 1));
-                this.frame.toolbar.nodeJSpinner.setModel(new SpinnerNumberModel(1,1,nodes.size(), 1));
-                //this.frame.toolbar.nodeSpinner.setModel(new SpinnerNumberModel(1, 1, nodes.size(), 1));
-            }
+        Integer radius = 7;
+        graphics.setColor(Color.BLACK);
+        NodeShape shape = new NodeShape(x, y, radius);
+        graphics.fill(shape);
+        this.nodes.add(shape);
+        repaint();
+        this.frame.toolbar.nodeISpinner.setModel(new SpinnerNumberModel(1,1,nodes.size(), 1));
+        this.frame.toolbar.nodeJSpinner.setModel(new SpinnerNumberModel(1,1,nodes.size(), 1));
+        //this.frame.toolbar.nodeSpinner.setModel(new SpinnerNumberModel(1, 1, nodes.size(), 1));
     }
 
     void drawEdge(int i, int j) {
@@ -82,18 +81,18 @@ public class Canvas extends JPanel {
         Integer x2 = new Double(nodes.get(j).getCenterX()).intValue();
         Integer y2 = new Double(nodes.get(j).getCenterY()).intValue();
 
-        EdgeShape newEdge = new EdgeShape(x1, x2, y1, y2);
+        EdgeShape newEdge = new EdgeShape(x1, y1, x2, y2);
         if (!edges.contains(newEdge)) {
             this.edges.add(newEdge);
             graphics.setColor(Color.BLACK);
-            graphics.setStroke(new BasicStroke(3));
+            graphics.setStroke(new BasicStroke(5));
             graphics.drawLine(x1, y1, x2, y2);
             graphics.drawString(String.valueOf(newEdge.getWeight()), x1 + (x2 - x1)/2, y1 + (y2-y1)/2);
             repaint();
         }
     }
 
-    private void init() {
+      private void init() {
         this.setPreferredSize(new Dimension(width, height));
         this.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY, 1));
         this.image = new BufferedImage(800,600,BufferedImage.TYPE_INT_ARGB);
@@ -102,22 +101,19 @@ public class Canvas extends JPanel {
         this.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-
-//                boolean ok = true;
-//
-//                mousePt = e.getPoint();
-//                for (EdgeShape s: edges){
-//                    if (s.contains(mousePt.x-3,mousePt.x+3,mousePt.y-3,mousePt.y+3))
-//                            ok=false;
-//                }
-//                if (ok) {
+                boolean ok=true;
+                for (EdgeShape s: edges){
+                    if (s.contains(e.getX(),e.getY()))
+                        ok=false;
+                }
+                if (ok) {
                     Integer radius = (Integer) 12;
 
                     drawNode(e.getX(), e.getY());
                     graphics.setColor(Color.LIGHT_GRAY);
                     graphics.setFont(new Font("Arial", Font.BOLD, 12));
                     graphics.drawString("" + nodes.size(), e.getX(), e.getY());
-//                }
+                }
             }
         });
 
@@ -128,7 +124,9 @@ public class Canvas extends JPanel {
                 for (NodeShape s: nodes) {
                     s.select(mousePt.x, mousePt.y);
                 }
-
+                for (EdgeShape s: edges){
+                    s.select(mousePt.x, mousePt.y);
+                }
             }
         });
 
@@ -138,8 +136,14 @@ public class Canvas extends JPanel {
                 for (NodeShape s: nodes) {
                     s.unselect(e.getX(),e.getY());
                 }
+
+                for (EdgeShape s: edges){
+                    s.unselect(e.getX(),e.getY());
+                }
             }
         });
+
+
     }
 
     @Override
