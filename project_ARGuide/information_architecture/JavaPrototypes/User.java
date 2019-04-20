@@ -15,22 +15,30 @@ public class User {
    */
 
   public Location destination;
+	
+	
+  public Location getCurrentLocation() {
+	  return this.currentLocation;
+  }
+  
+  public Location getDestination() {
+	  return this.destination;
+  }
   /**
    * Sets the current position of this user
    * @param currentloc the current position, given as input 
    */
   
-  public void setCurrentLocation(Location currentloc) {
-	  this.currentLocation=currentloc;
+   public void setCurrentLocation(Location currlocation) {
+	  this.currentLocation=currlocation;
   }
-  
   /**
    * Sets the destination where this user wants to arrive
    * @param destination the location where the user wants to arrive ,
    *        given as input
    */
   
-  public void setDestinationn(Location destination) {
+  public void setDestination(Location destination) {
 	  this.destination=destination;
   }
   
