@@ -15,7 +15,7 @@ public class Location {
    * The number of the room, if it is the case
    */
 
-  public string name;
+  public String name;
   /**
    * Returns the floor of this location
    */
@@ -28,7 +28,7 @@ public class Location {
       return this.floor;
   };
   
-  public string getName(){
+  public String getName(){
       return this.name;
   };
   
@@ -40,7 +40,7 @@ public class Location {
       this.floor=floorr;
   };
   
-  public void setName(string namee){
+  public void setName(String namee){
       this.name=namee;
   };
 
