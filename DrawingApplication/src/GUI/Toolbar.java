@@ -8,13 +8,13 @@ public class Toolbar extends JPanel {
     private final DrawingFrame frame;
 
     //JLabel strokeSizeLabel = new JLabel("Stroke size");
-    JLabel radiusSizeLabel = new JLabel("Radius size");
-
-    JSpinner strokeSizeSpinner = new JSpinner(new SpinnerNumberModel(10, 0, 100, 1));
-
-    JSpinner radiusSizeSpinner = new JSpinner(new SpinnerNumberModel(20, 10, 100, 1));
-
-    JButton colorChooseButton = new JButton("Color");
+//    JLabel radiusSizeLabel = new JLabel("Radius size");
+//
+//    JSpinner strokeSizeSpinner = new JSpinner(new SpinnerNumberModel(10, 0, 100, 1));
+//
+//    JSpinner radiusSizeSpinner = new JSpinner(new SpinnerNumberModel(20, 10, 100, 1));
+//
+//    JButton colorChooseButton = new JButton("Color");
 
     JSpinner nodeISpinner = new JSpinner(new SpinnerNumberModel(0,0,0,1));
     JSpinner nodeJSpinner = new JSpinner(new SpinnerNumberModel(0,0,0,1));
@@ -36,15 +36,15 @@ public class Toolbar extends JPanel {
         //add(strokeSizeLabel);
         //add(strokeSizeSpinner);
 
-        add(radiusSizeLabel);
-        add(radiusSizeSpinner);
-
-        add(colorChooseButton);
-        colorChooseButton.addActionListener((e -> {
-            color = JColorChooser.showDialog(frame, "Pick color", null);
-            colorChooseButton.setBackground(color);
-        }));
-
+//        add(radiusSizeLabel);
+//        add(radiusSizeSpinner);
+//
+////        add(colorChooseButton);
+////        colorChooseButton.addActionListener((e -> {
+////            color = JColorChooser.showDialog(frame, "Pick color", null);
+////            colorChooseButton.setBackground(color);
+////        }));
+//
         add(nodeISpinner);
         add(nodeJSpinner);
         add(addEdge);

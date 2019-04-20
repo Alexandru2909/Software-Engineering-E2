@@ -101,10 +101,12 @@ public class Canvas extends JPanel {
         this.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+
+                Integer radius = (Integer) 7;
+
                 drawNode(e.getX(), e.getY());
                 graphics.setColor(Color.BLACK);
                 graphics.setFont(new Font("Arial", Font.BOLD, 12));
-                Integer radius = (Integer) 7;
                 graphics.drawString("Node" + nodes.size(), e.getX() - (radius * 3 / 2), e.getY() - radius);
             }
         });
@@ -123,7 +125,7 @@ public class Canvas extends JPanel {
             @Override
             public void mouseReleased(MouseEvent e) {
                 for (NodeShape s: nodes) {
-                    s.unselect();
+                    s.unselect(e.getX(),e.getY());
                 }
             }
         });
