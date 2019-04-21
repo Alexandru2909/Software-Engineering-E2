@@ -1,7 +1,5 @@
 package Shapes;
 
-import jdk.nashorn.internal.scripts.JO;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Ellipse2D;

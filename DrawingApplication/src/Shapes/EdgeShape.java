@@ -27,32 +27,36 @@ public class EdgeShape extends Line2D.Double{
 
     public void unselect(int x, int y){
         if (this.contains(x,y) && this.isSelected) {
-            textBox();
+            //textBox();
         }
         this.isSelected=false;
     }
 
-    private void textBox() {
+    /********************************************
+    textBox must be redone in Canvas
+    ********************************************/
 
-        JTextField weightTF = new JTextField(String.valueOf(this.getWeight()));
-        JPanel panel = new JPanel(new GridLayout(0, 1));
-        panel.add(new JLabel("Weight:"));
-        panel.add(weightTF);
-        int result = JOptionPane.showConfirmDialog(null, panel, "Edge info", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
-
-        if (result == JOptionPane.OK_OPTION) {
-
-            try {
-                this.setWeight(java.lang.Double.parseDouble(weightTF.getText()));
-            } catch (Exception e) {
-                System.out.println(e);
-                System.out.println("Weight: 0.00");
-                this.setWeight(0.00);
-            }
-//            System.out.println();
-
-        }
-    }
+//    public void textBox() {
+//
+//        JTextField weightTF = new JTextField(String.valueOf(this.getWeight()));
+//        JPanel panel = new JPanel(new GridLayout(0, 1));
+//        panel.add(new JLabel("Weight:"));
+//        panel.add(weightTF);
+//        int result = JOptionPane.showConfirmDialog(null, panel, "Edge info", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+//
+//        if (result == JOptionPane.OK_OPTION) {
+//
+//            try {
+//                this.setWeight(java.lang.Double.parseDouble(weightTF.getText()));
+//            } catch (Exception e) {
+//                System.out.println(e);
+//                System.out.println("Weight: 0.00");
+//                this.setWeight(0.00);
+//            }
+////            System.out.println();
+//
+//        }
+//    }
 
 
     public double getWeight() {

@@ -1,20 +1,14 @@
 package GUI;
 
+import Shapes.EdgeShape;
+import Shapes.NodeShape;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionAdapter;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-import java.util.Collections;
-
-
-import Shapes.NodeShape;
-import Shapes.EdgeShape;
-import org.w3c.dom.Node;
-
-import static java.lang.StrictMath.abs;
 
 public class Canvas extends JPanel {
 
@@ -47,7 +41,7 @@ public class Canvas extends JPanel {
     ArrayList<NodeShape> nodes = new ArrayList<>();
     ArrayList<EdgeShape> edges = new ArrayList<>();
 
-    private final DrawingFrame frame;
+    private final GUI.DrawingFrame frame;
     private Graphics2D graphics;
     private BufferedImage image;
 
@@ -58,13 +52,13 @@ public class Canvas extends JPanel {
 
     private Point mousePt;
 
-    Canvas(DrawingFrame frame) {
+    Canvas(GUI.DrawingFrame frame) {
         this.frame = frame;
         init();
     }
 
     private void drawNode(int x, int y) {
-        Integer radius = 7;
+        Integer radius = 15;
         graphics.setColor(Color.BLACK);
         NodeShape shape = new NodeShape(x, y, radius);
         graphics.fill(shape);
@@ -92,7 +86,7 @@ public class Canvas extends JPanel {
         }
     }
 
-      private void init() {
+    private void init() {
         this.setPreferredSize(new Dimension(width, height));
         this.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY, 1));
         this.image = new BufferedImage(800,600,BufferedImage.TYPE_INT_ARGB);
@@ -101,12 +95,29 @@ public class Canvas extends JPanel {
         this.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                boolean ok=true;
+                //boolean ok=true;
+
                 for (EdgeShape s: edges){
                     if (s.contains(e.getX(),e.getY()))
-                        ok=false;
+                        //ok=false;
+                        break;
                 }
-                if (ok) {
+
+                if(e.getButton() == MouseEvent.BUTTON3)
+                {
+                    JTextField weightTF = new JTextField(String.valueOf(0));
+                    JPanel panel = new JPanel(new GridLayout(0, 1));
+                    panel.add(new JLabel("Weight:"));
+                    panel.add(weightTF);
+                    int result = JOptionPane.showConfirmDialog(null, panel, "Edge info", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+
+                    if (result == JOptionPane.OK_OPTION) {
+                        //System.out.println("OK");
+
+                    }
+                }
+
+                if (e.getButton() == MouseEvent.BUTTON1) {
                     Integer radius = (Integer) 12;
 
                     drawNode(e.getX(), e.getY());
