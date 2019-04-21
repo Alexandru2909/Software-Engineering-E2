@@ -22,6 +22,12 @@
 
     </in.goodiebag.carouselpicker.CarouselPicker>
 
+    <TextView
+        android:id="@+id/testing"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#ffffff"
+        android:text="TextView" />
 
 
 </LinearLayout>

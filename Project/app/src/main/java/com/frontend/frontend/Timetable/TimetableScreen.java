@@ -1,7 +1,9 @@
 package com.frontend.frontend.Timetable;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.TextView;
 
 import com.frontend.frontend.R;
 
@@ -11,6 +13,7 @@ import java.util.List;
 import in.goodiebag.carouselpicker.CarouselPicker;
 
 public class TimetableScreen extends AppCompatActivity {
+    String roomNumber = new String();
 
     CarouselPicker dayPicker;
     List<CarouselPicker.PickerItem> daysList = new ArrayList<>();
@@ -19,6 +22,11 @@ public class TimetableScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.timetable);
+
+        Intent intent = getIntent();
+        roomNumber = intent.getStringExtra("room");
+        TextView text = findViewById(R.id.testing);
+        text.setText(roomNumber);
 
         dayPicker = (CarouselPicker) findViewById(R.id.dayPicker);
         addDays("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday");
