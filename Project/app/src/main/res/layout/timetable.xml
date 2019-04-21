@@ -26,8 +26,7 @@
         android:id="@+id/testing"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="#ffffff"
-        android:text="TextView" />
+        android:textColor="#ffffff" />
 
 
 </LinearLayout>

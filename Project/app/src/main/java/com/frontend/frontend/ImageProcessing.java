@@ -90,11 +90,11 @@ public class ImageProcessing extends AppCompatActivity {
             public void onClick(View v) {
 
                 if (Arrays.asList(roomsList).contains(finalText.trim())) {
-                    Intent returnIntent = new Intent();
+                    Intent returnIntent = openTimetable();
                     returnIntent.putExtra("room", finalText.trim());
                     setResult(Activity.RESULT_OK, returnIntent);
                     finish();
-                    openTimetable();
+                    startActivity(returnIntent);
                 } else {
                     warning.show();
                 }
@@ -114,9 +114,9 @@ public class ImageProcessing extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void openTimetable() {
+    private Intent openTimetable() {
         Intent intent = new Intent(this, TimetableScreen.class);
-        startActivity(intent);
+        return intent;
     }
 
     @Override
