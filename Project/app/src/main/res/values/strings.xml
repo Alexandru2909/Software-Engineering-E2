@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Frontend</string>
     <string name="locate">Locate</string>
+    <string name="title">FIIOrientat</string>
 </resources>
