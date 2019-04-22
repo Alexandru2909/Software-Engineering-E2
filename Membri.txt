@@ -1,7 +1,8 @@
 Ghiran Andrei - front-end team 
 Curea Paul -  back-end team 
-  Creeat teste pentru clasele din Schedule (ScheduleTest.java WorkingScheduleTest.java, restul nu avea cod destiul de complet     pentru testare) (8 pct)
+  Creeat teste pentru clasele din Schedule (ScheduleTest.java WorkingScheduleTest.java, restul nu avea cod destiul de complet pentru testare) (8 pct)
 Mihai Dumitru -  back-end team 
+ nothing (0 pct)
 Putanu Alexandru - front-end team 
   Am testat aplicatia cu mai multe telefoane si am verificat code coverage prin print-uri pentru ImageProcessing.java si MainActivity.java (10 puncte)
 Caloian Andrei - back-end team 
