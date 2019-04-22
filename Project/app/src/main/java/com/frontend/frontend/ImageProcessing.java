@@ -191,6 +191,7 @@ public class ImageProcessing extends AppCompatActivity {
                                 finalText = fullText;
                                 getRoomTimetable.setText(finalText + " - See info");
                                 getRoomTimetable.setVisibility(View.VISIBLE);
+                                startTextRecognizer();
                             }
                         }
                     });
