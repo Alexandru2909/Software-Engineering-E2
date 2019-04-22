@@ -2,6 +2,6 @@ Ghiran Andrei - front-end team
 Curea Paul -  back-end team 
 Mihai Dumitru -  back-end team 
 Putanu Alexandru - front-end team 
-  Am testat aplicatia cu mai multe telefoane si am verificat code coverage prin print-uri pentru ImageProcessing.java si MainActivity.java
+  Am testat aplicatia cu mai multe telefoane si am verificat code coverage prin print-uri pentru ImageProcessing.java si MainActivity.java (10 puncte)
 Caloian Andrei - back-end team 
 Pricop George - back-end team 
