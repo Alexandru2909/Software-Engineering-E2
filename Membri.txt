@@ -1,5 +1,5 @@
 Ghiran Andrei - front-end team 
-  Am testat clasele din BuildingLayout si TimeTable, cu toate ca clasele din BuildingLayout aveau doar set-ere si get-ere. (8 puncte) 
+  Am testat clasele din BuildingLayout si TimeTable, cu toate ca clasele din BuildingLayout aveau doar set-ere si get-ere. (10 puncte) 
 Curea Paul -  back-end team 
   Creeat teste pentru clasele din Schedule (ScheduleTest.java WorkingScheduleTest.java, restul nu avea cod destul de complet pentru testare)  (8 pct)
 Mihai Dumitru -  back-end team 
