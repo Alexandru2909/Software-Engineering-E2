@@ -14,5 +14,6 @@ numarul camerelor din lisra, cand se face addRoom() ar trebui sa se mareasca si
 numarul camerelor, faptul ca pot modifica numarul de camere fara ca sa adaug sau 
 sa elimin camere din lista e o problema
 
-libocr.so Fails to download on Android 7 devices when opening the app for the first time, but a "delete app data" solves it
+ libocr.so Fails to download on Android 7 devices when opening the app for the first time, but a "delete app data" solves it;
+Each consequently opening and closing of 'Locate Yourself' from main menu consumes additional 3Mb of ram, when the app is used a lot this may lead to performance issues;
 Everything else works fine
