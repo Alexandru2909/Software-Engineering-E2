@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">Frontend</string>
     <string name="locate">Locate</string>
+    <string name="teatcher">Teatcher</string>
+    <string name="group">Group</string>
+    <string name="time">Time</string>
+    <string name="subject">Subject</string>
 </resources>
