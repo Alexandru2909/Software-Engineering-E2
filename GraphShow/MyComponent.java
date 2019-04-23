@@ -51,10 +51,19 @@ public class MyComponent extends JComponent {
 
         G.setColor(Color.red);
         for(Line line: linesList){
-            G.drawLine(line.x1,line.y1,line.x2,line.y2);
+                G.drawLine(line.x1,line.y1,line.x2,line.y2);
         }
         if(actionMessage.messageCode==2){
             G.drawLine(curentLine.x1,curentLine.y1,curentLine.x2,curentLine.y2);
+        }
+        if(actionMessage.messageCode==6){
+            G.setColor(Color.blue);
+            for(Line line: movingLinesList){
+                System.out.println("redesenare muchii in galben");
+                G.drawLine(line.x1,line.y1,line.x2,line.y2);
+                G.drawLine(line.x1+1,line.y1+1,line.x2+1,line.y2+1);
+                G.drawLine(line.x1+2,line.y1+2,line.x2+2,line.y2+2);
+            }
         }
         for(Node node: nodesList){
             G.setColor(Color.red);
@@ -62,6 +71,7 @@ public class MyComponent extends JComponent {
             G.setColor(Color.white);
             G.drawString(String.valueOf(node.curentNumber),node.xPoint+10,node.yPoint+15);
         }
+
     }
 
 }

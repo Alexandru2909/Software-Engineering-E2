@@ -42,6 +42,7 @@ public class MainClass extends JFrame {
     public Node movedNode=new Node(0,0,0);
 
     public boolean drawingStage=false;
+    public boolean deleteEdgeStage=false;
 
     /**
      * functia reordoneza valorile din interiorul nodurilor dupa o operatie de stergere
@@ -91,6 +92,10 @@ public class MainClass extends JFrame {
      */
     JButton connectNodesButton=new JButton("Connect Nodes");
     /**
+     * Butonul care activeaza optiunea de stergere de muchii
+     */
+    JButton deleteEdgeButton=new JButton("Delete Edge");
+    /**
      * Acesta este panoul care contine butoanele si campul de text
      */
     JPanel  buttonsPanel=new JPanel();
@@ -103,14 +108,19 @@ public class MainClass extends JFrame {
      */
     MyComponent drawingSurface=new MyComponent(nodesList,linesList,movingLinesList,curentLine,actionMessage);//suprafata de desenare
 
+
+    private Node firstNode=null;
+    private Node secondNode=null;
     /**
      * Aceasta functie reseteaza flagurile de activitate
      * functia este apelata la fiecare apasare de buton pentru a ne asigura ca nu apar probleme intre operatii
      */
     public void resetStatus(){
         movingLinesList.clear();
+        drawingSurface.repaint();
         movedStatus=false;
         drawingStage=false;
+        deleteEdgeStage=false;
     }
 
     /**
@@ -131,6 +141,7 @@ public class MainClass extends JFrame {
         buttonsPanel.add(moveNodeButton);
         buttonsPanel.add(deleteNodeButton);
         buttonsPanel.add(connectNodesButton);
+        buttonsPanel.add(deleteEdgeButton);
 
         //setam layout-ul general al ferestrei
         generalPanel.setLayout(new BorderLayout());
@@ -228,8 +239,15 @@ public class MainClass extends JFrame {
                 actionMessage.messageCode=4;//mutem muta un nod
             }
         });
-
+        deleteEdgeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                resetStatus();
+                actionMessage.messageCode=6;
+            }
+        });
         //atasam listener suptrafetei de desenare
+
         drawingSurface.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -311,6 +329,51 @@ public class MainClass extends JFrame {
                         repairOrder();
                         drawingSurface.repaint();
                     }
+                }else if(actionMessage.messageCode==6){
+                    if(deleteEdgeStage==false){
+                        firstNode=validNode(e.getX(),e.getY());
+                        if (firstNode!=null) {
+                            movingLinesList.clear();
+                            for(Line line:linesList){
+                                if(isAd(line,firstNode)==true){
+                                    movingLinesList.add(line);
+                                }
+                            }
+                            deleteEdgeStage=true;
+                            drawingSurface.repaint();
+                        }
+                    }else{
+                        secondNode=validNode(e.getX(),e.getY());
+                        if(secondNode!=null && secondNode!=firstNode){
+                            boolean lineFlag=false;
+                            for(Line line:linesList){
+                                if(isAd(line,firstNode) && isAd(line,secondNode)){
+                                    linesList.remove(line);
+                                    movingLinesList.remove(line);
+                                    drawingSurface.repaint();
+                                    lineFlag=true;
+                                }
+                            }
+                            if(lineFlag==false){
+                                movingLinesList.clear();
+                                drawingSurface.repaint();
+                                drawingStage=false;
+                                firstNode=secondNode;
+                                secondNode=null;
+                                for(Line line:linesList){
+                                    if(isAd(line,firstNode)==true){
+                                        movingLinesList.add(line);
+                                    }
+                                }
+                            }
+                            drawingSurface.repaint();
+                        }else if(secondNode==null){
+                            deleteEdgeStage=false;
+                            movingLinesList.clear();
+                            drawingSurface.repaint();
+                        }
+                    }
+
                 }
             }
         });
@@ -375,7 +438,13 @@ public class MainClass extends JFrame {
         }
         return true;
     }
-
+    private boolean isAd(Line line,Node node){
+        if((line.x1==node.xPoint+10 && line.y1==node.yPoint+10) || (line.x2==node.xPoint+10 && line.y2==node.yPoint+10)){
+            return true;
+        }else{
+            return false;
+        }
+    }
 
     public static void main(String...args){
         new MainClass();
