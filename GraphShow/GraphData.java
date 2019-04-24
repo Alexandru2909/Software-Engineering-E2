@@ -1,4 +1,4 @@
-package MyPackage;
+package GraphShow;
 
 import javax.imageio.ImageIO;
 import java.awt.*;

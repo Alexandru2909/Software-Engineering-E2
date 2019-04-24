@@ -1,4 +1,4 @@
-package MyPackage;
+package GraphShow;
 
 import javax.swing.*;
 import java.awt.*;
@@ -59,7 +59,7 @@ public class MainClass extends JFrame {
     /**
      * campul in care incarcam adresa fisierului ce contine reprezentarea inainte de apasarea butonului Open
      */
-    JTextField inputFile=new JTextField(25);
+    JTextField inputFile=new JTextField(15);
     /**
      * Butonul pentru deschiderea unui fisier specificat in campul inputFile
      */
@@ -95,6 +95,14 @@ public class MainClass extends JFrame {
      * Butonul care activeaza optiunea de stergere de muchii
      */
     JButton deleteEdgeButton=new JButton("Delete Edge");
+    /**
+     * Button that activates the option to edit node info
+     */
+    JButton editNodeButton=new JButton("Edit Node");
+    /**
+     * Button that activates the option to edit edge weight
+     */
+    JButton editEdgeButton=new JButton("Edit Edge");
     /**
      * Acesta este panoul care contine butoanele si campul de text
      */
@@ -142,6 +150,8 @@ public class MainClass extends JFrame {
         buttonsPanel.add(deleteNodeButton);
         buttonsPanel.add(connectNodesButton);
         buttonsPanel.add(deleteEdgeButton);
+        buttonsPanel.add(editNodeButton);
+        buttonsPanel.add(editEdgeButton);
 
         //setam layout-ul general al ferestrei
         generalPanel.setLayout(new BorderLayout());
@@ -149,6 +159,8 @@ public class MainClass extends JFrame {
         generalPanel.add(buttonsPanel,BorderLayout.NORTH);
         //adaugam suprafata de desenare la panoul general
         generalPanel.add(drawingSurface,BorderLayout.CENTER);
+
+
 
         //atasam listener butonului Open
         openButton.addActionListener(new ActionListener() {
@@ -246,6 +258,23 @@ public class MainClass extends JFrame {
                 actionMessage.messageCode=6;
             }
         });
+
+        editNodeButton.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                resetStatus();
+                actionMessage.messageCode=7;
+            }
+        });
+
+        editEdgeButton.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                resetStatus();
+                actionMessage.messageCode=8;
+            }
+        });
+
         //atasam listener suptrafetei de desenare
 
         drawingSurface.addMouseListener(new MouseAdapter() {
@@ -374,6 +403,37 @@ public class MainClass extends JFrame {
                         }
                     }
 
+                }
+                else if (actionMessage.messageCode==7){
+                    firstNode=validNode(e.getX(),e.getY());
+                    if (firstNode!=null){
+                        firstNode.textBox();
+                    }
+
+                }
+                else if (actionMessage.messageCode==8){
+                    if(drawingStage==false){
+                        Node initNode=validNode(e.getX(),e.getY());
+                        if(initNode!=null){
+                            curentLine.x1=initNode.xPoint+10;
+                            curentLine.y1=initNode.yPoint+10;
+                            drawingStage=true;
+                        }
+
+                    }else{
+                        //de rezolvat problema interconectarii aceluiasi nod
+                        Node finalNode=validNode(e.getX(),e.getY());
+                        if(finalNode!=null){
+                            curentLine.x2=finalNode.xPoint+10;
+                            curentLine.y2=finalNode.yPoint+10;
+//                            linesList.add(new Line(curentLine.x1,curentLine.y1,curentLine.x2,curentLine.y2));
+//                            drawingSurface.repaint();
+                            drawingStage=false;
+                            curentLine.textBox();
+                        }
+
+
+                    }
                 }
             }
         });

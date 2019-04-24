@@ -1,4 +1,4 @@
-package MyPackage;
+package GraphShow;
 
 /**
  * clasa ajuta la retinerea mesajului ce desemneaza o activitate
