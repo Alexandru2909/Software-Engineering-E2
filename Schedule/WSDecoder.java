@@ -4,10 +4,15 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 
-public class Schedule {
+public class WSDecoder {
     private String scheduleContent;
     private File scheduleFile;
-    public Schedule(String schedulePath)throws WorkingScheduleException{
+    
+    /**
+     * @param schedulePath the path to the JSON resource representing the schedule
+     * @throws WorkingScheduleException when the specified resource does not exist or when we cannot access it
+     */
+    public WSDecoder(String schedulePath)throws WorkingScheduleException{
         scheduleFile=new File(schedulePath);
         if(scheduleFile.exists()==false){
             throw new WorkingScheduleException("Fisierul nu exista");
@@ -24,12 +29,24 @@ public class Schedule {
             throw new WorkingScheduleException("Problema la accesarea fisierului");
         }
     }
+    
+    /**
+     * @return the raw content of the JSON resource representing the schedule
+     */
     public String getScheduleContent(){
         return scheduleContent;
     }
+    
+    /**
+     * @return the file path to the JSON resource representing the schedule (w/o the file name)
+     */
     public String getFilePath(){
         return scheduleFile.getParentFile().getAbsolutePath();
     }
+    
+    /**
+     * @return the file name of the JSON resource representing the schedule
+     */
     public String getFileName(){
         return scheduleFile.getName();
     }
