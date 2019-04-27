@@ -410,6 +410,7 @@ public class MainClass extends JFrame {
                     firstNode=validNode(e.getX(),e.getY());
                     if (firstNode!=null){
                         firstNode.textBox();
+
                     }
 
                 }
@@ -428,11 +429,11 @@ public class MainClass extends JFrame {
                             curentLine.x2=finalNode.xPoint+10;
                             curentLine.y2=finalNode.yPoint+10;
                             drawingStage=false;
-                            curentLine.textBox();
                         }
-
-
                     }
+                    Line newValue=validLine(curentLine);
+                    if (newValue!=null)
+                        newValue.textBox();
                 }
             }
         });
@@ -477,6 +478,16 @@ public class MainClass extends JFrame {
         for(Node node: nodesList){
             if(Math.abs(x-node.xPoint)<25 && Math.abs(y-node.yPoint)<25){
                 return node;
+            }
+        }
+        return null;
+    }
+
+    public Line validLine(Line curentLine){
+        for (Line line: linesList){
+            if ((line.x1==curentLine.x1 && line.y1==curentLine.y1 && line.x2==curentLine.x2 && line.y2==curentLine.y2) ||
+                    (line.x1==curentLine.x2 && line.y1==curentLine.y2 && line.x2==curentLine.x1 && line.y2==curentLine.y1)){
+                return line;
             }
         }
         return null;
