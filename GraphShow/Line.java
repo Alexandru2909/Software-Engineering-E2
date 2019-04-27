@@ -15,6 +15,9 @@ public class Line implements Serializable {
     public int y2;
 
     private double weight;
+    
+    private int node1;
+    private int node2;
 
     public Line(int x1,int y1,int x2,int y2){
         this.x1=x1;
@@ -22,6 +25,8 @@ public class Line implements Serializable {
         this.x2=x2;
         this.y2=y2;
         this.weight=0.00;
+        this.node1=0;
+        this.node2=0;
     }
 
     public void textBox() {
@@ -51,4 +56,21 @@ public class Line implements Serializable {
     private void setWeight(double weight) {
         this.weight = weight;
     }
+    
+    public int getNode1(){
+        return node1;
+    }
+    
+    public void setNode1(int nodeId){
+        this.node1=nodeId;
+    }
+    
+    public int getNode2(){
+        return node1;
+    }
+    
+    public void setNode2(int nodeId){
+        this.node2=nodeId;
+    }
+    
 }
