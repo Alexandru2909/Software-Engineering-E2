@@ -289,6 +289,7 @@ public class MainClass extends JFrame {
                                 if(initNode!=null){
                                     curentLine.x1=initNode.xPoint+10;
                                     curentLine.y1=initNode.yPoint+10;
+                                    curentLine.setNode1(initNode.curentNumber);
                                     drawingStage=true;
                                 }
 
@@ -298,6 +299,7 @@ public class MainClass extends JFrame {
                                 if(finalNode!=null){
                                     curentLine.x2=finalNode.xPoint+10;
                                     curentLine.y2=finalNode.yPoint+10;
+                                    curentLine.setNode2(finalNode.curentNumber);
                                     linesList.add(new Line(curentLine.x1,curentLine.y1,curentLine.x2,curentLine.y2));
                                     drawingSurface.repaint();
                                     drawingStage=false;
@@ -417,19 +419,14 @@ public class MainClass extends JFrame {
                         if(initNode!=null){
                             curentLine.x1=initNode.xPoint+10;
                             curentLine.y1=initNode.yPoint+10;
-                            curentLine.setNode1(initNode.curentNumber);
                             drawingStage=true;
                         }
 
                     }else{
-                        //de rezolvat problema interconectarii aceluiasi nod
                         Node finalNode=validNode(e.getX(),e.getY());
                         if(finalNode!=null){
                             curentLine.x2=finalNode.xPoint+10;
                             curentLine.y2=finalNode.yPoint+10;
-                            curentLine.setNode2(finalNode.curentNumber);
-//                            linesList.add(new Line(curentLine.x1,curentLine.y1,curentLine.x2,curentLine.y2));
-//                            drawingSurface.repaint();
                             drawingStage=false;
                             curentLine.textBox();
                         }
