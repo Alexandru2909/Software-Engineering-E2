@@ -198,10 +198,52 @@ public class MainClass extends JFrame {
                 String filePath=inputFile.getText();
                 File inputFile=new File(filePath);
                 //System.out.println(inputFile.toString());
-                if(inputFile.exists()==true){
+                if(inputFile.exists()){
                     GraphData myGraph=new GraphData(nodesList,linesList);
-                    myGraph.getData(filePath);
+                    File folder = new File(filePath);
+                    File[] listOfFiles = folder.listFiles();
+//                    Node.instNumber=0;
+                    for (int i=0;i<listOfFiles.length; i++){
+                        if (listOfFiles[i].isFile()){
+                            myGraph.getData(listOfFiles[i].getPath());
+                            System.out.println(listOfFiles[i].getPath());
+                        }
+                    }
+//                    myGraph.getData(filePath);
                     Node.instNumber=nodesList.size();
+                    repairOrder();
+
+                    for (Node node1 : nodesList) {
+                        for (Node node2 : nodesList) {
+                            if (node1.getType().equalsIgnoreCase("stairs") || node1.getType().equalsIgnoreCase("elevator")){
+                                if (node2.getType().equalsIgnoreCase(node1.getType())){
+                                    if (node1!=node2) {
+                                        if (node1.getFloor()!=node2.getFloor()){
+                                            curentLine = new Line(node1.xPoint + 10, node1.yPoint + 10, node2.xPoint + 10, node2.yPoint + 10);
+                                            boolean exists=false;
+                                            for (Line existentLine : linesList) {
+                                                if ((existentLine.getNode1() == node1.curentNumber && existentLine.getNode2() == node2.curentNumber) ||
+                                                        (existentLine.getNode2() == node1.curentNumber && existentLine.getNode1() == node2.curentNumber)){
+                                                    exists=true;
+                                                    break;
+                                                }
+                                            }
+
+                                            if (!exists){
+                                                curentLine.setNode1(node1.curentNumber);
+                                                curentLine.setNode2(node2.curentNumber);
+                                                linesList.add(curentLine);
+                                            }
+
+
+                                            }
+                                        System.out.println("Node1: " + node1.curentNumber + "\nNode2: " + node2.curentNumber);
+                                    }
+                                }
+                            }
+
+                        }
+                    }
                     drawingSurface.repaint();
                     //System.out.println("fisierul a fost gasit");
                 }else{
@@ -230,7 +272,7 @@ public class MainClass extends JFrame {
                                              drawingSurface.repaint();
                                              GraphData outputData=new GraphData(nodesList,linesList);
                                              String filePath = inputFile.getText();
-                                             outputData.saveData("C:\\Users\\Cosmin1213\\Desktop\\DrawingApp_V2",filePath);
+                                             outputData.saveData("/home/m0ric/SE/testGraph",filePath);
                                          }
                                      }
         );

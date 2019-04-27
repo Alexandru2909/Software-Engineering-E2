@@ -45,7 +45,7 @@ public class GraphData  implements Serializable {
                 if(filesFolder.isDirectory()==true){
                     try {
 
-                        FileOutputStream output = new FileOutputStream(folderPath + "\\" + fileName + ".graph");
+                        FileOutputStream output = new FileOutputStream(folderPath + "/" + "graphFile" + "/" + fileName + ".graph");
                         ObjectOutputStream outputObject = new ObjectOutputStream(output);
                         outputObject.writeObject(nodesList);
                         outputObject.writeObject(linesList);
@@ -66,7 +66,7 @@ public class GraphData  implements Serializable {
                         }
 
                         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON); //for "smooth" drawing
-                        ImageIO.write(image, "png", new File(folderPath + "\\" + fileName + ".png"));
+                        ImageIO.write(image, "png", new File(folderPath + "/" +"pngFormat" + "/" + fileName + ".png"));
                         outputObject.close();
                         output.close();
                     }catch(Exception e){
@@ -89,8 +89,8 @@ public class GraphData  implements Serializable {
         try {
             FileInputStream inputData = new FileInputStream(filePath);
             ObjectInputStream inputObjects = new ObjectInputStream(inputData);
-            nodesList.clear();
-            linesList.clear();
+//            nodesList.clear();
+//            linesList.clear();
             nodesList.addAll((LinkedList<Node>) inputObjects.readObject());
             linesList.addAll((LinkedList<Line>) inputObjects.readObject());
             inputObjects.close();
@@ -99,5 +99,4 @@ public class GraphData  implements Serializable {
             System.out.println("problema la citirea fisierului");
         }
     }
-
 }
