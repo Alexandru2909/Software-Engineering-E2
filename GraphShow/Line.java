@@ -66,7 +66,7 @@ public class Line implements Serializable {
     }
     
     public int getNode2(){
-        return node1;
+        return node2;
     }
     
     public void setNode2(int nodeId){
