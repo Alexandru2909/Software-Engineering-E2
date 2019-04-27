@@ -57,6 +57,12 @@ public class MainClass extends JFrame {
     }
 
     /**
+     * campul de unde selectam fisierele pe care dorim sa le exportam in format .json
+     */
+    JFileChooser fileChooser = new JFileChooser(System.getProperty("user.dir"));
+    JButton chooser = new JButton("Export");
+    private String fileName;
+    /**
      * campul in care incarcam adresa fisierului ce contine reprezentarea inainte de apasarea butonului Open
      */
     JTextField inputFile=new JTextField(15);
@@ -141,6 +147,7 @@ public class MainClass extends JFrame {
         buttonsPanel.setLayout(new FlowLayout());//setam layout-ul pentru buttonsPanel
 
         //atasam butoanele panoului buttonsPanel
+        buttonsPanel.add(chooser);
         buttonsPanel.add(inputFile);
         buttonsPanel.add(openButton);
         buttonsPanel.add(saveButton);
@@ -160,7 +167,29 @@ public class MainClass extends JFrame {
         //adaugam suprafata de desenare la panoul general
         generalPanel.add(drawingSurface,BorderLayout.CENTER);
 
-
+        //listener pentru butonul Export
+        chooser.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //fileChooser.setMultiSelectionEnabled(true);
+                int returnVal = fileChooser.showOpenDialog((Component)e.getSource());
+                if (returnVal == JFileChooser.APPROVE_OPTION) {
+                    File file = fileChooser.getSelectedFile();
+                    try {
+                        fileName = file.toString();
+                        System.out.println(fileName);
+                        /**
+                         * elementele alese vor fi adaugate intr-o lista, care va fi exportata in format .json
+                         */
+                    } catch (Exception ex) {
+                        System.out.println("problem accessing file"+file.getAbsolutePath());
+                    }
+                }
+                else {
+                    System.out.println("File access cancelled by user.");
+                }
+            }
+        });
 
         //atasam listener butonului Open
         openButton.addActionListener(new ActionListener() {
@@ -196,13 +225,13 @@ public class MainClass extends JFrame {
 
         //atasam listener butonului Save
         saveButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                    drawingSurface.repaint();
-                    GraphData outputData=new GraphData(nodesList,linesList);
-                    outputData.saveData("C:\\Users\\Bogdan\\Desktop\\savedData","save");
-            }
-        }
+                                         @Override
+                                         public void actionPerformed(ActionEvent e) {
+                                             drawingSurface.repaint();
+                                             GraphData outputData=new GraphData(nodesList,linesList);
+                                             outputData.saveData("C:\\Users\\Bogdan\\Desktop\\savedData","save");
+                                         }
+                                     }
         );
 
         //atasam listener butonului de stergere a nodurilo
@@ -284,29 +313,29 @@ public class MainClass extends JFrame {
                     nodesList.add(new Node(e.getX(),e.getY()));
                     drawingSurface.repaint();
                 }else if(actionMessage.messageCode==2){
-                        if(drawingStage==false){
-                            Node initNode=validNode(e.getX(),e.getY());
-                                if(initNode!=null){
-                                    curentLine.x1=initNode.xPoint+10;
-                                    curentLine.y1=initNode.yPoint+10;
-                                    curentLine.setNode1(initNode.curentNumber);
-                                    drawingStage=true;
-                                }
-
-                        }else{
-                            //de rezolvat problema interconectarii aceluiasi nod
-                            Node finalNode=validNode(e.getX(),e.getY());
-                                if(finalNode!=null){
-                                    curentLine.x2=finalNode.xPoint+10;
-                                    curentLine.y2=finalNode.yPoint+10;
-                                    curentLine.setNode2(finalNode.curentNumber);
-                                    linesList.add(new Line(curentLine.x1,curentLine.y1,curentLine.x2,curentLine.y2));
-                                    drawingSurface.repaint();
-                                    drawingStage=false;
-                                }
-
-
+                    if(drawingStage==false){
+                        Node initNode=validNode(e.getX(),e.getY());
+                        if(initNode!=null){
+                            curentLine.x1=initNode.xPoint+10;
+                            curentLine.y1=initNode.yPoint+10;
+                            curentLine.setNode1(initNode.curentNumber);
+                            drawingStage=true;
                         }
+
+                    }else{
+                        //de rezolvat problema interconectarii aceluiasi nod
+                        Node finalNode=validNode(e.getX(),e.getY());
+                        if(finalNode!=null){
+                            curentLine.x2=finalNode.xPoint+10;
+                            curentLine.y2=finalNode.yPoint+10;
+                            curentLine.setNode2(finalNode.curentNumber);
+                            linesList.add(new Line(curentLine.x1,curentLine.y1,curentLine.x2,curentLine.y2));
+                            drawingSurface.repaint();
+                            drawingStage=false;
+                        }
+
+
+                    }
                 }else if(actionMessage.messageCode==4){
                     if(movedStatus==false){
                         movedNode=validNode(e.getX(),e.getY());
@@ -314,13 +343,13 @@ public class MainClass extends JFrame {
                             movedStatus=true;
                             for(Line line:linesList){
                                 if(line.x1==movedNode.xPoint+10 && line.y1== movedNode.yPoint+10 ||line.x2==movedNode.xPoint+10 && line.y2== movedNode.yPoint+10){
-                                     if(line.x2==movedNode.xPoint+10 && line.y2== movedNode.yPoint+10){
-                                         line.x2=line.x1;
-                                         line.y2=line.y1;
-                                         line.x1=movedNode.xPoint+10;
-                                         line.y1=movedNode.yPoint+10;
-                                     }
-                                     movingLinesList.add(line);
+                                    if(line.x2==movedNode.xPoint+10 && line.y2== movedNode.yPoint+10){
+                                        line.x2=line.x1;
+                                        line.y2=line.y1;
+                                        line.x1=movedNode.xPoint+10;
+                                        line.y1=movedNode.yPoint+10;
+                                    }
+                                    movingLinesList.add(line);
                                 }
                             }
                             drawingSurface.repaint();
@@ -445,15 +474,15 @@ public class MainClass extends JFrame {
                     curentLine.y2=e.getY();
                     drawingSurface.repaint();
                 }else if(actionMessage.messageCode==4){
-                        if(movedStatus==true){
-                            movedNode.xPoint=e.getX();
-                            movedNode.yPoint=e.getY();
-                            for(Line line:movingLinesList){
-                                line.x1=e.getX()+10;
-                                line.y1=e.getY()+10;
-                            }
-                            drawingSurface.repaint();
+                    if(movedStatus==true){
+                        movedNode.xPoint=e.getX();
+                        movedNode.yPoint=e.getY();
+                        for(Line line:movingLinesList){
+                            line.x1=e.getX()+10;
+                            line.y1=e.getY()+10;
                         }
+                        drawingSurface.repaint();
+                    }
 
                 }
             }
