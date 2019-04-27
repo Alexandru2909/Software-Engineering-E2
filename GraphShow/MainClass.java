@@ -229,7 +229,8 @@ public class MainClass extends JFrame {
                                          public void actionPerformed(ActionEvent e) {
                                              drawingSurface.repaint();
                                              GraphData outputData=new GraphData(nodesList,linesList);
-                                             outputData.saveData("C:\\Users\\Bogdan\\Desktop\\savedData","save");
+                                             String filePath = inputFile.getText();
+                                             outputData.saveData("C:\\Users\\Cosmin1213\\Desktop\\DrawingApp_V2",filePath);
                                          }
                                      }
         );
