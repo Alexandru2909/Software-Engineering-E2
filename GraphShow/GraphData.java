@@ -62,7 +62,7 @@ public class GraphData  implements Serializable {
                         graphics.setColor(Color.red);
                         for(Line line: linesList){
                             graphics.drawLine(line.x1,line.y1,line.x2,line.y2);
-                            graphics.drawString(String.valueOf(line.getWeight()),(line.x1+line.x2)/2+10,(line.y1+line.y2)/2+10)
+                            graphics.drawString(String.valueOf(line.getWeight()),(line.x1+line.x2)/2+10,(line.y1+line.y2)/2+10);
                         }
 
                         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON); //for "smooth" drawing
