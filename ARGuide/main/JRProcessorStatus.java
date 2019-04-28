@@ -1,5 +1,5 @@
-package IpClasses;
+package main;
 
-public enum ScheduleStatus {
+public enum JRProcessorStatus {
     WS_PROCESSOR_SUCCESS, WS_PROCESSOR_FAILURE
 }

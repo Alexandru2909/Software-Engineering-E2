@@ -1,55 +1,51 @@
-package IpClasses;
+package main;
 
-public class WorkingSchedule {
-	private WSDecoder wsDecoder;
-    protected ScheduleStatus scheduleStatus;
-    private String dbConnPath;
-    private String dbUsername;
-    private String dbPassword;
+import java.sql.Connection;
+
+public class JSONResource {
+	private JRDecoder jrDecoder;
+    private JRProcessor jrProcessor;
     
     /**
-     * @param schedulePath the path to the JSON resource representing the schedule
-     * @param dbConnPath the path of the Oracle database connection
-     * @param dbUsername the username for the database log-in
-     * @param dbPassword the password of the user
+     * 
+     * @param conn the Connection object holding information w.r.t our current database connection
+     * @param resourcePath the path to the JSON resource representing our working schedule or our building plan
+     * @param dbPackageName the name of the PL/SQL package that handles what our JSON resource represents
+     * @param dbPackageMethodsExtension the method name extension in our PL/SQL database package that allows us to know which methods to use (e.g for extension 'Schedule', we could use storeSchedule(), saveSchedule(), etc)
+     * @throws JSONResourceException when the JRDecoder object fails the decoding process
      */
-    public WorkingSchedule(String schedulePath, String dbConnPath, String dbUsername, String dbPassword) {
-    	this.wsDecoder = new WSDecoder(schedulePath);
-    	this.dbConnPath = dbConnPath;
-    	this.dbUsername = dbUsername;
-    	this.dbPassword = dbPassword;
+    public JSONResource(Connection conn, String resourcePath, String dbPackageName, String dbPackageMethodsExtension) throws JSONResourceException {
+    	this.jrDecoder = new JRDecoder(resourcePath);
+    	this.jrProcessor = new JRProcessor(conn, dbPackageName, dbPackageMethodsExtension);
     }
     
     /**
-     * @return the status of the last operation of the WSProcessor
+     * @return the status of the last operation of the JRProcessor
      */
-    public ScheduleStatus getStatus() {
-    	return scheduleStatus;
+    public JRProcessorStatus getStatus() {
+    	return jrProcessor.getStatus();
     }
     
     /**
-     * @param request the request to be transmitted to the WSProcessor
-     * @throws WorkingScheduleException upon unknown request or WSProcessor operation failure
+     * @param request the request to be transmitted to the JRProcessor
+     * @throws JSONResourceException upon unknown request or JRProcessor operation failure
      */
-    public void sendRequest (String request) throws WorkingScheduleException {    	
-    	WSProcessor wsProcessor = new WSProcessor(dbConnPath, dbUsername, dbPassword);
-    	
+    public void sendRequest (String request) throws JSONResourceException {    	
 	    switch (request) {
 			case "parse":
-		    	wsProcessor.parseWS(wsDecoder);
+		    	jrProcessor.parseJR(jrDecoder);
 		    	break;
 		    case "save":
-		    	wsProcessor.saveWS(wsDecoder);
+		    	jrProcessor.saveJR(jrDecoder);
 		    	break;
 		    case "update":
-		    	wsProcessor.updateWS(wsDecoder);
+		    	jrProcessor.updateJR(jrDecoder);
 		    	break;
 		    case "remove":
-		    	wsProcessor.removeWS();
+		    	jrProcessor.removeJR();
 		    	break;
 		    default: 
-		    	throw new WorkingScheduleException("Unknown request!");
-		    	break;
+		    	throw new JSONResourceException("Unknown request!");
 	    }
     	
 	    return;

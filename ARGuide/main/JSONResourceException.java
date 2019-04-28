@@ -1,8 +1,8 @@
-package IpClasses;
+package main;
 
-public class WorkingScheduleException extends Exception{
+public class JSONResourceException extends Exception{
 
-    public WorkingScheduleException(String message){
+    public JSONResourceException(String message){
         super(message);
     }
 }

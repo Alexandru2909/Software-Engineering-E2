@@ -1,114 +1,123 @@
-package IpClasses;
-import WebParserV2.*;
+package main;
 import com.google.gson.Gson;
 
-import java.io.File;
 import java.sql.CallableStatement;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.Types;
 
-public class WSProcessor extends WorkingSchedule{
+public class JRProcessor {
     private Connection connection;
+    private JRProcessorStatus status;
+    private String dbPackageName;
+    private String dbPackageMethodsExtension;
     
     /**
-     * @param connectionPath the path of the connection to the Oracle database
-     * @param username the username used to log into the database
-     * @param password the password of the user
-     * @throws WorkingScheduleException upon failed connection to the DB
+     * @param conn the Connection object holding information w.r.t our current database connection
+     * @param dbPackageName the name of the PL/SQL package that handles what our JSON resource represents
+     * @param dbPackageMethodsExtension the method name extension in our PL/SQL database package that allows us to know which methods to use (e.g for extension 'Schedule', we could use storeSchedule(), saveSchedule(), etc)
      */
-    public WSProcessor(String connectionPath, String username, String password) throws WorkingScheduleException {
-        try {
-        	Class.forName("oracle.jdbc.driver.OracleDriver");
-        	
-            connection = DriverManager.getConnection(connectionPath, username, password);
-        } catch (Exception e) {
-            throw new WorkingScheduleException("Problema la realizarea conexiunii cu baza de date");
-        }
+    public JRProcessor(Connection conn, String dbPackageName, String dbPackageMethodsExtension) {
+        this.connection = conn;
+        this.dbPackageName = dbPackageName;
+        this.dbPackageMethodsExtension = dbPackageMethodsExtension;
     }
     
     /**
-     * @param wsDecoder the decoder holding information about the schedule to be parsed
-     * @throws WorkingScheduleException upon invalid JSON resource or decoding failure
+     * @param jrDecoder the decoder holding information about the schedule or the building plan to be parsed
+     * @throws JSONResourceException upon invalid JSON resource or decoding failure
      */
-    public void parseWS (WSDecoder wsDecoder) throws WorkingScheduleException{
-         if (wsDecoder.getScheduleContent() != null) {
+    public void parseJR (JRDecoder jrDecoder) throws JSONResourceException{
+         if (jrDecoder.getJrContent() != null) {
              Gson json = new Gson();
              
              try {
-                 DataRecord dataRecord = json.fromJson(wsDecoder.getScheduleContent(), DataRecord.class);
+                 DataRecord dataRecord = json.fromJson(jrDecoder.getJrContent(), DataRecord.class);
              } catch (Exception e) {
-            	 scheduleStatus = ScheduleStatus.WS_PROCESSOR_FAILURE;
-                 throw new WorkingScheduleException("Schedule-ul nu poate fi convertit la DataRecord");
+            	 status = JRProcessorStatus.WS_PROCESSOR_FAILURE;
+                 throw new JSONResourceException("Schedule-ul nu poate fi convertit la DataRecord");
              }
          }
          else {
-             throw new WorkingScheduleException("Datele trimise sunt invalide");
+             throw new JSONResourceException("Datele trimise sunt invalide");
          }
     }
     
     /**
-     * @param wsDecoder the decoder holding information about the schedule to be saved
-     * @throws WorkingScheduleException upon failure of save operation
+     * @param jrDecoder the decoder holding information about the schedule or the building plan to be saved
+     * @throws JSONResourceException upon failure of save operation
      */
-    public void saveWS (WSDecoder wsDecoder) throws WorkingScheduleException {
-        scheduleStatus = ScheduleStatus.WS_PROCESSOR_SUCCESS;
+    public void saveJR (JRDecoder jrDecoder) throws JSONResourceException {
+        status = JRProcessorStatus.WS_PROCESSOR_SUCCESS;
         try {
-            CallableStatement statement = connection.prepareCall("{call ScheduleMaster.storeSchedule(?,?)}");
+            CallableStatement statement = connection.prepareCall("{call " + dbPackageName + ".store" + dbPackageMethodsExtension + "(?,?)}");
             statement.registerOutParameter(1, Types.VARCHAR);
             statement.registerOutParameter(2, Types.VARCHAR);
-            statement.setString(1,wsDecoder.getFilePath());
-            statement.setString(2,wsDecoder.getFileName());
+            statement.setString(1,jrDecoder.getJrFilePath());
+            statement.setString(2,jrDecoder.getJrFileName());
             Boolean result = statement.execute();
             
             if (result == false) {
-                this.scheduleStatus=ScheduleStatus.WS_PROCESSOR_SUCCESS;
+                this.status=JRProcessorStatus.WS_PROCESSOR_SUCCESS;
             }
         } catch (Exception e) {
-        	scheduleStatus = ScheduleStatus.WS_PROCESSOR_FAILURE;
-            throw new WorkingScheduleException("Problema la apelarea functiei saveWorkingSchedule");
+        	status = JRProcessorStatus.WS_PROCESSOR_FAILURE;
+            throw new JSONResourceException("Problema la apelarea functiei saveWorkingSchedule");
         }
     }
     
     /**
-     * @param wsDecoder the decoder holding information about the schedule that is to replace the old one (if it existed)
-     * @throws WorkingScheduleException upon failure of update operation
+     * @param jrDecoder the decoder holding information about the schedule or the building plan that is to replace the old one (if it existed)
+     * @throws JSONResourceException upon failure of update operation
      */
-    public void updateWS (WSDecoder wsDecoder) throws WorkingScheduleException {
-        scheduleStatus = ScheduleStatus.WS_PROCESSOR_SUCCESS;
+    public void updateJR (JRDecoder jrDecoder) throws JSONResourceException {
+        status = JRProcessorStatus.WS_PROCESSOR_SUCCESS;
         
         try {
-            CallableStatement statement = connection.prepareCall("{call ScheduleMaster.updateSchedule(?,?)}");
+            CallableStatement statement = connection.prepareCall("{call " + dbPackageName + ".update" + dbPackageMethodsExtension + "(?,?)}");
             statement.registerOutParameter(1, Types.VARCHAR);
             statement.registerOutParameter(2,Types.VARCHAR);
-            statement.setString(1,wsDecoder.getFilePath());
-            statement.setString(2,wsDecoder.getFileName());
+            statement.setString(1,jrDecoder.getJrFilePath());
+            statement.setString(2,jrDecoder.getJrFileName());
             Boolean result = statement.execute();
             
             if (result == true){
-                this.scheduleStatus = ScheduleStatus.WS_PROCESSOR_SUCCESS;
+                this.status = JRProcessorStatus.WS_PROCESSOR_SUCCESS;
             }
         } catch (Exception e) {
-        	scheduleStatus = ScheduleStatus.WS_PROCESSOR_FAILURE;
-            throw new WorkingScheduleException("Problema la apelarea functiei saveWorkingSchedule");
+        	status = JRProcessorStatus.WS_PROCESSOR_FAILURE;
+            throw new JSONResourceException("Problema la apelarea functiei saveWorkingSchedule");
         }
     }
     
     /**
-     * @throws WorkingScheduleException upon failure of remove operation
+     * @throws JSONResourceException upon failure of remove operation
      */
-    public void removeWS () throws WorkingScheduleException {
-        scheduleStatus = ScheduleStatus.WS_PROCESSOR_SUCCESS;
+    public void removeJR () throws JSONResourceException {
+        status = JRProcessorStatus.WS_PROCESSOR_SUCCESS;
         try {
-            CallableStatement statement = connection.prepareCall("{call ScheduleMaster.removeSchedule()}");
+            CallableStatement statement = connection.prepareCall("{call " + dbPackageName + ".remove" + dbPackageMethodsExtension + "()}");
             Boolean result = statement.execute();
             
             if (result == true){
-                this.scheduleStatus=ScheduleStatus.WS_PROCESSOR_SUCCESS;
+                this.status=JRProcessorStatus.WS_PROCESSOR_SUCCESS;
             }
         } catch (Exception e) {
-        	scheduleStatus = ScheduleStatus.WS_PROCESSOR_FAILURE;
-            throw new WorkingScheduleException("Problema la apelarea functiei saveWorkingSchedule");
+        	status = JRProcessorStatus.WS_PROCESSOR_FAILURE;
+            throw new JSONResourceException("Problema la apelarea functiei saveWorkingSchedule");
         }
     }
+
+	/**
+	 * @return the status
+	 */
+	public JRProcessorStatus getStatus() {
+		return status;
+	}
+
+	/**
+	 * @param status the scheduleStatus to set
+	 */
+	public void setStatus(JRProcessorStatus status) {
+		this.status = status;
+	}
 }
