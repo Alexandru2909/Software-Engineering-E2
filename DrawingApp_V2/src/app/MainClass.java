@@ -6,7 +6,9 @@ import com.google.gson.GsonBuilder;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -183,10 +185,11 @@ public class MainClass extends JFrame {
                         GraphData myGraph=new GraphData(nodesList,linesList);
                         Gson gson = new GsonBuilder().setPrettyPrinting().create();
                         myGraph.getData(file.getPath());
-                        Node.instNumber=nodesList.size();
-                        
+
                         String json = gson.toJson(myGraph);
-                        System.out.println(json);
+                        BufferedWriter writer = new BufferedWriter(new FileWriter("C:\\Users\\Cosmin1213\\Desktop\\DrawingApp_V2\\testGraph\\output.json"));
+                        writer.write(json);
+                        writer.close();
                     } catch (Exception ex) {
                         System.out.println("problem accessing file"+file.getAbsolutePath());
                     }
@@ -278,6 +281,9 @@ public class MainClass extends JFrame {
                                              drawingSurface.repaint();
                                              GraphData outputData=new GraphData(nodesList,linesList);
                                              String filePath = inputFile.getText();
+                                             File directory = new File("testGraph");
+                                             if (! directory.exists())
+                                                 directory.mkdir();
                                              outputData.saveData("C:\\Users\\Cosmin1213\\Desktop\\DrawingApp_V2\\testGraph",filePath);
                                          }
                                      }

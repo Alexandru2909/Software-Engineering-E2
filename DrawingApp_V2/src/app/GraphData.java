@@ -44,7 +44,9 @@ public class GraphData  implements Serializable {
             if(filesFolder.exists()==true){
                 if(filesFolder.isDirectory()==true){
                     try {
-
+                        File directory = new File("C:\\Users\\Cosmin1213\\Desktop\\DrawingApp_V2\\testGraph\\graphFile");
+                        if (! directory.exists())
+                            directory.mkdir();
                         FileOutputStream output = new FileOutputStream(folderPath + "/" + "graphFile" + "/" + fileName + ".graph");
                         ObjectOutputStream outputObject = new ObjectOutputStream(output);
                         outputObject.writeObject(nodesList);
@@ -66,14 +68,17 @@ public class GraphData  implements Serializable {
                         }
 
                         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON); //for "smooth" drawing
+                        File directory2 = new File("C:\\Users\\Cosmin1213\\Desktop\\DrawingApp_V2\\testGraph\\pngFormat");
+                        if (! directory2.exists())
+                            directory2.mkdir();
                         ImageIO.write(image, "png", new File(folderPath + "/" +"pngFormat" + "/" + fileName + ".png"));
                         outputObject.close();
                         output.close();
                     }catch(Exception e){
-                        System.out.print("exceptie la salvare");
+                        System.out.println("exceptie la salvare");
                     }
                 }else{
-                    System.out.print("path-ul nu indica catre un director");
+                    System.out.println("path-ul nu indica catre un director");
                 }
             }else{
                 System.out.println("path inexistent");
