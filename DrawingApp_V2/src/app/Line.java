@@ -34,16 +34,6 @@ public class Line implements Serializable {
         this.node2=0;
     }
 
-    public Line(Line x){
-        this.x1=x.x1;
-        this.y1=x.y1;
-        this.x2=x.x2;
-        this.y2=x.y2;
-        this.weight=x.weight;
-        this.node1=x.node1;
-        this.node2=x.node2;
-    }
-
     public void textBox() {
 
        JTextField weightTF = new JTextField(String.valueOf(this.getWeight()));

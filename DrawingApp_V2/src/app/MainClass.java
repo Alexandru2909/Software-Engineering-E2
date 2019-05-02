@@ -57,16 +57,7 @@ public class MainClass extends JFrame {
         int index=1;
         Node.instNumber= nodesList.size();
         for(Node node:nodesList){
-            for (Line line:linesList){
-                if (line.getNode1() == node.curentNumber){
-                    line.setNode1(index);
-                }
-                else if (line.getNode2() == node.curentNumber){
-                    line.setNode2(index);
-                }
-            }
             node.curentNumber=index;
-
             index++;
         }
     }
@@ -183,31 +174,31 @@ public class MainClass extends JFrame {
         generalPanel.add(drawingSurface,BorderLayout.CENTER);
 
         //listener pentru butonul Export
-       chooser.addActionListener(new ActionListener() {
-           @Override
-           public void actionPerformed(ActionEvent e) {
-               //fileChooser.setMultiSelectionEnabled(true);
-               int returnVal = fileChooser.showOpenDialog((Component)e.getSource());
-               if (returnVal == JFileChooser.APPROVE_OPTION) {
-                   File file = fileChooser.getSelectedFile();
-                   try {
-                       GraphData myGraph=new GraphData(nodesList,linesList);
-                       Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
-                       myGraph.getData(file.getPath());
+        chooser.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //fileChooser.setMultiSelectionEnabled(true);
+                int returnVal = fileChooser.showOpenDialog((Component)e.getSource());
+                if (returnVal == JFileChooser.APPROVE_OPTION) {
+                    File file = fileChooser.getSelectedFile();
+                    try {
+                        GraphData myGraph=new GraphData(nodesList,linesList);
+                        Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
+                        myGraph.getData(file.getPath());
 
-                       String json = gson.toJson(myGraph);
-                       BufferedWriter writer = new BufferedWriter(new FileWriter("testGraph/output.json"));
-                       writer.write(json);
-                       writer.close();
-                   } catch (Exception ex) {
-                       System.out.println("problem accessing file"+file.getAbsolutePath());
-                   }
-               }
-               else {
-                   System.out.println("File access cancelled by user.");
-               }
-           }
-       });
+                        String json = gson.toJson(myGraph);
+                        BufferedWriter writer = new BufferedWriter(new FileWriter("C:\\Users\\Cosmin1213\\Desktop\\DrawingApp_V2\\testGraph\\output.json"));
+                        writer.write(json);
+                        writer.close();
+                    } catch (Exception ex) {
+                        System.out.println("problem accessing file"+file.getAbsolutePath());
+                    }
+                }
+                else {
+                    System.out.println("File access cancelled by user.");
+                }
+            }
+        });
 
         //atasam listener butonului Open
         openButton.addActionListener(new ActionListener() {
@@ -293,7 +284,7 @@ public class MainClass extends JFrame {
                                              File directory = new File("testGraph");
                                              if (! directory.exists())
                                                  directory.mkdir();
-                                             outputData.saveData("testGraph",filePath);
+                                             outputData.saveData("C:\\Users\\Cosmin1213\\Desktop\\DrawingApp_V2\\testGraph",filePath);
                                          }
                                      }
         );
@@ -393,7 +384,7 @@ public class MainClass extends JFrame {
                             curentLine.x2=finalNode.xPoint+10;
                             curentLine.y2=finalNode.yPoint+10;
                             curentLine.setNode2(finalNode.curentNumber);
-                            linesList.add(new Line(curentLine));
+                            linesList.add(new Line(curentLine.x1,curentLine.y1,curentLine.x2,curentLine.y2));
                             drawingSurface.repaint();
                             drawingStage=false;
                         }
