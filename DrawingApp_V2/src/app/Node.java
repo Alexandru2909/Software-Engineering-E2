@@ -1,5 +1,7 @@
 package app;
 
+import com.google.gson.annotations.Expose;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -12,11 +14,15 @@ import java.io.Serializable;
 public class Node implements Serializable {
     public int xPoint;
     public int yPoint;
+    @Expose
     public int curentNumber;//retine numarul nodului curent
     public static int instNumber=0;//retine numarul totat de noduri(instante de noduri)
 
+    @Expose
     private String name;
+    @Expose
     private String type;
+    @Expose
     private Integer floor;
 
     public Node(int xPoint,int yPoint){

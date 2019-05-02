@@ -1,5 +1,7 @@
 package app;
 
+import com.google.gson.annotations.Expose;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -13,10 +15,12 @@ public class GraphData  implements Serializable {
     /**
      * Aceasta este lista de muchii
      */
+    @Expose
     public LinkedList<Node> nodesList;
     /**
      * Aceasta este lista de noduri
      */
+    @Expose
     public LinkedList<Line> linesList;
 
     /**

@@ -183,7 +183,7 @@ public class MainClass extends JFrame {
                     File file = fileChooser.getSelectedFile();
                     try {
                         GraphData myGraph=new GraphData(nodesList,linesList);
-                        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+                        Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
                         myGraph.getData(file.getPath());
 
                         String json = gson.toJson(myGraph);

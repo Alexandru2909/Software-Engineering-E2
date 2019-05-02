@@ -1,5 +1,7 @@
 package app;
 
+import com.google.gson.annotations.Expose;
+
 import java.io.Serializable;
 
 import javax.swing.*;
@@ -14,9 +16,12 @@ public class Line implements Serializable {
     public int x2;
     public int y2;
 
+    @Expose
     private double weight;
-    
+
+    @Expose
     private int node1;
+    @Expose
     private int node2;
 
     public Line(int x1,int y1,int x2,int y2){
