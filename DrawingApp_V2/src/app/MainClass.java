@@ -196,7 +196,7 @@ public class MainClass extends JFrame {
                        myGraph.getData(file.getPath());
 
                        String json = gson.toJson(myGraph);
-                       BufferedWriter writer = new BufferedWriter(new FileWriter("../testGraph/output.json"));
+                       BufferedWriter writer = new BufferedWriter(new FileWriter("testGraph/output.json"));
                        writer.write(json);
                        writer.close();
                    } catch (Exception ex) {
