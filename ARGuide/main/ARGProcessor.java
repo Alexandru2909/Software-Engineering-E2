@@ -11,7 +11,11 @@ import java.sql.Connection;
  */
 public class ARGProcessor {
 	private JSONResource wsResource;
-	private JSONResource bpResource;
+	/*
+	 * Building Plan resource not yet deployed.
+	 * 
+		private JSONResource bpResource;
+	*/
 
 	/**
 	 * @param conn the Connection object holding information w.r.t our current database connection
@@ -26,7 +30,11 @@ public class ARGProcessor {
 	public ARGProcessor(Connection conn, String schedulePath, String dbWSPackageName, String dbWSPackageMethodsExtension,
 			String planPath, String dbBPPackageName, String dbBPPackageMethodsExtension) throws JSONResourceException {
 		wsResource = new JSONResource(conn, schedulePath, dbWSPackageName, dbWSPackageMethodsExtension);
-		bpResource = new JSONResource(conn, planPath, dbBPPackageName, dbBPPackageMethodsExtension);
+		/*
+		 * Building Plan resource not yet deployed.
+		 * 
+			bpResource = new JSONResource(conn, planPath, dbBPPackageName, dbBPPackageMethodsExtension);
+		*/
 	}
 	
 	/**
@@ -48,18 +56,22 @@ public class ARGProcessor {
 				wsResource.sendRequest("remove");
 				break;
 			
-			case "parseBP":
-				bpResource.sendRequest("parse");
-				break;
-			case "saveBP":
-				bpResource.sendRequest("save");
-				break;
-			case "updateBP":
-				bpResource.sendRequest("update");
-				break;
-			case "removeBP":
-				bpResource.sendRequest("remove");
-				break;
+			/*
+			 * Building Plan resource not yet deployed.
+			 * 
+				case "parseBP":
+					bpResource.sendRequest("parse");
+					break;
+				case "saveBP":
+					bpResource.sendRequest("save");
+					break;
+				case "updateBP":
+					bpResource.sendRequest("update");
+					break;
+				case "removeBP":
+					bpResource.sendRequest("remove");
+					break;
+			*/
 				
 			default:
 				throw new JSONResourceException("Unknown request!");

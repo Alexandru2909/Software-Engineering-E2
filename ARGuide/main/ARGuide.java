@@ -46,7 +46,7 @@ public class ARGuide {
 	/*
 	 * the path to the JSON resource representing our working schedule and our building plan
 	 */
-	private String schedulePath;
+	private String schedulePath = "../../scheduleParser/schedules/facultySchedule.json";
 	private String planPath;
 	
 	/*
@@ -117,13 +117,17 @@ public class ARGuide {
 			executer.setPassword(password);
 			executer.execute();
 			
-			executer = new SqlExecuter();
-			executer.setSrc(new File(buildingPlanMasterScriptPath));
-			executer.setDriver(driver);
-			executer.setUrl(connPath);
-			executer.setUserid(username);
-			executer.setPassword(password);
-			executer.execute();
+			/*
+			 * Building Plan resource is not yet deployed. The script thus does not yet have the required information to use.
+			 * 
+				executer = new SqlExecuter();
+				executer.setSrc(new File(buildingPlanMasterScriptPath));
+				executer.setDriver(driver);
+				executer.setUrl(connPath);
+				executer.setUserid(username);
+				executer.setPassword(password);
+				executer.execute();
+			*/
 			
 			/*
 			 * parse the JSON resource for our working schedule and save it in our DB if it is valid
@@ -134,11 +138,33 @@ public class ARGuide {
 			/*
 			 * parse the JSON resource for our building plan and save it in our DB if it is valid
 			 */
-			this.argProcessor.processRequest("parseBP");
-			this.argProcessor.processRequest("saveBP");
+			
+			/*
+			 * Building Plan not yet deployed.
+			 * 
+				this.argProcessor.processRequest("parseBP");
+				this.argProcessor.processRequest("saveBP");
+			*/
 		}
 	}
 
+	/**
+	 * @return the list of results w.r.t the query (i.e, all classrooms)
+	 * @throws SQLException when the creation of the execution statement or the execution of the query itself fails
+	 */
+	public List<String> selectAllClassroomNames() throws SQLException {
+		return dbEmissary.selectAllClassroomNames();
+	}
+	
+	/**
+	 * @param classroomName the name of the classroom whose schedule should be returned
+	 * @return the list of results w.r.t the query (i.e, a set of tuples of the form (day, starting_time, ending_time, course_name))
+	 * @throws SQLException on database access error
+	 */
+	public List<String> selectClassroomSchedule(String classroomName) throws SQLException {
+		return dbEmissary.selectClassroomSchedule(classroomName);
+	}
+	
 	public void ARGuideController() {
 		
 	}
