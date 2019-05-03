@@ -1,10 +1,7 @@
 package app;
 
-import app.MessageClass;
-
 import javax.swing.*;
 import java.awt.*;
-import java.util.Iterator;
 import java.util.LinkedList;
 
 /**
