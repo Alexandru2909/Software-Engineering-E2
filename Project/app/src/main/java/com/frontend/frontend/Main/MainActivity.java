@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
             if(resultCode == Activity.RESULT_OK){
                 String ocrRoom = data.getStringExtra("room");
                 // Do something with ocrRoom
-                startOcrBtn.setText(ocrRoom);
+//                startOcrBtn.setText(ocrRoom);
 
             }
             if (resultCode == Activity.RESULT_CANCELED) {

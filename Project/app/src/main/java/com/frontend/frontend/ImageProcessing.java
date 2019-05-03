@@ -11,6 +11,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.SparseArray;
+import android.view.Gravity;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
@@ -18,6 +19,10 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Arrays;
+
+import com.frontend.frontend.Main.MainActivity;
+import com.frontend.frontend.Timetable.TimetableScreen;
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.text.TextBlock;
@@ -31,6 +36,8 @@ import java.io.IOException;
 public class ImageProcessing extends AppCompatActivity {
 
     private Button getRoomBtn;
+    private Button returnButton;
+    private Button getRoomTimetable;
     private CameraSource cameraSource;
     private TextRecognizer textRecognizer;
     private SurfaceView cameraView;
@@ -40,14 +47,23 @@ public class ImageProcessing extends AppCompatActivity {
 
     private static int CAMERA_PERM = 2;
 
+    private String[] roomsList = {"123", "401", "305", "202", "411"};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.scan_room);
 
         getRoomBtn = findViewById(R.id.getRoomBtn);
+        getRoomBtn.setVisibility(View.INVISIBLE);
+        getRoomTimetable = findViewById(R.id.getRoomTimeTable);
+        getRoomTimetable.setVisibility(View.INVISIBLE);
+        returnButton = findViewById(R.id.returnButton);
         cameraView = findViewById(R.id.cameraViewSurface);
         ocrTextView = findViewById(R.id.ocrTextView);
+
+        final Toast warning = Toast.makeText(getApplicationContext(), "Room not found.", Toast.LENGTH_SHORT);
+        warning.setGravity(Gravity.CENTER, 0, 0);
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
             startTextRecognizer();
@@ -55,21 +71,53 @@ public class ImageProcessing extends AppCompatActivity {
             askCameraPermission();
         }
 
-        getRoomBtn.setOnClickListener(new View.OnClickListener() {
+//        getRoomBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (Arrays.asList(roomsList).contains(finalText.trim()) ){
+//                    Intent returnIntent = new Intent();
+//                    returnIntent.putExtra("room", finalText.trim());
+//                    setResult(Activity.RESULT_OK,returnIntent);
+//                    finish();
+//                } else {
+//                    warning.show();
+//                }
+//            }
+//        });
+
+        getRoomTimetable.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!finalText.isEmpty()) {
-                    Intent returnIntent = new Intent();
-                    returnIntent.putExtra("room", finalText);
-                    setResult(Activity.RESULT_OK,returnIntent);
+
+                if (Arrays.asList(roomsList).contains(finalText.trim())) {
+                    Intent returnIntent = openTimetable();
+                    returnIntent.putExtra("room", finalText.trim());
+                    setResult(Activity.RESULT_OK, returnIntent);
                     finish();
+                    startActivity(returnIntent);
                 } else {
-                    Toast.makeText(getApplicationContext(), "Try again!", Toast.LENGTH_LONG).show();
+                    warning.show();
                 }
+            }
+        });
+
+        returnButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openMenu();
             }
         });
     }
 
+    public void openMenu() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    private Intent openTimetable() {
+        Intent intent = new Intent(this, TimetableScreen.class);
+        return intent;
+    }
 
     @Override
     protected void onDestroy() {
@@ -82,7 +130,7 @@ public class ImageProcessing extends AppCompatActivity {
      */
     private void startTextRecognizer() {
         textRecognizer = new TextRecognizer.Builder(getApplicationContext()).build();
-        if (!textRecognizer.isOperational()){
+        if (!textRecognizer.isOperational()) {
             Toast.makeText(getApplicationContext(), "Oops ! Not able to start the text recognizer ...", Toast.LENGTH_LONG).show();
         } else {
             cameraSource = new CameraSource.Builder(getApplicationContext(), textRecognizer)
@@ -139,7 +187,12 @@ public class ImageProcessing extends AppCompatActivity {
                     handler.post(new Runnable() {
                         public void run() {
                             ocrTextView.setText(fullText);
-                            finalText = fullText;
+                            if (Arrays.asList(roomsList).contains(fullText.trim())){
+                                finalText = fullText;
+                                getRoomTimetable.setText(finalText + " - See info");
+                                getRoomTimetable.setVisibility(View.VISIBLE);
+                                startTextRecognizer();
+                            }
                         }
                     });
                 }
@@ -150,8 +203,9 @@ public class ImageProcessing extends AppCompatActivity {
     /**
      * Callback for the result from requesting permissions.
      * This method is invoked for every call on requestPermissions(android.app.Activity, String[], int)
-     * @param requestCode int: The request code passed in requestPermissions()
-     * @param permissions String: The requested permissions. Never null.
+     *
+     * @param requestCode  int: The request code passed in requestPermissions()
+     * @param permissions  String: The requested permissions. Never null.
      * @param grantResults int: The grant result for the corresponding permissions
      *                     which is either PERMISSION_GRANTER or PERMISSION_DENIED. Never null
      */
