@@ -9,7 +9,6 @@ import java.awt.event.*;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -57,7 +56,16 @@ public class MainClass extends JFrame {
         int index=1;
         Node.instNumber= nodesList.size();
         for(Node node:nodesList){
+            for (Line line:linesList){
+                if (line.getNode1() == node.curentNumber){
+                    line.setNode1(index);
+                }
+                else if (line.getNode2() == node.curentNumber){
+                    line.setNode2(index);
+                }
+            }
             node.curentNumber=index;
+
             index++;
         }
     }
@@ -187,7 +195,7 @@ public class MainClass extends JFrame {
                         myGraph.getData(file.getPath());
 
                         String json = gson.toJson(myGraph);
-                        BufferedWriter writer = new BufferedWriter(new FileWriter("C:\\Users\\Cosmin1213\\Desktop\\DrawingApp_V2\\testGraph\\output.json"));
+                        BufferedWriter writer = new BufferedWriter(new FileWriter("testGraph/output.json"));
                         writer.write(json);
                         writer.close();
                     } catch (Exception ex) {
@@ -212,10 +220,12 @@ public class MainClass extends JFrame {
                     File folder = new File(filePath);
                     File[] listOfFiles = folder.listFiles();
 //                    Node.instNumber=0;
-                    for (int i=0;i<listOfFiles.length; i++){
-                        if (listOfFiles[i].isFile()){
-                            myGraph.getData(listOfFiles[i].getPath());
-                            System.out.println(listOfFiles[i].getPath());
+                    if (listOfFiles != null) {
+                        for (File listOfFile : listOfFiles) {
+                            if (listOfFile.isFile()) {
+                                myGraph.getData(listOfFile.getPath());
+                                System.out.println(listOfFile.getPath());
+                            }
                         }
                     }
 //                    myGraph.getData(filePath);
@@ -284,7 +294,7 @@ public class MainClass extends JFrame {
                                              File directory = new File("testGraph");
                                              if (! directory.exists())
                                                  directory.mkdir();
-                                             outputData.saveData("C:\\Users\\Cosmin1213\\Desktop\\DrawingApp_V2\\testGraph",filePath);
+                                             outputData.saveData("testGraph",filePath);
                                          }
                                      }
         );
@@ -364,11 +374,11 @@ public class MainClass extends JFrame {
         drawingSurface.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if(actionMessage.messageCode==1 && validPosition(e.getX(),e.getY())==true){
+                if(actionMessage.messageCode==1 && validPosition(e.getX(), e.getY())){
                     nodesList.add(new Node(e.getX(),e.getY()));
                     drawingSurface.repaint();
                 }else if(actionMessage.messageCode==2){
-                    if(drawingStage==false){
+                    if(!drawingStage){
                         Node initNode=validNode(e.getX(),e.getY());
                         if(initNode!=null){
                             curentLine.x1=initNode.xPoint+10;
@@ -384,7 +394,7 @@ public class MainClass extends JFrame {
                             curentLine.x2=finalNode.xPoint+10;
                             curentLine.y2=finalNode.yPoint+10;
                             curentLine.setNode2(finalNode.curentNumber);
-                            linesList.add(new Line(curentLine.x1,curentLine.y1,curentLine.x2,curentLine.y2));
+                            linesList.add(new Line(curentLine));
                             drawingSurface.repaint();
                             drawingStage=false;
                         }
@@ -392,7 +402,7 @@ public class MainClass extends JFrame {
 
                     }
                 }else if(actionMessage.messageCode==4){
-                    if(movedStatus==false){
+                    if(!movedStatus){
                         movedNode=validNode(e.getX(),e.getY());
                         if(movedNode!=null){
                             movedStatus=true;
@@ -410,7 +420,7 @@ public class MainClass extends JFrame {
                             drawingSurface.repaint();
                         }
                     }else{
-                        if(validPosition(e.getX(),e.getY())==false){
+                        if(!validPosition(e.getX(), e.getY())){
                             movedStatus=false;
                             movedNode.xPoint=e.getX();
                             movedNode.yPoint=e.getY();
@@ -428,7 +438,7 @@ public class MainClass extends JFrame {
 
                         Iterator<Line> myIterator=linesList.iterator();
                         Line line;
-                        while(myIterator.hasNext()==true){
+                        while(myIterator.hasNext()){
                             line=myIterator.next();
                             if(line.x1==node.xPoint+10 && line.y1==node.yPoint+10 ||line.x2==node.xPoint+10 && line.y2==node.yPoint+10){
                                 myIterator.remove();
@@ -445,12 +455,12 @@ public class MainClass extends JFrame {
                         drawingSurface.repaint();
                     }
                 }else if(actionMessage.messageCode==6){
-                    if(deleteEdgeStage==false){
+                    if(!deleteEdgeStage){
                         firstNode=validNode(e.getX(),e.getY());
                         if (firstNode!=null) {
                             movingLinesList.clear();
                             for(Line line:linesList){
-                                if(isAd(line,firstNode)==true){
+                                if(isAd(line, firstNode)){
                                     movingLinesList.add(line);
                                 }
                             }
@@ -469,14 +479,14 @@ public class MainClass extends JFrame {
                                     lineFlag=true;
                                 }
                             }
-                            if(lineFlag==false){
+                            if(!lineFlag){
                                 movingLinesList.clear();
                                 drawingSurface.repaint();
                                 drawingStage=false;
                                 firstNode=secondNode;
                                 secondNode=null;
                                 for(Line line:linesList){
-                                    if(isAd(line,firstNode)==true){
+                                    if(isAd(line, firstNode)){
                                         movingLinesList.add(line);
                                     }
                                 }
@@ -499,7 +509,7 @@ public class MainClass extends JFrame {
 
                 }
                 else if (actionMessage.messageCode==8){
-                    if(drawingStage==false){
+                    /*if(!drawingStage){
                         Node initNode=validNode(e.getX(),e.getY());
                         if(initNode!=null){
                             curentLine.x1=initNode.xPoint+10;
@@ -514,8 +524,8 @@ public class MainClass extends JFrame {
                             curentLine.y2=finalNode.yPoint+10;
                             drawingStage=false;
                         }
-                    }
-                    Line newValue=validLine(curentLine);
+                    }*/
+                    Line newValue=validLine(e.getX(),e.getY());
                     if (newValue!=null)
                         newValue.textBox();
                 }
@@ -524,12 +534,12 @@ public class MainClass extends JFrame {
         drawingSurface.addMouseMotionListener(new MouseMotionAdapter() {
             @Override
             public void mouseMoved(MouseEvent e){
-                if(drawingStage==true && actionMessage.messageCode==2){
+                if(drawingStage && actionMessage.messageCode==2){
                     curentLine.x2=e.getX();
                     curentLine.y2=e.getY();
                     drawingSurface.repaint();
                 }else if(actionMessage.messageCode==4){
-                    if(movedStatus==true){
+                    if(movedStatus){
                         movedNode.xPoint=e.getX();
                         movedNode.yPoint=e.getY();
                         for(Line line:movingLinesList){
@@ -577,6 +587,57 @@ public class MainClass extends JFrame {
         return null;
     }
 
+    public Line validLine(int x, int y){
+        for (Line line: linesList){
+//            if (line.x1<line.x2){
+//                if (line.y1<line.y2){
+//                    if (line.x1-20<x && x<line.x2+20){
+//                        if (line.y1-20<y && y<line.y2+20){
+//                            return line;
+//                        }
+//                    }
+//                }
+//                else if (line.y1>line.y2){
+//                    if (line.x1-20<x && x<line.x2+20){
+//                        if (line.y2-20<y && y<line.y1+20){
+//                            return line;
+//                        }
+//                    }
+//                }
+//            }
+//            else if (line.x1>line.x2){
+//                if (line.y1<line.y2){
+//                    if (line.x2-20<x && x<line.x1+20){
+//                        if (line.y1-20<y && y<line.y2+20){
+//                            return line;
+//                        }
+//                    }
+//                }
+//                else if (line.y1>line.y2){
+//                    if (line.x2-20<x && x<line.x1+20){
+//                        if (line.y2-20<y && y<line.y1+20){
+//                            return line;
+//                        }
+//                    }
+//                }
+//            }
+            if (isBetween(line, x, y)){
+                return line;
+            }
+        }
+        return null;
+    }
+
+    private double distance(int x1, int y1, int x2, int y2){
+        return Math.sqrt(Math.pow((x1-x2),2)+Math.pow((y1-y2),2));
+    }
+
+    private boolean isBetween(Line line, int x, int y){
+        double eps=0.001;
+        return distance(line.x1,line.y1,x,y)+distance(line.x2,line.y2,x,y)<distance(line.x1,line.y1,line.x2,line.y2)+eps
+                && distance(line.x1,line.y1,x,y)+distance(line.x2,line.y2,x,y)>distance(line.x1,line.y1,line.x2,line.y2)-eps;
+    }
+
     /**
      * Functia pozitia indicata de mouse se suprapune cu vreun nod din lista de noduri
      *
@@ -593,11 +654,7 @@ public class MainClass extends JFrame {
         return true;
     }
     private boolean isAd(Line line,Node node){
-        if((line.x1==node.xPoint+10 && line.y1==node.yPoint+10) || (line.x2==node.xPoint+10 && line.y2==node.yPoint+10)){
-            return true;
-        }else{
-            return false;
-        }
+        return ((line.x1 == (node.xPoint + 10)) && (line.y1 == (node.yPoint + 10))) || ((line.x2 == (node.xPoint + 10)) && (line.y2 == (node.yPoint + 10)));
     }
 
     public static void main(String...args){
