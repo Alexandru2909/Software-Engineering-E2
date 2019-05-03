@@ -4,10 +4,7 @@
 	<classpathentry kind="src" path="Project/app/src/androidTest/java"/>
 	<classpathentry kind="src" path="Project/app/src/main/java"/>
 	<classpathentry kind="src" path="Project/app/src/test/java"/>
-	<classpathentry kind="src" path="backend/scheduleParser"/>
 	<classpathentry excluding="app/src/androidTest/java/|app/src/main/java/|app/src/test/java/|app/src/backend/ARGuide/main/|app/src/backend/ARGuide/main/|app/src/backend/ARGuide/" kind="src" path="Project"/>
-	<classpathentry kind="src" path="backend/ARGuide"/>
-	<classpathentry kind="src" path="Project/app/src/backend/ARGuide"/>
 	<classpathentry kind="lib" path="Project/gradle/wrapper/gradle-wrapper.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Atroxyph/git/Software-Engineering-E2-master/Project/app/src/backend/ARGuide/auxiliaries/apache-ant-1.8.2.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Atroxyph/git/Software-Engineering-E2-master/Project/app/src/backend/ARGuide/auxiliaries/gson-2.8.5.jar"/>
