@@ -34,7 +34,7 @@ public class DatabaseEmissary {
 	/**
 	 * construct the instance w.r.t this class, given the path to the database and the connection path
 	 * @param dbPath the path to our database
-	 * @param connPath the connection path for your DB (e.g "jdbc:sqlite:../../database/faculty.db")
+	 * @param connPath the connection path for your DB (e.g "jdbc:sqlite:../database/faculty.db")
 	 */
 	public DatabaseEmissary(String dbPath, String connPath) {
 		this.dbPath = dbPath;

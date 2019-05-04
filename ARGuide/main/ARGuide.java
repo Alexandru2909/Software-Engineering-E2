@@ -29,12 +29,14 @@ public class ARGuide {
 	/*
 	 * path to our database
 	 */
-	private String dbPath = "../../database/faculty.db";
+	private String dbPath = "../database/faculty.db";
+	
+	private String dbConnPath = "jdbc:sqlite:" + dbPath;
 	
 	/*
 	 * the path to the database creation script
 	 */
-	private String dbCreationScriptPath = "../../database/dbCreation.sql";
+	private String dbCreationScriptPath = "../database/dbCreation.sql";
 	
 	/*
 	 * the path to the JSON resource representing our working schedule and our building plan
@@ -57,19 +59,18 @@ public class ARGuide {
 
 	/**
 	 * establish connection to the database and insert information w.r.t the Building Plan and Working Schedule if necessary
-	 * @param connPath the connection path for your DB (e.g "jdbc:sqlite:../../database/faculty.db")
 	 * @throws ClassNotFoundException when the driver class is unknown
 	 * @throws SQLException when a DB access error occurs
 	 * @throws JSONResourceException upon unknown request or WSProcessor operation failure
 	 */
-	public ARGuide(String connPath) throws ClassNotFoundException, SQLException, JSONResourceException {
+	public ARGuide() throws ClassNotFoundException, SQLException, JSONResourceException {
 		List<String> tableNameList = new ArrayList<String>();
 		tableNameList.addAll(Arrays.asList("nodes", "edges", "images", "schedule", "courses"));
 		
 		/*
 		 * make a new DatabaseEmissary object and establish connection to our database
 		 */
-		this.dbEmissary = new DatabaseEmissary(dbPath, connPath);
+		this.dbEmissary = new DatabaseEmissary(dbPath, dbConnPath);
 		
 		/*
 		 * don't need to check if database already exists or not;
@@ -89,7 +90,7 @@ public class ARGuide {
 			SqlExecuter executer = new SqlExecuter();
 			
 			executer.setSrc(new File(dbCreationScriptPath));
-			executer.setUrl(connPath);
+			executer.setUrl(dbConnPath);
 			executer.execute();
 		}
 		
