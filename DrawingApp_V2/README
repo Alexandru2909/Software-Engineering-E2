@@ -1,0 +1,7 @@
+Instructions for using the DrawingApp
+
+Save: draw you graph, then enter the desired name in the box. The graph will be saved as .graph and .png in your folder.
+Open: enter the path to the folder that contains your .graph files. All graphs from the folder will be loaded and the stairs and elevator
+will be connected.
+Export: after opening your graphs, save your final graph by entering the desired name in the box. Press "Reset" and then "Export" and 
+choose the .graph file corresponding to your final graph. A .json file with the same name will be created.
