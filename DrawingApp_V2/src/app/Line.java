@@ -6,6 +6,7 @@ import java.io.Serializable;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.LinkedList;
 
 /**
  * Aceasta clasa retine datele necesare reprezentarii unei linii
@@ -20,9 +21,9 @@ public class Line implements Serializable {
     private double weight;
 
     @Expose
-    private int node1;
+    private Node node1;
     @Expose
-    private int node2;
+    private Node node2;
 
     public Line(int x1,int y1,int x2,int y2){
         this.x1=x1;
@@ -30,8 +31,8 @@ public class Line implements Serializable {
         this.x2=x2;
         this.y2=y2;
         this.weight=0.00;
-        this.node1=0;
-        this.node2=0;
+        this.node1=new Node(0,0);
+        this.node2=new Node(0,0);
     }
 
     public Line(Line line){
@@ -72,20 +73,20 @@ public class Line implements Serializable {
         this.weight = weight;
     }
     
-    public int getNode1(){
+    public Node getNode1(){
         return node1;
     }
     
-    public void setNode1(int nodeId){
-        this.node1=nodeId;
+    public void setNode1(Node node){
+        this.node1=node;
     }
     
-    public int getNode2(){
+    public Node getNode2(){
         return node2;
     }
     
-    public void setNode2(int nodeId){
-        this.node2=nodeId;
+    public void setNode2(Node node){
+        this.node2=node;
     }
     
 }

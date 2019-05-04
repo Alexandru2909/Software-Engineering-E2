@@ -56,19 +56,20 @@ public class MainClass extends JFrame {
         int index=1;
         Node.instNumber= nodesList.size();
         for(Node node:nodesList){
-            for (Line line:linesList){
-                if (line.getNode1() == node.curentNumber){
-                    line.setNode1(index);
-                }
-                else if (line.getNode2() == node.curentNumber){
-                    line.setNode2(index);
-                }
-            }
-            node.curentNumber=index;
 
+            node.curentNumber=index;
             index++;
         }
     }
+
+//    public static Object getIndexFromOldNode(Map hm, int value){
+//        for (Object o: hm.keySet()){
+//            if (hm.get(o).equals(value)){
+//                return o;
+//            }
+//        }
+//        return null;
+//    }
 
     /**
      * campul de unde selectam fisierele pe care dorim sa le exportam in format .json
@@ -219,6 +220,8 @@ public class MainClass extends JFrame {
                     GraphData myGraph=new GraphData(nodesList,linesList);
                     File folder = new File(filePath);
                     File[] listOfFiles = folder.listFiles();
+                    nodesList.clear();
+                    linesList.clear();
 //                    Node.instNumber=0;
                     if (listOfFiles != null) {
                         for (File listOfFile : listOfFiles) {
@@ -237,26 +240,25 @@ public class MainClass extends JFrame {
                             if (node1.getType().equalsIgnoreCase("stairs") || node1.getType().equalsIgnoreCase("elevator")){
                                 if (node2.getType().equalsIgnoreCase(node1.getType())){
                                     if (node1!=node2) {
-                                        if (node1.getFloor()!=node2.getFloor()){
+                                        if (!node1.getFloor().equals(node2.getFloor())){
                                             curentLine = new Line(node1.xPoint + 10, node1.yPoint + 10, node2.xPoint + 10, node2.yPoint + 10);
                                             boolean exists=false;
                                             for (Line existentLine : linesList) {
-                                                if ((existentLine.getNode1() == node1.curentNumber && existentLine.getNode2() == node2.curentNumber) ||
-                                                        (existentLine.getNode2() == node1.curentNumber && existentLine.getNode1() == node2.curentNumber)){
+                                                if ((existentLine.getNode1().curentNumber == node1.curentNumber && existentLine.getNode2().curentNumber == node2.curentNumber) ||
+                                                        (existentLine.getNode2().curentNumber == node1.curentNumber && existentLine.getNode1().curentNumber == node2.curentNumber)){
                                                     exists=true;
                                                     break;
                                                 }
                                             }
 
                                             if (!exists){
-                                                curentLine.setNode1(node1.curentNumber);
-                                                curentLine.setNode2(node2.curentNumber);
+                                                curentLine.setNode1(node1);
+                                                curentLine.setNode2(node2);
                                                 linesList.add(curentLine);
                                             }
 
 
                                             }
-                                        System.out.println("Node1: " + node1.curentNumber + "\nNode2: " + node2.curentNumber);
                                     }
                                 }
                             }
@@ -383,7 +385,7 @@ public class MainClass extends JFrame {
                         if(initNode!=null){
                             curentLine.x1=initNode.xPoint+10;
                             curentLine.y1=initNode.yPoint+10;
-                            curentLine.setNode1(initNode.curentNumber);
+                            curentLine.setNode1(initNode);
                             drawingStage=true;
                         }
 
@@ -393,7 +395,7 @@ public class MainClass extends JFrame {
                         if(finalNode!=null){
                             curentLine.x2=finalNode.xPoint+10;
                             curentLine.y2=finalNode.yPoint+10;
-                            curentLine.setNode2(finalNode.curentNumber);
+                            curentLine.setNode2(finalNode);
                             linesList.add(new Line(curentLine));
                             drawingSurface.repaint();
                             drawingStage=false;
