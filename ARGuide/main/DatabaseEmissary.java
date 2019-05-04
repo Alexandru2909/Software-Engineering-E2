@@ -3,6 +3,7 @@ package main;
  * 
  */
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
@@ -13,17 +14,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * the main class whose instance will hold the current connection to the database and be able to perform certain tasks related to it
  * @author Paul-Reftu
  *
  */
 public class DatabaseEmissary {
-	private String driver;
+	private String dbPath;
 	private String connPath;
-	private String username;
-	private String password;
 	private Connection conn;
 
 	/**
+	 * get the current connection to the database
 	 * @return the conn
 	 */
 	public Connection getConn() {
@@ -31,28 +32,25 @@ public class DatabaseEmissary {
 	}
 
 	/**
-	 * @param driver the JDBC driver to be used (e.g "oracle.jdbc.driver.OracleDriver")
-	 * @param connPath the connection path for your DB (e.g "localhost:1521:xe")
-	 * @param username the username of your DB account (e.g "STUDENT")
-	 * @param password the password of your DB account (e.g "STUDENT0")
+	 * construct the instance w.r.t this class, given the path to the database and the connection path
+	 * @param dbPath the path to our database
+	 * @param connPath the connection path for your DB (e.g "jdbc:sqlite:../database/faculty.db")
 	 */
-	public DatabaseEmissary(String driver, String connPath, String username, String password) {
-		this.driver = driver;
+	public DatabaseEmissary(String dbPath, String connPath) {
+		this.dbPath = dbPath;
 		this.connPath = connPath;
-		this.username = username;
-		this.password = password;	
 	}
 	
 	/**
-	 * @throws ClassNotFoundException when the driver class is unknown
+	 * establish a connection to the database given by the currently declared type
 	 * @throws SQLException when a DB access error occurs
 	 */
-	public void establishConn() throws ClassNotFoundException, SQLException {
-		Class.forName(driver);
-        conn = DriverManager.getConnection(connPath, username, password);
+	public void establishConn() throws SQLException {
+        conn = DriverManager.getConnection(connPath);
 	}
 	
 	/**
+	 * select all classroom names in our database
 	 * @return the list of results w.r.t the query (i.e, all classrooms)
 	 * @throws SQLException when the creation of the execution statement or the execution of the query itself fails
 	 */
@@ -69,6 +67,7 @@ public class DatabaseEmissary {
 	}
 	
 	/**
+	 * select all schedule entries related to the given classroom name (could return null in case that specific classroom does not exist in our DB)
 	 * @param classroomName the name of the classroom whose schedule should be returned
 	 * @return the list of results w.r.t the query (i.e, a set of tuples of the form (day, starting_time, ending_time, course_name))
 	 * @throws SQLException on database access error
@@ -101,6 +100,20 @@ public class DatabaseEmissary {
 	}
 	
 	/**
+	 * checks whether the database at the currently-declared path exists
+	 * @return true if the database specified by the current path exists; false otherwise
+	 */
+	public boolean doesDbExist() {
+		File f = new File(dbPath);
+		
+		if (f.exists() && !f.isDirectory())
+			return true;
+		
+		return false;
+	}
+	
+	/**
+	 * checks whether the given tables exist in our database
 	 * @param tableNameList the list of the names of the tables to check whether they exist in our DB or not
 	 * @return true if given tables exist, false otherwise
 	 * @throws SQLException upon DB access failure
@@ -133,6 +146,7 @@ public class DatabaseEmissary {
 	}
 	
 	/**
+	 * checks whether the given tables are empty
 	 * @param tableNameList the list of the names of the tables to check whether they are filled w/ information
 	 * @return true if the tables are filled, false otherwise
 	 * @throws SQLException upon DB access failure
