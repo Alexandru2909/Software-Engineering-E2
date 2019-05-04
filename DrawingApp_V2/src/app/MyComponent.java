@@ -51,6 +51,7 @@ public class MyComponent extends JComponent {
         G.setColor(Color.red);
         for(Line line: linesList){
                 G.drawLine(line.x1,line.y1,line.x2,line.y2);
+                G.drawString(String.valueOf(line.getWeight()),(line.x1+line.x2)/2+10,(line.y1+line.y2)/2+15);
         }
         if(actionMessage.messageCode==2){
             G.drawLine(curentLine.x1,curentLine.y1,curentLine.x2,curentLine.y2);
