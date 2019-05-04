@@ -69,7 +69,7 @@ public class MyComponent extends JComponent {
             G.setColor(Color.red);
             G.fillOval(node.xPoint,node.yPoint,25,25);
             G.setColor(Color.white);
-            G.drawString(String.valueOf(node.curentNumber),node.xPoint+10,node.yPoint+15);
+            G.drawString(String.valueOf(node.id),node.xPoint+10,node.yPoint+15);
         }
 
     }

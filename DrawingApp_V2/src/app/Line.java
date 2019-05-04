@@ -16,28 +16,35 @@ public class Line implements Serializable {
     public int y2;
 
     @Expose
-    private double weight;
+    private double cost;
 
     @Expose
-    private int node1Nr;
+    private int id_node1;
 
     private Node node1;
 
     @Expose
-    private int node2Nr;
+    private int id_node2;
 
     private Node node2;
+    
+    public Line() {
+    	this.x1=0;
+        this.y1=0;
+        this.x2=0;
+        this.y2=0;
+    }
 
     public Line(int x1,int y1,int x2,int y2){
         this.x1=x1;
         this.y1=y1;
         this.x2=x2;
         this.y2=y2;
-        this.weight=0.00;
+        this.cost=0.00;
         this.node1=new Node(0,0);
         this.node2=new Node(0,0);
-        this.node1Nr=0;
-        this.node2Nr=0;
+        this.id_node1=0;
+        this.id_node2=0;
     }
 
     public Line(Line line){
@@ -45,11 +52,11 @@ public class Line implements Serializable {
         this.y1=line.y1;
         this.x2=line.x2;
         this.y2=line.y2;
-        this.weight=line.weight;
+        this.cost=line.cost;
         this.node1=line.node1;
         this.node2=line.node2;
-        this.node1Nr=line.node1.curentNumber;
-        this.node2Nr=line.node2.curentNumber;
+        this.id_node1=line.node1.id;
+        this.id_node2=line.node2.id;
     }
 
     public void textBox() {
@@ -73,11 +80,11 @@ public class Line implements Serializable {
    }
 
     public double getWeight() {
-        return weight;
+        return cost;
     }
 
     private void setWeight(double weight) {
-        this.weight = weight;
+        this.cost = weight;
     }
     
     public Node getNode1(){
@@ -85,7 +92,7 @@ public class Line implements Serializable {
     }
     
     public void setNode1(Node node){
-        this.node1=node; this.node1Nr=node.curentNumber;
+        this.node1=node; this.id_node1=node.id;
     }
     
     public Node getNode2(){
@@ -93,7 +100,7 @@ public class Line implements Serializable {
     }
     
     public void setNode2(Node node){
-        this.node2=node; this.node2Nr=node.curentNumber;
+        this.node2=node; this.id_node2=node.id;
     }
     
 }

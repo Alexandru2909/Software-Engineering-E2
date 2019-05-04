@@ -63,7 +63,7 @@ public class GraphData  implements Serializable {
                             graphics.setColor(Color.red);
                             graphics.fillOval(node.xPoint,node.yPoint,25,25);
                             graphics.setColor(Color.white);
-                            graphics.drawString(String.valueOf(node.curentNumber),node.xPoint+10,node.yPoint+15);
+                            graphics.drawString(String.valueOf(node.id),node.xPoint+10,node.yPoint+15);
                         }
                         graphics.setColor(Color.red);
                         for(Line line: linesList){

@@ -27,6 +27,15 @@ public class MainClass extends JFrame {
      * Aceasta este linia care va fi afisata pe perioada conectarii a doua noduri
      * Odata ce primul nod este selectat pentru conectare ,pana la selectarea celui de-al doilea nod ,celalalt capat al liniei va indica catre pozitia moi=use-ului
      */
+    
+    /*
+     * Paul Reftu:
+     * 
+     * the following instantiation causes the node counting to start at 3 on the boot-up of the application
+     * the temporary fix is to set Node.instNumber := -2, instead of 0
+     * I have personally made some tests after this modification - 
+     * and the numbering seems to be alright, but an eye has to be kept to see if this fix will spring up more problems later 
+     */
     public Line curentLine=new Line(0,0,0,0);
 
     /**
@@ -57,7 +66,7 @@ public class MainClass extends JFrame {
         Node.instNumber= nodesList.size();
         for(Node node:nodesList){
 
-            node.curentNumber=index;
+            node.id=index;
             index++;
         }
     }
@@ -248,8 +257,8 @@ public class MainClass extends JFrame {
                                             curentLine = new Line(node1.xPoint + 10, node1.yPoint + 10, node2.xPoint + 10, node2.yPoint + 10);
                                             boolean exists=false;
                                             for (Line existentLine : linesList) {
-                                                if ((existentLine.getNode1().curentNumber == node1.curentNumber && existentLine.getNode2().curentNumber == node2.curentNumber) ||
-                                                        (existentLine.getNode2().curentNumber == node1.curentNumber && existentLine.getNode1().curentNumber == node2.curentNumber)){
+                                                if ((existentLine.getNode1().id == node1.id && existentLine.getNode2().id == node2.id) ||
+                                                        (existentLine.getNode2().id == node1.id && existentLine.getNode1().id == node2.id)){
                                                     exists=true;
                                                     break;
                                                 }
