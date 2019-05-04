@@ -2,11 +2,9 @@ package app;
 
 import com.google.gson.annotations.Expose;
 
-import java.io.Serializable;
-
 import javax.swing.*;
 import java.awt.*;
-import java.util.LinkedList;
+import java.io.Serializable;
 
 /**
  * Aceasta clasa retine datele necesare reprezentarii unei linii
@@ -21,8 +19,13 @@ public class Line implements Serializable {
     private double weight;
 
     @Expose
+    private int node1Nr;
+
     private Node node1;
+
     @Expose
+    private int node2Nr;
+
     private Node node2;
 
     public Line(int x1,int y1,int x2,int y2){
@@ -33,6 +36,8 @@ public class Line implements Serializable {
         this.weight=0.00;
         this.node1=new Node(0,0);
         this.node2=new Node(0,0);
+        this.node1Nr=0;
+        this.node2Nr=0;
     }
 
     public Line(Line line){
@@ -43,6 +48,8 @@ public class Line implements Serializable {
         this.weight=line.weight;
         this.node1=line.node1;
         this.node2=line.node2;
+        this.node1Nr=line.node1.curentNumber;
+        this.node2Nr=line.node2.curentNumber;
     }
 
     public void textBox() {
@@ -78,7 +85,7 @@ public class Line implements Serializable {
     }
     
     public void setNode1(Node node){
-        this.node1=node;
+        this.node1=node; this.node1Nr=node.curentNumber;
     }
     
     public Node getNode2(){
@@ -86,7 +93,7 @@ public class Line implements Serializable {
     }
     
     public void setNode2(Node node){
-        this.node2=node;
+        this.node2=node; this.node2Nr=node.curentNumber;
     }
     
 }

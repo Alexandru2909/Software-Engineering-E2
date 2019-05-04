@@ -186,6 +186,10 @@ public class MainClass extends JFrame {
         chooser.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                linesList.forEach(line -> {
+                    line.setNode1(line.getNode1());
+                    line.setNode2(line.getNode2());
+                });
                 //fileChooser.setMultiSelectionEnabled(true);
                 int returnVal = fileChooser.showOpenDialog((Component)e.getSource());
                 if (returnVal == JFileChooser.APPROVE_OPTION) {
