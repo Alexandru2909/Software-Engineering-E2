@@ -4,7 +4,8 @@
 	<classpathentry kind="src" path="Project/app/src/androidTest/java"/>
 	<classpathentry kind="src" path="Project/app/src/main/java"/>
 	<classpathentry kind="src" path="Project/app/src/test/java"/>
-	<classpathentry excluding="app/src/androidTest/java/|app/src/main/java/|app/src/test/java/|app/src/backend/ARGuide/main/|app/src/backend/ARGuide/main/|app/src/backend/ARGuide/" kind="src" path="Project"/>
+	<classpathentry excluding="app/src/androidTest/java/|app/src/main/java/|app/src/test/java/|app/src/backend/ARGuide/main/|app/src/backend/ARGuide/main/|app/src/backend/ARGuide/|app/src/backend/|app/src/backend/ARGuide/auxiliaries/|app/src/backend/ARGuide/buildingPlan/|app/src/backend/ARGuide/doc/|app/src/backend/ARGuide/doc/main/|app/src/backend/ARGuide/main/|app/src/backend/ARGuide/schedules/|app/src/backend/ARGuide/webParserV2/|app/src/backend/ARGuide/database/|app/src/backend/ARGuide/" kind="src" path="Project"/>
+	<classpathentry kind="src" path="Project/app/src/backend/ARGuide"/>
 	<classpathentry kind="lib" path="Project/gradle/wrapper/gradle-wrapper.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Atroxyph/git/Software-Engineering-E2-master/Project/app/src/backend/ARGuide/auxiliaries/apache-ant-1.8.2.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Atroxyph/git/Software-Engineering-E2-master/Project/app/src/backend/ARGuide/auxiliaries/gson-2.8.5.jar"/>
