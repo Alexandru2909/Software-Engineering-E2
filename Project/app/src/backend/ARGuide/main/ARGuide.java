@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import WebParserV2.AutoUpdateClass;
+import WebParserV2.WebParser;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.taskdefs.SQLExec;
 
@@ -64,6 +66,19 @@ public class ARGuide {
 	 * @throws JSONResourceException upon unknown request or WSProcessor operation failure
 	 */
 	public ARGuide() throws ClassNotFoundException, SQLException, JSONResourceException {
+		/******************WEBPARSER CALL****************************/
+		AutoUpdateClass autoUpdateClass=new AutoUpdateClass("https://profs.info.uaic.ro/~orar/orar_resurse.html","lastUpdateFile");
+		if(autoUpdateClass.runDataCollector()==true){
+			try {
+				WebParser parser = new WebParser("https://profs.info.uaic.ro/~orar/", "orar_resurse.html", "resultFile.json","sectionsNames.txt");
+				parser.runParset();
+			}catch (Exception e){
+				System.out.println("problema la crearea fisielor" +e.getMessage());
+			}
+		}
+		/******************WEBPARSER CALL****************************/
+
+
 		List<String> tableNameList = new ArrayList<String>();
 		tableNameList.addAll(Arrays.asList("nodes", "edges", "images", "schedule", "courses"));
 		
