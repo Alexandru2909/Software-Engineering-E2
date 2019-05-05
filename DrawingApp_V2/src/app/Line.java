@@ -59,7 +59,35 @@ public class Line implements Serializable {
         this.id_node2=line.node2.id;
     }
 
-    public void textBox() {
+    /**
+	 * @return the id_node1
+	 */
+	public int getId_node1() {
+		return id_node1;
+	}
+
+	/**
+	 * @param id_node1 the id_node1 to set
+	 */
+	public void setId_node1(int id_node1) {
+		this.id_node1 = id_node1;
+	}
+
+	/**
+	 * @return the id_node2
+	 */
+	public int getId_node2() {
+		return id_node2;
+	}
+
+	/**
+	 * @param id_node2 the id_node2 to set
+	 */
+	public void setId_node2(int id_node2) {
+		this.id_node2 = id_node2;
+	}
+
+	public void textBox() {
 
        JTextField weightTF = new JTextField(String.valueOf(this.getWeight()));
        JPanel panel = new JPanel(new GridLayout(0, 1));

@@ -167,6 +167,8 @@ public class MainClass extends JFrame {
     MainClass(){
 
         super("MyGraphics");//setam titlul ferestrei
+        
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         buttonsPanel.setLayout(new FlowLayout());//setam layout-ul pentru buttonsPanel
 
@@ -240,6 +242,7 @@ public class MainClass extends JFrame {
                         for (File listOfFile : listOfFiles) {
                             if (listOfFile.isFile()) {
                                 myGraph.getData(listOfFile.getPath());
+                                
                                 System.out.println(listOfFile.getPath());
                             }
                         }
@@ -253,7 +256,7 @@ public class MainClass extends JFrame {
                             if (node1.getType().equalsIgnoreCase("stairs") || node1.getType().equalsIgnoreCase("elevator")){
                                 if (node2.getType().equalsIgnoreCase(node1.getType())){
                                     if (node1!=node2) {
-                                        if (!node1.getFloor().equals(node2.getFloor())){
+                                        if (node1.getFloor() == node2.getFloor() - 1 || node2.getFloor() == node1.getFloor() - 1) {
                                             curentLine = new Line(node1.xPoint + 10, node1.yPoint + 10, node2.xPoint + 10, node2.yPoint + 10);
                                             boolean exists=false;
                                             for (Line existentLine : linesList) {
@@ -278,6 +281,7 @@ public class MainClass extends JFrame {
 
                         }
                     }
+                    
                     drawingSurface.repaint();
                     //System.out.println("fisierul a fost gasit");
                 }else{
@@ -571,7 +575,7 @@ public class MainClass extends JFrame {
         //atasam panoul general ferestrei
         this.getContentPane().add(generalPanel);
         //setam dimensiunea fererstrei
-        this.setSize(new Dimension(500,500));
+        this.setSize(new Dimension(1400,968));
         //setam fereastra vizibila
         this.setVisible(true);
     }

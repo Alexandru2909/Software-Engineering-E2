@@ -39,7 +39,19 @@ public class Node implements Serializable {
         this.yPoint=yPoint;
     }
 
-    public void textBox(){
+    /**
+	 * @return the id
+	 */
+	public int getId() {
+		return id;
+	}
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(int id) {
+		this.id = id;
+	}
+	public void textBox(){
         JTextField nameTF = new JTextField(this.getName());
         JTextField typeTF = new JTextField(this.getType());
         JTextField floorTF = new JTextField(this.getFloor().toString());

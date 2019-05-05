@@ -16,12 +16,12 @@ public class GraphData  implements Serializable {
      * Aceasta este lista de muchii
      */
     @Expose
-    public LinkedList<Node> nodesList;
+    public LinkedList<Node> nodes;
     /**
      * Aceasta este lista de noduri
      */
     @Expose
-    public LinkedList<Line> linesList;
+    public LinkedList<Line> edges;
 
     /**
      * Instantiem cele doua liste cu valorile listelor folosite la mentinerea datelor pentru contextul grafic
@@ -29,8 +29,8 @@ public class GraphData  implements Serializable {
      * @param linesList este lista muchiilor
      */
     public GraphData(LinkedList<Node> nodesList,LinkedList<Line> linesList){
-        this.nodesList=nodesList;
-        this.linesList=linesList;
+        this.nodes=nodesList;
+        this.edges=linesList;
     }
 
     /**
@@ -53,20 +53,20 @@ public class GraphData  implements Serializable {
                             directory.mkdir();
                         FileOutputStream output = new FileOutputStream(folderPath + "/" + "graphFile" + "/" + fileName + ".graph");
                         ObjectOutputStream outputObject = new ObjectOutputStream(output);
-                        outputObject.writeObject(nodesList);
-                        outputObject.writeObject(linesList);
+                        outputObject.writeObject(nodes);
+                        outputObject.writeObject(edges);
 
                         BufferedImage image = new BufferedImage(1920, 1080, BufferedImage.TYPE_INT_ARGB);
                         Graphics2D graphics = (Graphics2D) image.getGraphics();
 
-                        for(Node node: nodesList){
+                        for(Node node: nodes){
                             graphics.setColor(Color.red);
                             graphics.fillOval(node.xPoint,node.yPoint,25,25);
                             graphics.setColor(Color.white);
                             graphics.drawString(String.valueOf(node.id),node.xPoint+10,node.yPoint+15);
                         }
                         graphics.setColor(Color.red);
-                        for(Line line: linesList){
+                        for(Line line: edges){
                             graphics.drawLine(line.x1,line.y1,line.x2,line.y2);
                             graphics.drawString(String.valueOf(line.getWeight()),(line.x1+line.x2)/2+10,(line.y1+line.y2)/2+10);
                         }
@@ -100,8 +100,37 @@ public class GraphData  implements Serializable {
             ObjectInputStream inputObjects = new ObjectInputStream(inputData);
 //            nodesList.clear();
 //            linesList.clear();
-            nodesList.addAll((LinkedList<Node>) inputObjects.readObject());
-            linesList.addAll((LinkedList<Line>) inputObjects.readObject());
+            
+            /*
+             * Paul Reftu:
+             * 
+             * <comment>
+             * 
+             * Here the problem with the incorrect JSON output w.r.t the edges could be fixed, as you can see.
+             * The problem was that - at the reading process of each .graph object, the attributes of the Line objects 'id_node1' and 'id_node2'
+             * remained unchanged.
+             * 
+             * Hence, if we add to every element of every set of incoming edge lists - namely to the 'id_node1' and 'id_node2' attributes - 
+             * the current size of our node list, this problem is fixed. 
+             */
+            
+            LinkedList<Node> inputNodes = (LinkedList<Node>) inputObjects.readObject();
+            nodes.addAll(inputNodes);
+            
+            LinkedList<Line> inputLines = (LinkedList<Line>) inputObjects.readObject();
+        
+            for (Line line : inputLines) {
+            	line.setId_node1(line.getId_node1() + Node.getInstNumber());
+            	line.setId_node2(line.getId_node2() + Node.getInstNumber());
+            }
+            
+            edges.addAll(inputLines);
+            Node.setInstNumber(Node.getInstNumber() + inputNodes.size());
+            
+            /*
+             * </comment>
+             */
+            
             inputObjects.close();
             inputData.close();
         }catch(Exception e){
