@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -20,7 +21,7 @@ import java.util.List;
  */
 public class DatabaseEmissary {
 	private String dbPath;
-	private String connPath;
+	private String dbDriver;
 	private Connection conn;
 
 	/**
@@ -32,13 +33,13 @@ public class DatabaseEmissary {
 	}
 
 	/**
-	 * construct the instance w.r.t this class, given the path to the database and the connection path
-	 * @param dbPath the path to our database
-	 * @param connPath the connection path for your DB (e.g "jdbc:sqlite:../database/faculty.db")
+	 * construct the instance w.r.t this class, given the path to the database and the driver
+	 * @param dbDriver the driver of our database
+	 * @param connPath the connection path for our DB (e.g "jdbc:sqlite:../database/faculty.db")
 	 */
-	public DatabaseEmissary(String dbPath, String connPath) {
-		this.dbPath = dbPath;
-		this.connPath = connPath;
+	public DatabaseEmissary(String dbDriver, String connPath) {
+		this.dbPath = dbDriver;
+		this.dbDriver = connPath;
 	}
 	
 	/**
@@ -46,7 +47,7 @@ public class DatabaseEmissary {
 	 * @throws SQLException when a DB access error occurs
 	 */
 	public void establishConn() throws SQLException {
-        conn = DriverManager.getConnection(connPath);
+        conn = DriverManager.getConnection(dbDriver);
 	}
 	
 	/**
@@ -165,4 +166,61 @@ public class DatabaseEmissary {
 		return true;
 	}
 
+	/**
+	 * creates the tables w.r.t the database
+	 * @throws SQLException upon database access error or operation attempt through a closed connection
+	 */
+	public void createTables() throws SQLException {
+		List<String> queries = new ArrayList<>(Arrays.asList(
+				"DROP TABLE IF EXISTS schedule\r\n", 
+				"DROP TABLE IF EXISTS edges\r\n", 
+				"DROP TABLE IF EXISTS images\r\n", 
+				"DROP TABLE IF EXISTS nodes\r\n", 
+				"DROP TABLE IF EXISTS courses\r\n", 
+				
+				"CREATE TABLE nodes (\r\n" + 
+				"  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\r\n" + 
+				"  floor INTEGER,\r\n" + 
+				"  name VARCHAR(50),\r\n" + 
+				"  type VARCHAR(15)\r\n" + 
+				")\r\n", 
+				
+				"CREATE TABLE edges (\r\n" + 
+				"  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\r\n" + 
+				"  id1 INTEGER NOT NULL,\r\n" + 
+				"  id2 INTEGER NOT NULL,\r\n" + 
+				"  cost DOUBLE PRECISION,\r\n" + 
+				"  CONSTRAINT fk_edges_nodes1 FOREIGN KEY (id1) REFERENCES nodes(id),\r\n" + 
+				"  CONSTRAINT fk_edges_nodes2 FOREIGN KEY (id2) REFERENCES nodes(id)\r\n" + 
+				")\r\n",
+				
+				"CREATE TABLE images (\r\n" + 
+				"  node_id INTEGER NOT NULL,\r\n" + 
+				"  image VARCHAR(100),\r\n" + 
+				"   CONSTRAINT fk_edges_nodes FOREIGN KEY (node_id) REFERENCES nodes(id)\r\n" + 
+				")\r\n",
+				
+				"CREATE TABLE courses (\r\n" + 
+				"  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\r\n" + 
+				"  name VARCHAR2(60) NOT NULL,\r\n" + 
+				"  studyGroup VARCHAR2(100)\r\n" + 
+				")\r\n",
+				
+				"CREATE TABLE schedule (\r\n" + 
+				"  node_id INTEGER not null,\r\n" + 
+				"  course_id INTEGER not null,\r\n" + 
+				"  starting_time VARCHAR2(20),\r\n" + 
+				"  ending_time VARCHAR2(20),\r\n" + 
+				"  day VARCHAR(10),\r\n" + 
+				"  CONSTRAINT fk_schedule_nodes FOREIGN KEY (node_id) REFERENCES nodes(id),\r\n" + 
+				"  CONSTRAINT fk_schedule_courses FOREIGN KEY (course_id) REFERENCES courses(id)\r\n" + 
+				")"));
+		
+		Statement statement = conn.createStatement();
+		
+		for (String query : queries)
+			statement.execute(query);
+		
+		return;
+	}
 }

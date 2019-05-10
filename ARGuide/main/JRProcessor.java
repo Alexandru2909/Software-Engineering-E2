@@ -11,13 +11,12 @@ import java.util.List;
 
 import com.google.gson.Gson;
 
-import buildingPlan.BuildingPlan;
-import buildingPlan.BuildingPlan.Edge;
-import buildingPlan.BuildingPlan.Node;
-import webParserV2.Schedule;
-import webParserV2.DataRecord;
-import webParserV2.DayRecord;
-import webParserV2.Eveniment;
+import main.BuildingPlan.Edge;
+import main.BuildingPlan.Node;
+import webParserV3.Schedule;
+import webParserV3.DataRecord;
+import webParserV3.DayRecord;
+import webParserV3.Eveniment;
 
 /**
  * the class whose instance is the processor of a JSONResource object
