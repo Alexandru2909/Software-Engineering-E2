@@ -18,9 +18,7 @@ public class MyComponent extends JComponent {
      */
     public LinkedList<Line> linesList;
     /**
-     * Lista de muchii pentru mutare
-     *
-     * Aceasta lista este folosita in cadrul procesului de mutare a unui nod pentru a retine si actualiza pozitia muchiilor incidente la nodul mutat
+     * lista de muchii, folosita in cadrul procesului de mutare a unui nod pentru a retine si actualiza pozitia muchiilor incidente la nodul mutat
      */
     public LinkedList<Line> movingLinesList;
     /**
@@ -31,6 +29,15 @@ public class MyComponent extends JComponent {
      * Variabila care retine tipul de optiune curent selectata
      */
     public MessageClass actionMessage;
+
+    /**
+     * constructorul clasei MyComponent
+     * @param nodesList lista de noduri
+     * @param linesList lista de muchii
+     * @param movingLinesList lista de muchii folosita in cadrul mutarii unui nod
+     * @param curentLine muchia actuala
+     * @param actionMessage optiunea selectata
+     */
     public MyComponent(LinkedList<Node> nodesList,LinkedList<Line> linesList,LinkedList<Line> movingLinesList,Line curentLine,MessageClass actionMessage){
         this.nodesList=nodesList;
         this.linesList=linesList;
@@ -38,20 +45,18 @@ public class MyComponent extends JComponent {
         this.curentLine=curentLine;
         this.actionMessage=actionMessage;
     }
-
-
+    
     /**
      * Functia de desenare a contextului grafic
      * @param g
      */
-
     public void paintComponent(Graphics g){
         Graphics2D G=(Graphics2D)g;
 
         G.setColor(Color.red);
         for(Line line: linesList){
-                G.drawLine(line.x1,line.y1,line.x2,line.y2);
-                G.drawString(String.valueOf(line.getWeight()),(line.x1+line.x2)/2+10,(line.y1+line.y2)/2+15);
+            G.drawLine(line.x1,line.y1,line.x2,line.y2);
+            G.drawString(String.valueOf(line.getWeight()),(line.x1+line.x2)/2+10,(line.y1+line.y2)/2+15);
         }
         if(actionMessage.messageCode==2){
             G.drawLine(curentLine.x1,curentLine.y1,curentLine.x2,curentLine.y2);
@@ -71,7 +76,5 @@ public class MyComponent extends JComponent {
             G.setColor(Color.white);
             G.drawString(String.valueOf(node.id),node.xPoint+10,node.yPoint+15);
         }
-
     }
-
 }
