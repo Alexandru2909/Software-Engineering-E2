@@ -14,27 +14,25 @@ import java.util.LinkedList;
 
 public class MainClass extends JFrame {
     /**
-     * lista tutoror nodurile
      * lista contine nodurile ce vor fi afisate pe suprafata de desenare
      */
     public LinkedList<Node> nodesList=new LinkedList<Node>();
     /**
-     * lista tuturor muchiilor
      * lista contine toate muchiile folosite pentru conectarea nodurilor
      */
     public LinkedList<Line> linesList=new LinkedList<Line>();
     /**
      * Aceasta este linia care va fi afisata pe perioada conectarii a doua noduri
-     * Odata ce primul nod este selectat pentru conectare ,pana la selectarea celui de-al doilea nod ,celalalt capat al liniei va indica catre pozitia moi=use-ului
+     * Odata ce primul nod este selectat pentru conectare, pana la selectarea celui de-al doilea nod, celalalt capat al liniei va indica catre pozitia mouse-ului
      */
-    
+
     /*
      * Paul Reftu:
-     * 
+     *
      * the following instantiation causes the node counting to start at 3 on the boot-up of the application
      * the temporary fix is to set Node.instNumber := -2, instead of 0
-     * I have personally made some tests after this modification - 
-     * and the numbering seems to be alright, but an eye has to be kept to see if this fix will spring up more problems later 
+     * I have personally made some tests after this modification -
+     * and the numbering seems to be alright, but an eye has to be kept to see if this fix will spring up more problems later
      */
     public Line curentLine=new Line(0,0,0,0);
 
@@ -43,6 +41,9 @@ public class MainClass extends JFrame {
      */
     public MessageClass actionMessage=new MessageClass();
 
+    /**
+     * verifica daca nodurile si muchiile au fost mutate
+     */
     public boolean movedStatus=false;
     /**
      * aceasta lista este utila in cadrul procesului de mutare de noduri
@@ -71,21 +72,11 @@ public class MainClass extends JFrame {
         }
     }
 
-//    public static Object getIndexFromOldNode(Map hm, int value){
-//        for (Object o: hm.keySet()){
-//            if (hm.get(o).equals(value)){
-//                return o;
-//            }
-//        }
-//        return null;
-//    }
-
     /**
-     * campul de unde selectam fisierele pe care dorim sa le exportam in format .json
+     * pagina de unde selectam fisierele pe care dorim sa le exportam in format .json
      */
     JFileChooser fileChooser = new JFileChooser(System.getProperty("user.dir"));
     JButton chooser = new JButton("Export");
-    private String fileName;
     /**
      * campul in care incarcam adresa fisierului ce contine reprezentarea inainte de apasarea butonului Open
      */
@@ -167,12 +158,17 @@ public class MainClass extends JFrame {
     MainClass(){
 
         super("MyGraphics");//setam titlul ferestrei
-        
+
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        buttonsPanel.setLayout(new FlowLayout());//setam layout-ul pentru buttonsPanel
+        /**
+         * setam layout-ul pentru buttonsPanel
+         */
+        buttonsPanel.setLayout(new FlowLayout());
 
-        //atasam butoanele panoului buttonsPanel
+        /**
+         * atasam butoanele panoului buttonsPanel
+         */
         buttonsPanel.add(chooser);
         buttonsPanel.add(inputFile);
         buttonsPanel.add(openButton);
@@ -186,14 +182,23 @@ public class MainClass extends JFrame {
         buttonsPanel.add(editNodeButton);
         buttonsPanel.add(editEdgeButton);
 
-        //setam layout-ul general al ferestrei
+        /**
+         * setam layout-ul general al ferestrei
+         */
         generalPanel.setLayout(new BorderLayout());
-        //adaugam panoul de butoane la panoul general
+        /**
+         * adaugam panoul de butoane la panoul general
+         */
         generalPanel.add(buttonsPanel,BorderLayout.NORTH);
-        //adaugam suprafata de desenare la panoul general
+        /**
+         * adaugam suprafata de desenare la panoul general
+         */
         generalPanel.add(drawingSurface,BorderLayout.CENTER);
 
-        //listener pentru butonul Export
+
+        /**
+         * atasam listener butonului Export
+         */
         chooser.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -201,7 +206,6 @@ public class MainClass extends JFrame {
                     line.setNode1(line.getNode1());
                     line.setNode2(line.getNode2());
                 });
-                //fileChooser.setMultiSelectionEnabled(true);
                 int returnVal = fileChooser.showOpenDialog((Component)e.getSource());
                 if (returnVal == JFileChooser.APPROVE_OPTION) {
                     File file = fileChooser.getSelectedFile();
@@ -224,30 +228,29 @@ public class MainClass extends JFrame {
             }
         });
 
-        //atasam listener butonului Open
+        /**
+         * atasam listener butonului Open
+         */
         openButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String filePath=inputFile.getText();
                 File inputFile=new File(filePath);
-                //System.out.println(inputFile.toString());
                 if(inputFile.exists()){
                     GraphData myGraph=new GraphData(nodesList,linesList);
                     File folder = new File(filePath);
                     File[] listOfFiles = folder.listFiles();
                     nodesList.clear();
                     linesList.clear();
-//                    Node.instNumber=0;
                     if (listOfFiles != null) {
                         for (File listOfFile : listOfFiles) {
                             if (listOfFile.isFile()) {
                                 myGraph.getData(listOfFile.getPath());
-                                
+
                                 System.out.println(listOfFile.getPath());
                             }
                         }
                     }
-//                    myGraph.getData(filePath);
                     Node.instNumber=nodesList.size();
                     repairOrder();
 
@@ -272,25 +275,22 @@ public class MainClass extends JFrame {
                                                 curentLine.setNode2(node2);
                                                 linesList.add(curentLine);
                                             }
-
-
-                                            }
+                                        }
                                     }
                                 }
                             }
-
                         }
                     }
-                    
                     drawingSurface.repaint();
-                    //System.out.println("fisierul a fost gasit");
                 }else{
                     System.out.println("documentul nu exista");
                 }
             }
         });
 
-        //atasam listener butonului Reset
+        /**
+         * atasam listener butonului Reset
+         */
         resetButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -303,7 +303,9 @@ public class MainClass extends JFrame {
             }
         });
 
-        //atasam listener butonului Save
+        /**
+         * atasam listener butonului Save
+         */
         saveButton.addActionListener(new ActionListener() {
                                          @Override
                                          public void actionPerformed(ActionEvent e) {
@@ -318,7 +320,9 @@ public class MainClass extends JFrame {
                                      }
         );
 
-        //atasam listener butonului de stergere a nodurilo
+        /**
+         * atasam listener butonului de stergere a nodurilor
+         */
         deleteNodeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -327,7 +331,9 @@ public class MainClass extends JFrame {
             }
         });
 
-        //atasam listener butonului de desenare a nodurilor
+        /**
+         * atasam listener butonului de desenare a nodurilor
+         */
         drawNodesButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -337,7 +343,9 @@ public class MainClass extends JFrame {
             }
         });
 
-        //atasam listener butonului de conectare a nodurilo
+        /**
+         * atasam listener butonului de conectare a nodurilor
+         */
         connectNodesButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -347,7 +355,9 @@ public class MainClass extends JFrame {
             }
         });
 
-        //atasam listener butonului de stergere a nodurilor
+        /**
+         * atasam listener butonului de stergere a nodurilor
+         */
         deleteNodeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -356,7 +366,9 @@ public class MainClass extends JFrame {
             }
         });
 
-        //atasam listener butonului de mutare a nodurilor
+        /**
+         * atasam listener butonului de mutare a nodurilor
+         */
         moveNodeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -364,6 +376,10 @@ public class MainClass extends JFrame {
                 actionMessage.messageCode=4;//mutem muta un nod
             }
         });
+
+        /**
+         * atasam listener butonului de stergere a muchiilor
+         */
         deleteEdgeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -372,6 +388,9 @@ public class MainClass extends JFrame {
             }
         });
 
+        /**
+         * atasam listener butonului de editare a nodurilor
+         */
         editNodeButton.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
@@ -380,6 +399,9 @@ public class MainClass extends JFrame {
             }
         });
 
+        /**
+         * atasam listener butonului de editare a muchiilor
+         */
         editEdgeButton.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
@@ -388,8 +410,9 @@ public class MainClass extends JFrame {
             }
         });
 
-        //atasam listener suptrafetei de desenare
-
+        /**
+         * atasam listener suprafetei de desenare
+         */
         drawingSurface.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -405,9 +428,7 @@ public class MainClass extends JFrame {
                             curentLine.setNode1(initNode);
                             drawingStage=true;
                         }
-
                     }else{
-                        //de rezolvat problema interconectarii aceluiasi nod
                         Node finalNode=validNode(e.getX(),e.getY());
                         if(finalNode!=null){
                             curentLine.x2=finalNode.xPoint+10;
@@ -417,8 +438,6 @@ public class MainClass extends JFrame {
                             drawingSurface.repaint();
                             drawingStage=false;
                         }
-
-
                     }
                 }else if(actionMessage.messageCode==4){
                     if(!movedStatus){
@@ -454,7 +473,6 @@ public class MainClass extends JFrame {
                 }else if(actionMessage.messageCode==5){
                     Node node=validNode(e.getX(),e.getY());
                     if(node!=null){
-
                         Iterator<Line> myIterator=linesList.iterator();
                         Line line;
                         while(myIterator.hasNext()){
@@ -463,12 +481,6 @@ public class MainClass extends JFrame {
                                 myIterator.remove();
                             }
                         }
-                        /*for(Line line:linesList){
-                            if(line.x1==node.xPoint+10 && line.y1==node.yPoint+10 ||line.x2==node.xPoint+10 && line.y2==node.yPoint+10){
-                                linesList.remove(line);
-                            }
-                        }
-                        */
                         nodesList.remove(node);
                         repairOrder();
                         drawingSurface.repaint();
@@ -517,33 +529,14 @@ public class MainClass extends JFrame {
                             drawingSurface.repaint();
                         }
                     }
-
                 }
                 else if (actionMessage.messageCode==7){
                     firstNode=validNode(e.getX(),e.getY());
                     if (firstNode!=null){
                         firstNode.textBox();
-
                     }
-
                 }
                 else if (actionMessage.messageCode==8){
-                    /*if(!drawingStage){
-                        Node initNode=validNode(e.getX(),e.getY());
-                        if(initNode!=null){
-                            curentLine.x1=initNode.xPoint+10;
-                            curentLine.y1=initNode.yPoint+10;
-                            drawingStage=true;
-                        }
-
-                    }else{
-                        Node finalNode=validNode(e.getX(),e.getY());
-                        if(finalNode!=null){
-                            curentLine.x2=finalNode.xPoint+10;
-                            curentLine.y2=finalNode.yPoint+10;
-                            drawingStage=false;
-                        }
-                    }*/
                     Line newValue=validLine(e.getX(),e.getY());
                     if (newValue!=null)
                         newValue.textBox();
@@ -572,20 +565,26 @@ public class MainClass extends JFrame {
             }
         });
 
-        //atasam panoul general ferestrei
+        /**
+         * atasam panoul general ferestrei
+         */
         this.getContentPane().add(generalPanel);
-        //setam dimensiunea fererstrei
+        /**
+         * setam dimensiunea ferestrei
+         */
         this.setSize(new Dimension(1400,968));
-        //setam fereastra vizibila
+        /**
+         * setam fereastra vizibila
+         */
         this.setVisible(true);
     }
 
     /**
-     * Functia pozitia indicata de mouse se suprapune cu vreun nod din lista de noduri
+     * Functia verifica daca pozitia indicata de mouse se suprapune cu vreun nod din lista de noduri
      *
      * @param x desemneaza pozitia pe axa X
      * @param y desemneaza pozitia pe axa Y
-     * @return daca pozitia specificata se suprapune cu vreun nod atunci acesta va fi returnat,altfel se returneaza null
+     * @return daca pozitia specificata se suprapune cu vreun nod atunci acesta va fi returnat, altfel se returneaza null
      */
     public Node validNode(int x,int y){
         for(Node node: nodesList){
@@ -596,50 +595,24 @@ public class MainClass extends JFrame {
         return null;
     }
 
-    public Line validLine(Line curentLine){
-        for (Line line: linesList){
-            if ((line.x1==curentLine.x1 && line.y1==curentLine.y1 && line.x2==curentLine.x2 && line.y2==curentLine.y2) ||
-                    (line.x1==curentLine.x2 && line.y1==curentLine.y2 && line.x2==curentLine.x1 && line.y2==curentLine.y1)){
-                return line;
-            }
-        }
-        return null;
-    }
+//    public Line validLine(Line curentLine){
+//        for (Line line: linesList){
+//            if ((line.x1==curentLine.x1 && line.y1==curentLine.y1 && line.x2==curentLine.x2 && line.y2==curentLine.y2) ||
+//                    (line.x1==curentLine.x2 && line.y1==curentLine.y2 && line.x2==curentLine.x1 && line.y2==curentLine.y1)){
+//                return line;
+//            }
+//        }
+//        return null;
+//    }
 
+    /**
+     *
+     * @param x pozitia pe axa X
+     * @param y pozitia pe axa Y
+     * @return daca nu exista suprapuneri, se va returna muchia, altfel se va returna null
+     */
     public Line validLine(int x, int y){
         for (Line line: linesList){
-//            if (line.x1<line.x2){
-//                if (line.y1<line.y2){
-//                    if (line.x1-20<x && x<line.x2+20){
-//                        if (line.y1-20<y && y<line.y2+20){
-//                            return line;
-//                        }
-//                    }
-//                }
-//                else if (line.y1>line.y2){
-//                    if (line.x1-20<x && x<line.x2+20){
-//                        if (line.y2-20<y && y<line.y1+20){
-//                            return line;
-//                        }
-//                    }
-//                }
-//            }
-//            else if (line.x1>line.x2){
-//                if (line.y1<line.y2){
-//                    if (line.x2-20<x && x<line.x1+20){
-//                        if (line.y1-20<y && y<line.y2+20){
-//                            return line;
-//                        }
-//                    }
-//                }
-//                else if (line.y1>line.y2){
-//                    if (line.x2-20<x && x<line.x1+20){
-//                        if (line.y2-20<y && y<line.y1+20){
-//                            return line;
-//                        }
-//                    }
-//                }
-//            }
             if (isBetween(line, x, y)){
                 return line;
             }
@@ -647,10 +620,25 @@ public class MainClass extends JFrame {
         return null;
     }
 
+    /**
+     *
+     * @param x1 pozitia pe axa X a primului click
+     * @param y1 pozitia pe axa Y a primului click
+     * @param x2 pozitia pe axa X a celui de-al doilea click
+     * @param y2 pozitia pe axa Y a celui de-al doilea click
+     * @return distanta dintre cele doua pozitii
+     */
     private double distance(int x1, int y1, int x2, int y2){
         return Math.sqrt(Math.pow((x1-x2),2)+Math.pow((y1-y2),2));
     }
 
+    /**
+     *
+     * @param line muchie
+     * @param x pozitia pe axa X a mouse-lui
+     * @param y pozitia pe axa Y a mouse-lui
+     * @return
+     */
     private boolean isBetween(Line line, int x, int y){
         double eps=0.001;
         return distance(line.x1,line.y1,x,y)+distance(line.x2,line.y2,x,y)<distance(line.x1,line.y1,line.x2,line.y2)+eps
@@ -672,6 +660,13 @@ public class MainClass extends JFrame {
         }
         return true;
     }
+
+    /**
+     *
+     * @param line
+     * @param node
+     * @return
+     */
     private boolean isAd(Line line,Node node){
         return ((line.x1 == (node.xPoint + 10)) && (line.y1 == (node.yPoint + 10))) || ((line.x2 == (node.xPoint + 10)) && (line.y2 == (node.yPoint + 10)));
     }
