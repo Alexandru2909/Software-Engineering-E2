@@ -14,17 +14,36 @@ import java.io.Serializable;
 public class Node implements Serializable {
     public int xPoint;
     public int yPoint;
+    /**
+     * numarul nodului curent, va fi afisat in fisierul json
+     */
     @Expose
     public int id;//retine numarul nodului curent
     public static int instNumber=-2;//retine numarul totat de noduri(instante de noduri)
 
+    /**
+     * numele nodului, va fi afisat in fisierul json
+     */
     @Expose
     private String name;
+
+    /**
+     * tipul nodului, va fi afisat in fisierul json
+     */
     @Expose
     private String type;
+
+    /**
+     * etajul nodului, va fi afisat in fisierul json
+     */
     @Expose
     private Integer floor;
 
+    /**
+     * constructorul clasei Node
+     * @param xPoint pozitia pe axa X a nodului
+     * @param yPoint pozitia pe axa Y a nodului
+     */
     public Node(int xPoint,int yPoint){
         this.xPoint=xPoint;
         this.yPoint=yPoint;
@@ -40,18 +59,22 @@ public class Node implements Serializable {
     }
 
     /**
-	 * @return the id
-	 */
-	public int getId() {
-		return id;
-	}
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(int id) {
-		this.id = id;
-	}
-	public void textBox(){
+     * @return the id
+     */
+    public int getId() {
+        return id;
+    }
+    /**
+     * @param id the id to set
+     */
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    /**
+     * meniul afisat pe ecran in momentul editarii unui nod; permite selectarea numelui, tipului si etajului
+     */
+    public void textBox(){
         JTextField nameTF = new JTextField(this.getName());
         JTextField typeTF = new JTextField(this.getType());
         JTextField floorTF = new JTextField(this.getFloor().toString());
@@ -107,18 +130,16 @@ public class Node implements Serializable {
     private void setFloor(Integer floor) {
         this.floor = floor;
     }
-	/**
-	 * @return the instNumber
-	 */
-	public static int getInstNumber() {
-		return instNumber;
-	}
-	/**
-	 * @param instNumber the instNumber to set
-	 */
-	public static void setInstNumber(int instNumber) {
-		Node.instNumber = instNumber;
-	}
-
-
+    /**
+     * @return the instNumber
+     */
+    public static int getInstNumber() {
+        return instNumber;
+    }
+    /**
+     * @param instNumber the instNumber to set
+     */
+    public static void setInstNumber(int instNumber) {
+        Node.instNumber = instNumber;
+    }
 }
