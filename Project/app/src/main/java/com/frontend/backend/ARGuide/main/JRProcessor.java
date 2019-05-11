@@ -1,4 +1,4 @@
-package main;
+package com.frontend.backend.ARGuide.main;
 import java.lang.reflect.Type;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,12 +14,9 @@ import java.util.List;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import main.BuildingPlan.Edge;
-import main.BuildingPlan.Node;
-import webParserV3.Schedule;
-import webParserV3.DataRecord;
-import webParserV3.DayRecord;
-import webParserV3.Eveniment;
+import com.frontend.backend.ARGuide.webParserV3.DataRecord;
+import com.frontend.backend.ARGuide.webParserV3.DayRecord;
+import com.frontend.backend.ARGuide.webParserV3.Eveniment;
 
 /**
  * the class whose instance is the processor of a JSONResource object
@@ -98,7 +95,7 @@ public class JRProcessor {
 		 		/*
 		 		 * insert nodes
 		 		 */
-		 		for (Node node : buildingPlan.getNodes()) {
+		 		for (BuildingPlan.Node node : buildingPlan.getNodes()) {
 	    	 		query = "INSERT INTO nodes(id, floor, name, type) VALUES(?, ?, ?, ?)";
 	    	 		pStatement = connection.prepareStatement(query);
 	    	 		pStatement.setInt(1, node.getId());
@@ -111,7 +108,7 @@ public class JRProcessor {
 		 		/*
 		 		 * insert edges
 		 		 */
-		 		for (Edge edge : buildingPlan.getEdges()) {
+		 		for (BuildingPlan.Edge edge : buildingPlan.getEdges()) {
 		 			query = "INSERT INTO edges(id, id1, id2, cost) VALUES(?, ?, ?, ?)";
 		 			pStatement = connection.prepareStatement(query);
 		 			pStatement.setNull(1, Types.INTEGER); //edges.id is automatically incremented starting from 1

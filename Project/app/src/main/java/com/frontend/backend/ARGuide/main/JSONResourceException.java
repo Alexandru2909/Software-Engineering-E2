@@ -1,4 +1,4 @@
-package main;
+package com.frontend.backend.ARGuide.main;
 
 public class JSONResourceException extends ARGXHandler{
 

@@ -34,4 +34,5 @@ dependencies {
     implementation files('libs/jsoup-1.11.3.jar')
     implementation files('libs/sqlite-jdbc-3.27.2.1.jar')
     implementation files('libs/package-info.java')
+    implementation files('libs/javatuples-1.2.jar')
 }

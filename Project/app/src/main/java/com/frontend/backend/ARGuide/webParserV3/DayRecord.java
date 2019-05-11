@@ -1,7 +1,7 @@
 /**
  * 
  */
-package webParserV3;
+package com.frontend.backend.ARGuide.webParserV3;
 
 import java.util.LinkedList;
 

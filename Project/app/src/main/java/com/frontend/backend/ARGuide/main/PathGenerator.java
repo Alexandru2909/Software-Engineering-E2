@@ -1,46 +1,108 @@
-package main;
+package com.frontend.backend.ARGuide.main;
+
 
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Comparator;
 import java.util.PriorityQueue;
+import java.sql.*;
+import java.util.*;
+
+import org.javatuples.Pair;
 
 /**
- * Computes the shortes path between two nodes (the distance itself, as well as the path)
+ * Computes the shortest path between two nodes (the distance itself, as well as the path)
  * @author
  *
  */
 
 public class PathGenerator {
 
-    public final main.BuildingPlan myBuildingPlan;
-    private List<main.BuildingPlan.Node> nodes;
-    private List<main.BuildingPlan.Edge> edges;
-    private List<main.BuildingPlan.Node> path;
+    private String dbPath = "../database/faculty.db";
+
+    private String URL = "jdbc:sqlite:" + dbPath;
+
+    Connection connection=null;
+
+    private List<Integer> nodes=new ArrayList<>();
+    private List<Integer> path=new ArrayList<>();
     int[] previous;
-    private LinkedList<main.BuildingPlan.Edge>[] adjacencylist;
+    private LinkedList<Edge>[] adjacencylist;
     public int vertices;
 
-    public PathGenerator(main.BuildingPlan g)
-    {
-        this.myBuildingPlan = g;
-        this.edges = myBuildingPlan.getEdges();
-        this.nodes = myBuildingPlan.getNodes();
-        vertices = nodes.size();
-        //array of previous nodes (used to return the path from destination to source)
-        previous = new int[vertices];
-        adjacencylist = new LinkedList[vertices];
 
-        //initialize adjacency lists for all the  nodes
-        for (int i = 0; i < vertices; i++)
-            adjacencylist[i] = new LinkedList<>();
-        //creating the adjacency list
-        for (int i = 0; i < edges.size(); i++)
-            adjacencylist[edges.get(i).getId_node1()].addFirst(edges.get(i));
+    static class Edge {
+        int id1;
+        int id2;
+        double cost;
+        Edge(int id1, int id2,double cost)
+        {
+            this.id1=id1;
+            this.id2=id2;
+            this.cost=cost;
+        }
     }
 
-    public void dijkstra_GetMinDistances(int sourceVertex, int destinationVertex) {
+    public PathGenerator() throws SQLException {
 
+        connection = DriverManager.getConnection(URL);
+
+        getNodes();
+
+        vertices = nodes.size();
+        adjacencylist = new LinkedList[vertices];
+
+        getAdjList();
+
+        //array of previous nodes (used to return the path from destination to source)
+        previous = new int[vertices];
+
+    }
+
+    private void getAdjList() {
+
+        //initialize adjacency lists for all the  nodes
+        for (int i = 0; i <vertices; i++)
+            adjacencylist[i] = new LinkedList();
+
+
+        //creating the adjacency list
+        int id1, id2;
+        double cost;
+
+        //getting the source, destination and cost of each edge
+        try (Statement stmt = connection.createStatement();
+             ResultSet rs = stmt.executeQuery("select id1,id2,cost from edges;")) {
+            while (rs.next()) {
+                id1 = rs.getInt(1)-1;
+                id2 = rs.getInt(2)-1;
+                cost = rs.getDouble(3);
+                Edge edge = new Edge(id1, id2, cost);
+                adjacencylist[id1].addFirst(edge);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void getNodes()
+    {
+        try (Statement stmt = connection.createStatement();
+             ResultSet rs = stmt.executeQuery("select * from nodes;"))
+        {
+            while(rs.next())
+            {
+                nodes.add(rs.getInt(1));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public List<Integer> dijkstra(int sourceVertex, int destinationVertex) {
+
+        destinationVertex--;
+        sourceVertex--;
         boolean[] SPT = new boolean[vertices];
         //distance used to store the distance of vertex from a source
         int[] distance = new int[vertices];
@@ -55,14 +117,14 @@ public class PathGenerator {
             @Override
             public int compare(Pair<Integer, Integer> p1, Pair<Integer, Integer> p2) {
                 //sort using distance values
-                int key1 = p1.getKey();
-                int key2 = p2.getKey();
+                int key1 = p1.getValue0();
+                int key2 = p2.getValue0();
                 return key1 - key2;
             }
         });
-        //create the pair for for the first index, 0 distance 0 index
-        distance[0] = 0;
-        Pair<Integer, Integer> p0 = new Pair<>(distance[0], 0);
+        //create the pair for for the source index
+        distance[sourceVertex] = 0;
+        Pair<Integer, Integer> p0 = new Pair<>(distance[sourceVertex], sourceVertex);
         //add it to pq
         pq.offer(p0);
 
@@ -72,48 +134,43 @@ public class PathGenerator {
             Pair<Integer, Integer> extractedPair = pq.poll();
 
             //extracted vertex
-            int extractedVertex = extractedPair.getValue();
+            int extractedVertex = extractedPair.getValue1();
             if (SPT[extractedVertex] == false) {
                 SPT[extractedVertex] = true;
 
                 //iterate through all the adjacent vertices and update the keys
-                LinkedList<main.BuildingPlan.Edge> list = adjacencylist[extractedVertex];
+                LinkedList<Edge> list = adjacencylist[extractedVertex];
                 for (int i = 0; i < list.size(); i++) {
-                    main.BuildingPlan.Edge edge = list.get(i);
-                    int destination = edge.getId_node2();
+                    Edge edge = list.get(i);
+                    int destination = edge.id2;
                     //only if edge destination is not present in mst
                     if (SPT[destination] == false) {
                         ///check if distance needs an update or not
                         //means check total weight from source to vertex_V is less than
                         //the current distance value, if yes then update the distance
-                        int newKey = distance[extractedVertex] + (int) edge.getCost();
+                        int newKey = distance[extractedVertex] + (int) edge.cost;
                         int currentKey = distance[destination];
                         if (currentKey > newKey) {
                             Pair<Integer, Integer> p = new Pair<>(newKey, destination);
                             pq.offer(p);
                             distance[destination] = newKey;
-                            previous[edge.getId_node2()]=edge.getId_node1();
+                            previous[edge.id2]=edge.id1;
                         }
                     }
                 }
             }
         }
-        //print Shortest Path Tree
-        printDijkstra(distance, sourceVertex,destinationVertex);
-    }
+        //compute actual path
 
-    public void printDijkstra(int[] distance, int sourceVertex, int destinationVertex) {
-        System.out.println("Dijkstra Algorithm: (Adjacency List + Priority Queue)");
-        for (int i = 0; i < vertices; i++) {
-            System.out.println("Source Vertex: " + sourceVertex + " to vertex " + +i +
-                    " distance: " + distance[i]);
-        }
-        int i = destinationVertex;
-        path.add(nodes.get(i));
-        while (distance[i] != 0) {
-            System.out.println(nodes.get(previous[i]));
+        path.add(destinationVertex+1);
+        int i=destinationVertex;
+        while(i!=sourceVertex)
+        {
             i=previous[i];
-            path.add(nodes.get(i));
+            path.add(i+1);
         }
+        Collections.reverse(path);
+
+        return path;
     }
 }

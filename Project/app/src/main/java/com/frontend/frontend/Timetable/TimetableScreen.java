@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.frontend.backend.ARGuide.main.JSONResourceException;
 import com.frontend.frontend.R;
 
 import org.w3c.dom.Node;
@@ -17,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import in.goodiebag.carouselpicker.CarouselPicker;
-import main.ARGuide;
+import com.frontend.backend.ARGuide.main.ARGuide;
 
 public class TimetableScreen extends AppCompatActivity {
     String roomNumber = new String();
@@ -69,6 +70,8 @@ public class TimetableScreen extends AppCompatActivity {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (JSONResourceException e) {
             e.printStackTrace();
         }
     }

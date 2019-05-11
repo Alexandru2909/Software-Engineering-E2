@@ -23,6 +23,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import com.frontend.backend.ARGuide.main.JSONResourceException;
 import com.frontend.frontend.Main.MainActivity;
 import com.frontend.frontend.Timetable.TimetableScreen;
 import com.google.android.gms.vision.CameraSource;
@@ -33,7 +34,7 @@ import com.google.android.gms.vision.text.TextRecognizer;
 import java.io.IOException;
 import java.util.List;
 
-import main.ARGuide;
+import com.frontend.backend.ARGuide.main.ARGuide;
 
 /**
  * Tools for the pattern recognition and the camera functionality.
@@ -123,6 +124,8 @@ public class ImageProcessing extends AppCompatActivity {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (JSONResourceException e) {
             e.printStackTrace();
         }
     }

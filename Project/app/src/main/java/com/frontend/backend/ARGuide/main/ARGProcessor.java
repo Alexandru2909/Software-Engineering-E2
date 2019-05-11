@@ -1,7 +1,7 @@
 /**
  * 
  */
-package main;
+package com.frontend.backend.ARGuide.main;
 
 import java.sql.Connection;
 import java.sql.SQLException;

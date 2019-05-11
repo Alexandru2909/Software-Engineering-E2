@@ -5,7 +5,7 @@
 * */
 
 
-package webParserV3;
+package com.frontend.backend.ARGuide.webParserV3;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
