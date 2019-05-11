@@ -1,4 +1,5 @@
 package main;
+import java.lang.reflect.Type;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -7,9 +8,11 @@ import java.sql.Statement;
 import java.sql.Types;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import main.BuildingPlan.Edge;
 import main.BuildingPlan.Node;
@@ -54,7 +57,8 @@ public class JRProcessor {
              try {
             	 switch (targetType) {
             	 	case "WS":
-            	 		Schedule schedule = json.fromJson(jrDecoder.getJrContent(), Schedule.class);
+            	 		Type scheduleType = new TypeToken<LinkedList<DataRecord>>() {}.getType();
+            	 		LinkedList<DataRecord> schedule = json.fromJson(jrDecoder.getJrContent(), scheduleType);
             	 		break;
             	 	case "BP":
             	 		BuildingPlan buildingPlan = json.fromJson(jrDecoder.getJrContent(), BuildingPlan.class);
@@ -113,7 +117,14 @@ public class JRProcessor {
 		 			pStatement.setNull(1, Types.INTEGER); //edges.id is automatically incremented starting from 1
 		 			pStatement.setInt(2, edge.getId_node1());
 		 			pStatement.setInt(3, edge.getId_node2());
-		 			pStatement.setDouble(4, edge.getCost());
+		 			/*
+		 			 * if the cost of the edges is <= 0, then set it to 1 instead
+		 			 * otherwise, set the cost to the given value in the building plan
+		 			 */
+		 			if (edge.getCost() <= 0)
+		 				pStatement.setDouble(4, 1.0);
+		 			else
+		 				pStatement.setDouble(4, edge.getCost());
 		 			pStatement.executeUpdate();
 		 		}
 		 		
@@ -125,11 +136,12 @@ public class JRProcessor {
 		 	 * case when the JSON resource is the Working Schedule
 		 	 */
         	case "WS": {
-        		Schedule schedule = json.fromJson(jrDecoder.getJrContent(), Schedule.class);
+        		Type scheduleType = new TypeToken<LinkedList<DataRecord>>() {}.getType();
+        		LinkedList<DataRecord> schedule = json.fromJson(jrDecoder.getJrContent(), scheduleType);
         		List<String> days = new ArrayList<String>();
         		days.addAll(Arrays.asList("LUNI", "MARTI", "MIERCURI", "JOI", "VINERI", "SAMBATA", "DUMINICA"));
         		
-        		for (DataRecord data : schedule.getRoomSchedules()) {
+        		for (DataRecord data : schedule) {
         			String query;
         			PreparedStatement pStatement;
         			ResultSet rs;
@@ -155,17 +167,29 @@ public class JRProcessor {
                 				pStatement.setString(3, studyGroups);
                 				pStatement.executeUpdate();
             					
-            					query = "SELECT id FROM nodes WHERE name=" + data.getRoomCode();
+            					query = "SELECT id FROM nodes WHERE name='" + data.getRoomCode() + "'";
             					Statement statement = connection.createStatement();
             					rs = statement.executeQuery(query);
-            					rs.next();
-            					int targetNode = rs.getInt(1);
+            					int targetNode;
+            					if (rs.next())
+            						targetNode = rs.getInt(1);
+            					else {
+            						System.out.println("Node '" + data.getRoomCode() + "' does not exist in the database. "
+            								+ "Its schedule has therefore NOT been introduced.");
+            						continue;
+            					}
             					
-            					query = "SELECT id FROM courses WHERE name=" + event.getNumeEveniment();
+            					query = "SELECT id FROM courses WHERE name='" + event.getNumeEveniment() + "'";
             					statement = connection.createStatement();
             					rs = statement.executeQuery(query);
-            					rs.next();
             					int targetCourse = rs.getInt(1);
+            					if (rs.next())
+            						targetCourse = rs.getInt(1);
+            					else {
+            						System.out.println("Course '" + data.getRoomCode() + "' does not exist in the database. "
+            								+ "Its schedule has therefore NOT been introduced.");
+            						continue;
+            					}
             					
             					query = "INSERT INTO schedule(node_id, course_id, starting_time, ending_time, day) " +
             							"VALUES(?, ?, ?, ?, ?)";

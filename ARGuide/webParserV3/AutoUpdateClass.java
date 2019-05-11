@@ -1,4 +1,4 @@
-package WebParserV2;
+package webParserV3;
 
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;

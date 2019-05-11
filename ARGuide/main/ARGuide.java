@@ -22,7 +22,7 @@ public class ARGuide {
 	
 	/*
 	 * path to our database
-	 * default: ../database/faculty.db
+	 * default: "ARGuide/database/faculty.db"
 	 */
 	private String dbPath = "ARGuide/database/faculty.db";
 	
@@ -30,8 +30,8 @@ public class ARGuide {
 	
 	/*
 	 * the path to the JSON resource representing our working schedule and our building plan
-	 * default for WS: ../schedules/facultySchedule.json
-	 * default for BP: ../buildingPlan/buildingPlan.json
+	 * default for WS: "ARGuide/schedules/facultySchedule.json"
+	 * default for BP: "ARGuide/buildingPlan/buildingPlan.json"
 	 */
 	private String schedulePath = "ARGuide/schedules/facultySchedule.json";
 	private String planPath = "ARGuide/buildingPlan/buildingPlan.json";
@@ -64,10 +64,10 @@ public class ARGuide {
 			}
 		}*/
 		try {
-		    AutoUpdateClass autoUpdateClass=new AutoUpdateClass("https://profs.info.uaic.ro/~orar/orar_resurse.html","lastUpdateFile");
+		    AutoUpdateClass autoUpdateClass=new AutoUpdateClass("https://profs.info.uaic.ro/~orar/orar_resurse.html","ARGuide/schedules/lastUpdateTime.txt");
 		    if(autoUpdateClass.runDataCollector()==false){
 			System.out.println("parser-ul a rulat");
-			WebParser parser = new WebParser("https://profs.info.uaic.ro/~orar/", "orar_resurse.html", "resultFile.json","sectionsNames.txt");
+			WebParser parser = new WebParser("https://profs.info.uaic.ro/~orar/", "orar_resurse.html", "ARGuide/schedules/facultySchedule.json","ARGuide/schedules/sectionsNames.txt");
 			parser.runParset();
 			autoUpdateClass.setNewDate();
 		    }else{
@@ -132,10 +132,10 @@ public class ARGuide {
 	/**
 	 * select all schedule entries related to the given classroom name (could return NULL if the given classroom does NOT exist)
 	 * @param classroomName the name of the classroom whose schedule should be returned
-	 * @return the list of results w.r.t the query (i.e, a set of tuples of the form (day, starting_time, ending_time, course_name))
+	 * @return the list of results w.r.t the query (i.e, a set of tuples of the form (day, starting_time, ending_time, course_name), which are each stored in their own list)
 	 * @throws SQLException on database access error
 	 */
-	public List<String> selectClassroomSchedule(String classroomName) throws SQLException {
+	public List<List<String>> selectClassroomSchedule(String classroomName) throws SQLException {
 		return dbEmissary.selectClassroomSchedule(classroomName);
 	}
 }

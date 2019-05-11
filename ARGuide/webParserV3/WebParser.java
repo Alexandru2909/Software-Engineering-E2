@@ -7,6 +7,8 @@
 
 package webParserV3;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -178,27 +180,31 @@ public class WebParser {
             }
         }
         String response="";
-        for(DataRecord data:recordsList){
-            try {
-                Gson json=new Gson();
-                response=response+json.toJson(data);
-            }catch(Exception e){
-                System.out.println("problema la crearea fisierului "+e.getMessage());
-            }
-        }
-        try{
-            FileWriter output=new FileWriter(resultFileAddress);
-            output.write(response);
-            output.close();
-        }catch(IOException e){
-                System.out.println("problema la scrierea in fisierul rezultat");
-        }
-
-
-
-
-
-
+        
+        /*
+         * create a new 'Schedule' object and store all individual classroom schedules inside it
+         */
+        Schedule schedule = new Schedule();
+        
+        for (DataRecord dataRecord : recordsList)
+        	schedule.add(dataRecord);
+        
+        Gson json = new GsonBuilder().setPrettyPrinting().create();
+        response = json.toJson(schedule.getRoomSchedules());
+        
+        /*
+         * write the JSON file to the corresponding destination
+         */
+        FileWriter output;
+		try {
+			output = new FileWriter(resultFileAddress);
+			output.write(response);
+	        output.close();
+		} catch (IOException e) {
+			System.out.println("Failure on writing the JSON schedule file.");
+			e.printStackTrace();
+		}
+        
     }
 
     public static void main(String[] args){

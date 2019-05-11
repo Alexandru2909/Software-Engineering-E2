@@ -58,7 +58,7 @@ public class DatabaseEmissary {
 	public List<String> selectAllClassroomNames() throws SQLException {
 		List<String> queryResults = new ArrayList<String>();
 		Statement statement = conn.createStatement();
-		ResultSet rs = statement.executeQuery("SELECT name FROM nodes WHERE type='classroom'");
+		ResultSet rs = statement.executeQuery("SELECT name FROM nodes WHERE type IN ('Classroom', 'Amphitheatre')");
 			
 		while (rs.next()) {
 			queryResults.add(rs.getString(1));
@@ -70,17 +70,17 @@ public class DatabaseEmissary {
 	/**
 	 * select all schedule entries related to the given classroom name (could return null in case that specific classroom does not exist in our DB)
 	 * @param classroomName the name of the classroom whose schedule should be returned
-	 * @return the list of results w.r.t the query (i.e, a set of tuples of the form (day, starting_time, ending_time, course_name))
+	 * @return the list of results w.r.t the query (i.e, a set of tuples of the form (day, starting_time, ending_time, course_name), which are each stored in their own list)
 	 * @throws SQLException on database access error
 	 */
-	public List<String> selectClassroomSchedule (String classroomName) throws SQLException {
-		List<String> queryResults = new ArrayList<String>();
+	public List<List<String>> selectClassroomSchedule (String classroomName) throws SQLException {
+		List<List<String>> queryResults = new ArrayList<List<String>>();
 		Statement statement = conn.createStatement();
 		ResultSet rs = statement.executeQuery(
 				"SELECT s.day, s.starting_time, s.ending_time, c.name AS course_name " + 
 				"FROM nodes n JOIN schedule s ON n.id=s.node_id " + 
 				"JOIN courses c ON s.course_id=c.id " + 
-				"WHERE n.type='classroom' AND n.name ='" + classroomName + "' " + 
+				"WHERE n.type IN ('Classroom', 'Amphitheatre') AND n.name ='" + classroomName + "' " + 
 				"ORDER BY CASE " + 
 					"WHEN s.day = 'LUNI' THEN 1 " + 
 					"WHEN s.day = 'MARTI' THEN 2 " + 
@@ -93,8 +93,10 @@ public class DatabaseEmissary {
 				);
 		
 		while (rs.next()) {
-			queryResults.add(rs.getString(1) + ' ' + rs.getString(2) + ' ' +
-					rs.getString(3) + ' ' + rs.getString(4));
+			List<String> resultEntry = new ArrayList<String>(Arrays.asList(rs.getString(1), 
+					rs.getString(2), rs.getString(3), rs.getString(4)));
+			
+			queryResults.add(resultEntry);
 		}
 		
 		return queryResults;
@@ -154,6 +156,12 @@ public class DatabaseEmissary {
 	 */
 	public boolean areDbTablesFilled(List<String> tableNameList) throws SQLException {
 		for (String tableName : tableNameList) {
+			/*
+			 * for the moment, we have no images stored
+			 */
+			if (tableName.equals("images"))
+				continue;
+			
 			Statement statement = conn.createStatement();
 			ResultSet rs = statement.executeQuery("SELECT COUNT(*) FROM " + tableName);
 			
