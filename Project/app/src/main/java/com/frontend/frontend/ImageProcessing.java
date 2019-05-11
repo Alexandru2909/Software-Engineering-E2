@@ -19,8 +19,11 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Arrays;
 
+import com.frontend.backend.ARGuide.main.JSONResourceException;
 import com.frontend.frontend.Main.MainActivity;
 import com.frontend.frontend.Timetable.TimetableScreen;
 import com.google.android.gms.vision.CameraSource;
@@ -29,6 +32,9 @@ import com.google.android.gms.vision.text.TextBlock;
 import com.google.android.gms.vision.text.TextRecognizer;
 
 import java.io.IOException;
+import java.util.List;
+
+import com.frontend.backend.ARGuide.main.ARGuide;
 
 /**
  * Tools for the pattern recognition and the camera functionality.
@@ -47,7 +53,7 @@ public class ImageProcessing extends AppCompatActivity {
 
     private static int CAMERA_PERM = 2;
 
-    private String[] roomsList = {"123", "401", "305", "202", "411"};
+    private List<String> roomsList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,14 +68,21 @@ public class ImageProcessing extends AppCompatActivity {
         cameraView = findViewById(R.id.cameraViewSurface);
         ocrTextView = findViewById(R.id.ocrTextView);
 
-        final Toast warning = Toast.makeText(getApplicationContext(), "Room not found.", Toast.LENGTH_SHORT);
-        warning.setGravity(Gravity.CENTER, 0, 0);
+        try {
+            ARGuide databaseConn = new ARGuide("ARGuide/database/faculty.db",
+                    "ARGuide/schedules/facultySchedule.json",
+                    "ARGuide/buildingPlan/jsonFormat/buildingPlan.json");
 
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
-            startTextRecognizer();
-        } else {
-            askCameraPermission();
-        }
+            roomsList = databaseConn.selectAllClassroomNames();
+
+            final Toast warning = Toast.makeText(getApplicationContext(), "Room not found.", Toast.LENGTH_SHORT);
+            warning.setGravity(Gravity.CENTER, 0, 0);
+
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+                startTextRecognizer();
+            } else {
+                askCameraPermission();
+            }
 
 //        getRoomBtn.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -85,28 +98,36 @@ public class ImageProcessing extends AppCompatActivity {
 //            }
 //        });
 
-        getRoomTimetable.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+            getRoomTimetable.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
-                if (Arrays.asList(roomsList).contains(finalText.trim())) {
-                    Intent returnIntent = openTimetable();
-                    returnIntent.putExtra("room", finalText.trim());
-                    setResult(Activity.RESULT_OK, returnIntent);
-                    finish();
-                    startActivity(returnIntent);
-                } else {
-                    warning.show();
+                    if (roomsList.contains(finalText.trim())) {
+                        Intent returnIntent = openTimetable();
+                        returnIntent.putExtra("room", finalText.trim());
+                        setResult(Activity.RESULT_OK, returnIntent);
+                        finish();
+                        startActivity(returnIntent);
+                    } else {
+                        warning.show();
+                    }
                 }
-            }
-        });
+            });
 
-        returnButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openMenu();
-            }
-        });
+            returnButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    openMenu();
+                }
+            });
+
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (JSONResourceException e) {
+            e.printStackTrace();
+        }
     }
 
     public void openMenu() {
@@ -187,7 +208,7 @@ public class ImageProcessing extends AppCompatActivity {
                     handler.post(new Runnable() {
                         public void run() {
                             ocrTextView.setText(fullText);
-                            if (Arrays.asList(roomsList).contains(fullText.trim())){
+                            if (roomsList.contains(fullText.trim())) {
                                 finalText = fullText;
                                 getRoomTimetable.setText(finalText + " - See info");
                                 getRoomTimetable.setVisibility(View.VISIBLE);
