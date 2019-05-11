@@ -64,14 +64,11 @@ public class ARGuide {
 			}
 		}*/
 		 try {
-			    AutoUpdateClass autoUpdateClass=new AutoUpdateClass("https://profs.info.uaic.ro/~orar/","C:\\Users\\Bogdan\\Desktop\\lastUpdate.txt");
-			    if(autoUpdateClass.runDataCollector()==false){
-				System.out.println("parser-ul a rulat");
-				WebParser parser = new WebParser("https://profs.info.uaic.ro/~orar/", "orar_resurse.html", "C:\\Users\\Bogdan\\Desktop\\resultFiles.txt","C:\\Users\\Bogdan\\Desktop\\sectionsNames.txt");
+			 AutoUpdateClass autoUpdateClass=new AutoUpdateClass("https://profs.info.uaic.ro/~orar/orar_resurse.html","lastUpdateFile");  
+			 if(autoUpdateClass.runDataCollector()==false){
+				WebParser parser = new WebParser("https://profs.info.uaic.ro/~orar/", "orar_resurse.html", "resultFile.json","sectionsNames.txt");
 				parser.runParset();
 				autoUpdateClass.setNewDate();
-			    }else{
-				System.out.println("parserul nu a rulat, niciun update necesar");
 			    }
 
 			    SignalType signal=new SignalType();//acest obiect trebuie utilizat de front-end pentru semnalul de update
