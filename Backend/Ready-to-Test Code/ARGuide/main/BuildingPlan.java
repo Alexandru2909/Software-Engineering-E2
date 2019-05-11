@@ -1,7 +1,7 @@
 /**
  * 
  */
-package buildingPlan;
+package main;
 
 import java.util.List;
 

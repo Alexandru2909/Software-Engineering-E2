@@ -1,11 +1,15 @@
 /**
  * 
  */
-package webParserV2;
+package webParserV3;
 
 import java.time.LocalTime;
 import java.util.LinkedList;
 
+/**
+ * @author Paul-Reftu
+ *
+ */
 /**
  * Clasa Eveniment retine o linie din tabelul parsat
  *
