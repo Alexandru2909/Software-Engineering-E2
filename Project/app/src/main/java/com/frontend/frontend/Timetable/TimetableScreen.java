@@ -12,25 +12,26 @@ import com.frontend.frontend.R;
 
 import org.w3c.dom.Node;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import in.goodiebag.carouselpicker.CarouselPicker;
+import main.ARGuide;
 
 public class TimetableScreen extends AppCompatActivity {
     String roomNumber = new String();
     TextView text;
 
+    String[] days = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+
     CarouselPicker dayPicker;
     List<CarouselPicker.PickerItem> daysList = new ArrayList<>();
 
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.timetable);
-
-        TextView text = findViewById(R.id.testing);
-
 
         roomNumber = getIntent().getStringExtra("room");
 
@@ -39,42 +40,69 @@ public class TimetableScreen extends AppCompatActivity {
         CarouselPicker.CarouselViewAdapter dayAdapter = new CarouselPicker.CarouselViewAdapter(this, daysList, 0);
         dayPicker.setAdapter(dayAdapter);
 
-        dayPicker.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        try {
+            ARGuide databaseConn = new ARGuide("ARGuide/database/faculty.db",
+                    "ARGuide/schedules/facultySchedule.json",
+                    "ARGuide/buildingPlan/jsonFormat/buildingPlan.json");
 
-            @Override public void onPageScrolled(int i, float v, int i1) {
+            final List<List<String>> schedule = databaseConn.selectClassroomSchedule(roomNumber);
 
-            }
 
-            @Override public void onPageSelected(int i) {
-                switch (i) {
-                    case 0:
-                        TextView t = findViewById(R.id.subject1);
-                        t.setText("POO");
-                        break;
-                    case 1:
-                        TextView t1 = findViewById(R.id.subject1);
-                        t1.setText("IP");
-                        break;
-                    case 2:
-                        break;
-                    case 3:
-                        break;
-                    case 4:
-                        break;
-                    case 5:
-                        break;
-                    case 6:
-                        break;
+            dayPicker.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+
+                @Override
+                public void onPageScrolled(int i, float v, int i1) {
+
                 }
-            }
-            @Override public void onPageScrollStateChanged(int i) {
 
-            }
-        });
+                @Override
+                public void onPageSelected(int i) {
+                    writeInTable(days[i - 1], schedule);
+                }
+
+                @Override
+                public void onPageScrollStateChanged(int i) {
+
+                }
+            });
+
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
-    private void addDays(String... days){
-        for(String day : days)
+    private void addDays(String... days) {
+        for (String day : days)
             this.daysList.add(new CarouselPicker.TextItem(day, 12));
+    }
+
+    private void writeInTable(String day, List<List<String>> schedule) {
+        for (List<String> scheduleEntry : schedule) {
+            if (scheduleEntry.get(0).equals(day))
+                for (String scheduleData : scheduleEntry) {
+                    String[] splitedScheduleData = scheduleData.split("\\s+");
+                    if (splitedScheduleData[1].startsWith("08")) {
+                        TextView subject = findViewById(R.id.subject1);
+                        subject.setText(splitedScheduleData[3]);
+                    } else if (splitedScheduleData[1].startsWith("10")) {
+                        TextView subject = findViewById(R.id.subject2);
+                        subject.setText(splitedScheduleData[3]);
+                    } else if (splitedScheduleData[1].startsWith("12")) {
+                        TextView subject = findViewById(R.id.subject3);
+                        subject.setText(splitedScheduleData[3]);
+                    } else if (splitedScheduleData[1].startsWith("14")) {
+                        TextView subject = findViewById(R.id.subject4);
+                        subject.setText(splitedScheduleData[3]);
+                    } else if (splitedScheduleData[1].startsWith("16")) {
+                        TextView subject = findViewById(R.id.subject5);
+                        subject.setText(splitedScheduleData[3]);
+                    } else if (splitedScheduleData[1].startsWith("18")) {
+                        TextView subject = findViewById(R.id.subject6);
+                        subject.setText(splitedScheduleData[3]);
+                    }
+                }
+        }
     }
 }

@@ -67,6 +67,7 @@
                         android:paddingBottom="0dp">
 
                         <TextView
+                            android:id="@+id/hour08"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
@@ -162,6 +163,7 @@
                         android:paddingBottom="0dp">
 
                         <TextView
+                            android:id="@+id/hour10"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
@@ -257,6 +259,7 @@
                         android:paddingBottom="0dp">
 
                         <TextView
+                            android:id="@+id/hour12"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
@@ -352,6 +355,7 @@
                         android:paddingBottom="0dp">
 
                         <TextView
+                            android:id="@+id/hour14"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
@@ -447,6 +451,7 @@
                         android:paddingBottom="0dp">
 
                         <TextView
+                            android:id="@+id/hour16"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
@@ -542,6 +547,7 @@
                         android:paddingBottom="0dp">
 
                         <TextView
+                            android:id="@+id/hour18"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
