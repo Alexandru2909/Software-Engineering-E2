@@ -114,7 +114,7 @@ public class PathGenerator {
                 return key1 - key2;
             }
         });
-        //create the pair for for the first index, 0 distance 0 index
+        //create the pair for for the source index
         distance[sourceVertex] = 0;
         Pair<Integer, Integer> p0 = new Pair<>(distance[sourceVertex], sourceVertex);
         //add it to pq
