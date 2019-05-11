@@ -5,9 +5,10 @@
 * */
 
 
-package WebParserV2;
+package webParserV3;
 import com.google.gson.Gson;
-import com.sun.org.apache.bcel.internal.generic.LoadClass;
+import com.google.gson.GsonBuilder;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -16,114 +17,6 @@ import org.jsoup.select.Elements;
 import java.io.*;
 import java.time.LocalTime;
 import java.util.*;
-
-/**
- * Clasa Eveniment retine o linie din tabelul parsat
- *
- */
-class Eveniment{
-    /**
-     * ora de inceput a evenimentului
-     */
-    public LocalTime oraStart;
-    /**
-     * ora de final a evenimentului
-     */
-    public LocalTime oraFinal;
-    /**
-     *numele evenimentului
-     */
-    public String numeEveniment;
-    /**
-     * tipul evenimentului curs sau  laborator
-     */
-    public String tipEveniment;
-    /**
-     * lista profesorilor
-     */
-    public LinkedList<String> listaProfesori=new LinkedList<>();
-    /**
-     *Lista grupelor de studenti
-     */
-
-    public LinkedList<String> listaGrupe=new LinkedList<>();
-
-    /**************************************************************/
-    /**
-     * functia care returneaza ora de start
-     */
-    public LocalTime getOraStart(){
-        return this.oraStart;
-    }
-    /**
-     * functia care returneaza ora de final
-     */
-
-    public LocalTime getOraFinal(){
-        return this.oraFinal;
-    }
-    /**
-     * functia care returneza numele evenimentului
-     */
-
-    public String getNumeEveniment(){
-        return this.numeEveniment;
-    }
-    /**
-     * functia care returneaza tipul evenimentului
-     */
-    public String getTipEveniment(){
-        return this.tipEveniment;
-    }
-    /**
-     * functia care returneaza lista profesorilor
-     */
-    public LinkedList<String> getListaProfesori(){
-        return this.listaProfesori;
-    }
-    /**
-     * functia care returneaza lista grupelor de studenti
-     */
-    public LinkedList<String> getListaGrupe(){
-        return this.listaGrupe;
-    }
-
-
-    /************************************************************/
-    public Eveniment(LocalTime oraStart,LocalTime oraFinal,String numeEveniment,String tipEveniment,LinkedList<String> listaProfesori,LinkedList<String> listaGrupe){
-        this.oraStart=oraStart;
-        this.oraFinal=oraFinal;
-        this.numeEveniment=numeEveniment;
-        this.tipEveniment=tipEveniment;
-        this.listaProfesori=listaProfesori;
-        this.listaGrupe=listaGrupe;
-    }
-    public Eveniment(){}
-    public String toString(){
-        String returnString=new String("Ora de inceput :"+this.oraStart.toString()+"\n"+"Ora de terminare :"+this.oraFinal.toString()+"\n"+"Numele evenimentului :"+this.numeEveniment+"\n"+"Tipul evenimentului :"+this.tipEveniment+"\n");
-        String profesori=new String("");
-        String grupe=new String("");
-        for(String name:listaProfesori){profesori=profesori+name;}
-        for(String grupa:listaGrupe){grupe=grupe+grupa;}
-        returnString=returnString+"lista profesori:"+profesori+"\nlista grupelor:"+grupe+"\n\n";
-        return returnString;
-    }
-}
-
-class DayRecord{
-    /**
-     * lista evenimentelor din ziua desemnata de obiectul curent
-     */
-
-    public LinkedList<Eveniment> listaEvenimente=new LinkedList<Eveniment>();
-    public String toString(){
-        String returnValue=new String("");
-        for(Eveniment e:listaEvenimente){
-            returnValue=returnValue+e;
-        }
-        return returnValue;
-    }
-}
 
 public class WebParser {
     /**
@@ -287,27 +180,31 @@ public class WebParser {
             }
         }
         String response="";
-        for(DataRecord data:recordsList){
-            try {
-                Gson json=new Gson();
-                response=response+json.toJson(data);
-            }catch(Exception e){
-                System.out.println("problema la crearea fisierului "+e.getMessage());
-            }
-        }
-        try{
-            FileWriter output=new FileWriter(resultFileAddress);
-            output.write(response);
-            output.close();
-        }catch(IOException e){
-                System.out.println("problema la scrierea in fisierul rezultat");
-        }
-
-
-
-
-
-
+        
+        /*
+         * create a new 'Schedule' object and store all individual classroom schedules inside it
+         */
+        Schedule schedule = new Schedule();
+        
+        for (DataRecord dataRecord : recordsList)
+        	schedule.add(dataRecord);
+        
+        Gson json = new GsonBuilder().setPrettyPrinting().create();
+        response = json.toJson(schedule.getRoomSchedules());
+        
+        /*
+         * write the JSON file to the corresponding destination
+         */
+        FileWriter output;
+		try {
+			output = new FileWriter(resultFileAddress);
+			output.write(response);
+	        output.close();
+		} catch (IOException e) {
+			System.out.println("Failure on writing the JSON schedule file.");
+			e.printStackTrace();
+		}
+        
     }
 
     public static void main(String[] args){

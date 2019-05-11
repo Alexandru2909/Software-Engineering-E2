@@ -1,4 +1,4 @@
-package WebParserV2;
+package webParserV3;
 
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
@@ -18,6 +18,9 @@ public class AutoUpdateClass{
     private String data;
     private Document document;
     private String lastUpdateFilePath;
+
+
+
     public AutoUpdateClass(String siteAddress,String lastUpdateFilePath){
         this.siteAddress=siteAddress;
         this.lastUpdateFilePath=lastUpdateFilePath;
@@ -28,11 +31,31 @@ public class AutoUpdateClass{
         }catch (FileNotFoundException e){
             System.out.println(e.getMessage());
         }catch(IOException e){
+            System.out.println(e.getMessage());
             //nu facem nimic ,consideram ca este o prima utilizare a aplicateiei asa ca vom reincarca baza de date
         }
     }
+    public void setNewDate(){
+        try {
+            document = Jsoup.connect(siteAddress).get();
+            Element element = document.getElementsByTag("b").get(0);
+            data = element.text();
+            BufferedWriter output=new BufferedWriter(new FileWriter(lastUpdateFilePath));
+            output.write(data);
+            output.close();
+        }catch(IOException e){
+            System.out.println("problema la conectare");
+        }
+    }
+
+    /**
+     * functia verifica daca s-au efectuat modificari in orar
+     * @return
+     */
     public boolean runDataCollector(){
-        if(lastUpdateDate.compareTo("")==0){
+        if(lastUpdateDate==null){
+            return false;
+        }else if(lastUpdateDate.compareTo("")==0){
             return false;
         }
         try {
