@@ -1,4 +1,4 @@
-package WebParserV2;
+package webParserV3;
 
 public class SignalType {
     private Boolean value;

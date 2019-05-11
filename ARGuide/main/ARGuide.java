@@ -9,6 +9,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import webParserV3.AutoUpdateClass;
+import webParserV3.RunningThread;
+import webParserV3.SignalType;
 import webParserV3.WebParser;
 
 /**
