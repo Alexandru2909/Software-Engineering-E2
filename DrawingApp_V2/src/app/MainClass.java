@@ -663,9 +663,9 @@ public class MainClass extends JFrame {
 
     /**
      *
-     * @param line
-     * @param node
-     * @return
+     * @param line muchie
+     * @param node nod
+     * @return adauga muchia daca coordonatele coincid cu ale nodului
      */
     private boolean isAd(Line line,Node node){
         return ((line.x1 == (node.xPoint + 10)) && (line.y1 == (node.yPoint + 10))) || ((line.x2 == (node.xPoint + 10)) && (line.y2 == (node.yPoint + 10)));
