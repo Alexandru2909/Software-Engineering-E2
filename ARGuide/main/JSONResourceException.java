@@ -1,6 +1,6 @@
 package main;
 
-public class JSONResourceException extends Exception{
+public class JSONResourceException extends ARGXHandler{
 
     /**
 	 * 
