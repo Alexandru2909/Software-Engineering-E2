@@ -9,6 +9,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import webParserV3.AutoUpdateClass;
+import webParserV3.RunningThread;
+import webParserV3.SignalType;
 import webParserV3.WebParser;
 
 /**
@@ -63,20 +65,22 @@ public class ARGuide {
 				System.out.println("problema la crearea fisielor" +e.getMessage());
 			}
 		}*/
-		try {
-		    AutoUpdateClass autoUpdateClass=new AutoUpdateClass("https://profs.info.uaic.ro/~orar/orar_resurse.html","ARGuide/schedules/lastUpdateTime.txt");
-		    if(autoUpdateClass.runDataCollector()==false){
-			System.out.println("parser-ul a rulat");
-			WebParser parser = new WebParser("https://profs.info.uaic.ro/~orar/", "orar_resurse.html", "ARGuide/schedules/facultySchedule.json","ARGuide/schedules/sectionsNames.txt");
-			parser.runParset();
-			autoUpdateClass.setNewDate();
-		    }else{
-			System.out.println("parserul nu a rulat, niciun update necesar");
-		    }
+		 try {
+			 AutoUpdateClass autoUpdateClass=new AutoUpdateClass("https://profs.info.uaic.ro/~orar/orar_resurse.html","lastUpdateFile");  
+			 if(autoUpdateClass.runDataCollector()==false){
+				WebParser parser = new WebParser("https://profs.info.uaic.ro/~orar/", "orar_resurse.html", "resultFile.json","sectionsNames.txt");
+				parser.runParset();
+				autoUpdateClass.setNewDate();
+			    }
 
-        }catch (Exception e){
-            System.out.println("problema la crearea fisielor" +e.getMessage());
-        }
+			    SignalType signal=new SignalType();//acest obiect trebuie utilizat de front-end pentru semnalul de update
+			    RunningThread runningThread=new RunningThread(autoUpdateClass,signal);
+			    Thread updateThread=new Thread(runningThread);
+			    updateThread.setDaemon(true);
+			    updateThread.start();
+			}catch (Exception e){
+			    System.out.println("problema la crearea fisielor" +e.getMessage());
+			}
 		/****************** WEBPARSER CALL ****************************/
 
 
