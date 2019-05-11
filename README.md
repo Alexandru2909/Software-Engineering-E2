@@ -1,3 +1,11 @@
+# IMPORTANT NOTICE
+Seeing as we now have a functional version of our module, I do not want to see anyone BREAKING the code.
+Before committing, make sure the application functions correctly, so that we do not run into more bugs than we'd like.
+
+# ALSO:
+To keep everything and everyone synchronized, please do install and utilize GitHub Desktop: https://desktop.github.com/
+And make suggestive commit messages. (NO "Add files via upload" or any message of the sort)
+
 # Software Engineering 2018-2019, Project "AR Guide", Back-End Module, Study Group IIE2
 
 # Link to Trello Board 1 of Scrum Master Council: https://trello.com/b/TuHFAlM0/project-ar-guide-scrum-master-council
