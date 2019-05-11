@@ -68,8 +68,8 @@ public class PathGenerator {
         try (Statement stmt = connection.createStatement();
              ResultSet rs = stmt.executeQuery("select id1,id2,cost from edges;")) {
             while (rs.next()) {
-                id1 = rs.getInt(1);
-                id2 = rs.getInt(2);
+                id1 = rs.getInt(1)-1;
+                id2 = rs.getInt(2)-1;
                 cost = rs.getDouble(3);
                 Edge edge = new Edge(id1, id2, cost);
                 adjacencylist[id1].addFirst(edge);
@@ -95,6 +95,8 @@ public class PathGenerator {
 
     public List<Integer> dijkstra(int sourceVertex, int destinationVertex) {
 
+        destinationVertex--;
+        sourceVertex--;
         boolean[] SPT = new boolean[vertices];
         //distance used to store the distance of vertex from a source
         int[] distance = new int[vertices];
@@ -154,12 +156,12 @@ public class PathGenerator {
         }
         //compute actual path
 
-        path.add(destinationVertex);
+        path.add(destinationVertex+1);
         int i=destinationVertex;
         while(i!=sourceVertex)
         {
             i=previous[i];
-            path.add(i);
+            path.add(i+1);
         }
         Collections.reverse(path);
 
