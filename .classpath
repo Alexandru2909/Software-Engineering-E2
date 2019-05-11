@@ -5,5 +5,6 @@
 	<classpathentry kind="lib" path="C:/Users/Atroxyph/git/Software-Engineering-E2/ARGuide/auxiliaries/gson-2.8.5.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Atroxyph/git/Software-Engineering-E2/ARGuide/auxiliaries/sqlite-jdbc-3.27.2.1.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Atroxyph/git/Software-Engineering-E2/ARGuide/auxiliaries/jsoup-1.11.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Atroxyph/git/Software-Engineering-E2/ARGuide/auxiliaries/javatuples-1.2.jar"/>
 	<classpathentry kind="output" path="ARGuide"/>
 </classpath>

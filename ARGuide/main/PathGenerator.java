@@ -2,12 +2,14 @@ package main;
 
 import java.util.LinkedList;
 import java.util.List;
-import javafx.util.Pair;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 
+import org.javatuples.Pair;
+
+
 /**
- * Computes the shortes path between two nodes (the distance itself, as well as the path)
+ * Computes the shortest path between two nodes (the distance itself, as well as the path)
  * @author
  *
  */
@@ -56,8 +58,8 @@ public class PathGenerator {
             @Override
             public int compare(Pair<Integer, Integer> p1, Pair<Integer, Integer> p2) {
                 //sort using distance values
-                int key1 = p1.getKey();
-                int key2 = p2.getKey();
+                int key1 = p1.getValue0();
+                int key2 = p2.getValue0();
                 return key1 - key2;
             }
         });
@@ -73,7 +75,7 @@ public class PathGenerator {
             Pair<Integer, Integer> extractedPair = pq.poll();
 
             //extracted vertex
-            int extractedVertex = extractedPair.getValue();
+            int extractedVertex = extractedPair.getValue1();
             if (SPT[extractedVertex] == false) {
                 SPT[extractedVertex] = true;
 
