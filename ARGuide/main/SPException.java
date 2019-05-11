@@ -1,9 +1,7 @@
-package IP_ThirdSprint;
+package main;
 
-public class SPException extends Exception{
-    public SPException(){
-        super();
-    }
+public class SPException extends ARGXHandler{
+    
     public SPException(String message){
         super(message);
     }
