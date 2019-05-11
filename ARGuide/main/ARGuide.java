@@ -52,6 +52,8 @@ public class ARGuide {
 		this.planPath = planPath;
 		
 		/****************** WEBPARSER CALL ****************************/
+		/*
+		Old code
 		AutoUpdateClass autoUpdateClass=new AutoUpdateClass("https://profs.info.uaic.ro/~orar/orar_resurse.html","lastUpdateFile");
 		if(autoUpdateClass.runDataCollector()==true){
 			try {
@@ -60,7 +62,21 @@ public class ARGuide {
 			}catch (Exception e){
 				System.out.println("problema la crearea fisielor" +e.getMessage());
 			}
-		}
+		}*/
+		try {
+		    AutoUpdateClass autoUpdateClass=new AutoUpdateClass("https://profs.info.uaic.ro/~orar/orar_resurse.html","lastUpdateFile");
+		    if(autoUpdateClass.runDataCollector()==false){
+			System.out.println("parser-ul a rulat");
+			WebParser parser = new WebParser("https://profs.info.uaic.ro/~orar/", "orar_resurse.html", "resultFile.json","sectionsNames.txt");
+			parser.runParset();
+			autoUpdateClass.setNewDate();
+		    }else{
+			System.out.println("parserul nu a rulat, niciun update necesar");
+		    }
+
+        }catch (Exception e){
+            System.out.println("problema la crearea fisielor" +e.getMessage());
+        }
 		/****************** WEBPARSER CALL ****************************/
 
 
