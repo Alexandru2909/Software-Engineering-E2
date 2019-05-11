@@ -24,7 +24,7 @@ public class ARGuide {
 	 * path to our database
 	 * default: ../database/faculty.db
 	 */
-	private String dbPath = "../database/faculty.db";
+	private String dbPath = "ARGuide/database/faculty.db";
 	
 	private String dbDriver = "jdbc:sqlite:" + dbPath;
 	
@@ -33,8 +33,8 @@ public class ARGuide {
 	 * default for WS: ../schedules/facultySchedule.json
 	 * default for BP: ../buildingPlan/buildingPlan.json
 	 */
-	private String schedulePath = "../schedules/facultySchedule.json";
-	private String planPath = "../buildingPlan/buildingPlan.json";
+	private String schedulePath = "ARGuide/schedules/facultySchedule.json";
+	private String planPath = "ARGuide/buildingPlan/buildingPlan.json";
 
 	/**
 	 * establish connection to the database and insert information w.r.t the Building Plan and Working Schedule if necessary
@@ -47,6 +47,7 @@ public class ARGuide {
 	 */
 	public ARGuide(String dbPath, String schedulePath, String planPath) throws ClassNotFoundException, SQLException, JSONResourceException {
 		this.dbPath = dbPath;
+		this.dbDriver = "jdbc:sqlite:" + dbPath;
 		this.schedulePath = schedulePath;
 		this.planPath = planPath;
 		
