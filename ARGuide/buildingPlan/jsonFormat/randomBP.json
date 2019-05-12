@@ -1,0 +1,80 @@
+{
+  "nodes": [
+    {
+      "id": 1,
+      "name": "Camera1",
+      "type": "camera",
+      "floor": 1
+    },
+    {
+      "id": 2,
+      "name": "Camera2",
+      "type": "Camera",
+      "floor": 1
+    },
+    {
+      "id": 3,
+      "name": "Camera3",
+      "type": "Camera",
+      "floor": 1
+    },
+    {
+      "id": 4,
+      "name": "Camera4",
+      "type": "Camera",
+      "floor": 1
+    }
+  ],
+  "edges": [
+    {
+      "cost": 0.0,
+      "id_node1": 2,
+      "id_node2": 4
+    },
+    {
+      "cost": 0.0,
+      "id_node1": 4,
+      "id_node2": 3
+    },
+    {
+      "cost": 0.0,
+      "id_node1": 2,
+      "id_node2": 3
+    },
+    {
+      "cost": 0.0,
+      "id_node1": 2,
+      "id_node2": 1
+    },
+    {
+      "cost": 0.0,
+      "id_node1": 1,
+      "id_node2": 4
+    },
+    {
+      "cost": 0.0,
+      "id_node1": 6,
+      "id_node2": 8
+    },
+    {
+      "cost": 0.0,
+      "id_node1": 8,
+      "id_node2": 7
+    },
+    {
+      "cost": 0.0,
+      "id_node1": 6,
+      "id_node2": 7
+    },
+    {
+      "cost": 0.0,
+      "id_node1": 6,
+      "id_node2": 5
+    },
+    {
+      "cost": 0.0,
+      "id_node1": 5,
+      "id_node2": 8
+    }
+  ]
+}

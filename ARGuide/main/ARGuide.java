@@ -29,6 +29,12 @@ public class ARGuide {
 	private String dbPath = "ARGuide/database/faculty.db";
 	
 	private String dbDriver = "jdbc:sqlite:" + dbPath;
+
+	/*
+	 *The name of the current building
+     */
+       
+    public String buildingType;
 	
 	/*
 	 * the path to the JSON resource representing our working schedule and our building plan
@@ -38,8 +44,13 @@ public class ARGuide {
 	private String schedulePath = "ARGuide/schedules/facultySchedule.json";
 	private String planPath = "ARGuide/buildingPlan/buildingPlan.json";
 
+	public ARGuide(String buildingType){
+            this.buildingType=buildingType;
+    }
+
 	/**
-	 * establish connection to the database and insert information w.r.t the Building Plan and Working Schedule if necessary
+	 * This method is called if the current building is our faculty.
+	 * Establish connection to the database and insert information w.r.t the Building Plan and Working Schedule if necessary
 	 * @param dbPath the path to the database
 	 * @param schedulePath the path to the JSON resource representing the Working Schedule
 	 * @param planPath the path to the JSON resource representing the Building Plan
@@ -47,7 +58,7 @@ public class ARGuide {
 	 * @throws SQLException when a DB access error occurs
 	 * @throws JSONResourceException upon unknown request or WSProcessor operation failure
 	 */
-	public ARGuide(String dbPath, String schedulePath, String planPath) throws ClassNotFoundException, SQLException, JSONResourceException {
+	public void FII(String dbPath, String schedulePath, String planPath) throws ClassNotFoundException, SQLException, JSONResourceException {
 		this.dbPath = dbPath;
 		this.dbDriver = "jdbc:sqlite:" + dbPath;
 		this.schedulePath = schedulePath;
@@ -124,6 +135,34 @@ public class ARGuide {
 		}
 	}
 
+	/*
+     *  This method is called if the current building is other than our faculty
+     */
+    public void Other(String dbPath,  String planPath) throws ClassNotFoundException, SQLException, JSONResourceException {
+        this.dbPath = dbPath;
+	    this.dbDriver = "jdbc:sqlite:" + dbPath;
+	    this.planPath = planPath;
+            
+            List<String> tableNameList = new ArrayList<String>();
+	    tableNameList.addAll(Arrays.asList("nodes", "edges", "images"));
+            
+            this.dbEmissary = new DatabaseEmissary(dbPath, dbDriver);
+            
+            dbEmissary.establishConn();
+            
+            this.argProcessor = new ARGProcessor(this.dbEmissary.getConn(), planPath);
+            
+            if (!dbEmissary.doDbTablesExist(tableNameList)) 
+			dbEmissary.createTables();
+            
+            if (!dbEmissary.areDbTablesFilled(tableNameList)) {
+			
+				this.argProcessor.processRequest("parseBP");
+				this.argProcessor.processRequest("saveBP");
+				
+		}
+    }
+
 	/**
 	 * select all classroom names of our database
 	 * @return the list of results w.r.t the query (i.e, all classrooms)
@@ -142,4 +181,8 @@ public class ARGuide {
 	public List<List<String>> selectClassroomSchedule(String classroomName) throws SQLException {
 		return dbEmissary.selectClassroomSchedule(classroomName);
 	}
+
+	public List<String> selectAllRooms() throws SQLException {
+        return dbEmissary.selectAllRooms();
+    }
 }

@@ -66,6 +66,18 @@ public class DatabaseEmissary {
 		
 		return queryResults;
 	}
+
+	public List<String> selectAllRooms() throws SQLException {
+		List<String> queryResults = new ArrayList<String>();
+		Statement statement = conn.createStatement();
+		ResultSet rs = statement.executeQuery("SELECT name FROM nodes");
+			
+		while (rs.next()) {
+			queryResults.add(rs.getString(1));
+		}
+		
+		return queryResults;
+	}
 	
 	/**
 	 * select all schedule entries related to the given classroom name (could return null in case that specific classroom does not exist in our DB)
@@ -178,7 +190,7 @@ public class DatabaseEmissary {
 	 * creates the tables w.r.t the database
 	 * @throws SQLException upon database access error or operation attempt through a closed connection
 	 */
-	public void createTables() throws SQLException {
+	public void createTablesFII() throws SQLException {
 		List<String> queries = new ArrayList<>(Arrays.asList(
 				"DROP TABLE IF EXISTS schedule\r\n", 
 				"DROP TABLE IF EXISTS edges\r\n", 
@@ -223,6 +235,46 @@ public class DatabaseEmissary {
 				"  CONSTRAINT fk_schedule_nodes FOREIGN KEY (node_id) REFERENCES nodes(id),\r\n" + 
 				"  CONSTRAINT fk_schedule_courses FOREIGN KEY (course_id) REFERENCES courses(id)\r\n" + 
 				")"));
+		
+		Statement statement = conn.createStatement();
+		
+		for (String query : queries)
+			statement.execute(query);
+		
+		return;
+	}
+
+	public void createTables() throws SQLException {
+		List<String> queries = new ArrayList<>(Arrays.asList(
+				"DROP TABLE IF EXISTS schedule\r\n", 
+				"DROP TABLE IF EXISTS edges\r\n", 
+				"DROP TABLE IF EXISTS images\r\n", 
+				"DROP TABLE IF EXISTS nodes\r\n", 
+				"DROP TABLE IF EXISTS courses\r\n", 
+				
+				"CREATE TABLE nodes (\r\n" + 
+				"  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\r\n" + 
+				"  floor INTEGER,\r\n" + 
+				"  name VARCHAR(50),\r\n" + 
+				"  type VARCHAR(15)\r\n" + 
+				")\r\n", 
+				
+				"CREATE TABLE edges (\r\n" + 
+				"  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\r\n" + 
+				"  id1 INTEGER NOT NULL,\r\n" + 
+				"  id2 INTEGER NOT NULL,\r\n" + 
+				"  cost DOUBLE PRECISION,\r\n" + 
+				"  CONSTRAINT fk_edges_nodes1 FOREIGN KEY (id1) REFERENCES nodes(id),\r\n" + 
+				"  CONSTRAINT fk_edges_nodes2 FOREIGN KEY (id2) REFERENCES nodes(id)\r\n" + 
+				")\r\n",
+				
+				"CREATE TABLE images (\r\n" + 
+				"  node_id INTEGER NOT NULL,\r\n" + 
+				"  image VARCHAR(100),\r\n" + 
+				"   CONSTRAINT fk_edges_nodes FOREIGN KEY (node_id) REFERENCES nodes(id)\r\n" + 
+				")"
+				
+				));
 		
 		Statement statement = conn.createStatement();
 		
