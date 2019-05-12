@@ -93,10 +93,11 @@ Completed tasks:
 
 # 8. Cristian Andrei (andreicristian6(at)protonmail(dot)com)
 Completed tasks:
+
   a) Helped engineer the Drawing Application that aided us in creating the Building Plan for our faculty.
   
 # 9. Caloian Andrei George
-(transfered from the Testing Module>)
+(transfered from the Testing Module)
 
 Completed tasks:
 
