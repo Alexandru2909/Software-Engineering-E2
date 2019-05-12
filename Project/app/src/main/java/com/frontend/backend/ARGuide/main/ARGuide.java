@@ -56,19 +56,19 @@ public class ARGuide {
 		/****************** WEBPARSER CALL ****************************/
 		/*
 		Old code
-		AutoUpdateClass autoUpdateClass=new AutoUpdateClass("https://profs.info.uaic.ro/~orar/orar_resurse.html","lastUpdateFile");
+		AutoUpdateClass autoUpdateClass=new AutoUpdateClass("https://profs.info.uaic.ro/~orar/orar_resurse.html","ARGuide/schedules/lastUpdateTime.txt");
 		if(autoUpdateClass.runDataCollector()==true){
 			try {
-				WebParser parser = new WebParser("https://profs.info.uaic.ro/~orar/", "orar_resurse.html", "resultFile.json","sectionsNames.txt");
+				WebParser parser = new WebParser("https://profs.info.uaic.ro/~orar/", "orar_resurse.html", "ARGuide/schedules/facultySchedule.json", "ARGuide/schedules/sectionsNames.txt");
 				parser.runParset();
 			}catch (Exception e){
 				System.out.println("problema la crearea fisielor" +e.getMessage());
 			}
 		}*/
 		 try {
-			 AutoUpdateClass autoUpdateClass=new AutoUpdateClass("https://profs.info.uaic.ro/~orar/orar_resurse.html","lastUpdateFile");  
+			 AutoUpdateClass autoUpdateClass=new AutoUpdateClass("https://profs.info.uaic.ro/~orar/orar_resurse.html","ARGuide/schedules/lastUpdateTime.txt");  
 			 if(autoUpdateClass.runDataCollector()==false){
-				WebParser parser = new WebParser("https://profs.info.uaic.ro/~orar/", "orar_resurse.html", "resultFile.json","sectionsNames.txt");
+				WebParser parser = new WebParser("https://profs.info.uaic.ro/~orar/", "orar_resurse.html", "ARGuide/schedules/facultySchedule.json", "ARGuide/schedules/sectionsNames.txt");
 				parser.runParset();
 				autoUpdateClass.setNewDate();
 			    }
