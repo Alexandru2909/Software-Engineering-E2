@@ -118,7 +118,7 @@ public class ARGuide {
 		 * if the database tables that we need for our application do not already exist, create them
 		 */
 		if (!dbEmissary.doDbTablesExist(tableNameList)) 
-			dbEmissary.createTables();
+			dbEmissary.createTablesFII();
 		
 		/*
 		 * if our database tables that we need for our application are not already filled with the required information, then fill them accordingly
