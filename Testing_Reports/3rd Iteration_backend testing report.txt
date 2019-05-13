@@ -1,0 +1,7 @@
+WebParserV3:
+	- change minSdkVersion from 21 to 26  (build.gradle)
+	- typo in error report
+	- in dataRecord setRoomRecord and setValue are basically the same function, no need to keep them both
+	- in WebParser, the path to the files shoud be determined automatically so it can run on a mobile phone without modifining in code every time, because 		of that the app should also request access to files (probably)
+	- app should be made conncurent using multiple threads(eventually)
+	- try to make functions return values for easier testing
