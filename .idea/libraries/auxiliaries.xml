@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="auxiliaries">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/auxiliaries/jsoup-1.11.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/auxiliaries/sqlite-jdbc-3.27.2.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/auxiliaries/gson-2.8.5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/auxiliaries/javatuples-1.2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

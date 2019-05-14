@@ -15,14 +15,14 @@ public class JSONResource {
     
     /**
      * instantiate the JRDecoder and JRProcessor
-     * @param conn the Connection object holding information w.r.t our current database connection
+     * @param dbEmissary the database helper class that allows operations on and with the database
      * @param resourcePath the path to the JSON resource representing our working schedule or our building plan
      * @param type the type of the JSON resource (either WS or BP)
      * @throws JSONResourceException when the JRDecoder object fails the decoding process
      */
-    public JSONResource(Connection conn, String resourcePath, String type) throws JSONResourceException {
+    public JSONResource(DatabaseEmissary dbEmissary, String resourcePath, String type) throws JSONResourceException {
     	this.jrDecoder = new JRDecoder(resourcePath);
-    	this.jrProcessor = new JRProcessor(conn, type);
+    	this.jrProcessor = new JRProcessor(dbEmissary, type);
     	this.type = type;
     }
     

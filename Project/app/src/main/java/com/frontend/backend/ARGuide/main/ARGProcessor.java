@@ -3,7 +3,6 @@
  */
 package com.frontend.backend.ARGuide.main;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 
 /**
@@ -12,19 +11,32 @@ import java.sql.SQLException;
  *
  */
 public class ARGProcessor {
-	private JSONResource wsResource;
+	private DatabaseEmissary dbEmissary;
 	private JSONResource bpResource;
+	private JSONResource wsResource;
 
 	/**
 	 * construct the JSON resource objects w.r.t the Building Plan and the Working Schedule
-	 * @param conn the Connection object holding information w.r.t our current database connection
-	 * @param schedulePath the path to the JSON resource representing our schedule
+	 * @param dbEmissary the database helper class that allows operations on and with the database
 	 * @param planPath the path to the JSON resource representing our building plan
-	 * @throws JSONResourceException when the JRDecoder object fails the decoding process o the schedule
+	 * @param schedulePath the path to the JSON resource representing our schedule
+	 * @throws JSONResourceException when the JRDecoder object fails the decoding process of the schedule
 	 */
-	public ARGProcessor(Connection conn, String schedulePath, String planPath) throws JSONResourceException {
-		wsResource = new JSONResource(conn, schedulePath, "WS");
-		bpResource = new JSONResource(conn, planPath, "BP");
+	public ARGProcessor(DatabaseEmissary dbEmissary, String schedulePath, String planPath) throws JSONResourceException {
+		this.dbEmissary = dbEmissary;
+		bpResource = new JSONResource(dbEmissary, planPath, "BP");
+		wsResource = new JSONResource(dbEmissary, schedulePath, "WS");
+	}
+
+	/**
+	 * construct the JSON resource object w.r.t the Building Plan
+	 * @param dbEmissary the database helper class that allows operations on and with the database
+	 * @param planPath the path to the JSON resource representing our building plan
+	 * @throws JSONResourceException when the JRDecoder object fails the decoding process of the schedule
+	 */
+	public ARGProcessor(DatabaseEmissary dbEmissary, String planPath) throws JSONResourceException {
+		this.dbEmissary = dbEmissary;
+		bpResource = new JSONResource(dbEmissary, planPath, "BP");
 	}
 	
 	/**

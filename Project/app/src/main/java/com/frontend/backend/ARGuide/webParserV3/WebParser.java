@@ -46,7 +46,7 @@ public class WebParser {
     /**
      *
      * @param siteAddress adresa paginii ce contine lista orarului
-     * @param resultFilesLocation locatia unde vor fi salvate fisierele
+     * @param resultFileLocation locatia unde vor fi salvate fisierele
      * @throws IOException
      */
     public WebParser(String siteAddress,String sitePageName,String resultFileLocation,String sectionsNamesFile) throws IOException {

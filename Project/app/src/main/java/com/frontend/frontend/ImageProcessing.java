@@ -21,7 +21,6 @@ import android.widget.Toast;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import com.frontend.backend.ARGuide.main.JSONResourceException;
 import com.frontend.frontend.Main.MainActivity;
@@ -69,9 +68,10 @@ public class ImageProcessing extends AppCompatActivity {
         ocrTextView = findViewById(R.id.ocrTextView);
 
         try {
-            ARGuide databaseConn = new ARGuide("ARGuide/database/faculty.db",
-                    "ARGuide/schedules/facultySchedule.json",
-                    "ARGuide/buildingPlan/jsonFormat/buildingPlan.json");
+            ARGuide databaseConn = new ARGuide("faculty_uaic_cs",
+                    "app/src/main/java/com/frontend/backend/ARGuide/database/faculty.db",
+                    "app/src/main/java/com/frontend/backend/ARGuide/schedules/facultySchedule.json",
+                    "app/src/main/java/com/frontend/backend/ARGuide/buildingPlan/jsonFormat/buildingPlan.json");;
 
             roomsList = databaseConn.selectAllClassroomNames();
 
@@ -121,8 +121,6 @@ public class ImageProcessing extends AppCompatActivity {
                 }
             });
 
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (JSONResourceException e) {
