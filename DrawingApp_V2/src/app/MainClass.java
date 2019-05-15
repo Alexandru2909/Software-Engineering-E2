@@ -417,7 +417,9 @@ public class MainClass extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if(actionMessage.messageCode==1 && validPosition(e.getX(), e.getY())){
-                    nodesList.add(new Node(e.getX(),e.getY()));
+					Node newNode = new Node(e.getX(),e.getY());
+					newNode.textBox();
+                    nodesList.add(newNode);
                     drawingSurface.repaint();
                 }else if(actionMessage.messageCode==2){
                     if(!drawingStage){
