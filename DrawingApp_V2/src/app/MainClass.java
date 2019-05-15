@@ -436,7 +436,9 @@ public class MainClass extends JFrame {
                             curentLine.x2=finalNode.xPoint+10;
                             curentLine.y2=finalNode.yPoint+10;
                             curentLine.setNode2(finalNode);
-                            linesList.add(new Line(curentLine));
+							Line newLine = new Line(curentLine);
+							newLine.textBox();
+                            linesList.add(newLine);
                             drawingSurface.repaint();
                             drawingStage=false;
                         }
