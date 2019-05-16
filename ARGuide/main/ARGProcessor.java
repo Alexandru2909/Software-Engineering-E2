@@ -26,6 +26,10 @@ public class ARGProcessor {
 		wsResource = new JSONResource(conn, schedulePath, "WS");
 		bpResource = new JSONResource(conn, planPath, "BP");
 	}
+
+	public ARGProcessor(Connection conn,  String planPath) throws JSONResourceException {
+		bpResource = new JSONResource(conn, planPath, "BP");
+	}
 	
 	/**
 	 * process the given request (which is related to the Building Plan, the Working Schedule and/or certain operations on them)
