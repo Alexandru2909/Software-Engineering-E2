@@ -93,7 +93,7 @@ public class ARGuide extends Activity {
 				 * don't need to check if database already exists or not;
 				 * the DatabaseEmissary object will automatically create the database if it doesn't exist
 				 */
-				this.dbEmissary = new DatabaseEmissary(this, dbPath, "faculty_uaic_cs");
+				this.dbEmissary = new DatabaseEmissary(this.getApplicationContext(), dbPath, "faculty_uaic_cs");
 
 				/*
 				 * make a new processor for our application
@@ -131,7 +131,7 @@ public class ARGuide extends Activity {
 
 				List<String> tableNameList = new ArrayList<>(Arrays.asList("nodes", "edges", "images"));
 
-				this.dbEmissary = new DatabaseEmissary(this, dbPath, "standard");
+				this.dbEmissary = new DatabaseEmissary(this.getApplicationContext(), dbPath, "standard");
 
 				this.argProcessor = new ARGProcessor(dbEmissary, planPath);
 

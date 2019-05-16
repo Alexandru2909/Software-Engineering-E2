@@ -9,7 +9,7 @@ import java.util.List;
  * @author Paul-Reftu
  *
  */
-public class Solution extends Activity {
+public class Solution {
 
 	/**
 	 *

@@ -4,6 +4,7 @@
 package com.frontend.backend.ARGuide.main;
 
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  * the main processor of the ARG application's Back-End module
@@ -14,6 +15,7 @@ public class ARGProcessor {
 	private DatabaseEmissary dbEmissary;
 	private JSONResource bpResource;
 	private JSONResource wsResource;
+	private PathGenerator pathGenerator;
 
 	/**
 	 * construct the JSON resource objects w.r.t the Building Plan and the Working Schedule
@@ -26,6 +28,7 @@ public class ARGProcessor {
 		this.dbEmissary = dbEmissary;
 		bpResource = new JSONResource(dbEmissary, planPath, "BP");
 		wsResource = new JSONResource(dbEmissary, schedulePath, "WS");
+		pathGenerator = new PathGenerator(dbEmissary);
 	}
 
 	/**
@@ -37,6 +40,7 @@ public class ARGProcessor {
 	public ARGProcessor(DatabaseEmissary dbEmissary, String planPath) throws JSONResourceException {
 		this.dbEmissary = dbEmissary;
 		bpResource = new JSONResource(dbEmissary, planPath, "BP");
+		pathGenerator = new PathGenerator(dbEmissary);
 	}
 	
 	/**
@@ -77,5 +81,19 @@ public class ARGProcessor {
 				throw new JSONResourceException("Unknown request!");
 		
 		}
+	}
+
+	/**
+	 * computes the shortest path b/w two given nodes in the building graph
+	 * @param startVertex the starting vertex
+	 * @param endVertex the destination vertex
+	 * @return the shortest path from a source to a destination vertex
+	 * @throws JSONResourceException upon null vertex parameters
+	 */
+	public List<Integer> computeSP(Integer startVertex, Integer endVertex) throws JSONResourceException {
+		if (startVertex == null || endVertex == null)
+			throw new JSONResourceException("Invalid start/end vertices for shortest path computation!");
+
+		return pathGenerator.dijkstra(startVertex, endVertex);
 	}
 }
