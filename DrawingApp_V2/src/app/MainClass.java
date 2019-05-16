@@ -1,9 +1,11 @@
 package app;
 
+
+import javax.swing.*;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.BufferedWriter;
@@ -211,9 +213,9 @@ public class MainClass extends JFrame {
                     File file = fileChooser.getSelectedFile();
                     try {
                         GraphData myGraph=new GraphData(nodesList,linesList);
-                        Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
+                        
                         myGraph.getData(file.getPath());
-
+                        Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create(); 
                         String json = gson.toJson(myGraph);
                         BufferedWriter writer = new BufferedWriter(new FileWriter("testGraph/output.json"));
                         writer.write(json);
@@ -232,7 +234,7 @@ public class MainClass extends JFrame {
          * atasam listener butonului Open
          */
         openButton.addActionListener(new ActionListener() {
-            @Override
+        	@Override
             public void actionPerformed(ActionEvent e) {
                 String filePath=inputFile.getText();
                 File inputFile=new File(filePath);
@@ -258,7 +260,7 @@ public class MainClass extends JFrame {
                         for (Node node2 : nodesList) {
                             if (node1.getType().equalsIgnoreCase("stairs") || node1.getType().equalsIgnoreCase("elevator")){
                                 if (node2.getType().equalsIgnoreCase(node1.getType())){
-                                    if (node1!=node2) {
+                                    if (node1.getId() != node2.getId() && node1.getName().equals(node2.getName())) {
                                         if (node1.getFloor() == node2.getFloor() - 1 || node2.getFloor() == node1.getFloor() - 1) {
                                             curentLine = new Line(node1.xPoint + 10, node1.yPoint + 10, node2.xPoint + 10, node2.yPoint + 10);
                                             boolean exists=false;
