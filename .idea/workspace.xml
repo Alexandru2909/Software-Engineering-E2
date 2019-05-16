@@ -1,0 +1,628 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="b6e81504-c9d7-492b-8266-d263bd5fd797" name="Default Changelist" comment="Migrated from JDBC API to Native SQLite DB">
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/auxiliaries.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/gradle_wrapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/libs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Project/app/src/main/gen/com/frontend/frontend/BuildConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Project/app/src/main/gen/com/frontend/frontend/Manifest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Project/app/src/main/gen/com/frontend/frontend/R.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/buildingPlan/jsonFormat/randomBP.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/database/randomBP.db" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Software-Engineering-E2.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/Project/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Project/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Project/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Project/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/.idea/runConfigurations.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Project/.idea/runConfigurations.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Project/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/libs/gson-2.8.5.jar" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/libs/gson-2.8.5.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/libs/javatuples-1.2.jar" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/libs/javatuples-1.2.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/libs/jsoup-1.11.3.jar" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/libs/jsoup-1.11.3.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/libs/package-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/libs/package-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/libs/sqlite-jdbc-3.27.2.1.jar" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/libs/sqlite-jdbc-3.27.2.1.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/proguard-rules.pro" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/proguard-rules.pro" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/auxiliaries/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/auxiliaries/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/auxiliaries/gson-2.8.5.jar" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/auxiliaries/gson-2.8.5.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/auxiliaries/javatuples-1.2.jar" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/auxiliaries/javatuples-1.2.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/auxiliaries/jsoup-1.11.3.jar" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/auxiliaries/jsoup-1.11.3.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/auxiliaries/package-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/auxiliaries/package-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/auxiliaries/sqlite-jdbc-3.27.2.1.jar" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/auxiliaries/sqlite-jdbc-3.27.2.1.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/buildingPlan/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/buildingPlan/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/buildingPlan/graphFormat/buildingPlan.graph" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/buildingPlan/graphFormat/buildingPlan.graph" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/buildingPlan/imageFormat/buildingPlan.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/buildingPlan/imageFormat/buildingPlan.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/buildingPlan/jsonFormat/buildingPlan.json" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/buildingPlan/jsonFormat/buildingPlan.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/buildingPlan/package-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/buildingPlan/package-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/database/dbCreation.sql" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/database/dbCreation.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/database/faculty.db" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/database/faculty.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/allclasses-frame.html" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/allclasses-frame.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/allclasses-noframe.html" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/allclasses-noframe.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/constant-values.html" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/constant-values.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/deprecated-list.html" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/deprecated-list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/help-doc.html" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/help-doc.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/index-files/index-1.html" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/index-files/index-1.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/index-files/index-10.html" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/index-files/index-10.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/index-files/index-11.html" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/index-files/index-11.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/index-files/index-12.html" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/index-files/index-12.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/index-files/index-13.html" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/index-files/index-13.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/index-files/index-14.html" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/index-files/index-14.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/index-files/index-2.html" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/index-files/index-2.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/index-files/index-3.html" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/index-files/index-3.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/index-files/index-4.html" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/index-files/index-4.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/index-files/index-5.html" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/index-files/index-5.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/index-files/index-6.html" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/index-files/index-6.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/index-files/index-7.html" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/index-files/index-7.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/index-files/index-8.html" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/index-files/index-8.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/index-files/index-9.html" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/index-files/index-9.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/main/ARGProcessor.html" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/main/ARGProcessor.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/main/ARGXHandler.html" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/main/ARGXHandler.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/main/ARGuide.html" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/main/ARGuide.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/main/BuildingPlan.Edge.html" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/main/BuildingPlan.Edge.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/main/BuildingPlan.Node.html" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/main/BuildingPlan.Node.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/main/BuildingPlan.html" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/main/BuildingPlan.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/main/DatabaseEmissary.html" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/main/DatabaseEmissary.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/main/JRDecoder.html" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/main/JRDecoder.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/main/JRProcessor.html" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/main/JRProcessor.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/main/JSONResource.html" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/main/JSONResource.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/main/JSONResourceException.html" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/main/JSONResourceException.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/main/PathGenerator.html" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/main/PathGenerator.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/main/SPException.html" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/main/SPException.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/main/Solution.html" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/main/Solution.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/main/class-use/ARGProcessor.html" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/main/class-use/ARGProcessor.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/main/class-use/ARGXHandler.html" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/main/class-use/ARGXHandler.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/main/class-use/ARGuide.html" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/main/class-use/ARGuide.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/main/class-use/BuildingPlan.Edge.html" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/main/class-use/BuildingPlan.Edge.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/main/class-use/BuildingPlan.Node.html" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/main/class-use/BuildingPlan.Node.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/main/class-use/BuildingPlan.html" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/main/class-use/BuildingPlan.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/main/class-use/DatabaseEmissary.html" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/main/class-use/DatabaseEmissary.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/main/class-use/JRDecoder.html" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/main/class-use/JRDecoder.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/main/class-use/JRProcessor.html" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/main/class-use/JRProcessor.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/main/class-use/JSONResource.html" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/main/class-use/JSONResource.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/main/class-use/JSONResourceException.html" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/main/class-use/JSONResourceException.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/main/class-use/PathGenerator.html" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/main/class-use/PathGenerator.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/main/class-use/SPException.html" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/main/class-use/SPException.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/main/class-use/Solution.html" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/main/class-use/Solution.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/main/package-frame.html" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/main/package-frame.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/main/package-summary.html" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/main/package-summary.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/main/package-tree.html" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/main/package-tree.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/main/package-use.html" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/main/package-use.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/overview-tree.html" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/overview-tree.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/package-list" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/package-list" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/script.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/serialized-form.html" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/serialized-form.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/stylesheet.css" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/doc/stylesheet.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/main/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/main/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/main/ARGProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/main/ARGProcessor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/main/ARGXHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/main/ARGXHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/main/ARGuide.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/main/ARGuide.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/main/BuildingPlan.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/main/BuildingPlan.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/main/DatabaseEmissary.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/main/DatabaseEmissary.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/main/JRDecoder.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/main/JRDecoder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/main/JRProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/main/JRProcessor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/main/JSONResource.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/main/JSONResource.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/main/JSONResourceException.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/main/JSONResourceException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/main/PathGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/main/PathGenerator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/main/SPException.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/main/SPException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/main/Solution.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/main/Solution.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/schedules/facultySchedule.json" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/schedules/facultySchedule.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/schedules/lastUpdateTime.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/schedules/lastUpdateTime.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/schedules/sectionsNames.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/schedules/sectionsNames.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/webParserV3/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/webParserV3/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/webParserV3/AutoUpdateClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/webParserV3/AutoUpdateClass.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/webParserV3/DataRecord.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/webParserV3/DataRecord.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/webParserV3/DayRecord.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/webParserV3/DayRecord.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/webParserV3/Eveniment.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/webParserV3/Eveniment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/webParserV3/RunningThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/webParserV3/RunningThread.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/webParserV3/Schedule.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/webParserV3/Schedule.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/webParserV3/SignalType.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/webParserV3/SignalType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/webParserV3/WebParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/webParserV3/WebParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/webParserV3/package-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/webParserV3/package-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/frontend/BuildingLayout/BuildingLayout.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/frontend/BuildingLayout/BuildingLayout.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/frontend/BuildingLayout/Buildings.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/frontend/BuildingLayout/Buildings.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/frontend/BuildingLayout/Floors.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/frontend/BuildingLayout/Floors.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/frontend/BuildingLayout/Rooms.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/frontend/BuildingLayout/Rooms.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/frontend/ImageProcessing.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/frontend/ImageProcessing.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/frontend/Main/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/frontend/Main/MainActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/frontend/Timetable/TimetableScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/java/com/frontend/frontend/Timetable/TimetableScreen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-hdpi/back.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-hdpi/back.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-hdpi/background.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-hdpi/background.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-hdpi/big_button.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-hdpi/big_button.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-hdpi/building_icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-hdpi/building_icon.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-hdpi/close.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-hdpi/close.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-hdpi/destination_button.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-hdpi/destination_button.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-hdpi/destination_icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-hdpi/destination_icon.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-hdpi/frames.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-hdpi/frames.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-hdpi/locate_button.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-hdpi/locate_button.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-hdpi/locate_icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-hdpi/locate_icon.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-hdpi/plan_icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-hdpi/plan_icon.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-hdpi/select_building.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-hdpi/select_building.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-hdpi/small_button.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-hdpi/small_button.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-hdpi/tap_back.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-hdpi/tap_back.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-hdpi/tap_big_button.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-hdpi/tap_big_button.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-hdpi/tap_close.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-hdpi/tap_close.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-hdpi/tap_destination_button.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-hdpi/tap_destination_button.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-hdpi/tap_locate_button.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-hdpi/tap_locate_button.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-hdpi/tap_select_building.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-hdpi/tap_select_building.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-hdpi/tap_small_button.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-hdpi/tap_small_button.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-hdpi/tap_view_plan.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-hdpi/tap_view_plan.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-hdpi/title.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-hdpi/title.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-hdpi/view_plan.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-hdpi/view_plan.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-ldpi/back.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-ldpi/back.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-ldpi/background.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-ldpi/background.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-ldpi/big_button.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-ldpi/big_button.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-ldpi/building_icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-ldpi/building_icon.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-ldpi/close.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-ldpi/close.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-ldpi/destination_button.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-ldpi/destination_button.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-ldpi/destination_icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-ldpi/destination_icon.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-ldpi/frames.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-ldpi/frames.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-ldpi/locate_button.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-ldpi/locate_button.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-ldpi/locate_icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-ldpi/locate_icon.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-ldpi/plan_icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-ldpi/plan_icon.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-ldpi/select_building.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-ldpi/select_building.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-ldpi/small_button.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-ldpi/small_button.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-ldpi/tap_back.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-ldpi/tap_back.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-ldpi/tap_big_button.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-ldpi/tap_big_button.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-ldpi/tap_close.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-ldpi/tap_close.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-ldpi/tap_destination_button.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-ldpi/tap_destination_button.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-ldpi/tap_locate_button.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-ldpi/tap_locate_button.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-ldpi/tap_select_building.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-ldpi/tap_select_building.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-ldpi/tap_small_button.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-ldpi/tap_small_button.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-ldpi/tap_view_plan.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-ldpi/tap_view_plan.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-ldpi/title.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-ldpi/title.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-ldpi/view_plan.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-ldpi/view_plan.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-mdpi/back.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-mdpi/back.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-mdpi/background.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-mdpi/background.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-mdpi/big_button.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-mdpi/big_button.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-mdpi/building_icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-mdpi/building_icon.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-mdpi/close.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-mdpi/close.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-mdpi/destination_button.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-mdpi/destination_button.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-mdpi/destination_icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-mdpi/destination_icon.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-mdpi/frames.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-mdpi/frames.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-mdpi/locate_button.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-mdpi/locate_button.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-mdpi/locate_icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-mdpi/locate_icon.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-mdpi/plan_icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-mdpi/plan_icon.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-mdpi/select_building.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-mdpi/select_building.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-mdpi/small_button.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-mdpi/small_button.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-mdpi/tap_back.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-mdpi/tap_back.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-mdpi/tap_big_button.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-mdpi/tap_big_button.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-mdpi/tap_close.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-mdpi/tap_close.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-mdpi/tap_destination_button.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-mdpi/tap_destination_button.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-mdpi/tap_locate_button.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-mdpi/tap_locate_button.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-mdpi/tap_select_building.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-mdpi/tap_select_building.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-mdpi/tap_small_button.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-mdpi/tap_small_button.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-mdpi/tap_view_plan.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-mdpi/tap_view_plan.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-mdpi/title.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-mdpi/title.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-mdpi/view_plan.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-mdpi/view_plan.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xhdpi/back.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xhdpi/back.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xhdpi/background.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xhdpi/background.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xhdpi/big_button.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xhdpi/big_button.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xhdpi/building_icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xhdpi/building_icon.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xhdpi/close.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xhdpi/close.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xhdpi/destination_button.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xhdpi/destination_button.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xhdpi/destination_icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xhdpi/destination_icon.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xhdpi/frames.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xhdpi/frames.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xhdpi/locate_button.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xhdpi/locate_button.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xhdpi/locate_icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xhdpi/locate_icon.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xhdpi/plan_icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xhdpi/plan_icon.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xhdpi/select_building.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xhdpi/select_building.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xhdpi/small_button.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xhdpi/small_button.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xhdpi/tap_back.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xhdpi/tap_back.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xhdpi/tap_big_button.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xhdpi/tap_big_button.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xhdpi/tap_close.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xhdpi/tap_close.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xhdpi/tap_destination_button.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xhdpi/tap_destination_button.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xhdpi/tap_locate_button.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xhdpi/tap_locate_button.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xhdpi/tap_select_building.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xhdpi/tap_select_building.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xhdpi/tap_small_button.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xhdpi/tap_small_button.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xhdpi/tap_view_plan.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xhdpi/tap_view_plan.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xhdpi/title.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xhdpi/title.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xhdpi/view_plan.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xhdpi/view_plan.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxhdpi/back.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxhdpi/back.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxhdpi/background.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxhdpi/background.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxhdpi/big_button.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxhdpi/big_button.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxhdpi/building_icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxhdpi/building_icon.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxhdpi/close.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxhdpi/close.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxhdpi/destination_button.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxhdpi/destination_button.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxhdpi/destination_icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxhdpi/destination_icon.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxhdpi/frames.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxhdpi/frames.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxhdpi/locate_button.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxhdpi/locate_button.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxhdpi/locate_icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxhdpi/locate_icon.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxhdpi/plan_icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxhdpi/plan_icon.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxhdpi/select_building.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxhdpi/select_building.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxhdpi/small_button.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxhdpi/small_button.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxhdpi/tap_back.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxhdpi/tap_back.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxhdpi/tap_big_button.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxhdpi/tap_big_button.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxhdpi/tap_close.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxhdpi/tap_close.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxhdpi/tap_destination_button.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxhdpi/tap_destination_button.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxhdpi/tap_locate_button.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxhdpi/tap_locate_button.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxhdpi/tap_select_building.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxhdpi/tap_select_building.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxhdpi/tap_small_button.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxhdpi/tap_small_button.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxhdpi/tap_view_plan.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxhdpi/tap_view_plan.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxhdpi/title.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxhdpi/title.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxhdpi/view_plan.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxhdpi/view_plan.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxxhdpi/back.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxxhdpi/back.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxxhdpi/background.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxxhdpi/background.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxxhdpi/big_button.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxxhdpi/big_button.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxxhdpi/building_icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxxhdpi/building_icon.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxxhdpi/close.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxxhdpi/close.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxxhdpi/destination_button.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxxhdpi/destination_button.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxxhdpi/destination_icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxxhdpi/destination_icon.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxxhdpi/frames.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxxhdpi/frames.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxxhdpi/locate_button.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxxhdpi/locate_button.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxxhdpi/locate_icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxxhdpi/locate_icon.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxxhdpi/plan_icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxxhdpi/plan_icon.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxxhdpi/select_building.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxxhdpi/select_building.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxxhdpi/small_button.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxxhdpi/small_button.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxxhdpi/tap_back.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxxhdpi/tap_back.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxxhdpi/tap_big_button.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxxhdpi/tap_big_button.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxxhdpi/tap_close.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxxhdpi/tap_close.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxxhdpi/tap_destination_button.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxxhdpi/tap_destination_button.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxxhdpi/tap_locate_button.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxxhdpi/tap_locate_button.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxxhdpi/tap_select_building.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxxhdpi/tap_select_building.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxxhdpi/tap_small_button.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxxhdpi/tap_small_button.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxxhdpi/tap_view_plan.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxxhdpi/tap_view_plan.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxxhdpi/title.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxxhdpi/title.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxxhdpi/view_plan.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable-xxxhdpi/view_plan.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable/back_button_bg.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable/back_button_bg.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable/destination_button_bg.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable/destination_button_bg.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable/gradient_day_picker.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable/gradient_day_picker.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable/ic_launcher_background.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable/ic_launcher_background.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable/locate_button_bg.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable/locate_button_bg.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable/select_building_button_bg.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable/select_building_button_bg.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable/view_plan_button_bg.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable/view_plan_button_bg.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/layout/activity_main.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/layout/scan_room.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/layout/scan_room.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/layout/timetable.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/layout/timetable.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/mipmap-hdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/mipmap-hdpi/ic_launcher.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/mipmap-hdpi/ic_launcher_round.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/mipmap-hdpi/ic_launcher_round.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/mipmap-mdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/mipmap-mdpi/ic_launcher.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/mipmap-mdpi/ic_launcher_round.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/mipmap-mdpi/ic_launcher_round.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/mipmap-xhdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/mipmap-xhdpi/ic_launcher.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/mipmap-xhdpi/ic_launcher_round.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/mipmap-xhdpi/ic_launcher_round.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/values/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/values/colors.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/values/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/main/res/values/styles.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/main/res/values/styles.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/app/src/test/java/com/frontend/frontend/ExampleUnitTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project/app/src/test/java/com/frontend/frontend/ExampleUnitTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/Project/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Project/gradle.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" afterPath="$PROJECT_DIR$/Project/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Project/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/gradlew" beforeDir="false" afterPath="$PROJECT_DIR$/Project/gradlew" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/gradlew.bat" beforeDir="false" afterPath="$PROJECT_DIR$/Project/gradlew.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/Project/settings.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+    </list>
+    <ignored path="$PROJECT_DIR$/out/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/main/DatabaseEmissary.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1020" />
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/main/ARGProcessor.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="197">
+              <caret line="34" selection-start-line="34" selection-end-line="34" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="Paul-Alexandru Reftu &lt;47919865+paul-reftu@users.noreply.github.com&gt;" />
+      </list>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="703" />
+    <option name="y" value="130" />
+    <option name="width" value="960" />
+    <option name="height" value="1080" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="Software-Engineering-E2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Software-Engineering-E2" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+            </path>
+            <path>
+              <item name="Software-Engineering-E2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Software-Engineering-E2" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name=".gradle" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Software-Engineering-E2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Software-Engineering-E2" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="Project" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Software-Engineering-E2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Software-Engineering-E2" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="Project" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Software-Engineering-E2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Software-Engineering-E2" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="Project" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Software-Engineering-E2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Software-Engineering-E2" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="Project" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Software-Engineering-E2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Software-Engineering-E2" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="Project" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Software-Engineering-E2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Software-Engineering-E2" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="Project" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Software-Engineering-E2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Software-Engineering-E2" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="Project" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="frontend" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Software-Engineering-E2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Software-Engineering-E2" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="Project" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="frontend" type="462c0819:PsiDirectoryNode" />
+              <item name="backend" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Software-Engineering-E2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Software-Engineering-E2" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="Project" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="frontend" type="462c0819:PsiDirectoryNode" />
+              <item name="backend" type="462c0819:PsiDirectoryNode" />
+              <item name="ARGuide" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Software-Engineering-E2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Software-Engineering-E2" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="Project" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="frontend" type="462c0819:PsiDirectoryNode" />
+              <item name="backend" type="462c0819:PsiDirectoryNode" />
+              <item name="ARGuide" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
+    <property name="last_opened_file_path" value="$USER_HOME$/git/Software-Engineering-E2-master/Project" />
+    <property name="not.eligible.for.single.variant.sync" value="true" />
+    <property name="sync.plugin.last.upgrade.timestamp" value="1557849541272" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="AndroidJUnit" factoryName="Android JUnit">
+      <option name="TEST_OBJECT" value="class" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="main" type="AndroidRunConfigurationType" factoryName="Android App">
+      <module name="main" />
+      <option name="DEPLOY" value="true" />
+      <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
+      <option name="DEPLOY_AS_INSTANT" value="false" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="PM_INSTALL_OPTIONS" value="" />
+      <option name="DYNAMIC_FEATURES_DISABLED_LIST" value="" />
+      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
+      <option name="MODE" value="default_activity" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
+      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
+      <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="TARGET_SELECTION_MODE" value="SHOW_DIALOG" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
+      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
+      <option name="DEBUGGER_TYPE" value="Auto" />
+      <Auto>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Auto>
+      <Hybrid>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Hybrid>
+      <Java />
+      <Native>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Native>
+      <Profilers>
+        <option name="ADVANCED_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Sample Java Methods" />
+      </Profilers>
+      <option name="DEEP_LINK" value="" />
+      <option name="ACTIVITY_CLASS" value="" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="b6e81504-c9d7-492b-8266-d263bd5fd797" name="Default Changelist" comment="" />
+      <created>1557765073474</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1557765073474</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
+    <layout>
+      <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
+      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.32942432" />
+      <window_info id="Structure" order="2" side_tool="true" />
+      <window_info id="Build Variants" order="3" side_tool="true" />
+      <window_info id="Image Layers" order="4" />
+      <window_info id="Designer" order="5" />
+      <window_info id="Resources Explorer" order="6" />
+      <window_info id="Capture Tool" order="7" />
+      <window_info id="Favorites" order="8" side_tool="true" />
+      <window_info anchor="bottom" id="Build" weight="0.32987553" />
+      <window_info anchor="bottom" id="Version Control" order="0" />
+      <window_info anchor="bottom" id="Logcat" order="1" />
+      <window_info anchor="bottom" id="TODO" order="2" />
+      <window_info anchor="bottom" id="Android Profiler" order="3" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Terminal" order="4" weight="0.32987553" />
+      <window_info anchor="bottom" id="Event Log" order="5" side_tool="true" />
+      <window_info active="true" anchor="bottom" id="Messages" order="6" visible="true" weight="0.33506224" />
+      <window_info anchor="right" id="Gradle" />
+      <window_info anchor="right" id="Device File Explorer" order="0" side_tool="true" />
+      <window_info anchor="right" id="Capture Analysis" order="1" />
+      <window_info anchor="right" id="Theme Preview" order="2" />
+      <window_info anchor="right" id="Palette&#9;" order="3" />
+    </layout>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Migrated from JDBC API to Native SQLite DB" />
+    <option name="LAST_COMMIT_MESSAGE" value="Migrated from JDBC API to Native SQLite DB" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/main/DatabaseEmissary.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1020" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Project/app/src/main/java/com/frontend/backend/ARGuide/main/ARGProcessor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="197">
+          <caret line="34" selection-start-line="34" selection-end-line="34" />
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ProjectJDKs.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>
