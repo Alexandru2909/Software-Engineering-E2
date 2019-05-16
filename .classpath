@@ -2,10 +2,10 @@
 <classpath>
 	<classpathentry kind="src" path="DrawingApp_V2/src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="C:/Users/Atroxyph/git/Software-Engineering-E2/ARGuide/auxiliaries/sqlite-jdbc-3.27.2.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Atroxyph/git/Software-Engineering-E2/ARGuide/auxiliaries/jsoup-1.11.3.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Atroxyph/git/Software-Engineering-E2/ARGuide/auxiliaries/javatuples-1.2.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Atroxyph/git/Software-Engineering-E2/ARGuide/auxiliaries/gson-2.8.5.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Atroxyph/git/Software-Engineering-E2/DrawingApp_V2/src/auxiliaries/gson-2.8.5.jar"/>
-	<classpathentry kind="output" path="DrawingApp_V2/src"/>
+	<classpathentry kind="lib" path="D:/Users/Atroxyph/git/Software-Engineering-E2/Project/app/src/main/java/com/frontend/backend/ARGuide/auxiliaries/gson-2.8.5.jar"/>
+	<classpathentry kind="lib" path="D:/Users/Atroxyph/git/Software-Engineering-E2/Project/app/src/main/java/com/frontend/backend/ARGuide/auxiliaries/javatuples-1.2.jar"/>
+	<classpathentry kind="lib" path="D:/Users/Atroxyph/git/Software-Engineering-E2/Project/app/src/main/java/com/frontend/backend/ARGuide/auxiliaries/jsoup-1.11.3.jar"/>
+	<classpathentry kind="lib" path="D:/Users/Atroxyph/git/Software-Engineering-E2/Project/app/src/main/java/com/frontend/backend/ARGuide/auxiliaries/sqlite-jdbc-3.27.2.1.jar"/>
+	<classpathentry kind="output" path="DrawingApp_V2/bin"/>
 </classpath>
