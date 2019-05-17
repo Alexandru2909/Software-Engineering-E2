@@ -55,10 +55,55 @@ public class GraphData  implements Serializable {
                     Graphics2D graphics = (Graphics2D) image.getGraphics();
 
                     for(Node node: nodes){
-                        graphics.setColor(Color.red);
-                        graphics.fillOval(node.xPoint,node.yPoint,25,25);
-                        graphics.setColor(Color.white);
-                        graphics.drawString(String.valueOf(node.id),node.xPoint+10,node.yPoint+15);
+                        String type = node.getType();
+                        if (type.equalsIgnoreCase("stairs") || type.equalsIgnoreCase("elevator")) {
+                            graphics.setColor(Color.cyan);
+                            graphics.fillOval(node.xPoint, node.yPoint, 35, 35);
+                            graphics.setColor(Color.black);
+                            graphics.drawString(String.valueOf(node.id), node.xPoint + 15, node.yPoint + 15);
+                            graphics.setColor(Color.black);
+                            graphics.drawString(String.valueOf(node.getName()), node.xPoint, node.yPoint + 50);
+                        }
+                        else if(type.equalsIgnoreCase("classroom")){
+                            graphics.setColor(Color.red);
+                            graphics.fillOval(node.xPoint,node.yPoint,35,35);
+                            graphics.setColor(Color.black);
+                            graphics.drawString(String.valueOf(node.id),node.xPoint+15,node.yPoint+15);
+                            graphics.setColor(Color.black);
+                            graphics.drawString(String.valueOf(node.getName()),node.xPoint,node.yPoint+50);
+                        }
+                        else if(type.equalsIgnoreCase("exit")){
+                            graphics.setColor(Color.green);
+                            graphics.fillOval(node.xPoint,node.yPoint,35,35);
+                            graphics.setColor(Color.black);
+                            graphics.drawString(String.valueOf(node.id),node.xPoint+15,node.yPoint+15);
+                            graphics.setColor(Color.black);
+                            graphics.drawString(String.valueOf(node.getName()),node.xPoint,node.yPoint+50);
+                        }
+                        else if(type.equalsIgnoreCase("amphitheatre")){
+                            graphics.setColor(Color.orange);
+                            graphics.fillOval(node.xPoint,node.yPoint,35,35);
+                            graphics.setColor(Color.black);
+                            graphics.drawString(String.valueOf(node.id),node.xPoint+15,node.yPoint+15);
+                            graphics.setColor(Color.black);
+                            graphics.drawString(String.valueOf(node.getName()),node.xPoint,node.yPoint+50);
+                        }
+                        else if(type.equalsIgnoreCase("administration office")){
+                            graphics.setColor(Color.magenta);
+                            graphics.fillOval(node.xPoint,node.yPoint,35,35);
+                            graphics.setColor(Color.black);
+                            graphics.drawString(String.valueOf(node.id),node.xPoint+15,node.yPoint+15);
+                            graphics.setColor(Color.black);
+                            graphics.drawString(String.valueOf(node.getName()),node.xPoint,node.yPoint+50);
+                        }
+                        else{
+                            graphics.setColor(Color.gray);
+                            graphics.fillOval(node.xPoint,node.yPoint,35,35);
+                            graphics.setColor(Color.white);
+                            graphics.drawString(String.valueOf(node.id),node.xPoint+15,node.yPoint+15);
+                            graphics.setColor(Color.black);
+                            graphics.drawString(String.valueOf(node.getName()),node.xPoint,node.yPoint+50);
+                        }
                     }
                     graphics.setColor(Color.red);
                     for(Line line: edges){
