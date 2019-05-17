@@ -41,11 +41,13 @@ public class ARGuide {
 	 * @param dbPath the path to the database
 	 * @param schedulePath the path to the JSON resource representing the Working Schedule
 	 * @param planPath the path to the JSON resource representing the Building Plan
+	 * @param lastUpdateFile is the path to the file that contains the last update
+	 * @param docNames is the path to the file that contains the names of sections selected from the schedule web page
 	 * @throws ClassNotFoundException when the driver class is unknown
 	 * @throws SQLException when a DB access error occurs
 	 * @throws JSONResourceException upon unknown request or WSProcessor operation failure
 	 */
-	public ARGuide(String dbPath, String schedulePath, String planPath) throws ClassNotFoundException, SQLException, JSONResourceException {
+	public ARGuide(String dbPath, String schedulePath, String planPath,String lastUpdateFile,String docNames) throws ClassNotFoundException, SQLException, JSONResourceException {
 		this.dbPath = dbPath;
 		this.dbDriver = "jdbc:sqlite:" + dbPath;
 		this.schedulePath = schedulePath;
@@ -53,16 +55,6 @@ public class ARGuide {
 		
 		/****************** WEBPARSER CALL ****************************/
 		/*
-		Old code
-		AutoUpdateClass autoUpdateClass=new AutoUpdateClass("https://profs.info.uaic.ro/~orar/orar_resurse.html","lastUpdateFile");
-		if(autoUpdateClass.runDataCollector()==true){
-			try {
-				WebParser parser = new WebParser("https://profs.info.uaic.ro/~orar/", "orar_resurse.html", "resultFile.json","sectionsNames.txt");
-				parser.runParset();
-			}catch (Exception e){
-				System.out.println("problema la crearea fisielor" +e.getMessage());
-			}
-		}*/
 		try {
 		    AutoUpdateClass autoUpdateClass=new AutoUpdateClass("https://profs.info.uaic.ro/~orar/orar_resurse.html","ARGuide/schedules/lastUpdateTime.txt");
 		    if(autoUpdateClass.runDataCollector()==false){
@@ -77,6 +69,21 @@ public class ARGuide {
         }catch (Exception e){
             System.out.println("problema la crearea fisielor" +e.getMessage());
         }
+		*/
+		try {
+			AutoUpdateClass autoUpdateClass=new AutoUpdateClass("https://profs.info.uaic.ro/~orar/orar_resurse.html",lastUpdateFile);
+			if(autoUpdateClass.runDataCollector()==false){
+				System.out.println("parser-ul a rulat");
+				WebParser parser = new WebParser("https://profs.info.uaic.ro/~orar/", "orar_resurse.html", schedulePath,docNames);
+				parser.runParset();
+				autoUpdateClass.setNewDate();
+			}else{
+				System.out.println("parserul nu a rulat, niciun update necesar");
+			}
+
+		}catch (Exception e){
+			System.out.println("problema la crearea fisielor" +e.getMessage());
+		}
 		/****************** WEBPARSER CALL ****************************/
 
 
