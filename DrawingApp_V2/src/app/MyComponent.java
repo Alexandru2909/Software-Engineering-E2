@@ -45,7 +45,7 @@ public class MyComponent extends JComponent {
         this.curentLine=curentLine;
         this.actionMessage=actionMessage;
     }
-    
+
     /**
      * Functia de desenare a contextului grafic
      * @param g
@@ -71,10 +71,68 @@ public class MyComponent extends JComponent {
             }
         }
         for(Node node: nodesList){
-            G.setColor(Color.red);
-            G.fillOval(node.xPoint,node.yPoint,25,25);
-            G.setColor(Color.white);
-            G.drawString(String.valueOf(node.id),node.xPoint+10,node.yPoint+15);
+            String type = node.getType();
+            if (type.equalsIgnoreCase("stairs") || type.equalsIgnoreCase("elevator")) {
+                G.setColor(Color.cyan);
+                G.fillOval(node.xPoint, node.yPoint, 35, 35);
+                G.setColor(Color.black);
+                G.drawString(String.valueOf(node.id), node.xPoint + 15, node.yPoint + 15);
+                G.setColor(Color.black);
+                G.drawString(String.valueOf(node.getName()), node.xPoint, node.yPoint + 50);
+            }
+            else if(type.equalsIgnoreCase("classroom")){
+                G.setColor(Color.red);
+                G.fillOval(node.xPoint,node.yPoint,35,35);
+                G.setColor(Color.black);
+                G.drawString(String.valueOf(node.id),node.xPoint+15,node.yPoint+15);
+                G.setColor(Color.black);
+                G.drawString(String.valueOf(node.getName()),node.xPoint,node.yPoint+50);
+            }
+            else if(type.equalsIgnoreCase("exit")){
+                G.setColor(Color.green);
+                G.fillOval(node.xPoint,node.yPoint,35,35);
+                G.setColor(Color.black);
+                G.drawString(String.valueOf(node.id),node.xPoint+15,node.yPoint+15);
+                G.setColor(Color.black);
+                G.drawString(String.valueOf(node.getName()),node.xPoint,node.yPoint+50);
+            }
+            else if(type.equalsIgnoreCase("amphitheatre")){
+                G.setColor(Color.orange);
+                G.fillOval(node.xPoint,node.yPoint,35,35);
+                G.setColor(Color.black);
+                G.drawString(String.valueOf(node.id),node.xPoint+15,node.yPoint+15);
+                G.setColor(Color.black);
+                G.drawString(String.valueOf(node.getName()),node.xPoint,node.yPoint+50);
+            }
+            else if(type.equalsIgnoreCase("administration office")){
+                G.setColor(Color.magenta);
+                G.fillOval(node.xPoint,node.yPoint,35,35);
+                G.setColor(Color.black);
+                G.drawString(String.valueOf(node.id),node.xPoint+15,node.yPoint+15);
+                G.setColor(Color.black);
+                G.drawString(String.valueOf(node.getName()),node.xPoint,node.yPoint+50);
+            }
+            else{
+                G.setColor(Color.gray);
+                G.fillOval(node.xPoint,node.yPoint,35,35);
+                G.setColor(Color.white);
+                G.drawString(String.valueOf(node.id),node.xPoint+15,node.yPoint+15);
+                G.setColor(Color.black);
+                G.drawString(String.valueOf(node.getName()),node.xPoint,node.yPoint+50);
+            }
         }
+        G.setColor(Color.green);
+        G.drawString("Exit",getWidth()-140,getHeight()-90);
+        G.setColor(Color.cyan);
+        G.drawString("Stairs",getWidth()-140,getHeight()-77);
+        G.drawString("Elevator",getWidth()-140,getHeight()-64);
+        G.setColor(Color.orange);
+        G.drawString("Amphitheatre",getWidth()-140,getHeight()-51);
+        G.setColor(Color.magenta);
+        G.drawString("Administration office",getWidth()-140,getHeight()-37);
+        G.setColor(Color.red);
+        G.drawString("Classroom",getWidth()-140,getHeight()-24);
+        G.setColor(Color.gray);
+        G.drawString("Unidentified node",getWidth()-140,getHeight()-11);
     }
 }
