@@ -127,6 +127,18 @@ public class MainClass extends JFrame {
      */
     JButton editEdgeButton=new JButton("Edit Edge");
     /**
+     * Checkbox that toggles if node editor is activated as auto-popup (default is true)
+     */
+    JCheckBox popupNode=new JCheckBox("Node auto-popup", true);
+    /**
+     * Checkbox that toggles if line editor is activated as auto-popup (default is true)
+     */
+    JCheckBox popupLine=new JCheckBox("Line auto-popup", true);
+    /**
+     * Panel that contains the "Node auto-popup" checkbox
+     */
+    JPanel popupPanel=new JPanel();
+    /**
      * Acesta este panoul care contine butoanele si campul de text
      */
     JPanel  buttonsPanel=new JPanel();
@@ -159,7 +171,7 @@ public class MainClass extends JFrame {
      */
     MainClass(){
 
-        super("MyGraphics");//setam titlul ferestrei
+        super("Drawing App");//setam titlul ferestrei
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
@@ -185,6 +197,18 @@ public class MainClass extends JFrame {
         buttonsPanel.add(editEdgeButton);
 
         /**
+         * setting the layout for the popupPanel
+         */
+        popupPanel.setLayout(new FlowLayout());
+        /**
+         * adding the node checkbox to the popupPanel
+         */
+        popupPanel.add(popupNode);
+        /**
+         * adding the line checkbox to the popupPanel
+         */
+        popupPanel.add(popupLine);
+        /**
          * setam layout-ul general al ferestrei
          */
         generalPanel.setLayout(new BorderLayout());
@@ -196,7 +220,10 @@ public class MainClass extends JFrame {
          * adaugam suprafata de desenare la panoul general
          */
         generalPanel.add(drawingSurface,BorderLayout.CENTER);
-
+        /**
+         * attach the popup panel to the general panel
+         */
+        generalPanel.add(popupPanel,BorderLayout.SOUTH);
 
         /**
          * atasam listener butonului Export
@@ -420,7 +447,9 @@ public class MainClass extends JFrame {
             public void mouseClicked(MouseEvent e) {
                 if(actionMessage.messageCode==1 && validPosition(e.getX(), e.getY())){
 					Node newNode = new Node(e.getX(),e.getY());
-					newNode.textBox();
+					if (popupNode.isSelected()){
+					    newNode.textBox();
+					}
                     nodesList.add(newNode);
                     drawingSurface.repaint();
                 }else if(actionMessage.messageCode==2){
@@ -439,7 +468,9 @@ public class MainClass extends JFrame {
                             curentLine.y2=finalNode.yPoint+10;
                             curentLine.setNode2(finalNode);
 							Line newLine = new Line(curentLine);
-							newLine.textBox();
+							if (popupLine.isSelected()) {
+                                newLine.textBox();
+                            }
                             linesList.add(newLine);
                             drawingSurface.repaint();
                             drawingStage=false;
