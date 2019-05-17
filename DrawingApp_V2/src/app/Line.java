@@ -110,9 +110,14 @@ public class Line implements Serializable {
         JPanel panel = new JPanel(new GridLayout(0, 1));
         panel.add(new JLabel("Weight:"));
         panel.add(weightTF);
-        int result = JOptionPane.showConfirmDialog(null, panel, "Edge info", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
-
-        if (result == JOptionPane.OK_OPTION) {
+        JOptionPane pane = new JOptionPane(panel, JOptionPane.PLAIN_MESSAGE, JOptionPane.OK_CANCEL_OPTION) {
+            @Override
+            public void selectInitialValue(){
+                weightTF.requestFocusInWindow();
+                weightTF.selectAll();
+            }
+        };
+        pane.createDialog(null, "Edge info").setVisible(true);
 
             try {
                 this.setWeight(java.lang.Double.parseDouble(weightTF.getText()));
@@ -122,7 +127,6 @@ public class Line implements Serializable {
                 this.setWeight(0.00);
             }
         }
-    }
 
     public double getWeight() {
         return cost;

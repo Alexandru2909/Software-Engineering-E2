@@ -85,26 +85,33 @@ public class Node implements Serializable {
         panel.add(typeTF);
         panel.add(new JLabel("Floor:"));
         panel.add(floorTF);
-        int result = JOptionPane.showConfirmDialog(null, panel, "Node info", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
-
-        if (result == JOptionPane.OK_OPTION) {
-
-            this.setName(nameTF.getText());
-            this.setType(typeTF.getText());
-
-            System.out.println("Name: " + nameTF.getText());
-            System.out.println("Type: " + typeTF.getText());
-            try {
-                System.out.println(Integer.parseInt(floorTF.getText()));
-                this.setFloor(Integer.parseInt(floorTF.getText()));
-            } catch (Exception e) {
-                System.out.println(e);
-                System.out.println("Floor: 0");
-                this.setFloor(0);
+        /**
+         * Auto focus implementation
+         */
+        JOptionPane pane = new JOptionPane(panel, JOptionPane.PLAIN_MESSAGE, JOptionPane.OK_CANCEL_OPTION) {
+            @Override
+            public void selectInitialValue(){
+                nameTF.requestFocusInWindow();
+                nameTF.selectAll();
             }
-            System.out.println();
+        };
+        pane.createDialog(null, "Node info").setVisible(true);
 
+        this.setName(nameTF.getText());
+        this.setType(typeTF.getText());
+
+        System.out.println("Name: " + nameTF.getText());
+        System.out.println("Type: " + typeTF.getText());
+        try {
+            System.out.println(Integer.parseInt(floorTF.getText()));
+            this.setFloor(Integer.parseInt(floorTF.getText()));
+        } catch (Exception e) {
+            System.out.println(e);
+            System.out.println("Floor: 0");
+            this.setFloor(0);
         }
+        System.out.println();
+
     }
 
     public String getName() {
