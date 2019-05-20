@@ -6,10 +6,9 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
 import java.io.*;
-
-
-
-
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 public class AutoUpdateClass{
@@ -29,7 +28,22 @@ public class AutoUpdateClass{
             BufferedReader inputData=new BufferedReader(new FileReader(lastUpdateFilePath));
             this.lastUpdateDate=inputData.readLine();
         }catch (FileNotFoundException e){
-            System.out.println(e.getMessage());
+            /*
+             * if 'lastUpdateTime.txt' does not exist - attempt creating it
+             * and setting 'this.lastUpdateDate' to null in order to let the 'runDataCollector()' method know
+             * that an update is necessary
+             */
+            try {
+                File lastUpdateTime = new File(lastUpdateFilePath);
+
+                if (!lastUpdateTime.createNewFile())
+                    throw new IOException("'lastUpdateTime.txt' could not be created at " + lastUpdateFilePath);
+
+                this.lastUpdateDate = null;
+            } catch (IOException e2) {
+                e2.printStackTrace();
+            }
+
         }catch(IOException e){
             System.out.println(e.getMessage());
             //nu facem nimic ,consideram ca este o prima utilizare a aplicateiei asa ca vom reincarca baza de date

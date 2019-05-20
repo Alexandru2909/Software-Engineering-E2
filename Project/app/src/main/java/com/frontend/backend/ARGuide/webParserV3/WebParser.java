@@ -128,7 +128,6 @@ public class WebParser {
             System.exit(0);
         }
 
-
         try{
             BufferedReader inputData=new BufferedReader(new FileReader(sectionsNamesFile));
             String sectionName;
@@ -136,7 +135,37 @@ public class WebParser {
                 titlesList.add(sectionName);
             }
         }catch(FileNotFoundException e){
-            System.out.print("fisierul nu a fost gasit");
+            /*
+             * if 'sectionNames.txt' is not found, then create it
+             * and insert the standard section names for our faculty
+             */
+            try {
+                File sectionsNames = new File(sectionsNamesFile);
+
+                if (!sectionsNames.createNewFile())
+                    throw new IOException("'sectionNames.txt' file could not be created at " + sectionsNamesFile);
+
+                String sectionsNamesContents = "ALTE SALI\n" +
+                            "CABINET\n" +
+                            "LABORATOARE\n" +
+                            "SALI DE CURS\n" +
+                            "SALI DE SEMINAR";
+                FileWriter out = new FileWriter(sectionsNames);
+                out.write(sectionsNamesContents);
+                out.close();
+
+                /*
+                 * lazy approach - should in fact use a regular expression to get the titles from 'sectionNamesContents'
+                 */
+                BufferedReader in = new BufferedReader(new FileReader(sectionsNames));
+                String sectionName;
+
+                while ((sectionName = in.readLine()) != null)
+                    titlesList.add(sectionName);
+                in.close();
+            } catch (IOException e2) {
+                e2.printStackTrace();
+            }
         }catch(IOException e){
             System.out.print("probleme la citirea din fisier");
         }
