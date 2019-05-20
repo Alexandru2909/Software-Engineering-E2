@@ -24,11 +24,32 @@ public class ARGProcessor {
 	 * @param schedulePath the path to the JSON resource representing our schedule
 	 * @throws JSONResourceException when the JRDecoder object fails the decoding process of the schedule
 	 */
-	public ARGProcessor(DatabaseEmissary dbEmissary, String schedulePath, String planPath) throws JSONResourceException {
+	public ARGProcessor(final DatabaseEmissary dbEmissary, final String schedulePath, final String planPath) throws JSONResourceException {
 		this.dbEmissary = dbEmissary;
-		bpResource = new JSONResource(dbEmissary, planPath, "BP");
-		wsResource = new JSONResource(dbEmissary, schedulePath, "WS");
-		pathGenerator = new PathGenerator(dbEmissary);
+		Thread thread = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				try
+				{
+					bpResource = new JSONResource(dbEmissary, planPath, "BP");
+					wsResource = new JSONResource(dbEmissary, schedulePath, "WS");
+					pathGenerator = new PathGenerator(dbEmissary);
+				}catch (Exception e)
+				{
+					System.out.println(e);
+				}
+
+			}
+		});
+		thread.start();
+		try{
+			thread.join();
+		}
+		catch (Exception e)
+		{
+			System.out.println(e);
+		}
+
 	}
 
 	/**

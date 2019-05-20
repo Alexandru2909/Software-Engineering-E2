@@ -143,7 +143,7 @@ public class ImageProcessing extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        //cameraSource.release();
+        cameraSource.release();
     }
 
     /**

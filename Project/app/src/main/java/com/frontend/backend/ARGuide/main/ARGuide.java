@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 
+import java.io.File;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -64,25 +65,37 @@ public class ARGuide extends AppCompatActivity {
 			case "faculty_uaic_cs": {
 				/* ***************** WEB PARSER CALL START ***************** */
 				try {
-					AutoUpdateClass autoUpdateClass = new AutoUpdateClass("https://profs.info.uaic.ro/~orar/orar_resurse.html",
-							"/data/user/0/com.frontend.frontend/files/lastUpdateTime.txt");
+					Thread thread = new Thread(new Runnable() {
+						@Override
+						public void run() {
+							try {
+								AutoUpdateClass autoUpdateClass = new AutoUpdateClass("https://profs.info.uaic.ro/~orar/orar_resurse.html",
+										"/data/user/0/com.frontend.frontend/files/lastUpdateTime.txt");
 
-					if(!autoUpdateClass.runDataCollector()) {
-						WebParser parser = new WebParser("https://profs.info.uaic.ro/~orar/",
-								"orar_resurse.html",
-								"/data/user/0/com.frontend.frontend/files/facultySchedule.json",
-								"/data/user/0/com.frontend.frontend/files/sectionsNames.txt");
-						parser.runParset();
-						autoUpdateClass.setNewDate();
-					}
+								if (!autoUpdateClass.runDataCollector()) {
+									WebParser parser = new WebParser("https://profs.info.uaic.ro/~orar/",
+											"orar_resurse.html",
+											"/data/user/0/com.frontend.frontend/files/facultySchedule.json",
+											"/data/user/0/com.frontend.frontend/files/sectionsNames.txt");
+									parser.runParset();
+									autoUpdateClass.setNewDate();
+								}
 
-					SignalType signal = new SignalType();//acest obiect trebuie utilizat de front-end pentru semnalul de update
-					RunningThread runningThread = new RunningThread(autoUpdateClass, signal);
-					Thread updateThread = new Thread(runningThread);
-					updateThread.setDaemon(true);
-					updateThread.start();
+								SignalType signal = new SignalType();//acest obiect trebuie utilizat de front-end pentru semnalul de update
+								RunningThread runningThread = new RunningThread(autoUpdateClass, signal);
+								Thread updateThread = new Thread(runningThread);
+								updateThread.setDaemon(true);
+								updateThread.start();
+							} catch (Exception e) {
+								System.out.println("problema la crearea fisirelor3\n" + e);
+							}
+						}
+					});
+					thread.start();
+					thread.join();
+
 				} catch (Exception e) {
-					System.out.println("problema la crearea fisirelor" + e.getMessage());
+					System.out.println("problema la crearea fisirelor1\n" + e);
 				}
 				/* ***************** WEB PARSER CALL END ***************** */
 
@@ -95,6 +108,20 @@ public class ARGuide extends AppCompatActivity {
 				 * don't need to check if database already exists or not;
 				 * the DatabaseEmissary object will automatically create the database if it doesn't exist
 				 */
+
+				File folder = new File("/data/user/0/com.frontend.frontend/files");
+				File[] listOfFiles = folder.listFiles();
+				System.out.print("!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
+				for (int i = 0; i < listOfFiles.length; i++) {
+					if (listOfFiles[i].isFile()) {
+						System.out.println("File " + listOfFiles[i].getName());
+					} else if (listOfFiles[i].isDirectory()) {
+						System.out.println("Directory " + listOfFiles[i].getName());
+					}
+				}
+				System.out.print("!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
+
+
 				this.dbEmissary = new DatabaseEmissary(this, dbPath, "faculty_uaic_cs");
 
 				/*

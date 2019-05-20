@@ -268,6 +268,8 @@ public class DatabaseEmissary extends SQLiteOpenHelper {
      * @return true if given tables exist, false otherwise
      */
     public boolean doDbTablesExist(List<String> tableNameList) {
+
+
         SQLiteDatabase db = this.getReadableDatabase();
 
         for (String tableName : tableNameList) {

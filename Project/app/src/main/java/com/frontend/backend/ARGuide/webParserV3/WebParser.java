@@ -121,12 +121,38 @@ public class WebParser {
 
     public void runParset(){
         deleteOldFiles();
-        try{
-            mainDocument=Jsoup.connect(siteAddress+sitePageName).get();
-        }catch(Exception e){
-            System.out.println("problema la gasirea paginii principale");
-            System.exit(0);
-        }
+//        try{
+//
+
+            Thread thread = new Thread(new Runnable() {
+
+                @Override
+                public void run() {
+                            try{
+                                mainDocument=Jsoup.connect(siteAddress+sitePageName).get();
+                                System.out.print(mainDocument);
+                            }
+                            catch(Exception e)
+                            {
+                                System.out.println("problema la gasirea paginii principale\n" +e);
+                                System.exit(0);
+                            }
+                        }
+
+                }
+            );
+            thread.start();
+            try{
+                thread.join();
+            }
+            catch (Exception e)
+            {
+                System.out.println(e);
+            }
+            //mainDocument=Jsoup.connect(siteAddress+sitePageName).get();
+//        }catch(Exception e){
+//
+//        }
 
         try{
             BufferedReader inputData=new BufferedReader(new FileReader(sectionsNamesFile));
@@ -244,7 +270,7 @@ public class WebParser {
             WebParser parser = new WebParser("https://profs.info.uaic.ro/~orar/", "orar_resurse.html", "C:\\Users\\Bogdan\\Desktop\\resultFiles\\","C:\\Users\\Bogdan\\Desktop\\sectionsNames.txt");
             parser.runParset();
         }catch (Exception e){
-            System.out.println("problema la crearea fisielor" +e.getMessage());
+            System.out.println("problema la crearea fisielor2" +e.getMessage());
         }
     }
 }
