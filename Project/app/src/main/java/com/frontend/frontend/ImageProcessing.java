@@ -71,9 +71,9 @@ public class ImageProcessing extends AppCompatActivity {
 
         try {
             ARGuide databaseConn = new ARGuide("faculty_uaic_cs",
-                    "app/src/main/java/com/frontend/backend/ARGuide/database/faculty.db",
-                    "app/src/main/java/com/frontend/backend/ARGuide/schedules/facultySchedule.json",
-                    "app/src/main/java/com/frontend/backend/ARGuide/buildingPlan/jsonFormat/buildingPlan.json");;
+                    "/data/user/0/com.frontend.frontend/files/faculty.db",
+                    "/data/user/0/com.frontend.frontend/files/facultySchedule.json",
+                    "/data/user/0/com.frontend.frontend/files/buildingPlan.json");
 
             roomsList = databaseConn.selectAllClassroomNames();
 

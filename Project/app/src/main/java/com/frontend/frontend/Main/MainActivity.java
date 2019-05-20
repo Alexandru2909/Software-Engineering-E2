@@ -12,6 +12,7 @@ import com.frontend.frontend.ImageProcessing;
 import com.frontend.frontend.R;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.nio.file.Paths;
 
 public class MainActivity extends AppCompatActivity {
@@ -22,17 +23,31 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-
         /* afisare director curent + creare un director test */
         //File f =Environment.getExternalStorageDirectory();;
         String path2 = this.getFilesDir().getAbsolutePath();
-        String path = this.getFilesDir().getAbsolutePath() +  "/test";
+        String path = this.getFilesDir().getAbsolutePath() ;
+        String path3 = this.getFilesDir().getAbsolutePath() + "/lastUpdateTime.txt";
+        String path4 = this.getFilesDir().getAbsolutePath() + "/sectionNames.txt";
         System.out.println("\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         System.out.print(path);
         System.out.println("\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 
         File folder = Paths.get(path).toFile();
         folder.mkdir();
+        folder= new File (path3);
+        folder= new File (path4);
+
+        try
+        {
+            FileWriter fw=new FileWriter();
+            folder.createNewFile();
+        }
+        catch (Exception e)
+        {
+            System.out.print(e);
+        }
+
         folder = Paths.get(path2).toFile();
         File[] listOfFiles = folder.listFiles();
 
