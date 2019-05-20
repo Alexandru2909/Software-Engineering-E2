@@ -31,8 +31,7 @@ public class JRProcessor extends AppCompatActivity {
      * @param targetType the type of the JSON resource begin processed (either WS or BP)
      */
     public JRProcessor(DatabaseEmissary dbEmissary, String targetType) {
-        //this.dbEmissary = dbEmissary;
-        this.dbEmissary = new DatabaseEmissary(this, "/data/user/0/com.frontend.frontend/files/faculty.db", "faculty_uaic_cs");
+        this.dbEmissary = dbEmissary;
         this.targetType = targetType;
     }
     

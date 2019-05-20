@@ -122,7 +122,7 @@ public class ARGuide extends AppCompatActivity {
 				System.out.print("!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
 
 
-				this.dbEmissary = new DatabaseEmissary(this, dbPath, "faculty_uaic_cs");
+				this.dbEmissary = new DatabaseEmissary(App.getAppContext(), dbPath, "faculty_uaic_cs");
 
 				/*
 				 * make a new processor for our application
@@ -160,7 +160,7 @@ public class ARGuide extends AppCompatActivity {
 
 				List<String> tableNameList = new ArrayList<>(Arrays.asList("nodes", "edges", "images"));
 
-				this.dbEmissary = new DatabaseEmissary(this, dbPath, "standard");
+				this.dbEmissary = new DatabaseEmissary(App.getAppContext(), dbPath, "standard");
 
 				this.argProcessor = new ARGProcessor(dbEmissary, planPath);
 
