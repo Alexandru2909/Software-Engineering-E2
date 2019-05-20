@@ -19,6 +19,7 @@ import org.javatuples.Pair;
 public class PathGenerator {
     private List<Integer> nodes=new ArrayList<>();
     private List<Integer> path=new ArrayList<>();
+    private ArrayList<Integer>[] adj = new ArrayList<>();
     private int[] previous;
     private LinkedList<Edge>[] adjacencylist;
     private int vertices;
@@ -327,4 +328,79 @@ public class PathGenerator {
             System.out.print(path.get(j)+"+");
         return path;
     }
+    
+    //***************************************************************
+    // bfs shortest path for unweighted graphs
+private void add_edge(ArrayList<Integer>[] adj, int src, int dest)
+{
+	adj[src].add(dest);
+	adj[dest].add(src);
+}
+
+private boolean BFS(ArrayList<Integer>[] adj, int src, int dest, int vertices, int[] pred, int[] dist)
+{
+	LinkedList<Integer> queue = new LinkedList<Integer>();
+	boolean[] visited = new boolean[vertices];
+
+	for (int i = 0; i < vertices; i++)
+	{
+		visited[i] = false;
+		dist[i] = INT_MAX;
+		pred[i] = -1;
+	}
+
+	visited[src] = true;
+	dist[src] = 0;
+	queue.addLast(src);
+
+
+	while (!queue.isEmpty())
+	{
+		int u = queue.getFirst();
+		queue.removeFirst();
+		for (int i = 0; i < adj[u].size(); i++)
+		{
+			if (visited[adj[u].get(i)] == false)
+			{
+				visited[adj[u].get(i)] = true;
+				dist[adj[u].get(i)] = dist[u] + 1;
+				pred[adj[u].get(i)] = u;
+				queue.addLast(adj[u].get(i));
+
+				if (adj[u].get(i) == dest)
+				{
+				   return true;
+				}
+			}
+		}
+	}
+
+	return false;
+}
+
+    
+public ArrayList<Integer> bfsShortestDistance(ArrayList<Integer>[] adj, int src, int dest, int vertices)
+{
+		int[] pred = new int[vertices];
+		int[] dist = new int[vertices];
+
+	if (BFS(adj, src, dest, vertices, pred, dist) == false)
+	{
+		System.out.print("Given source and destination");
+		System.out.print(" are not connected");
+		return;
+	}
+
+	ArrayList<Integer> path = new ArrayList<Integer>();
+	int crawl = dest;
+	path.add(crawl);
+	while (pred[crawl] != -1)
+	{
+		path.add(pred[crawl]);
+		crawl = pred[crawl];
+	}
+
+	return path;
+}
+    
 }
