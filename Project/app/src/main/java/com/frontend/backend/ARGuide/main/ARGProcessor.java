@@ -93,7 +93,18 @@ public class ARGProcessor {
 	public List<Integer> computeSP(Integer startVertex, Integer endVertex) throws JSONResourceException {
 		if (startVertex == null || endVertex == null)
 			throw new JSONResourceException("Invalid start/end vertices for shortest path computation!");
-
-		return pathGenerator.dijkstra(startVertex, endVertex);
+		
+		BuildingPlan bp = new BuildingPlan();
+		boolean equalCost = true;
+		foreach(Edge e : bp.getEdges())
+		{
+			if( (e.getID_node1()).getCost() != (e.getID_node2()).getCost())
+				equalCost = false;
+		}
+		
+		if(equalCost == false)
+			return pathGenerator.dijkstra(startVertex, endVertex);
+		else
+		        return path.generator.bfsShortestPath(startVertex, endVertex);
 	}
 }
