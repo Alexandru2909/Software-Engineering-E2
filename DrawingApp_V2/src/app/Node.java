@@ -89,6 +89,9 @@ public class Node implements Serializable {
          * Auto focus implementation
          */
         JOptionPane pane = new JOptionPane(panel, JOptionPane.PLAIN_MESSAGE, JOptionPane.OK_CANCEL_OPTION) {
+            /**
+            * Auto-focus on the first field of the text box
+            */
             @Override
             public void selectInitialValue(){
                 nameTF.requestFocusInWindow();
