@@ -111,6 +111,9 @@ public class Line implements Serializable {
         panel.add(new JLabel("Weight:"));
         panel.add(weightTF);
         JOptionPane pane = new JOptionPane(panel, JOptionPane.PLAIN_MESSAGE, JOptionPane.OK_CANCEL_OPTION) {
+            /**
+            * Auto-focus on the first field of the text box
+            */
             @Override
             public void selectInitialValue(){
                 weightTF.requestFocusInWindow();
