@@ -19,7 +19,7 @@ import org.javatuples.Pair;
 public class PathGenerator {
     private List<Integer> nodes=new ArrayList<>();
     private List<Integer> path=new ArrayList<>();
-    private ArrayList<Integer>[] adj = new ArrayList<>();
+    public ArrayList<Integer>[] adj = new ArrayList<>();
     private int[] previous;
     private LinkedList<Edge>[] adjacencylist;
     private int vertices;
@@ -331,13 +331,13 @@ public class PathGenerator {
     
     //***************************************************************
     // bfs shortest path for unweighted graphs
-private void add_edge(ArrayList<Integer>[] adj, int src, int dest)
+private void add_edge(int src, int dest)
 {
 	adj[src].add(dest);
 	adj[dest].add(src);
 }
 
-private boolean BFS(ArrayList<Integer>[] adj, int src, int dest, int vertices, int[] pred, int[] dist)
+private boolean BFS(int src, int dest, int[] pred, int[] dist)
 {
 	LinkedList<Integer> queue = new LinkedList<Integer>();
 	boolean[] visited = new boolean[vertices];
@@ -379,12 +379,12 @@ private boolean BFS(ArrayList<Integer>[] adj, int src, int dest, int vertices, i
 }
 
     
-public ArrayList<Integer> bfsShortestDistance(ArrayList<Integer>[] adj, int src, int dest, int vertices)
+public ArrayList<Integer> bfsShortestDistance(int src, int dest)
 {
 		int[] pred = new int[vertices];
 		int[] dist = new int[vertices];
 
-	if (BFS(adj, src, dest, vertices, pred, dist) == false)
+	if (BFS(src, dest, pred, dist) == false)
 	{
 		System.out.print("Given source and destination");
 		System.out.print(" are not connected");
