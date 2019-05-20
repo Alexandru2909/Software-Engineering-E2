@@ -1,0 +1,27 @@
+Autor: Ghiran Andrei
+ Bug: - Apas butonul "Locate Yourself" pentru a deschide camera
+        Apas buronul din stanga sus pentru a ma intoarce la meniul principal
+        Daca repet de mai multe ori pasii de mai sus si dupa apas butonul de "back" al telefonului
+        daca sunt in meniul principal al aplicatiei acesta se inchide si ma intorc la o instanta a camerei
+        daca apasam de mai multe ori pe butonul de "back" telefonului se vor inchide alternativ meniuri principale si instante 
+        ale camerei pana cand ne se inchid toate si iesim din aplicatie.
+        Cred ca de cate ori se apasa sageata de back a aplicatiei in timp ce camera este deschisa in loc sa se inchida camera 
+        si sa se intoarca la prima instanta a meniului creeaza o instanta noua si o pune peste ste camera si atunci cand apas 
+        din nou butonul "Locate Yourself" se deschide o noua instanta a canerei. 
+        cred ca problema poate fi rezolvata daca butonul de back al aplicatiei poate fi mapat sa faca acelas lucru ca butonul 
+        de back al telefonului.
+      - Meniul principal si camera nu sunt ideale pentru modul landscape, cand intorc telefonul cu camera deschisa aceasta 
+        ramane in modul portret, cum se poate observa in captura de ecran numita "landscape_camera". Meniul principad devine
+        ingust si butoanele se suprapun pe o portiune. Pe de alta parte as putea spune ca meniul cu orarul salilor arata 
+        bine in modul landscape poate ar mai trebui aranjate putin elementele pentru a incapea mai bine pe ecran.
+        Problema s-ar putea rozolva prin blocarea meniului in modul portret, insa camera trebuie neaparat sa mearga in ambele 
+        moduri.
+
+BuildingLayout:
+       Majoritatea metodelor din aceste clase nu sunt folosite in proiect.
+ 	
+Autor: Putanu Alexandru
+ Bug: - Am gasit acelasi bug cu domnul @Ghiran Andrei, dar in plus, pentru a dovedi, am observat ca la fiecare intoarcere la meniul principal
+        aplicatia foloseste ~2-4 Mb de RAM in plus, semn ca activitatea nu s-a distrus cum trebuie.
+      - ImageProcessing functioneaza bine, la fel ca si pana acum;
+      - TimetableScreen nu are probleme in ce priveste afisarea informatiilor si interactiunea cu bara de tip carusel.
