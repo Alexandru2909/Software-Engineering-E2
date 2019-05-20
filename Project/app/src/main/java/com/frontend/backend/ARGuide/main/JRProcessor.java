@@ -1,7 +1,6 @@
 package com.frontend.backend.ARGuide.main;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.support.v7.app.AppCompatActivity;
 
 import java.lang.reflect.Type;
 import java.sql.SQLException;
@@ -21,7 +20,7 @@ import com.frontend.backend.ARGuide.webParserV3.Eveniment;
  * the class whose instance is the processor of a JSONResource object
  * @author Paul-Reftu
  */
-public class JRProcessor extends AppCompatActivity {
+public class JRProcessor {
     private DatabaseEmissary dbEmissary;
     private String targetType;
     
@@ -31,8 +30,7 @@ public class JRProcessor extends AppCompatActivity {
      * @param targetType the type of the JSON resource begin processed (either WS or BP)
      */
     public JRProcessor(DatabaseEmissary dbEmissary, String targetType) {
-        //this.dbEmissary = dbEmissary;
-        this.dbEmissary = new DatabaseEmissary(this, "/data/user/0/com.frontend.frontend/files/faculty.db", "faculty_uaic_cs");
+        this.dbEmissary = dbEmissary;
         this.targetType = targetType;
     }
     
@@ -95,7 +93,7 @@ public class JRProcessor extends AppCompatActivity {
 		 		 */
 		 		for (BuildingPlan.Node node : buildingPlan.getNodes()) {
 					db.execSQL("INSERT INTO nodes(id, floor, name, type) VALUES(" + node.getId() +
-							", " + node.getFloor() + ", " + node.getName() + ", " + node.getType() + ")");
+							", " + node.getFloor() + ", '" + node.getName() + "', '" + node.getType() + "')");
 				}
 		 		
 		 		/*
@@ -139,8 +137,8 @@ public class JRProcessor extends AppCompatActivity {
 										studyGroups += ", " + event.getListaGrupe().get(i);
 								}
 
-            					db.execSQL("INSERT INTO courses(name, studyGroup) VALUES(" +
-										event.getNumeEveniment() + ", " + studyGroups + ")");
+            					db.execSQL("INSERT INTO courses(name, studyGroup) VALUES('" +
+										event.getNumeEveniment() + "', '" + studyGroups + "')");
 
 								Cursor rs = db.rawQuery("SELECT id FROM nodes WHERE name='" + data.getRoomCode() + "'", null);
 								rs.moveToFirst();
@@ -172,7 +170,7 @@ public class JRProcessor extends AppCompatActivity {
 
             					db.execSQL("INSERT INTO schedule(node_id, course_id, starting_time, ending_time, day) " +
 										"VALUES(" + targetNode + ", " + targetCourse + ", " +  event.getOraStart().toString()
-										+ ", " + event.getOraFinal().toString() + ", " + day + ")");
+										+ ", " + event.getOraFinal().toString() + ", '" + day + "')");
             				}
             			}
             		}

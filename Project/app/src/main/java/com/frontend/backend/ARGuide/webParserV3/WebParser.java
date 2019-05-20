@@ -166,6 +166,7 @@ public class WebParser {
              * and insert the standard section names for our faculty
              */
             try {
+
                 File sectionsNames = new File(sectionsNamesFile);
 
                 if (!sectionsNames.createNewFile())

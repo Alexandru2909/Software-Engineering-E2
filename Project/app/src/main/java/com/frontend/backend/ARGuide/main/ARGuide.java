@@ -108,6 +108,15 @@ public class ARGuide extends AppCompatActivity {
 				 * don't need to check if database already exists or not;
 				 * the DatabaseEmissary object will automatically create the database if it doesn't exist
 				 */
+//				try {
+//					File dataBase = new File("/data/user/0/com.frontend.frontend/files/faculty.db");
+//					if (dataBase.createNewFile())
+//						System.out.print("'faculty.db' file was created at  " + "data/user/0/com.frontend.frontend/files/");
+//				}
+//				catch (Exception e)
+//				{
+//					System.out.println("+++++++" + e);
+//				}
 
 				File folder = new File("/data/user/0/com.frontend.frontend/files");
 				File[] listOfFiles = folder.listFiles();
@@ -122,7 +131,7 @@ public class ARGuide extends AppCompatActivity {
 				System.out.print("!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
 
 
-				this.dbEmissary = new DatabaseEmissary(this, dbPath, "faculty_uaic_cs");
+				this.dbEmissary = new DatabaseEmissary(MyApplication.getAppContext(), dbPath, "faculty_uaic_cs");
 
 				/*
 				 * make a new processor for our application
@@ -133,6 +142,7 @@ public class ARGuide extends AppCompatActivity {
 				 * if the database tables that we need for our application do not already exist, create them
 				 */
 				if (!dbEmissary.doDbTablesExist(tableNameList))
+					this.argProcessor.processRequest("removeBP");
 					dbEmissary.onCreate(dbEmissary.getWritableDatabase());
 
 				/*
