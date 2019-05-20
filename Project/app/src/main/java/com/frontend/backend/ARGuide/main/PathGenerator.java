@@ -1,14 +1,12 @@
 package com.frontend.backend.ARGuide.main;
 
-
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Comparator;
-import java.util.PriorityQueue;
+import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.Date;
 
 import org.javatuples.Pair;
 
@@ -43,6 +41,7 @@ public class PathGenerator {
             this.cost=cost;
         }
     }
+
 
     public PathGenerator(DatabaseEmissary dbEmissary) {
         this.db = dbEmissary.getReadableDatabase();
@@ -172,19 +171,16 @@ public class PathGenerator {
 
         return path;
     }
-    
-    
+
     
     public void getRoomFloors() throws SQLException
     {
-        try (Statement stmt = connection.createStatement();
-             ResultSet rs = stmt.executeQuery("select id, floor from nodes;"))
-        {
-            while(rs.next())
+        Cursor rs=db.rawQuery("select id,floor from nodes;",null);
+        rs.moveToFirst();
+            while(!rs.isAfterLast())
             {
                 getFloor.put(rs.getDouble(1)-1, rs.getInt(2));
             }
-        }
     }
 
     public void getOccupiedFloors()
@@ -223,10 +219,9 @@ public class PathGenerator {
                 break;
         }
         //currentHour="11";
-        try (Statement stmt = connection.createStatement();
-             ResultSet rs = stmt.executeQuery("select floor,day,substr(starting_time,1,2) from nodes natural join schedule;"))
-        {
-            while(rs.next())
+        Cursor rs=db.rawQuery("select floor,day,substr(starting_time,1,2) from nodes natural join schedule;",null);
+        rs.moveToFirst();
+            while(!rs.isAfterLast())
             {
                 floor=rs.getInt(1);
                 scheduleDay=rs.getString(2);
@@ -244,9 +239,6 @@ public class PathGenerator {
                     }
                 }
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
         for (Number i : roomsPerFloor.keySet())
         {
             if((roomsPerFloor.get(i)/2)==occupiedRoomsPerFloor.get(i))
@@ -255,7 +247,7 @@ public class PathGenerator {
         }
 
     }
-    public List<Integer> dijkstra_activity_level(int sourceVertex, int destinationVertex) throws SQLException {
+    public List<Integer> dijkstra_activity(int sourceVertex, int destinationVertex) throws SQLException {
 
         destinationVertex--;
         sourceVertex--;
@@ -275,8 +267,8 @@ public class PathGenerator {
             @Override
             public int compare(Pair<Integer, Integer> p1, Pair<Integer, Integer> p2) {
                 //sort using distance values
-                int key1 = p1.getKey();
-                int key2 = p2.getKey();
+                int key1 = p1.getValue0();
+                int key2 = p2.getValue0();
                 return key1 - key2;
             }
         });
@@ -292,7 +284,7 @@ public class PathGenerator {
             Pair<Integer, Integer> extractedPair = pq.poll();
 
             //extracted vertex
-            int extractedVertex = extractedPair.getValue();
+            int extractedVertex = extractedPair.getValue1();
             if (SPT[extractedVertex] == false) {
                 SPT[extractedVertex] = true;
 
