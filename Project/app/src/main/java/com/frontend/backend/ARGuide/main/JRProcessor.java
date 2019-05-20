@@ -1,6 +1,7 @@
 package com.frontend.backend.ARGuide.main;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.v7.app.AppCompatActivity;
 
 import java.lang.reflect.Type;
 import java.sql.SQLException;
@@ -20,7 +21,7 @@ import com.frontend.backend.ARGuide.webParserV3.Eveniment;
  * the class whose instance is the processor of a JSONResource object
  * @author Paul-Reftu
  */
-public class JRProcessor {
+public class JRProcessor extends AppCompatActivity {
     private DatabaseEmissary dbEmissary;
     private String targetType;
     
@@ -30,7 +31,8 @@ public class JRProcessor {
      * @param targetType the type of the JSON resource begin processed (either WS or BP)
      */
     public JRProcessor(DatabaseEmissary dbEmissary, String targetType) {
-        this.dbEmissary = dbEmissary;
+        //this.dbEmissary = dbEmissary;
+        this.dbEmissary = new DatabaseEmissary(this, "/data/user/0/com.frontend.frontend/files/faculty.db", "faculty_uaic_cs");
         this.targetType = targetType;
     }
     
