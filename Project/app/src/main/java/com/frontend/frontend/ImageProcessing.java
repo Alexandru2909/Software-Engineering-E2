@@ -35,6 +35,8 @@ import java.util.List;
 
 import com.frontend.backend.ARGuide.main.ARGuide;
 
+import static java.lang.System.exit;
+
 /**
  * Tools for the pattern recognition and the camera functionality.
  */
@@ -141,7 +143,7 @@ public class ImageProcessing extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        cameraSource.release();
+        //cameraSource.release();
     }
 
     /**
@@ -150,8 +152,8 @@ public class ImageProcessing extends AppCompatActivity {
     private void startTextRecognizer() {
         textRecognizer = new TextRecognizer.Builder(getApplicationContext()).build();
         if (!textRecognizer.isOperational()) {
-            Toast.makeText(getApplicationContext(), "Oops ! Not able to start the text recognizer ...", Toast.LENGTH_LONG).show();
-        } else {
+            Toast.makeText(getApplicationContext(), "Oops ! Not able to start the text recognizer ...", Toast.LENGTH_LONG).show(); exit(0);
+        }
             cameraSource = new CameraSource.Builder(getApplicationContext(), textRecognizer)
                     .setFacing(CameraSource.CAMERA_FACING_BACK)
                     .setRequestedPreviewSize(1280, 1024)
@@ -162,6 +164,7 @@ public class ImageProcessing extends AppCompatActivity {
             cameraView.getHolder().addCallback(new SurfaceHolder.Callback() {
                 @Override
                 public void surfaceCreated(SurfaceHolder holder) {
+                    askCameraPermission();
                     if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
                         try {
                             cameraSource.start(cameraView.getHolder());
@@ -210,13 +213,13 @@ public class ImageProcessing extends AppCompatActivity {
                                 finalText = fullText;
                                 getRoomTimetable.setText(finalText + " - See info");
                                 getRoomTimetable.setVisibility(View.VISIBLE);
-                                startTextRecognizer();
+                                //startTextRecognizer();
                             }
                         }
                     });
                 }
             });
-        }
+
     }
 
     /**

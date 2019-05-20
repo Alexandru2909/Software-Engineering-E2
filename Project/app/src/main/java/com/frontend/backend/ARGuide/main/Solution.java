@@ -2,6 +2,7 @@ package com.frontend.backend.ARGuide.main;
 
 import android.app.Activity;
 
+import java.io.File;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -21,6 +22,7 @@ public class Solution {
 	 * @param args the arguments of the main function call
 	 */
 	public static void main(String[] args) {
+
 		try {
 			ARGuide arGuide = new ARGuide("faculty_uaic_cs",
 					"app/src/main/java/com/frontend/backend/ARGuide/database/faculty.db",

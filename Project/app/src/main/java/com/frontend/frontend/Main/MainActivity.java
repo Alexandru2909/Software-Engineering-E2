@@ -2,6 +2,7 @@ package com.frontend.frontend.Main;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -10,13 +11,41 @@ import android.widget.Button;
 import com.frontend.frontend.ImageProcessing;
 import com.frontend.frontend.R;
 
+import java.io.File;
+import java.nio.file.Paths;
+
 public class MainActivity extends AppCompatActivity {
 
     Button startOcrBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+
+        /* afisare director curent + creare un director test */
+        //File f =Environment.getExternalStorageDirectory();;
+        String path2 = this.getFilesDir().getAbsolutePath();
+        String path = this.getFilesDir().getAbsolutePath() +  "/test";
+        System.out.println("\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        System.out.print(path);
+        System.out.println("\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+
+        File folder = Paths.get(path).toFile();
+        folder.mkdir();
+        folder = Paths.get(path2).toFile();
+        File[] listOfFiles = folder.listFiles();
+
+        for (int i = 0; i < listOfFiles.length; i++) {
+            if (listOfFiles[i].isFile()) {
+                System.out.println("File " + listOfFiles[i].getName());
+            } else if (listOfFiles[i].isDirectory()) {
+                System.out.println("Directory " + listOfFiles[i].getName());
+            }
+        }
+
+
+
         setContentView(R.layout.activity_main);
 
         startOcrBtn = findViewById(R.id.startOcrBtn);
@@ -31,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
     private void startOCR() {
         Intent ocrActivity = new Intent(getApplicationContext(), ImageProcessing.class);
         startActivityForResult(ocrActivity, 1);
+
     }
 
     @Override

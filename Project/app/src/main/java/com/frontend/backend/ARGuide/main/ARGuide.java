@@ -1,6 +1,8 @@
 package com.frontend.backend.ARGuide.main;
 
 import android.app.Activity;
+import android.content.Context;
+import android.support.v7.app.AppCompatActivity;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -16,7 +18,7 @@ import com.frontend.backend.ARGuide.webParserV3.WebParser;
  * the object type that makes the connection to the Back-End functionalities of the ARG application
  * @author Paul-Reftu
  */
-public class ARGuide extends Activity {
+public class ARGuide extends AppCompatActivity {
 	private DatabaseEmissary dbEmissary;
 	private ARGProcessor argProcessor;
 	
@@ -49,11 +51,11 @@ public class ARGuide extends Activity {
 	 * @throws JSONResourceException upon unknown request or WSProcessor operation failure
 	 */
 	public ARGuide(String buildingName, String dbPath, String schedulePath, String planPath) throws SQLException, JSONResourceException {
+
 		this.buildingName = buildingName;
 		this.dbPath = dbPath;
 		this.schedulePath = schedulePath;
 		this.planPath = planPath;
-
 		switch (buildingName) {
 			/*
 			 * the construction of the main back-end application functionalities for the Faculty of Computer Science
@@ -93,7 +95,7 @@ public class ARGuide extends Activity {
 				 * don't need to check if database already exists or not;
 				 * the DatabaseEmissary object will automatically create the database if it doesn't exist
 				 */
-				this.dbEmissary = new DatabaseEmissary(this.getApplicationContext(), dbPath, "faculty_uaic_cs");
+				this.dbEmissary = new DatabaseEmissary(this, dbPath, "faculty_uaic_cs");
 
 				/*
 				 * make a new processor for our application
