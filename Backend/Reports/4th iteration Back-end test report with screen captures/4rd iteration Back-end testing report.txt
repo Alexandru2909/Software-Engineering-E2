@@ -1,0 +1,11 @@
+Autor: Andrei Ghiran
+
+   -La rularea aplicatiei, atunci cand se apasa pentru prima data butonul "Locate Yourself"
+    in terminanul din android studio apar mesaje de tipul "Node <numarul unei camere> does 
+    not exist in the database. its scheduel has therefore NOT been introduced", acest mesaj apare de mai multe ori pentru
+    fiecare camera dupa cum se observa in captura de ecran asociata acestui raport. Im plus daca exploram fisierele create
+    pe telefon si extragem baza de date "faculty.bd" putem vedea ca tabela "scheduel" este goala. Puteti explora fisierele 
+    in modul urmator:
+    View -> Tool Windows -> Device File Explorer, in noua fereastra veti gasi fisierele aplicatiei urmand path-ul 
+    data/data/com.frontend.frontend/files, puteti da clic dreapta pe fisiere si sa le salvati pe laptopul/pc-ul vostru
+    si puteti deschide baza de date cu SQLite Database Browser (il gasiti la linkul acesta: https://sqlitebrowser.org/)
