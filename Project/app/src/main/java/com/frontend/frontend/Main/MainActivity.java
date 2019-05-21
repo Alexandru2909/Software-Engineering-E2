@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.frontend.frontend.ImageProcessing;
 import com.frontend.frontend.R;
+import com.frontend.frontend.SelectDestination;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -23,6 +24,8 @@ import java.nio.file.Paths;
 public class MainActivity extends AppCompatActivity {
 
     Button startOcrBtn;
+    Button destinationBtn;
+    String currentRoom;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,16 +36,25 @@ public class MainActivity extends AppCompatActivity {
                 new String[] {
                         Manifest.permission.READ_EXTERNAL_STORAGE,
                         Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.INTERNET,
                         Manifest.permission.CAMERA
+
                 },
                 100);
 
 
         startOcrBtn = findViewById(R.id.startOcrBtn);
+        destinationBtn = findViewById(R.id.selectDestination);
         startOcrBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startOCR();
+            }
+        });
+        destinationBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startDestination();
             }
         });
     }
@@ -53,6 +65,12 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private void startDestination() {
+        Intent destActivity = new Intent(getApplicationContext(), SelectDestination.class);
+        destActivity.putExtra("current_room", currentRoom);
+        startActivity(destActivity);
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
@@ -60,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
             if(resultCode == Activity.RESULT_OK){
                 String ocrRoom = data.getStringExtra("room");
                 // Do something with ocrRoom
-//                startOcrBtn.setText(ocrRoom);
+                currentRoom = ocrRoom;
 
             }
             if (resultCode == Activity.RESULT_CANCELED) {
@@ -68,14 +86,15 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-    
+
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         if (requestCode == 100){
             if (grantResults.length > 0
                     && grantResults[0] == PackageManager.PERMISSION_GRANTED
                     && grantResults[1] == PackageManager.PERMISSION_GRANTED
-                    && grantResults[2] == PackageManager.PERMISSION_GRANTED) {
+                    && grantResults[2] == PackageManager.PERMISSION_GRANTED
+                    && grantResults[3] == PackageManager.PERMISSION_GRANTED) {
             } else {
                 Toast.makeText(this, "Permission is denied.", Toast.LENGTH_SHORT).show();
                 finish();
