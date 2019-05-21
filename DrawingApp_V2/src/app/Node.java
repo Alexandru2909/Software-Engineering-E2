@@ -40,6 +40,30 @@ public class Node implements Serializable {
     private Integer floor;
 
     /**
+     * coordonatele reale ale nodurilor, vor fi afisate in fisierul json
+     */
+    @Expose
+    private double latitude;
+    @Expose
+    private double longitude;
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    /**
      * constructorul clasei Node
      * @param xPoint pozitia pe axa X a nodului
      * @param yPoint pozitia pe axa Y a nodului
@@ -52,6 +76,8 @@ public class Node implements Serializable {
         this.floor=0;
         instNumber++;
         id=instNumber;
+        this.latitude=0;
+        this.longitude=0;
     }
     public Node(int xPoint,int yPoint,int dist){
         this.xPoint=xPoint;
@@ -78,6 +104,8 @@ public class Node implements Serializable {
         JTextField nameTF = new JTextField(this.getName());
         JTextField typeTF = new JTextField(this.getType());
         JTextField floorTF = new JTextField(this.getFloor().toString());
+        JTextField latitudeTF = new JTextField(String.valueOf(this.getLatitude()));
+        JTextField longitudeTF = new JTextField(String.valueOf(this.getLongitude()));
         JPanel panel = new JPanel(new GridLayout(0, 1));
         panel.add(new JLabel("Name:"));
         panel.add(nameTF);
@@ -85,13 +113,17 @@ public class Node implements Serializable {
         panel.add(typeTF);
         panel.add(new JLabel("Floor:"));
         panel.add(floorTF);
+        panel.add(new JLabel("Latitude:"));
+        panel.add(latitudeTF);
+        panel.add(new JLabel("Longitude:"));
+        panel.add(longitudeTF);
         /**
          * Auto focus implementation
          */
         JOptionPane pane = new JOptionPane(panel, JOptionPane.PLAIN_MESSAGE, JOptionPane.OK_CANCEL_OPTION) {
             /**
-            * Auto-focus on the first field of the text box
-            */
+             * Auto-focus on the first field of the text box
+             */
             @Override
             public void selectInitialValue(){
                 nameTF.requestFocusInWindow();
@@ -102,9 +134,13 @@ public class Node implements Serializable {
 
         this.setName(nameTF.getText());
         this.setType(typeTF.getText());
+        this.setLatitude(Double.parseDouble(latitudeTF.getText()));
+        this.setLongitude(Double.parseDouble(longitudeTF.getText()));
 
         System.out.println("Name: " + nameTF.getText());
         System.out.println("Type: " + typeTF.getText());
+        System.out.println("Latitude: " + latitudeTF.getText());
+        System.out.println("Longitude: " + longitudeTF.getText());
         try {
             System.out.println(Integer.parseInt(floorTF.getText()));
             this.setFloor(Integer.parseInt(floorTF.getText()));
