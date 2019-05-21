@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
 import com.frontend.backend.ARGuide.main.JSONResourceException;
+import com.frontend.backend.ARGuide.main.MyApplication;
 import com.frontend.frontend.R;
 
 import java.sql.SQLException;
@@ -38,9 +39,9 @@ public class TimetableScreen extends AppCompatActivity {
 
         try {
             ARGuide databaseConn = new ARGuide("faculty_uaic_cs",
-                    "/data/user/0/com.frontend.frontend/files/faculty.db",
-                    "/data/user/0/com.frontend.frontend/files/facultySchedule.json",
-                    "/data/user/0/com.frontend.frontend/files/buildingPlan.json");
+                    MyApplication.path+"/faculty.db",
+                    MyApplication.path+"/facultySchedule.json",
+                    MyApplication.path+"/buildingPlan.json");
 
             final List<List<String>> schedule = databaseConn.selectClassroomSchedule(roomNumber);
 

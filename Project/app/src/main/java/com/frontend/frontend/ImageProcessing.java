@@ -23,6 +23,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.frontend.backend.ARGuide.main.JSONResourceException;
+import com.frontend.backend.ARGuide.main.MyApplication;
 import com.frontend.frontend.Main.MainActivity;
 import com.frontend.frontend.Timetable.TimetableScreen;
 import com.google.android.gms.vision.CameraSource;
@@ -59,6 +60,7 @@ public class ImageProcessing extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        MyApplication.path = this.getFilesDir().getAbsolutePath();
         setContentView(R.layout.scan_room);
 
         getRoomBtn = findViewById(R.id.getRoomBtn);
@@ -71,9 +73,9 @@ public class ImageProcessing extends AppCompatActivity {
 
         try {
             ARGuide databaseConn = new ARGuide("faculty_uaic_cs",
-                    "/data/user/0/com.frontend.frontend/files/faculty.db",
-                    "/data/user/0/com.frontend.frontend/files/facultySchedule.json",
-                    "/data/user/0/com.frontend.frontend/files/buildingPlan.json");
+                    MyApplication.path+"/faculty.db",
+                    MyApplication.path+"/facultySchedule.json",
+                    MyApplication.path+"/buildingPlan.json");
 
             roomsList = databaseConn.selectAllClassroomNames();
 

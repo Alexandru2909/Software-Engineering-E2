@@ -70,13 +70,13 @@ public class ARGuide extends AppCompatActivity {
 						public void run() {
 							try {
 								AutoUpdateClass autoUpdateClass = new AutoUpdateClass("https://profs.info.uaic.ro/~orar/orar_resurse.html",
-										"/data/user/0/com.frontend.frontend/files/lastUpdateTime.txt");
+										MyApplication.path+"/lastUpdateTime.txt");
 
 								if (!autoUpdateClass.runDataCollector()) {
 									WebParser parser = new WebParser("https://profs.info.uaic.ro/~orar/",
 											"orar_resurse.html",
-											"/data/user/0/com.frontend.frontend/files/facultySchedule.json",
-											"/data/user/0/com.frontend.frontend/files/sectionsNames.txt");
+											MyApplication.path+"/facultySchedule.json",
+											MyApplication.path+"/sectionsNames.txt");
 									parser.runParset();
 									autoUpdateClass.setNewDate();
 								}
@@ -118,7 +118,7 @@ public class ARGuide extends AppCompatActivity {
 //					System.out.println("+++++++" + e);
 //				}
 
-				File folder = new File("/data/user/0/com.frontend.frontend/files");
+				File folder = new File(MyApplication.path);
 				File[] listOfFiles = folder.listFiles();
 				System.out.print("!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
 				for (int i = 0; i < listOfFiles.length; i++) {
