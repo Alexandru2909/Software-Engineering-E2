@@ -35,6 +35,7 @@ import java.io.IOException;
 import java.util.List;
 
 import com.frontend.backend.ARGuide.main.ARGuide;
+import android.graphics.Bitmap;
 
 /**
  * Tools for the pattern recognition and the camera functionality.
@@ -254,5 +255,31 @@ public class ImageProcessing extends AppCompatActivity {
                 Manifest.permission.CAMERA)) {
             ActivityCompat.requestPermissions(this, permissions, CAMERA_PERM);
         }
+    }
+
+    /**
+     * Compare two images, the images has to be converted on BitMaps:
+     *
+     * Bitmap icon = BitmapFactory.decodeResource(context.getResources(), R.drawable.icon_resource);
+     *
+     * @param bitmap1
+     * @param bitmap2
+     * @return true iff both images have the same dimensions and pixel values.
+     */
+    public static boolean compareImages(Bitmap bitmap1, Bitmap bitmap2) {
+        if (bitmap1.getWidth() != bitmap2.getWidth() ||
+                bitmap1.getHeight() != bitmap2.getHeight()) {
+            return false;
+        }
+
+        for (int y = 0; y < bitmap1.getHeight(); y++) {
+            for (int x = 0; x < bitmap1.getWidth(); x++) {
+                if (bitmap1.getPixel(x, y) != bitmap2.getPixel(x, y)) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
 }

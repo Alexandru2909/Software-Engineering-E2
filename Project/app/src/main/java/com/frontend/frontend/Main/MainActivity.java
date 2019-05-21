@@ -6,9 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-
 import com.frontend.frontend.ImageProcessing;
 import com.frontend.frontend.R;
+import android.graphics.Bitmap;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,10 +29,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void startOCR() {
+
         Intent ocrActivity = new Intent(getApplicationContext(), ImageProcessing.class);
         startActivityForResult(ocrActivity, 1);
+
     }
 
+
+    //Bitmap icon = BitmapFactory.decodeResource(context.getResources(), R.drawable.icon_resource);
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
