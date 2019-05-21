@@ -37,6 +37,8 @@
         </activity>
         <activity android:name=".Timetable.TimetableScreen"
             android:theme="@style/AppTheme"></activity>
+        <activity android:name=".SelectDestination"
+            android:theme="@style/AppTheme"></activity>
 
 
 
