@@ -53,7 +53,6 @@ public class ImageProcessing extends AppCompatActivity {
 
     private String finalText;
 
-    private static int CAMERA_PERM = 2;
 
     private List<String> roomsList = new ArrayList<>();
 
@@ -84,23 +83,20 @@ public class ImageProcessing extends AppCompatActivity {
 
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
                 startTextRecognizer();
-            } else {
-                askCameraPermission();
             }
-
-//        getRoomBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if (Arrays.asList(roomsList).contains(finalText.trim()) ){
-//                    Intent returnIntent = new Intent();
-//                    returnIntent.putExtra("room", finalText.trim());
-//                    setResult(Activity.RESULT_OK,returnIntent);
-//                    finish();
-//                } else {
-//                    warning.show();
-//                }
-//            }
-//        });
+        getRoomBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (roomsList.contains(finalText.trim()) ){
+                    Intent returnIntent = new Intent();
+                    returnIntent.putExtra("room", finalText.trim());
+                    setResult(Activity.RESULT_OK,returnIntent);
+                    finish();
+                } else {
+                    warning.show();
+                }
+            }
+        });
 
             getRoomTimetable.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -121,7 +117,7 @@ public class ImageProcessing extends AppCompatActivity {
             returnButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    openMenu();
+                    finish();
                 }
             });
 
@@ -166,15 +162,12 @@ public class ImageProcessing extends AppCompatActivity {
             cameraView.getHolder().addCallback(new SurfaceHolder.Callback() {
                 @Override
                 public void surfaceCreated(SurfaceHolder holder) {
-                    askCameraPermission();
                     if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
                         try {
                             cameraSource.start(cameraView.getHolder());
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
-                    } else {
-                        askCameraPermission();
                     }
                 }
 
@@ -214,6 +207,7 @@ public class ImageProcessing extends AppCompatActivity {
                             if (roomsList.contains(fullText.trim())) {
                                 finalText = fullText;
                                 getRoomTimetable.setText(finalText + " - See info");
+                                getRoomBtn.setVisibility(View.VISIBLE);
                                 getRoomTimetable.setVisibility(View.VISIBLE);
                                 //startTextRecognizer();
                             }
@@ -222,40 +216,5 @@ public class ImageProcessing extends AppCompatActivity {
                 }
             });
 
-    }
-
-    /**
-     * Callback for the result from requesting permissions.
-     * This method is invoked for every call on requestPermissions(android.app.Activity, String[], int)
-     *
-     * @param requestCode  int: The request code passed in requestPermissions()
-     * @param permissions  String: The requested permissions. Never null.
-     * @param grantResults int: The grant result for the corresponding permissions
-     *                     which is either PERMISSION_GRANTER or PERMISSION_DENIED. Never null
-     */
-    @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           @NonNull String[] permissions,
-                                           @NonNull int[] grantResults) {
-        if (requestCode != CAMERA_PERM) {
-            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-            return;
-        }
-
-        if (grantResults.length != 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            startTextRecognizer();
-        }
-
-    }
-
-    /**
-     * Ask for the user in order to get access to the camera.
-     */
-    private void askCameraPermission() {
-        final String[] permissions = new String[]{Manifest.permission.CAMERA};
-        if (!ActivityCompat.shouldShowRequestPermissionRationale(this,
-                Manifest.permission.CAMERA)) {
-            ActivityCompat.requestPermissions(this, permissions, CAMERA_PERM);
-        }
     }
 }
