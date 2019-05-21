@@ -80,13 +80,18 @@ public class MainClass extends JFrame {
     JFileChooser fileChooser = new JFileChooser(System.getProperty("user.dir"));
     JButton chooser = new JButton("Export");
     /**
+     * butonul Open graph, de unde putem deschide un fisier .graph creat anterior
+     */
+    JFileChooser open = new JFileChooser(System.getProperty("user.dir"));
+    JButton openGraph = new JButton("Open graph");
+    /**
      * campul in care incarcam adresa fisierului ce contine reprezentarea inainte de apasarea butonului Open
      */
     JTextField inputFile=new JTextField(15);
     /**
      * Butonul pentru deschiderea unui fisier specificat in campul inputFile
      */
-    JButton openButton=new JButton("Open");
+    JButton openButton=new JButton("Connect graphs");
     /**
      * Salveaza contextul grafic in fieiserul specificat in campul inputFile
      */
@@ -184,6 +189,7 @@ public class MainClass extends JFrame {
          * atasam butoanele panoului buttonsPanel
          */
         buttonsPanel.add(chooser);
+        buttonsPanel.add(openGraph);
         buttonsPanel.add(inputFile);
         buttonsPanel.add(openButton);
         buttonsPanel.add(saveButton);
@@ -240,9 +246,9 @@ public class MainClass extends JFrame {
                     File file = fileChooser.getSelectedFile();
                     try {
                         GraphData myGraph=new GraphData(nodesList,linesList);
-                        
+
                         myGraph.getData(file.getPath());
-                        Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create(); 
+                        Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
                         String json = gson.toJson(myGraph);
                         BufferedWriter writer = new BufferedWriter(new FileWriter("testGraph/output.json"));
                         writer.write(json);
@@ -258,10 +264,39 @@ public class MainClass extends JFrame {
         });
 
         /**
+         * atasam listener butonului Open graph
+         */
+        openGraph.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                linesList.forEach(line -> {
+                    line.setNode1(line.getNode1());
+                    line.setNode2(line.getNode2());
+                });
+                int returnVal = fileChooser.showOpenDialog((Component)e.getSource());
+                if (returnVal == JFileChooser.APPROVE_OPTION) {
+                    File file = fileChooser.getSelectedFile();
+                    try {
+                        GraphData myGraph=new GraphData(nodesList,linesList);
+
+                        myGraph.getData(file.getPath());
+                        Node.instNumber=nodesList.size();
+                        drawingSurface.repaint();
+                    } catch (Exception ex) {
+                        System.out.println("problem accessing file"+file.getAbsolutePath());
+                    }
+                }
+                else {
+                    System.out.println("File access cancelled by user.");
+                }
+            }
+        });
+
+        /**
          * atasam listener butonului Open
          */
         openButton.addActionListener(new ActionListener() {
-        	@Override
+            @Override
             public void actionPerformed(ActionEvent e) {
                 String filePath=inputFile.getText();
                 File inputFile=new File(filePath);
@@ -446,10 +481,10 @@ public class MainClass extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if(actionMessage.messageCode==1 && validPosition(e.getX(), e.getY())){
-					Node newNode = new Node(e.getX(),e.getY());
-					if (popupNode.isSelected()){
-					    newNode.textBox();
-					}
+                    Node newNode = new Node(e.getX(),e.getY());
+                    if (popupNode.isSelected()){
+                        newNode.textBox();
+                    }
                     nodesList.add(newNode);
                     drawingSurface.repaint();
                 }else if(actionMessage.messageCode==2){
@@ -467,8 +502,8 @@ public class MainClass extends JFrame {
                             curentLine.x2=finalNode.xPoint+10;
                             curentLine.y2=finalNode.yPoint+10;
                             curentLine.setNode2(finalNode);
-							Line newLine = new Line(curentLine);
-							if (popupLine.isSelected()) {
+                            Line newLine = new Line(curentLine);
+                            if (popupLine.isSelected()) {
                                 newLine.textBox();
                             }
                             linesList.add(newLine);
