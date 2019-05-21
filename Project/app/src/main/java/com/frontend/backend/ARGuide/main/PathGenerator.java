@@ -22,6 +22,7 @@ import org.javatuples.Pair;
 public class PathGenerator {
     private List<Integer> nodes=new ArrayList<>();
     private List<Integer> path=new ArrayList<>();
+    private ArrayList<Integer> adj = new ArrayList();
     private int[] previous;
     private LinkedList<Edge>[] adjacencylist;
     private int vertices;
@@ -261,7 +262,7 @@ private boolean BFS(int src, int dest, int[] pred, int[] dist)
 	for (int i = 0; i < vertices; i++)
 	{
 		visited[i] = false;
-		dist[i] = INT_MAX;
+		dist[i] = Integer.MAX_VALUE;
 		pred[i] = -1;
 	}
 
