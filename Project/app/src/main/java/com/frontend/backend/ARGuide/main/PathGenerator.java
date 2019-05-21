@@ -22,7 +22,7 @@ import org.javatuples.Pair;
 public class PathGenerator {
     private List<Integer> nodes=new ArrayList<>();
     private List<Integer> path=new ArrayList<>();
-    private ArrayList<Integer> adj = new ArrayList();
+    private vector<Integer> adj[];
     private int[] previous;
     private LinkedList<Edge>[] adjacencylist;
     private int vertices;
