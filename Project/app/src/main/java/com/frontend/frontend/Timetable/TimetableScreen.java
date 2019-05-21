@@ -1,17 +1,12 @@
 package com.frontend.frontend.Timetable;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.frontend.backend.ARGuide.main.JSONResourceException;
 import com.frontend.frontend.R;
-
-import org.w3c.dom.Node;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -42,9 +37,10 @@ public class TimetableScreen extends AppCompatActivity {
         dayPicker.setAdapter(dayAdapter);
 
         try {
-            ARGuide databaseConn = new ARGuide("ARGuide/database/faculty.db",
-                    "ARGuide/schedules/facultySchedule.json",
-                    "ARGuide/buildingPlan/jsonFormat/buildingPlan.json");
+            ARGuide databaseConn = new ARGuide("faculty_uaic_cs",
+                    "/data/user/0/com.frontend.frontend/files/faculty.db",
+                    "/data/user/0/com.frontend.frontend/files/facultySchedule.json",
+                    "/data/user/0/com.frontend.frontend/files/buildingPlan.json");
 
             final List<List<String>> schedule = databaseConn.selectClassroomSchedule(roomNumber);
 
@@ -67,8 +63,6 @@ public class TimetableScreen extends AppCompatActivity {
                 }
             });
 
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (JSONResourceException e) {

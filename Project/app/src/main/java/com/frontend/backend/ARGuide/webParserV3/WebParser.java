@@ -46,7 +46,7 @@ public class WebParser {
     /**
      *
      * @param siteAddress adresa paginii ce contine lista orarului
-     * @param resultFilesLocation locatia unde vor fi salvate fisierele
+     * @param resultFileLocation locatia unde vor fi salvate fisierele
      * @throws IOException
      */
     public WebParser(String siteAddress,String sitePageName,String resultFileLocation,String sectionsNamesFile) throws IOException {
@@ -121,13 +121,38 @@ public class WebParser {
 
     public void runParset(){
         deleteOldFiles();
-        try{
-            mainDocument=Jsoup.connect(siteAddress+sitePageName).get();
-        }catch(Exception e){
-            System.out.println("problema la gasirea paginii principale");
-            System.exit(0);
-        }
+//        try{
+//
 
+            Thread thread = new Thread(new Runnable() {
+
+                @Override
+                public void run() {
+                            try{
+                                mainDocument=Jsoup.connect(siteAddress+sitePageName).get();
+                                System.out.print(mainDocument);
+                            }
+                            catch(Exception e)
+                            {
+                                System.out.println("problema la gasirea paginii principale\n" +e);
+                                System.exit(0);
+                            }
+                        }
+
+                }
+            );
+            thread.start();
+            try{
+                thread.join();
+            }
+            catch (Exception e)
+            {
+                System.out.println(e);
+            }
+            //mainDocument=Jsoup.connect(siteAddress+sitePageName).get();
+//        }catch(Exception e){
+//
+//        }
 
         try{
             BufferedReader inputData=new BufferedReader(new FileReader(sectionsNamesFile));
@@ -136,7 +161,38 @@ public class WebParser {
                 titlesList.add(sectionName);
             }
         }catch(FileNotFoundException e){
-            System.out.print("fisierul nu a fost gasit");
+            /*
+             * if 'sectionNames.txt' is not found, then create it
+             * and insert the standard section names for our faculty
+             */
+            try {
+
+                File sectionsNames = new File(sectionsNamesFile);
+
+                if (!sectionsNames.createNewFile())
+                    throw new IOException("'sectionNames.txt' file could not be created at " + sectionsNamesFile);
+
+                String sectionsNamesContents = "ALTE SALI\n" +
+                            "CABINET\n" +
+                            "LABORATOARE\n" +
+                            "SALI DE CURS\n" +
+                            "SALI DE SEMINAR";
+                FileWriter out = new FileWriter(sectionsNames);
+                out.write(sectionsNamesContents);
+                out.close();
+
+                /*
+                 * lazy approach - should in fact use a regular expression to get the titles from 'sectionNamesContents'
+                 */
+                BufferedReader in = new BufferedReader(new FileReader(sectionsNames));
+                String sectionName;
+
+                while ((sectionName = in.readLine()) != null)
+                    titlesList.add(sectionName);
+                in.close();
+            } catch (IOException e2) {
+                e2.printStackTrace();
+            }
         }catch(IOException e){
             System.out.print("probleme la citirea din fisier");
         }
@@ -215,7 +271,7 @@ public class WebParser {
             WebParser parser = new WebParser("https://profs.info.uaic.ro/~orar/", "orar_resurse.html", "C:\\Users\\Bogdan\\Desktop\\resultFiles\\","C:\\Users\\Bogdan\\Desktop\\sectionsNames.txt");
             parser.runParset();
         }catch (Exception e){
-            System.out.println("problema la crearea fisielor" +e.getMessage());
+            System.out.println("problema la crearea fisielor2" +e.getMessage());
         }
     }
 }

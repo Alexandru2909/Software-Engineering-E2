@@ -1,34 +1,30 @@
 package com.frontend.backend.ARGuide.main;
 
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Comparator;
 import java.util.PriorityQueue;
-import java.sql.*;
 import java.util.*;
 
 import org.javatuples.Pair;
 
 /**
  * Computes the shortest path between two nodes (the distance itself, as well as the path)
- * @author
+ * @author Ioana-Balan
  *
  */
 
 public class PathGenerator {
-
-    private String dbPath = "../database/faculty.db";
-
-    private String URL = "jdbc:sqlite:" + dbPath;
-
-    Connection connection=null;
-
     private List<Integer> nodes=new ArrayList<>();
     private List<Integer> path=new ArrayList<>();
-    int[] previous;
+    private int[] previous;
     private LinkedList<Edge>[] adjacencylist;
-    public int vertices;
+    private int vertices;
+    private SQLiteDatabase db;
 
 
     static class Edge {
@@ -43,9 +39,8 @@ public class PathGenerator {
         }
     }
 
-    public PathGenerator() throws SQLException {
-
-        connection = DriverManager.getConnection(URL);
+    public PathGenerator(DatabaseEmissary dbEmissary) {
+        this.db = dbEmissary.getReadableDatabase();
 
         getNodes();
 
@@ -56,11 +51,9 @@ public class PathGenerator {
 
         //array of previous nodes (used to return the path from destination to source)
         previous = new int[vertices];
-
     }
 
     private void getAdjList() {
-
         //initialize adjacency lists for all the  nodes
         for (int i = 0; i <vertices; i++)
             adjacencylist[i] = new LinkedList();
@@ -70,37 +63,38 @@ public class PathGenerator {
         int id1, id2;
         double cost;
 
+        Cursor rs = db.rawQuery("SELECT id1, id2, cost FROM edges", null);
+
+        rs.moveToFirst();
+
         //getting the source, destination and cost of each edge
-        try (Statement stmt = connection.createStatement();
-             ResultSet rs = stmt.executeQuery("select id1,id2,cost from edges;")) {
-            while (rs.next()) {
-                id1 = rs.getInt(1)-1;
-                id2 = rs.getInt(2)-1;
-                cost = rs.getDouble(3);
-                Edge edge = new Edge(id1, id2, cost);
-                adjacencylist[id1].addFirst(edge);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        while (!rs.isAfterLast()) {
+            id1 = rs.getInt(0) - 1;
+            id2 = rs.getInt(1) - 1;
+            cost = rs.getDouble(2);
+            Edge edge = new Edge(id1, id2, cost);
+            adjacencylist[id1].addFirst(edge);
+            rs.moveToNext();
         }
+
+        rs.close();
     }
 
-    public void getNodes()
-    {
-        try (Statement stmt = connection.createStatement();
-             ResultSet rs = stmt.executeQuery("select * from nodes;"))
-        {
-            while(rs.next())
-            {
-                nodes.add(rs.getInt(1));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+    public void getNodes() {
+        Cursor rs = db.rawQuery("SELECT * FROM nodes", null);
+
+        rs.moveToFirst();
+
+        //getting the source, destination and cost of each edge
+        while (!rs.isAfterLast()) {
+            nodes.add(rs.getInt(0));
+            rs.moveToNext();
         }
+
+        rs.close();
     }
 
     public List<Integer> dijkstra(int sourceVertex, int destinationVertex) {
-
         destinationVertex--;
         sourceVertex--;
         boolean[] SPT = new boolean[vertices];
@@ -135,7 +129,7 @@ public class PathGenerator {
 
             //extracted vertex
             int extractedVertex = extractedPair.getValue1();
-            if (SPT[extractedVertex] == false) {
+            if (!SPT[extractedVertex]) {
                 SPT[extractedVertex] = true;
 
                 //iterate through all the adjacent vertices and update the keys
@@ -144,7 +138,7 @@ public class PathGenerator {
                     Edge edge = list.get(i);
                     int destination = edge.id2;
                     //only if edge destination is not present in mst
-                    if (SPT[destination] == false) {
+                    if (!SPT[destination]) {
                         ///check if distance needs an update or not
                         //means check total weight from source to vertex_V is less than
                         //the current distance value, if yes then update the distance

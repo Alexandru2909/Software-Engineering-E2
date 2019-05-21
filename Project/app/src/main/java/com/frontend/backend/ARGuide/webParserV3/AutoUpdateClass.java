@@ -7,11 +7,6 @@ import org.jsoup.nodes.Element;
 
 import java.io.*;
 
-
-
-
-
-
 public class AutoUpdateClass{
     private String siteAddress;
     private String lastUpdateDate;
@@ -74,4 +69,3 @@ public class AutoUpdateClass{
     }
 
 }
-

@@ -3,8 +3,15 @@
     package="com.frontend.frontend">
 
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+
 
     <application
+        android:name="com.frontend.backend.ARGuide.main.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -30,6 +37,9 @@
         </activity>
         <activity android:name=".Timetable.TimetableScreen"
             android:theme="@style/AppTheme"></activity>
+
+
+
     </application>
 
 </manifest>

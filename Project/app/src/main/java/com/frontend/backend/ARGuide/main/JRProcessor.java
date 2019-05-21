@@ -1,11 +1,9 @@
 package com.frontend.backend.ARGuide.main;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+
 import java.lang.reflect.Type;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.sql.Types;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -21,19 +19,18 @@ import com.frontend.backend.ARGuide.webParserV3.Eveniment;
 /**
  * the class whose instance is the processor of a JSONResource object
  * @author Paul-Reftu
- *
  */
 public class JRProcessor {
-    private Connection connection;
+    private DatabaseEmissary dbEmissary;
     private String targetType;
     
     /**
-     * get the reference to the already-established connection to our database and also the type of the JSON resource being processed (either "WS" or "BP") 
-     * @param conn the Connection object holding information w.r.t our current database connection
+     * get the reference to the already-established database helper and also the type of the JSON resource being processed (either "WS" or "BP")
+     * @param dbEmissary the database helper class that allows operations on and with the database
      * @param targetType the type of the JSON resource begin processed (either WS or BP)
      */
-    public JRProcessor(Connection conn, String targetType) {
-        this.connection = conn;
+    public JRProcessor(DatabaseEmissary dbEmissary, String targetType) {
+        this.dbEmissary = dbEmissary;
         this.targetType = targetType;
     }
     
@@ -88,41 +85,28 @@ public class JRProcessor {
         	 * case when JSON resource is the Building Plan
         	 */
 	        case "BP": {
+	        	SQLiteDatabase db = dbEmissary.getWritableDatabase();
 		 		BuildingPlan buildingPlan = json.fromJson(jrDecoder.getJrContent(), BuildingPlan.class);
-		 		String query;
-		 		PreparedStatement pStatement;
 		 		
 		 		/*
 		 		 * insert nodes
 		 		 */
 		 		for (BuildingPlan.Node node : buildingPlan.getNodes()) {
-	    	 		query = "INSERT INTO nodes(id, floor, name, type) VALUES(?, ?, ?, ?)";
-	    	 		pStatement = connection.prepareStatement(query);
-	    	 		pStatement.setInt(1, node.getId());
-	    	 		pStatement.setInt(2, node.getFloor());
-	    	 		pStatement.setString(3, node.getName());
-	    	 		pStatement.setString(4, node.getType());
-	    	 		pStatement.executeUpdate();
-		 		}
+					db.execSQL("INSERT INTO nodes(id, floor, name, type) VALUES(" + node.getId() +
+							", " + node.getFloor() + ", '" + node.getName() + "', '" + node.getType() + "')");
+				}
 		 		
 		 		/*
 		 		 * insert edges
 		 		 */
 		 		for (BuildingPlan.Edge edge : buildingPlan.getEdges()) {
-		 			query = "INSERT INTO edges(id, id1, id2, cost) VALUES(?, ?, ?, ?)";
-		 			pStatement = connection.prepareStatement(query);
-		 			pStatement.setNull(1, Types.INTEGER); //edges.id is automatically incremented starting from 1
-		 			pStatement.setInt(2, edge.getId_node1());
-		 			pStatement.setInt(3, edge.getId_node2());
-		 			/*
-		 			 * if the cost of the edges is <= 0, then set it to 1 instead
-		 			 * otherwise, set the cost to the given value in the building plan
-		 			 */
-		 			if (edge.getCost() <= 0)
-		 				pStatement.setDouble(4, 1.0);
-		 			else
-		 				pStatement.setDouble(4, edge.getCost());
-		 			pStatement.executeUpdate();
+					/*
+					 * edges.id is automatically incremented starting from 1
+					 * if the cost of the edges is <= 0, then set it to 1 instead
+					 * otherwise, set the cost to the given value in the building plan
+					 */
+		 			db.execSQL("INSERT INTO edges(id1, id2, cost) VALUES(" + edge.getId_node1() + ", " +
+							edge.getId_node2() + ", " + (edge.getCost() <= 0 ?  1.0 : edge.getCost()) + ")");
 		 		}
 		 		
 		 		break;
@@ -133,70 +117,60 @@ public class JRProcessor {
 		 	 * case when the JSON resource is the Working Schedule
 		 	 */
         	case "WS": {
+        		SQLiteDatabase db = dbEmissary.getWritableDatabase();
         		Type scheduleType = new TypeToken<LinkedList<DataRecord>>() {}.getType();
         		LinkedList<DataRecord> schedule = json.fromJson(jrDecoder.getJrContent(), scheduleType);
-        		List<String> days = new ArrayList<String>();
-        		days.addAll(Arrays.asList("LUNI", "MARTI", "MIERCURI", "JOI", "VINERI", "SAMBATA", "DUMINICA"));
+        		List<String> days = new ArrayList<>(Arrays.asList("LUNI", "MARTI", "MIERCURI",
+						"JOI", "VINERI", "SAMBATA", "DUMINICA"));
         		
         		for (DataRecord data : schedule) {
-        			String query;
-        			PreparedStatement pStatement;
-        			ResultSet rs;
-            		
-            		for (String day : days) {
+					for (String day : days) {
             			if (data.getRoomRecord().containsKey(day)) {
             				DayRecord dayRecord = data.getRoomRecord().get(day);
             				
             				for (Eveniment event : dayRecord.getListaEvenimente()) {
             					String studyGroups = "";
-                				query = "INSERT INTO courses(id, name, studyGroup) VALUES(?, ?, ?)";
-                				pStatement = connection.prepareStatement(query);
-                				pStatement.setNull(1, Types.INTEGER); //courses.id is automatically incremented starting from 1
-                				pStatement.setString(2, event.getNumeEveniment());
-                					
-                				for (int i = 0; i < event.getListaGrupe().size(); i++) { 
-                					if (i == 0)
-                						studyGroups = event.getListaGrupe().get(i);
-                					else
-                						studyGroups += ", " + event.getListaGrupe().get(i);
-                				}
-                					
-                				pStatement.setString(3, studyGroups);
-                				pStatement.executeUpdate();
-            					
-            					query = "SELECT id FROM nodes WHERE name='" + data.getRoomCode() + "'";
-            					Statement statement = connection.createStatement();
-            					rs = statement.executeQuery(query);
+								for (int i = 0; i < event.getListaGrupe().size(); i++) {
+									if (i == 0)
+										studyGroups = event.getListaGrupe().get(i);
+									else
+										studyGroups += ", " + event.getListaGrupe().get(i);
+								}
+
+            					db.execSQL("INSERT INTO courses(name, studyGroup) VALUES('" +
+										event.getNumeEveniment() + "', '" + studyGroups + "')");
+
+								Cursor rs = db.rawQuery("SELECT id FROM nodes WHERE name='" + data.getRoomCode() + "'", null);
+								rs.moveToFirst();
+
             					int targetNode;
-            					if (rs.next())
+            					if (rs.getCount() < 1)
             						targetNode = rs.getInt(1);
             					else {
             						System.out.println("Node '" + data.getRoomCode() + "' does not exist in the database. "
             								+ "Its schedule has therefore NOT been introduced.");
             						continue;
             					}
-            					
-            					query = "SELECT id FROM courses WHERE name='" + event.getNumeEveniment() + "'";
-            					statement = connection.createStatement();
-            					rs = statement.executeQuery(query);
+
+            					rs.close();
+
+            					rs = db.rawQuery("SELECT id FROM courses WHERE name='" + event.getNumeEveniment() + "'", null);
+            					rs.moveToFirst();
+
             					int targetCourse = rs.getInt(1);
-            					if (rs.next())
+            					if (rs.getCount() < 1)
             						targetCourse = rs.getInt(1);
             					else {
             						System.out.println("Course '" + data.getRoomCode() + "' does not exist in the database. "
             								+ "Its schedule has therefore NOT been introduced.");
             						continue;
             					}
-            					
-            					query = "INSERT INTO schedule(node_id, course_id, starting_time, ending_time, day) " +
-            							"VALUES(?, ?, ?, ?, ?)";
-            					pStatement = connection.prepareStatement(query);
-            					pStatement.setInt(1, targetNode);
-            					pStatement.setInt(2, targetCourse);
-            					pStatement.setString(3, event.getOraStart().toString());
-            					pStatement.setString(4, event.getOraFinal().toString());
-            					pStatement.setString(5, day);
-            					pStatement.executeUpdate();
+
+            					rs.close();
+
+            					db.execSQL("INSERT INTO schedule(node_id, course_id, starting_time, ending_time, day) " +
+										"VALUES(" + targetNode + ", " + targetCourse + ", " +  event.getOraStart().toString()
+										+ ", " + event.getOraFinal().toString() + ", '" + day + "')");
             				}
             			}
             		}
@@ -209,7 +183,7 @@ public class JRProcessor {
         	 * error case - JSON resource of unexpected type
         	 */
     	 	default:
-    	 		throw new JSONResourceException("Targetted object for processing is of unknown type.");	
+    	 		throw new JSONResourceException("Targeted object for processing is of unknown type.");
         }
     }
     
@@ -222,14 +196,12 @@ public class JRProcessor {
     public void updateJR (JRDecoder jrDecoder) throws JSONResourceException, SQLException {
         switch (targetType) {
 	        case "BP": {
-	        	List<String> tableNames = new ArrayList<String>();
-	        	tableNames.addAll(Arrays.asList("schedule", "edges", "images", "nodes", "courses"));
+	        	SQLiteDatabase db = dbEmissary.getWritableDatabase();
+	        	List<String> tableNames = new ArrayList<>(Arrays.asList("schedule", "edges", "images",
+						"nodes", "courses"));
 	        	
-	        	for (String tableName : tableNames) {
-	        		String query = "DELETE FROM " + tableName;
-		        	PreparedStatement pStatement = connection.prepareStatement(query);
-		        	pStatement.executeUpdate();
-	        	}
+	        	for (String tableName : tableNames)
+					db.execSQL("DELETE FROM " + tableName);
 	        	
 	        	saveJR(jrDecoder);
 	        	
@@ -237,14 +209,11 @@ public class JRProcessor {
 	        }
 	        
 	        case "WS": {
-	        	List<String> tableNames = new ArrayList<String>();
-	        	tableNames.addAll(Arrays.asList("schedule", "courses"));
+	        	SQLiteDatabase db = dbEmissary.getWritableDatabase();
+	        	List<String> tableNames = new ArrayList<>(Arrays.asList("schedule", "courses"));
 	        	
-	        	for (String tableName : tableNames) {
-	        		String query = "DELETE FROM " + tableName;
-		        	PreparedStatement pStatement = connection.prepareStatement(query);
-		        	pStatement.executeUpdate();
-	        	}
+	        	for (String tableName : tableNames)
+	        		db.execSQL("DELETE FROM " + tableName);
 	        	
 	        	saveJR(jrDecoder);
 	        	
@@ -264,27 +233,22 @@ public class JRProcessor {
     public void removeJR () throws JSONResourceException, SQLException {
         switch (targetType) {
 	        case "BP": {
-	        	List<String> tableNames = new ArrayList<String>();
-	        	tableNames.addAll(Arrays.asList("schedule", "edges", "images", "nodes", "courses"));
+	        	SQLiteDatabase db = dbEmissary.getWritableDatabase();
+	        	List<String> tableNames = new ArrayList<>(Arrays.asList("schedule", "edges", "images",
+						"nodes", "courses"));
 	        	
-	        	for (String tableName : tableNames) {
-	        		String query = "DELETE FROM " + tableName;
-		        	PreparedStatement pStatement = connection.prepareStatement(query);
-		        	pStatement.executeUpdate();
-	        	}
+	        	for (String tableName : tableNames)
+	        		db.execSQL("DELETE FROM " + tableName);
 	        	
 	        	break;
 	        }
 	        
 	        case "WS": {
-	        	List<String> tableNames = new ArrayList<String>();
-	        	tableNames.addAll(Arrays.asList("schedule", "courses"));
-	        	
-	        	for (String tableName : tableNames) {
-	        		String query = "DELETE FROM " + tableName;
-		        	PreparedStatement pStatement = connection.prepareStatement(query);
-		        	pStatement.executeUpdate();
-	        	}
+				SQLiteDatabase db = dbEmissary.getWritableDatabase();
+	        	List<String> tableNames = new ArrayList<>(Arrays.asList("schedule", "courses"));
+
+				for (String tableName : tableNames)
+					db.execSQL("DELETE FROM " + tableName);
 	        	
 	        	break;
 	        }

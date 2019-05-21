@@ -21,7 +21,6 @@ import android.widget.Toast;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import com.frontend.backend.ARGuide.main.JSONResourceException;
 import com.frontend.frontend.Main.MainActivity;
@@ -35,6 +34,8 @@ import java.io.IOException;
 import java.util.List;
 
 import com.frontend.backend.ARGuide.main.ARGuide;
+
+import static java.lang.System.exit;
 
 /**
  * Tools for the pattern recognition and the camera functionality.
@@ -69,9 +70,10 @@ public class ImageProcessing extends AppCompatActivity {
         ocrTextView = findViewById(R.id.ocrTextView);
 
         try {
-            ARGuide databaseConn = new ARGuide("ARGuide/database/faculty.db",
-                    "ARGuide/schedules/facultySchedule.json",
-                    "ARGuide/buildingPlan/jsonFormat/buildingPlan.json");
+            ARGuide databaseConn = new ARGuide("faculty_uaic_cs",
+                    "/data/user/0/com.frontend.frontend/files/faculty.db",
+                    "/data/user/0/com.frontend.frontend/files/facultySchedule.json",
+                    "/data/user/0/com.frontend.frontend/files/buildingPlan.json");
 
             roomsList = databaseConn.selectAllClassroomNames();
 
@@ -121,8 +123,6 @@ public class ImageProcessing extends AppCompatActivity {
                 }
             });
 
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (JSONResourceException e) {
@@ -152,8 +152,8 @@ public class ImageProcessing extends AppCompatActivity {
     private void startTextRecognizer() {
         textRecognizer = new TextRecognizer.Builder(getApplicationContext()).build();
         if (!textRecognizer.isOperational()) {
-            Toast.makeText(getApplicationContext(), "Oops ! Not able to start the text recognizer ...", Toast.LENGTH_LONG).show();
-        } else {
+            Toast.makeText(getApplicationContext(), "Oops ! Not able to start the text recognizer ...", Toast.LENGTH_LONG).show(); exit(0);
+        }
             cameraSource = new CameraSource.Builder(getApplicationContext(), textRecognizer)
                     .setFacing(CameraSource.CAMERA_FACING_BACK)
                     .setRequestedPreviewSize(1280, 1024)
@@ -164,6 +164,7 @@ public class ImageProcessing extends AppCompatActivity {
             cameraView.getHolder().addCallback(new SurfaceHolder.Callback() {
                 @Override
                 public void surfaceCreated(SurfaceHolder holder) {
+                    askCameraPermission();
                     if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
                         try {
                             cameraSource.start(cameraView.getHolder());
@@ -212,13 +213,13 @@ public class ImageProcessing extends AppCompatActivity {
                                 finalText = fullText;
                                 getRoomTimetable.setText(finalText + " - See info");
                                 getRoomTimetable.setVisibility(View.VISIBLE);
-                                startTextRecognizer();
+                                //startTextRecognizer();
                             }
                         }
                     });
                 }
             });
-        }
+
     }
 
     /**

@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="libs">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/Project/app/libs/jsoup-1.11.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Project/app/libs/gson-2.8.5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Project/app/libs/sqlite-jdbc-3.27.2.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Project/app/libs/javatuples-1.2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
