@@ -209,9 +209,7 @@ public class PathGenerator {
         }
 
     }
-
-
-
+    
     public List<Integer> GetToTheClosestFreeRoom(int sourceRoom) {
 
         boolean notFound=true;
