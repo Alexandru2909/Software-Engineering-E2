@@ -170,7 +170,7 @@ public class ARGuide extends AppCompatActivity {
 
 				List<String> tableNameList = new ArrayList<>(Arrays.asList("nodes", "edges", "images"));
 
-				this.dbEmissary = new DatabaseEmissary(this, dbPath, "standard");
+				this.dbEmissary = new DatabaseEmissary(MyApplication.getAppContext(), dbPath, "standard");
 
 				this.argProcessor = new ARGProcessor(dbEmissary, planPath);
 
