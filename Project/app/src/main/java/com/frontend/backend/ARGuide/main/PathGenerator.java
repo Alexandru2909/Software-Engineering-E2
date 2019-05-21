@@ -173,4 +173,82 @@ public class PathGenerator {
 
         return path;
     }
+
+
+    public boolean isFree(int classId){
+
+        String classSTHour;
+        String classENDHour;
+        Cursor rs = db.rawQuery("SELECT starting_time,ending_time FROM schedules WHERE node_id= "+classId+" ", null);
+
+        rs.moveToFirst();
+        classSTHour=rs.getString(0);
+        classENDHour=rs.getString(1);
+
+        Calendar cal=Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("HH");
+        String hour=sdf.format(cal.getTime());
+
+        if(classSTHour.contains(hour)){
+            return false;
+        }else {
+            if(classENDHour.contains(hour)){
+                return false;
+            }
+            else{
+                return true;
+            }
+        }
+    }
+
+    public boolean isClassOrAmph(int roomId){
+        Cursor rs = db.rawQuery("SELECT type FROM nodes WHERE node_id= "+roomId+" ", null);
+
+        rs.moveToFirst();
+
+        String type=rs.getString(0);
+
+        if(type.matches("Classroom") || type.matches("Amphitheatre")){
+            return true;
+        }else{
+            return false;
+        }
+
+    }
+
+
+
+    public List<Integer> GetToTheClosestFreeRoom(int sourceRoom) {
+
+        boolean notFound=true;
+        int destination = sourceRoom;
+
+        boolean visited[]= new boolean[nodes.size()];
+
+        LinkedList<Integer> queue = new LinkedList<Integer>();
+
+        visited[sourceRoom]=true;
+        queue.add(sourceRoom);
+
+        while(queue.size() !=0 && notFound==true) {
+
+            int node=queue.pop();
+            LinkedList<Edge> neighbours = adjacencylist[node];
+            for (int i = 0; i < neighbours.size(); i++) {
+                Edge edge = neighbours.get(i);
+                if (isFree(edge.id2) && isClassOrAmph(edge.id2)) {
+                        destination = edge.id2;
+                        notFound=false;
+                }
+                if(!visited[edge.id2])
+                {
+                    visited[edge.id2]=true;
+                    queue.add(edge.id2);
+                }
+            }
+        }
+
+        return dijkstra(sourceRoom, destination);
+    }
+
 }
