@@ -576,14 +576,14 @@ public class MainClass extends JFrame {
                         if(finalNode!=null){
                             curentLine.x2=finalNode.xPoint+10;
                             curentLine.y2=finalNode.yPoint+10;
-                            curentLine.setNode2(finalNode);
-                            Line newLine = new Line(curentLine);
-                            if (popupLine.isSelected()) {
+                            if(Line.availableLine(curentLine,linesList)){
+                                curentLine.setNode2(finalNode);
+                                Line newLine = new Line(curentLine);
                                 newLine.textBox();
+                                linesList.add(newLine);
+                                drawingSurface.repaint();
+                                drawingStage = false;
                             }
-                            linesList.add(newLine);
-                            drawingSurface.repaint();
-                            drawingStage=false;
                         }
                     }
                 }else if(actionMessage.messageCode==4){
