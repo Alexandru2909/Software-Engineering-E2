@@ -155,3 +155,35 @@ public class Line implements Serializable {
         this.node2=node; this.id_node2=node.id;
     }
 }
+
+    public boolean equals(Object line){
+        Line auxLine=(Line)line;
+        if((this.x1==auxLine.x1 && this.y1==auxLine.y1 && this.x2==auxLine.x2 && this.y2==auxLine.y2 ) || (this.x1==auxLine.x2 && this.y1==auxLine.y2 && this.x2==auxLine.x1 && this.y2==auxLine.y1) ){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    public static boolean linkDifferentNodes(Line line){
+        if(line.x1==line.x2 && line.y1==line.y2){
+            return false;
+        }else{
+            return true;
+        }
+    }
+    public static boolean availableLine(Line line, LinkedList<Line> linesList){
+        if(linkDifferentNodes(line)==false){
+            return false;
+        }else{
+            System.out.println("evaluarea listei de noduri");
+            return !linesList.contains(line);
+        }
+    }
+    public static boolean validateLinesList(LinkedList<Line> linesList){
+        for(Line line:linesList){
+            if(availableLine(line,linesList)==false){
+                return false;
+            }
+        }
+        return true;
+    }
