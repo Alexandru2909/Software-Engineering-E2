@@ -1,11 +1,31 @@
 Autor: Andrei Ghiran
 
-   -La rularea aplicatiei, atunci cand se apasa pentru prima data butonul "Locate Yourself"
-    in terminanul din android studio apar mesaje de tipul "Node <numarul unei camere> does 
-    not exist in the database. its scheduel has therefore NOT been introduced", acest mesaj apare de mai multe ori pentru
-    fiecare camera dupa cum se observa in captura de ecran asociata acestui raport. Im plus daca exploram fisierele create
-    pe telefon si extragem baza de date "faculty.bd" putem vedea ca tabela "scheduel" este goala. Puteti explora fisierele 
-    in modul urmator:
+ PathGenerator.java
+   -General
+     Vectorul adj nu este valid deoarece structura de date vector nu exista in android studio
+   
+   -add_edgee(int src, int dest)
+      Metoda fooseste prost vectorul adj   
+
+   -BFS(int src, int dest, int[] pred, int[] dist)
+     Erori datorita vectorului adj
+
+   -bfsShortestDistance(int src, int dest)
+     la linia 305 exista un return ce nu returneaza nimic.
+
+ JRProcessor.java
+   - saveJR (JRDecoder jrDecoder)
+      La rularea aplicatiei, atunci cand se apasa pentru prima data butonul "Locate Yourself" in terminanul din android 
+    studio apar mesaje de tipul "Node <numarul unei camere> does not exist in the database. its scheduel has therefore 
+    NOT been introduced", acest mesaj apare de mai multe ori pentru fiecare camera dupa cum se observa in captura de ecran
+    asociata acestui raport. Im plus daca exploram fisierele create pe telefon si extragem baza de date "faculty.bd" putem 
+    vedea ca tabela "scheduel" este goala. Puteti explora fisierele in modul urmator:
     View -> Tool Windows -> Device File Explorer, in noua fereastra veti gasi fisierele aplicatiei urmand path-ul 
     data/data/com.frontend.frontend/files, puteti da clic dreapta pe fisiere si sa le salvati pe laptopul/pc-ul vostru
     si puteti deschide baza de date cu SQLite Database Browser (il gasiti la linkul acesta: https://sqlitebrowser.org/)
+     (!!!REZOLVARE: la linia 147 avem un "if (rs.getCount() < 1)", rs.getCount trebuie sa fie = 1 nu <!!!) 
+
+     Problema aceasta apare dupa ce am rezolvat local problema de mai sus, problema apare la aplelul "rs.getInt(1)" de pe 
+    randul 148, linii importante din eroare: "E/CursorWindow: Failed to read row 0, column 1 from a CursorWindow which has
+    1 rows, 1 columns." si "Couldn't read row 0, col 1 from CursorWindow.  Make sure the Cursor is initialized correctly 
+    before accessing data from it."
