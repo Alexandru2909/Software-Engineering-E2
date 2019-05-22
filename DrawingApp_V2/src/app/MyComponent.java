@@ -64,7 +64,6 @@ public class MyComponent extends JComponent {
         if(actionMessage.messageCode==6){
             G.setColor(Color.blue);
             for(Line line: movingLinesList){
-                System.out.println("redesenare muchii in galben");
                 G.drawLine(line.x1,line.y1,line.x2,line.y2);
                 G.drawLine(line.x1+1,line.y1+1,line.x2+1,line.y2+1);
                 G.drawLine(line.x1+2,line.y1+2,line.x2+2,line.y2+2);
