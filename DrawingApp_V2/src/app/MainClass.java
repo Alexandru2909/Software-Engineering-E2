@@ -75,6 +75,18 @@ public class MainClass extends JFrame {
     }
 
     /**
+     * Function to update "node editor panel"
+     */
+    private void nodeEditorUpdate(){
+        nodeNr.setText(String.valueOf(currentNode.id));
+        nodeName.setText(currentNode.getName());
+        nodeType.setText(currentNode.getType());
+        nodeFloor.setText(String.valueOf(currentNode.getFloor()));
+        nodeLatitude.setText(String.valueOf(currentNode.getLatitude()));
+        nodeLongitude.setText(String.valueOf(currentNode.getLongitude()));
+    }
+
+    /**
      * pagina de unde selectam fisierele pe care dorim sa le exportam in format .json
      */
     JFileChooser fileChooser = new JFileChooser(System.getProperty("user.dir"));
@@ -156,9 +168,21 @@ public class MainClass extends JFrame {
      */
     MyComponent drawingSurface=new MyComponent(nodesList,linesList,movingLinesList,curentLine,actionMessage);//suprafata de desenare
 
+    /**
+     * node editor panel + textfields & checkboxes
+     */
+    JLabel nodeNr=new JLabel("0");
+    JTextField nodeName=new JTextField("Node name");
+    JTextField nodeType=new JTextField("Node type");
+    JTextField nodeFloor=new JTextField("Node floor");
+    JTextField nodeLatitude = new JTextField("Node latitude");
+    JTextField nodeLongitude = new JTextField("Node longitude");
+    JButton nodeSave = new JButton("Save node");
+    JPanel nodeEditorPanel = new JPanel();
 
     private Node firstNode=null;
     private Node secondNode=null;
+    private Node currentNode=null;
     /**
      * Aceasta functie reseteaza flagurile de activitate
      * functia este apelata la fiecare apasare de buton pentru a ne asigura ca nu apar probleme intre operatii
@@ -215,6 +239,17 @@ public class MainClass extends JFrame {
          */
         popupPanel.add(popupLine);
         /**
+         * addign the textfields + save button to the node editor panel
+         */
+        nodeEditorPanel.setLayout(new BoxLayout(nodeEditorPanel,BoxLayout.Y_AXIS));
+        nodeEditorPanel.add(nodeNr);
+        nodeEditorPanel.add(nodeName);
+        nodeEditorPanel.add(nodeType);
+        nodeEditorPanel.add(nodeFloor);
+        nodeEditorPanel.add(nodeLatitude);
+        nodeEditorPanel.add(nodeLongitude);
+        nodeEditorPanel.add(nodeSave);
+        /**
          * setam layout-ul general al ferestrei
          */
         generalPanel.setLayout(new BorderLayout());
@@ -230,7 +265,40 @@ public class MainClass extends JFrame {
          * attach the popup panel to the general panel
          */
         generalPanel.add(popupPanel,BorderLayout.SOUTH);
-
+        /**
+         * attach the node editor panel to the general panel
+         */
+        generalPanel.add(nodeEditorPanel,BorderLayout.EAST);
+        /**
+         * atasam listener butonului "Save node"
+         */
+        nodeSave.addActionListener(actionEvent -> {
+            if (nodesList.contains(currentNode)) {
+                currentNode.setName(nodeName.getText());
+                currentNode.setType(nodeType.getText());
+                try {
+                    currentNode.setFloor(Integer.parseInt(nodeFloor.getText()));
+                } catch (Exception e) {
+                    System.out.println(e);
+                    System.out.println("Floor: 0");
+                    currentNode.setFloor(0);
+                }
+                try {
+                    currentNode.setLatitude(Double.parseDouble(nodeLatitude.getText()));
+                } catch (Exception e) {
+                    System.out.println(e);
+                    System.out.println("Latitude: 0.00");
+                    currentNode.setLatitude(0.00);
+                }
+                try {
+                    currentNode.setLongitude(Double.parseDouble(nodeLongitude.getText()));
+                } catch (Exception e) {
+                    System.out.println(e);
+                    System.out.println("Longitude: 0.00");
+                    currentNode.setLongitude(0.00);
+                }
+            }
+        });
         /**
          * atasam listener butonului Export
          */
@@ -474,6 +542,7 @@ public class MainClass extends JFrame {
             }
         });
 
+
         /**
          * atasam listener suprafetei de desenare
          */
@@ -486,6 +555,8 @@ public class MainClass extends JFrame {
                         newNode.textBox();
                     }
                     nodesList.add(newNode);
+                    currentNode=newNode;
+                    nodeEditorUpdate();
                     drawingSurface.repaint();
                 }else if(actionMessage.messageCode==2){
                     if(!drawingStage){
@@ -514,6 +585,7 @@ public class MainClass extends JFrame {
                 }else if(actionMessage.messageCode==4){
                     if(!movedStatus){
                         movedNode=validNode(e.getX(),e.getY());
+                        currentNode=movedNode;
                         if(movedNode!=null){
                             movedStatus=true;
                             for(Line line:linesList){
@@ -541,6 +613,7 @@ public class MainClass extends JFrame {
                             movingLinesList.clear();
                             drawingSurface.repaint();
                         }
+                        nodeEditorUpdate();
                     }
                 }else if(actionMessage.messageCode==5){
                     Node node=validNode(e.getX(),e.getY());
@@ -603,9 +676,9 @@ public class MainClass extends JFrame {
                     }
                 }
                 else if (actionMessage.messageCode==7){
-                    firstNode=validNode(e.getX(),e.getY());
-                    if (firstNode!=null){
-                        firstNode.textBox();
+                    currentNode=validNode(e.getX(),e.getY());
+                    if (currentNode!=null){
+                        currentNode.textBox();
                     }
                 }
                 else if (actionMessage.messageCode==8){

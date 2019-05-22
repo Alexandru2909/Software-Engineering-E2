@@ -142,7 +142,6 @@ public class Node implements Serializable {
         System.out.println("Latitude: " + latitudeTF.getText());
         System.out.println("Longitude: " + longitudeTF.getText());
         try {
-            System.out.println(Integer.parseInt(floorTF.getText()));
             this.setFloor(Integer.parseInt(floorTF.getText()));
         } catch (Exception e) {
             System.out.println(e);
@@ -157,7 +156,7 @@ public class Node implements Serializable {
         return name;
     }
 
-    private void setName(String name) {
+    protected void setName(String name) {
         this.name = name;
     }
 
@@ -165,7 +164,7 @@ public class Node implements Serializable {
         return type;
     }
 
-    private void setType(String type) {
+    protected void setType(String type) {
         this.type = type;
     }
 
@@ -173,7 +172,7 @@ public class Node implements Serializable {
         return floor;
     }
 
-    private void setFloor(Integer floor) {
+    protected void setFloor(Integer floor) {
         this.floor = floor;
     }
     /**
