@@ -78,12 +78,12 @@ public class MainClass extends JFrame {
      * Function to update "node editor panel"
      */
     private void nodeEditorUpdate(){
-        nodeNr.setText(String.valueOf(currentNode.id));
-        nodeName.setText(currentNode.getName());
-        nodeType.setText(currentNode.getType());
-        nodeFloor.setText(String.valueOf(currentNode.getFloor()));
-        nodeLatitude.setText(String.valueOf(currentNode.getLatitude()));
-        nodeLongitude.setText(String.valueOf(currentNode.getLongitude()));
+        nodeNr.setText(String.valueOf(firstNode.id));
+        nodeName.setText(firstNode.getName());
+        nodeType.setText(firstNode.getType());
+        nodeFloor.setText(String.valueOf(firstNode.getFloor()));
+        nodeLatitude.setText(String.valueOf(firstNode.getLatitude()));
+        nodeLongitude.setText(String.valueOf(firstNode.getLongitude()));
     }
 
     /**
@@ -182,7 +182,7 @@ public class MainClass extends JFrame {
 
     private Node firstNode=null;
     private Node secondNode=null;
-    private Node currentNode=null;
+//    private Node firstNode=null;
     /**
      * Aceasta functie reseteaza flagurile de activitate
      * functia este apelata la fiecare apasare de buton pentru a ne asigura ca nu apar probleme intre operatii
@@ -273,29 +273,29 @@ public class MainClass extends JFrame {
          * atasam listener butonului "Save node"
          */
         nodeSave.addActionListener(actionEvent -> {
-            if (nodesList.contains(currentNode)) {
-                currentNode.setName(nodeName.getText());
-                currentNode.setType(nodeType.getText());
+            if (nodesList.contains(firstNode)) {
+                firstNode.setName(nodeName.getText());
+                firstNode.setType(nodeType.getText());
                 try {
-                    currentNode.setFloor(Integer.parseInt(nodeFloor.getText()));
+                    firstNode.setFloor(Integer.parseInt(nodeFloor.getText()));
                 } catch (Exception e) {
                     System.out.println(e);
                     System.out.println("Floor: 0");
-                    currentNode.setFloor(0);
+                    firstNode.setFloor(0);
                 }
                 try {
-                    currentNode.setLatitude(Double.parseDouble(nodeLatitude.getText()));
+                    firstNode.setLatitude(Double.parseDouble(nodeLatitude.getText()));
                 } catch (Exception e) {
                     System.out.println(e);
                     System.out.println("Latitude: 0.00");
-                    currentNode.setLatitude(0.00);
+                    firstNode.setLatitude(0.00);
                 }
                 try {
-                    currentNode.setLongitude(Double.parseDouble(nodeLongitude.getText()));
+                    firstNode.setLongitude(Double.parseDouble(nodeLongitude.getText()));
                 } catch (Exception e) {
                     System.out.println(e);
                     System.out.println("Longitude: 0.00");
-                    currentNode.setLongitude(0.00);
+                    firstNode.setLongitude(0.00);
                 }
             }
         });
@@ -555,7 +555,7 @@ public class MainClass extends JFrame {
                         newNode.textBox();
                     }
                     nodesList.add(newNode);
-                    currentNode=newNode;
+                    firstNode=newNode;
                     nodeEditorUpdate();
                     drawingSurface.repaint();
                 }else if(actionMessage.messageCode==2){
@@ -585,7 +585,7 @@ public class MainClass extends JFrame {
                 }else if(actionMessage.messageCode==4){
                     if(!movedStatus){
                         movedNode=validNode(e.getX(),e.getY());
-                        currentNode=movedNode;
+                        firstNode=movedNode;
                         if(movedNode!=null){
                             movedStatus=true;
                             for(Line line:linesList){
@@ -676,9 +676,9 @@ public class MainClass extends JFrame {
                     }
                 }
                 else if (actionMessage.messageCode==7){
-                    currentNode=validNode(e.getX(),e.getY());
-                    if (currentNode!=null){
-                        currentNode.textBox();
+                    firstNode=validNode(e.getX(),e.getY());
+                    if (firstNode!=null){
+                        firstNode.textBox();
                     }
                 }
                 else if (actionMessage.messageCode==8){
