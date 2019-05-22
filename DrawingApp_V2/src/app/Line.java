@@ -1,7 +1,7 @@
 package app;
 
 import com.google.gson.annotations.Expose;
-
+import java.util.LinkedList;
 import javax.swing.*;
 import java.awt.*;
 import java.io.Serializable;
@@ -154,8 +154,6 @@ public class Line implements Serializable {
     public void setNode2(Node node){
         this.node2=node; this.id_node2=node.id;
     }
-}
-
     public boolean equals(Object line){
         Line auxLine=(Line)line;
         if((this.x1==auxLine.x1 && this.y1==auxLine.y1 && this.x2==auxLine.x2 && this.y2==auxLine.y2 ) || (this.x1==auxLine.x2 && this.y1==auxLine.y2 && this.x2==auxLine.x1 && this.y2==auxLine.y1) ){
@@ -187,3 +185,4 @@ public class Line implements Serializable {
         }
         return true;
     }
+}
