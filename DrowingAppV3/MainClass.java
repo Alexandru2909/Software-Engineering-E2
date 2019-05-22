@@ -436,7 +436,7 @@ public class MainClass extends JFrame {
                             drawingStage=true;
                         }
                     }else{
-                        Node finalNode=validNode(e.getX(),e.getY());
+                         Node finalNode=validNode(e.getX(),e.getY());
                         if(finalNode!=null){
                             curentLine.x2=finalNode.xPoint+10;
                             curentLine.y2=finalNode.yPoint+10;
@@ -449,6 +449,7 @@ public class MainClass extends JFrame {
                                 drawingStage = false;
                             }
                         }
+
                     }
                 }else if(actionMessage.messageCode==4){
                     if(!movedStatus){
