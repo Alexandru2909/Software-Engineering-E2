@@ -78,12 +78,14 @@ public class MainClass extends JFrame {
      * Function to update "node editor panel"
      */
     private void nodeEditorUpdate(){
-        nodeNr.setText(String.valueOf(firstNode.id));
-        nodeName.setText(firstNode.getName());
-        nodeType.setText(firstNode.getType());
-        nodeFloor.setText(String.valueOf(firstNode.getFloor()));
-        nodeLatitude.setText(String.valueOf(firstNode.getLatitude()));
-        nodeLongitude.setText(String.valueOf(firstNode.getLongitude()));
+        if (nodesList.contains(firstNode)) {
+            nodeNr.setText(String.valueOf(firstNode.id));
+            nodeName.setText(firstNode.getName());
+            nodeType.setText(firstNode.getType());
+            nodeFloor.setText(String.valueOf(firstNode.getFloor()));
+            nodeLatitude.setText(String.valueOf(firstNode.getLatitude()));
+            nodeLongitude.setText(String.valueOf(firstNode.getLongitude()));
+        }
     }
 
     /**
