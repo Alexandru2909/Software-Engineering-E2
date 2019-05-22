@@ -9,6 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Comparator;
 import java.util.PriorityQueue;
+import java.util.Vector;
 import java.util.*;
 
 import org.javatuples.Pair;
@@ -22,7 +23,7 @@ import org.javatuples.Pair;
 public class PathGenerator {
     private List<Integer> nodes=new ArrayList<>();
     private List<Integer> path=new ArrayList<>();
-    private vector<Integer> adj[];
+    private Vector<Integer> adj[];
     private int[] previous;
     private LinkedList<Edge>[] adjacencylist;
     private int vertices;
@@ -302,7 +303,7 @@ public ArrayList<Integer> bfsShortestDistance(int src, int dest)
 		int[] dist = new int[vertices];
 
 	if (BFS(src, dest, pred, dist) == false)
-		return;
+		System.err.println("Error");
 	
 	ArrayList<Integer> path = new ArrayList<Integer>();
 	int crawl = dest;
