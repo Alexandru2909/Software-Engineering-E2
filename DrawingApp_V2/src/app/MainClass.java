@@ -193,6 +193,8 @@ public class MainClass extends JFrame {
         movedStatus=false;
         drawingStage=false;
         deleteEdgeStage=false;
+        firstNode=null;
+        secondNode=null;
     }
 
     /**
