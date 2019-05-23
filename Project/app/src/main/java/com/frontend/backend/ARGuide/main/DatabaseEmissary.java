@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.database.sqlite.SQLiteStatement;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -130,8 +131,6 @@ public class DatabaseEmissary extends SQLiteOpenHelper {
                 break;
             }
         }
-
-        return;
     }
 
     /**
@@ -181,8 +180,6 @@ public class DatabaseEmissary extends SQLiteOpenHelper {
                 break;
             }
         }
-
-        return;
     }
 
     /**
@@ -217,11 +214,12 @@ public class DatabaseEmissary extends SQLiteOpenHelper {
     public List<List<String>> selectClassroomSchedule(String classroomName) {
         SQLiteDatabase db = this.getReadableDatabase();
         List<List<String>> queryResults = new ArrayList<>();
+
         Cursor rs = db.rawQuery(
                 "SELECT s.day, s.starting_time, s.ending_time, c.name AS course_name " +
                         "FROM nodes n JOIN schedule s ON n.id=s.node_id " +
                         "JOIN courses c ON s.course_id=c.id " +
-                        "WHERE n.type IN ('Classroom', 'Amphitheatre') AND n.name ='" + classroomName + "' " +
+                        "WHERE n.type IN ('Classroom', 'Amphitheatre') AND n.name = ? " +
                         "ORDER BY CASE " +
                         "WHEN s.day = 'LUNI' THEN 1 " +
                         "WHEN s.day = 'MARTI' THEN 2 " +
@@ -231,7 +229,7 @@ public class DatabaseEmissary extends SQLiteOpenHelper {
                         "WHEN s.day = 'SAMBATA' THEN 6 " +
                         "WHEN s.day = 'DUMINICA' THEN 7 " +
                         "END ASC",
-                null
+                new String[] {classroomName}
         );
 
         if (rs.getCount() == 0)
@@ -253,6 +251,40 @@ public class DatabaseEmissary extends SQLiteOpenHelper {
     }
 
     /**
+     * select a classroom's unique id by its name
+     * @param classroomName the name of the classroom
+     * @return the id of the classroom
+     */
+    public Integer selectClassroomIdByName(String classroomName) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor rs = db.rawQuery("SELECT id FROM nodes WHERE type IN ('Classroom', 'Amphitheatre') AND name=?", new String[] {classroomName});
+
+        if (rs.getCount() == 0)
+            return null;
+
+        rs.moveToFirst();
+
+        return rs.getInt(1);
+    }
+
+    /**
+     * select a classroom's name by its unique id
+     * @param id the id of the classroom
+     * @return the name of the classroom
+     */
+    public String selectClassroomNameById(Integer id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor rs = db.rawQuery("SELECT name FROM nodes WHERE type IN ('Classroom', 'Amphitheatre') AND id=?", new String[] {String.valueOf(id)});
+
+        if (rs.getCount() == 0)
+            return null;
+
+        rs.moveToFirst();
+
+        return rs.getString(1);
+    }
+
+    /**
      * checks whether the database at the currently-declared path exists
      * @return true if the database specified by the current path exists; false otherwise
      */
@@ -268,12 +300,10 @@ public class DatabaseEmissary extends SQLiteOpenHelper {
      * @return true if given tables exist, false otherwise
      */
     public boolean doDbTablesExist(List<String> tableNameList) {
-
-
         SQLiteDatabase db = this.getReadableDatabase();
 
         for (String tableName : tableNameList) {
-            Cursor rs = db.rawQuery("SELECT name FROM sqlite_master WHERE type='table' AND name=" + "'" + tableName + "'", null);
+            Cursor rs = db.rawQuery("SELECT name FROM sqlite_master WHERE type='table' AND name= ?", new String[] {tableName});
 
             if (rs.getCount() == 0)
                 return false;
@@ -299,7 +329,9 @@ public class DatabaseEmissary extends SQLiteOpenHelper {
             if (tableName.equals("images"))
                 continue;
 
-            Cursor rs = db.rawQuery("SELECT COUNT(*) FROM " + tableName, null);
+            Cursor rs = db.query(tableName, new String[] {"COUNT(*)"},
+                    null, null,
+                    null, null, null);
 
             rs.moveToFirst();
 

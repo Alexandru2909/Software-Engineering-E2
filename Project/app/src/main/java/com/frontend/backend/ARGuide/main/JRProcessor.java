@@ -1,6 +1,7 @@
 package com.frontend.backend.ARGuide.main;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteStatement;
 
 import java.lang.reflect.Type;
 import java.sql.SQLException;
@@ -75,9 +76,8 @@ public class JRProcessor {
      * save the information w.r.t the current JSON resource in our database
      * @param jrDecoder the decoder holding information about the schedule or the building plan to be saved
      * @throws JSONResourceException upon failure of save operation
-     * @throws SQLException upon failed database DML operations
      */
-    public void saveJR (JRDecoder jrDecoder) throws JSONResourceException, SQLException {
+    public void saveJR (JRDecoder jrDecoder) throws JSONResourceException {
         Gson json = new Gson();
         
         switch (targetType) {
@@ -92,8 +92,16 @@ public class JRProcessor {
 		 		 * insert nodes
 		 		 */
 		 		for (BuildingPlan.Node node : buildingPlan.getNodes()) {
-					db.execSQL("INSERT INTO nodes(id, floor, name, type) VALUES(" + node.getId() +
-							", " + node.getFloor() + ", '" + node.getName() + "', '" + node.getType() + "')");
+		 		    SQLiteStatement statement = db.compileStatement(
+                            "INSERT INTO nodes(id, floor, name, type) VALUES(?, ?, ?, ?)"
+                    );
+
+		 		    statement.bindLong(1, node.getId());
+		 		    statement.bindLong(2, node.getFloor());
+		 		    statement.bindString(3, node.getName());
+		 		    statement.bindString(4, node.getType());
+
+		 		    statement.executeInsert();
 				}
 		 		
 		 		/*
@@ -105,8 +113,15 @@ public class JRProcessor {
 					 * if the cost of the edges is <= 0, then set it to 1 instead
 					 * otherwise, set the cost to the given value in the building plan
 					 */
-		 			db.execSQL("INSERT INTO edges(id1, id2, cost) VALUES(" + edge.getId_node1() + ", " +
-							edge.getId_node2() + ", " + (edge.getCost() <= 0 ?  1.0 : edge.getCost()) + ")");
+					SQLiteStatement statement = db.compileStatement(
+                            "INSERT INTO edges(id1, id2, cost) VALUES(?, ?, ?)"
+                    );
+
+					statement.bindLong(1, edge.getId_node1());
+					statement.bindLong(2, edge.getId_node2());
+					statement.bindDouble(3, (edge.getCost() <= 0 ? 1.0 : edge.getCost()));
+
+					statement.executeInsert();
 		 		}
 		 		
 		 		break;
@@ -127,7 +142,10 @@ public class JRProcessor {
 					for (String day : days) {
             			if (data.getRoomRecord().containsKey(day)) {
             				DayRecord dayRecord = data.getRoomRecord().get(day);
-            				
+
+            				if (dayRecord == null)
+                                continue;
+
             				for (Eveniment event : dayRecord.getListaEvenimente()) {
             					String studyGroups = "";
 								for (int i = 0; i < event.getListaGrupe().size(); i++) {
@@ -137,14 +155,18 @@ public class JRProcessor {
 										studyGroups += ", " + event.getListaGrupe().get(i);
 								}
 
-            					db.execSQL("INSERT INTO courses(name, studyGroup) VALUES('" +
-										event.getNumeEveniment() + "', '" + studyGroups + "')");
+								SQLiteStatement statement = db.compileStatement(
+                                        "INSERT INTO courses(name, studyGroup) VALUES(?, ?)"
+                                );
+								statement.bindString(1, event.getNumeEveniment());
+								statement.bindString(2, studyGroups);
+								statement.executeInsert();
 
-								Cursor rs = db.rawQuery("SELECT id FROM nodes WHERE name='" + data.getRoomCode() + "'", null);
+								Cursor rs = db.rawQuery("SELECT id FROM nodes WHERE name=?", new String[] {data.getRoomCode()});
 								rs.moveToFirst();
 
             					int targetNode;
-            					if (rs.getCount() < 1)
+            					if (rs.getCount() >= 1)
             						targetNode = rs.getInt(1);
             					else {
             						System.out.println("Node '" + data.getRoomCode() + "' does not exist in the database. "
@@ -154,23 +176,31 @@ public class JRProcessor {
 
             					rs.close();
 
-            					rs = db.rawQuery("SELECT id FROM courses WHERE name='" + event.getNumeEveniment() + "'", null);
+            					rs = db.rawQuery("SELECT id FROM courses WHERE name=?", new String[] {event.getNumeEveniment()});
             					rs.moveToFirst();
 
-            					int targetCourse = rs.getInt(1);
-            					if (rs.getCount() < 1)
+            					int targetCourse;
+            					if (rs.getCount() >= 1)
             						targetCourse = rs.getInt(1);
             					else {
-            						System.out.println("Course '" + data.getRoomCode() + "' does not exist in the database. "
+            						System.out.println("Course '" + event.getNumeEveniment() + "' does not exist in the database. "
             								+ "Its schedule has therefore NOT been introduced.");
             						continue;
             					}
 
             					rs.close();
 
-            					db.execSQL("INSERT INTO schedule(node_id, course_id, starting_time, ending_time, day) " +
-										"VALUES(" + targetNode + ", " + targetCourse + ", " +  event.getOraStart().toString()
-										+ ", " + event.getOraFinal().toString() + ", '" + day + "')");
+
+            					statement = db.compileStatement(
+                                        "INSERT INTO schedule(node_id, course_id, starting_time, ending_time, day) VALUES(?, ?, ?, ?, ?)"
+                                );
+            					statement.bindLong(1, targetNode);
+            					statement.bindLong(2, targetCourse);
+            					statement.bindString(3, event.getOraStart().toString());
+            					statement.bindString(4, event.getOraFinal().toString());
+            					statement.bindString(5, day);
+
+                                statement.executeInsert();
             				}
             			}
             		}
@@ -201,7 +231,7 @@ public class JRProcessor {
 						"nodes", "courses"));
 	        	
 	        	for (String tableName : tableNames)
-					db.execSQL("DELETE FROM " + tableName);
+	        	    db.delete(tableName, null, null);
 	        	
 	        	saveJR(jrDecoder);
 	        	
@@ -213,7 +243,7 @@ public class JRProcessor {
 	        	List<String> tableNames = new ArrayList<>(Arrays.asList("schedule", "courses"));
 	        	
 	        	for (String tableName : tableNames)
-	        		db.execSQL("DELETE FROM " + tableName);
+	        	    db.delete(tableName, null, null);
 	        	
 	        	saveJR(jrDecoder);
 	        	
@@ -228,9 +258,8 @@ public class JRProcessor {
     /**
      * remove the information w.r.t the current JSON resource from our database
      * @throws JSONResourceException upon failure of remove operation
-     * @throws SQLException upon failed database DELETE operation on table(s)
      */
-    public void removeJR () throws JSONResourceException, SQLException {
+    public void removeJR () throws JSONResourceException {
         switch (targetType) {
 	        case "BP": {
 	        	SQLiteDatabase db = dbEmissary.getWritableDatabase();
@@ -238,7 +267,7 @@ public class JRProcessor {
 						"nodes", "courses"));
 	        	
 	        	for (String tableName : tableNames)
-	        		db.execSQL("DELETE FROM " + tableName);
+	        	    db.delete(tableName, null, null);
 	        	
 	        	break;
 	        }
@@ -248,7 +277,7 @@ public class JRProcessor {
 	        	List<String> tableNames = new ArrayList<>(Arrays.asList("schedule", "courses"));
 
 				for (String tableName : tableNames)
-					db.execSQL("DELETE FROM " + tableName);
+                    db.delete(tableName, null, null);
 	        	
 	        	break;
 	        }

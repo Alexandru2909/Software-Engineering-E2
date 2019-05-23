@@ -27,7 +27,7 @@ public class ARGuide extends AppCompatActivity {
 	 * path to our database
 	 * default: "app/src/main/java/com/frontend/backend/ARGuide/database/faculty.db"
 	 */
-	private String dbPath = "app/src/main/java/com/frontend/backend/ARGuide/database/faculty.db";
+	private String dbPath;
 
 	/*
     * The name of the current building
@@ -36,11 +36,11 @@ public class ARGuide extends AppCompatActivity {
 	
 	/*
 	 * the path to the JSON resource representing our working schedule and our building plan
-	 * default for WS: "ARGuide/schedules/facultySchedule.json"
-	 * default for BP: "ARGuide/buildingPlan/buildingPlan.json"
+	 * default for WS: "app/src/main/java/com/frontend/backend/ARGuide/schedules/facultySchedule.json"
+	 * default for BP: "app/src/main/java/com/frontend/backend/ARGuide/buildingPlan/buildingPlan.json"
 	 */
-	private String schedulePath = "app/src/main/java/com/frontend/backend/ARGuide/schedules/facultySchedule.json";
-	private String planPath = "app/src/main/java/com/frontend/backend/ARGuide/buildingPlan/buildingPlan.json";
+	private String schedulePath;
+	private String planPath;
 
 	/**
      * Establish connection to the database and insert information w.r.t the given building
@@ -201,6 +201,24 @@ public class ARGuide extends AppCompatActivity {
 	public List<List<String>> selectClassroomSchedule(String classroomName) {
 		return dbEmissary.selectClassroomSchedule(classroomName);
 	}
+
+    /**
+     * select a classroom's id by its name
+     * @param classroomName the name of the classroom
+     * @return the unique id of the classroom
+     */
+	public Integer selectClassroomIdByName(String classroomName) {
+	    return dbEmissary.selectClassroomIdByName(classroomName);
+    }
+
+    /**
+     * select a classroom's name by its id
+     * @param id the unique id of the classroom
+     * @return the name of the classroom
+     */
+    public String selectClassroomNameById(Integer id) {
+	    return dbEmissary.selectClassroomNameById(id);
+    }
 
 	/**
 	 * selects all building nodes found in the database
