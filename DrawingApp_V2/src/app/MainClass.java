@@ -320,6 +320,7 @@ public class MainClass extends JFrame {
                     System.out.println("Longitude: 0.00");
                     firstNode.setLongitude(0.00);
                 }
+                drawingSurface.repaint();
             }
         });
         /**
