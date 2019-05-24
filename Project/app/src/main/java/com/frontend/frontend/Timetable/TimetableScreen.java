@@ -85,28 +85,30 @@ public class TimetableScreen extends AppCompatActivity {
             for(List<String> scheduleList : schedule)
                 for(int i=0;i<scheduleList.size();i+=4){
                     newSchedule.add(scheduleList.get(i));
-                    TextView subject = findViewById(R.id.subject1);
-                    switch(scheduleList.get(i+1)){
-                        case("08:00"):
-                            subject = findViewById(R.id.subject1);
-                            break;
-                        case("10:00"):
-                            subject = findViewById(R.id.subject2);
-                            break;
-                        case("12:00"):
-                            subject = findViewById(R.id.subject3);
-                            break;
-                        case("14:00"):
-                            subject = findViewById(R.id.subject4);
-                            break;
-                        case("16:00"):
-                            subject = findViewById(R.id.subject5);
-                            break;
-                        case("18:00"):
-                            subject = findViewById(R.id.subject6);
-                            break;
+                    if(day.equals(scheduleList.get(i))) {
+                        TextView subject = findViewById(R.id.subject1);
+                        switch (scheduleList.get(i + 1)) {
+                            case ("08:00"):
+                                subject = findViewById(R.id.subject1);
+                                break;
+                            case ("10:00"):
+                                subject = findViewById(R.id.subject2);
+                                break;
+                            case ("12:00"):
+                                subject = findViewById(R.id.subject3);
+                                break;
+                            case ("14:00"):
+                                subject = findViewById(R.id.subject4);
+                                break;
+                            case ("16:00"):
+                                subject = findViewById(R.id.subject5);
+                                break;
+                            case ("18:00"):
+                                subject = findViewById(R.id.subject6);
+                                break;
                         }
-                     subject.setText(scheduleList.get(i+3));
+                        subject.setText(scheduleList.get(i + 3));
+                    }
         }
     }
 }
