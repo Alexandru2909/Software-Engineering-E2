@@ -20,7 +20,7 @@ public class TimetableScreen extends AppCompatActivity {
     String roomNumber = new String();
     TextView text;
 
-    String[] days = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+    String[] days = {"LUNI", "MARTI", "MIERCURI", "JOI", "VINERI", "SAMBATA", "DUMINICA"};
 
     CarouselPicker dayPicker;
     List<CarouselPicker.PickerItem> daysList = new ArrayList<>();
@@ -33,7 +33,7 @@ public class TimetableScreen extends AppCompatActivity {
         roomNumber = getIntent().getStringExtra("room");
 
         dayPicker = (CarouselPicker) findViewById(R.id.dayPicker);
-        addDays("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday");
+        addDays("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" , "Sunday");
         CarouselPicker.CarouselViewAdapter dayAdapter = new CarouselPicker.CarouselViewAdapter(this, daysList, 0);
         dayPicker.setAdapter(dayAdapter);
 
@@ -46,6 +46,7 @@ public class TimetableScreen extends AppCompatActivity {
             final List<List<String>> schedule = databaseConn.selectClassroomSchedule(roomNumber);
 
 
+            writeInTable(days[0], schedule);
             dayPicker.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 
                 @Override
@@ -55,7 +56,8 @@ public class TimetableScreen extends AppCompatActivity {
 
                 @Override
                 public void onPageSelected(int i) {
-                    writeInTable(days[i - 1], schedule);
+                    //System.out.println("\n555555555555555555555555\n" + schedule + "\n555555555555555555555555\n");
+                    writeInTable(days[i], schedule);
                 }
 
                 @Override
@@ -78,27 +80,28 @@ public class TimetableScreen extends AppCompatActivity {
 
     private void writeInTable(String day, List<List<String>> schedule) {
         for (List<String> scheduleEntry : schedule) {
+
             if (scheduleEntry.get(0).equals(day))
                 for (String scheduleData : scheduleEntry) {
                     String[] splitedScheduleData = scheduleData.split("\\s+");
-                    if (splitedScheduleData[1].startsWith("08")) {
+                    if (splitedScheduleData[0].indexOf("08") == 0) {
                         TextView subject = findViewById(R.id.subject1);
-                        subject.setText(splitedScheduleData[3]);
-                    } else if (splitedScheduleData[1].startsWith("10")) {
+                        subject.setText(scheduleEntry.toArray()[3].toString());
+                    } else if (splitedScheduleData[0].indexOf("10") == 0) {
                         TextView subject = findViewById(R.id.subject2);
-                        subject.setText(splitedScheduleData[3]);
-                    } else if (splitedScheduleData[1].startsWith("12")) {
+                        subject.setText(scheduleEntry.toArray()[3].toString());
+                    } else if (splitedScheduleData[0].indexOf("12") == 0) {
                         TextView subject = findViewById(R.id.subject3);
-                        subject.setText(splitedScheduleData[3]);
-                    } else if (splitedScheduleData[1].startsWith("14")) {
+                        subject.setText(scheduleEntry.toArray()[3].toString());
+                    } else if (splitedScheduleData[0].indexOf("14") == 0) {
                         TextView subject = findViewById(R.id.subject4);
-                        subject.setText(splitedScheduleData[3]);
-                    } else if (splitedScheduleData[1].startsWith("16")) {
+                        subject.setText(scheduleEntry.toArray()[3].toString());
+                    } else if (splitedScheduleData[0].indexOf("16") == 0) {
                         TextView subject = findViewById(R.id.subject5);
-                        subject.setText(splitedScheduleData[3]);
-                    } else if (splitedScheduleData[1].startsWith("18")) {
+                        subject.setText(scheduleEntry.toArray()[3].toString());
+                    } else if (splitedScheduleData[0].indexOf("18") == 0) {
                         TextView subject = findViewById(R.id.subject6);
-                        subject.setText(splitedScheduleData[3]);
+                        subject.setText(scheduleEntry.toArray()[3].toString());
                     }
                 }
         }
