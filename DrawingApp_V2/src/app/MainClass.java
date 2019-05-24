@@ -85,6 +85,7 @@ public class MainClass extends JFrame {
             nodeFloor.setText(String.valueOf(firstNode.getFloor()));
             nodeLatitude.setText(String.valueOf(firstNode.getLatitude()));
             nodeLongitude.setText(String.valueOf(firstNode.getLongitude()));
+            drawingSurface.repaint();
         }
     }
 
