@@ -81,6 +81,8 @@ public class SelectDestination extends AppCompatActivity implements SensorEventL
     private boolean firstRun = true;
     private float firstAzimuth = 0f;
 
+    private String target = "N";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -250,6 +252,21 @@ public class SelectDestination extends AppCompatActivity implements SensorEventL
         });
     }
 
+    public int getAngle(String target){
+        switch(target) {
+            case "N":
+                return 0;
+            case "S":
+                return 180;
+            case "W":
+                return 90;
+            case "E":
+                return -90;
+        }
+
+        return 0;
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -293,7 +310,7 @@ public class SelectDestination extends AppCompatActivity implements SensorEventL
                     firstAzimuth = azimuth;
                     firstRun = false;
                 }
-                azimuth = (azimuth+360 - firstAzimuth)%360;
+                azimuth = (azimuth+360 - firstAzimuth + getAngle(target))%360;
 
                 System.out.println(azimuth);
 
