@@ -76,6 +76,10 @@ public class SelectDestination extends AppCompatActivity implements SensorEventL
 
     private List<String> roomsList = new ArrayList<>();
 
+    private boolean firstRun = true;
+    private float firstAzimuth = 0f;
+    private float nextRoom = 90; // Change to next room degree angle
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,12 +104,14 @@ public class SelectDestination extends AppCompatActivity implements SensorEventL
             if (extras != null) {
                 room = extras.getString("current_room");
             }
-            ARGuide databaseConn = new ARGuide("faculty_uaic_cs",
+            /*ARGuide databaseConn = new ARGuide("faculty_uaic_cs",
                     MyApplication.path+"/faculty.db",
                     MyApplication.path+"/facultySchedule.json",
-                    MyApplication.path+"/buildingPlan.json");
+                    MyApplication.path+"/buildingPlan.json");*/
 
-            roomsList = databaseConn.selectAllClassroomNames();
+            //roomsList = databaseConn.selectAllClassroomNames();
+
+            roomsList.add("C309");
 
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("What room");
@@ -153,9 +159,12 @@ public class SelectDestination extends AppCompatActivity implements SensorEventL
                 }
             });
 
-        } catch (SQLException e) {
+        } /*catch (SQLException e) {
             e.printStackTrace();
         } catch (JSONResourceException e) {
+            e.printStackTrace();
+        } */
+        catch (Exception e){
             e.printStackTrace();
         }
     }
@@ -163,8 +172,6 @@ public class SelectDestination extends AppCompatActivity implements SensorEventL
     public void openMenu() {
         finish();
     }
-
-
 
 
     @Override
@@ -283,8 +290,17 @@ public class SelectDestination extends AppCompatActivity implements SensorEventL
                 SensorManager.getOrientation(R,orientation);
                 azimuth = (float)Math.toDegrees(orientation[0]);
                 azimuth = (azimuth+360)%360;
+                if(firstRun == true){
+                    firstAzimuth = azimuth;
+                    firstRun = false;
+                }
+                System.out.println(azimuth);
+                System.out.println(firstAzimuth);
 
-                Animation anim = new RotateAnimation(-currectAzimuth,-azimuth,Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF,0.5f);
+                //Animation anim = new RotateAnimation(-currectAzimuth,-azimuth,Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF,0.5f);
+                Animation anim = new RotateAnimation(-currectAzimuth+firstAzimuth+nextRoom,-azimuth+firstAzimuth+nextRoom,Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF,0.5f);
+
+
                 currectAzimuth = azimuth;
                 anim.setDuration(500);
 
