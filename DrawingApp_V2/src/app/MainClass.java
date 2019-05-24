@@ -147,6 +147,10 @@ public class MainClass extends JFrame {
      */
     JButton editEdgeButton=new JButton("Edit Edge");
     /**
+     *
+     */
+    JButton selectNode = new JButton("Select Node");
+    /**
      * Checkbox that toggles if node editor is activated as auto-popup (default is true)
      */
     JCheckBox popupNode=new JCheckBox("Node auto-popup", true);
@@ -174,11 +178,17 @@ public class MainClass extends JFrame {
     /**
      * node editor panel + textfields & checkboxes
      */
+    JLabel nr = new JLabel("Node Number");
     JLabel nodeNr=new JLabel("0");
+    JLabel name = new JLabel("Node name");
     JTextField nodeName=new JTextField("Node name");
+    JLabel type = new JLabel("Node type");
     JTextField nodeType=new JTextField("Node type");
+    JLabel floor = new JLabel("Node floor");
     JTextField nodeFloor=new JTextField("Node floor");
+    JLabel latitude = new JLabel("Node latitude");
     JTextField nodeLatitude = new JTextField("Node latitude");
+    JLabel longitude = new JLabel("Node longitude");
     JTextField nodeLongitude = new JTextField("Node longitude");
     JButton nodeSave = new JButton("Save node");
     JPanel nodeEditorPanel = new JPanel();
@@ -230,6 +240,7 @@ public class MainClass extends JFrame {
         buttonsPanel.add(deleteEdgeButton);
         buttonsPanel.add(editNodeButton);
         buttonsPanel.add(editEdgeButton);
+        buttonsPanel.add(selectNode);
 
         /**
          * setting the layout for the popupPanel
@@ -246,12 +257,19 @@ public class MainClass extends JFrame {
         /**
          * addign the textfields + save button to the node editor panel
          */
-        nodeEditorPanel.setLayout(new BoxLayout(nodeEditorPanel,BoxLayout.Y_AXIS));
+        nodeEditorPanel.setLayout(new GridLayout(0,1));
+        //nodeEditorPanel.setLayout(new BoxLayout(nodeEditorPanel, BoxLayout.Y_AXIS));
+        nodeEditorPanel.add(nr);
         nodeEditorPanel.add(nodeNr);
+        nodeEditorPanel.add(name);
         nodeEditorPanel.add(nodeName);
+        nodeEditorPanel.add(type);
         nodeEditorPanel.add(nodeType);
+        nodeEditorPanel.add(floor);
         nodeEditorPanel.add(nodeFloor);
+        nodeEditorPanel.add(latitude);
         nodeEditorPanel.add(nodeLatitude);
+        nodeEditorPanel.add(longitude);
         nodeEditorPanel.add(nodeLongitude);
         nodeEditorPanel.add(nodeSave);
         /**
@@ -536,6 +554,14 @@ public class MainClass extends JFrame {
             }
         });
 
+        selectNode.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                resetStatus();
+                actionMessage.messageCode=9;
+            }
+        });
+
         /**
          * atasam listener butonului de editare a muchiilor
          */
@@ -580,9 +606,7 @@ public class MainClass extends JFrame {
                             if(Line.availableLine(curentLine,linesList)){
                                 curentLine.setNode2(finalNode);
                                 Line newLine = new Line(curentLine);
-                                if (popupLine.isSelected()){
-                                    newLine.textBox();
-                                }
+                                newLine.textBox();
                                 linesList.add(newLine);
                                 drawingSurface.repaint();
                                 drawingStage = false;
@@ -692,6 +716,12 @@ public class MainClass extends JFrame {
                     Line newValue=validLine(e.getX(),e.getY());
                     if (newValue!=null)
                         newValue.textBox();
+                }
+                else if (actionMessage.messageCode==9){
+                    firstNode=validNode(e.getX(),e.getY());
+                    if(firstNode!=null){
+                        nodeEditorUpdate();
+                    }
                 }
             }
         });
