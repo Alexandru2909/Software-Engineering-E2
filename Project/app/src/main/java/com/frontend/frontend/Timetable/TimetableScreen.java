@@ -14,13 +14,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import in.goodiebag.carouselpicker.CarouselPicker;
+
 import com.frontend.backend.ARGuide.main.ARGuide;
 
 public class TimetableScreen extends AppCompatActivity {
     String roomNumber = new String();
     TextView text;
 
-    String[] days = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+    String[] days = {"LUNI", "MARTI", "MIERCURI", "JOI", "VINERI", "SAMBATA", "DUMINICA"};
 
     CarouselPicker dayPicker;
     List<CarouselPicker.PickerItem> daysList = new ArrayList<>();
@@ -39,13 +40,11 @@ public class TimetableScreen extends AppCompatActivity {
 
         try {
             ARGuide databaseConn = new ARGuide("faculty_uaic_cs",
-                    MyApplication.path+"/faculty.db",
-                    MyApplication.path+"/facultySchedule.json",
-                    MyApplication.path+"/buildingPlan.json");
+                    MyApplication.path + "/faculty.db",
+                    MyApplication.path + "/facultySchedule.json",
+                    MyApplication.path + "/buildingPlan.json");
 
             final List<List<String>> schedule = databaseConn.selectClassroomSchedule(roomNumber);
-
-
             dayPicker.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 
                 @Override
@@ -76,31 +75,34 @@ public class TimetableScreen extends AppCompatActivity {
             this.daysList.add(new CarouselPicker.TextItem(day, 12));
     }
 
-    private void writeInTable(String day, List<List<String>> schedule) {
-        for (List<String> scheduleEntry : schedule) {
-            if (scheduleEntry.get(0).equals(day))
-                for (String scheduleData : scheduleEntry) {
-                    String[] splitedScheduleData = scheduleData.split("\\s+");
-                    if (splitedScheduleData[1].startsWith("08")) {
-                        TextView subject = findViewById(R.id.subject1);
-                        subject.setText(splitedScheduleData[3]);
-                    } else if (splitedScheduleData[1].startsWith("10")) {
-                        TextView subject = findViewById(R.id.subject2);
-                        subject.setText(splitedScheduleData[3]);
-                    } else if (splitedScheduleData[1].startsWith("12")) {
-                        TextView subject = findViewById(R.id.subject3);
-                        subject.setText(splitedScheduleData[3]);
-                    } else if (splitedScheduleData[1].startsWith("14")) {
-                        TextView subject = findViewById(R.id.subject4);
-                        subject.setText(splitedScheduleData[3]);
-                    } else if (splitedScheduleData[1].startsWith("16")) {
-                        TextView subject = findViewById(R.id.subject5);
-                        subject.setText(splitedScheduleData[3]);
-                    } else if (splitedScheduleData[1].startsWith("18")) {
-                        TextView subject = findViewById(R.id.subject6);
-                        subject.setText(splitedScheduleData[3]);
-                    }
-                }
+
+     private void writeInTable(String day, List<List<String>> schedule) {
+            List<String> newSchedule = new ArrayList<>();
+            for(List<String> scheduleList : schedule)
+                for(int i=0;i<scheduleList.size();i+=4){
+                    newSchedule.add(scheduleList.get(i));
+                    TextView subject = findViewById(R.id.subject1);
+                    switch(scheduleList.get(i+1)){
+                        case("08:00"):
+                            subject = findViewById(R.id.subject1);
+                            break;
+                        case("10:00"):
+                            subject = findViewById(R.id.subject2);
+                            break;
+                        case("12:00"):
+                            subject = findViewById(R.id.subject3);
+                            break;
+                        case("14:00"):
+                            subject = findViewById(R.id.subject4);
+                            break;
+                        case("16:00"):
+                            subject = findViewById(R.id.subject5);
+                            break;
+                        case("18:00"):
+                            subject = findViewById(R.id.subject6);
+                            break;
+                        }
+                     subject.setText(scheduleList.get(i+3));
         }
     }
 }
