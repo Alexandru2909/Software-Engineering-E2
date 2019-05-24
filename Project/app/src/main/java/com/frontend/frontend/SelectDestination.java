@@ -104,14 +104,12 @@ public class SelectDestination extends AppCompatActivity implements SensorEventL
             if (extras != null) {
                 room = extras.getString("current_room");
             }
-            /*ARGuide databaseConn = new ARGuide("faculty_uaic_cs",
+            ARGuide databaseConn = new ARGuide("faculty_uaic_cs",
                     MyApplication.path+"/faculty.db",
                     MyApplication.path+"/facultySchedule.json",
-                    MyApplication.path+"/buildingPlan.json");*/
+                    MyApplication.path+"/buildingPlan.json");
 
-            //roomsList = databaseConn.selectAllClassroomNames();
-
-            roomsList.add("C309");
+            roomsList = databaseConn.selectAllClassroomNames();
 
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("What room");
@@ -159,12 +157,9 @@ public class SelectDestination extends AppCompatActivity implements SensorEventL
                 }
             });
 
-        } /*catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         } catch (JSONResourceException e) {
-            e.printStackTrace();
-        } */
-        catch (Exception e){
             e.printStackTrace();
         }
     }
