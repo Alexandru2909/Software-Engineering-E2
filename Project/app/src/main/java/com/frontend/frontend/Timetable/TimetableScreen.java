@@ -34,7 +34,7 @@ public class TimetableScreen extends AppCompatActivity {
         roomNumber = getIntent().getStringExtra("room");
 
         dayPicker = (CarouselPicker) findViewById(R.id.dayPicker);
-        addDays("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday");
+        addDays("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" , "Sunday");
         CarouselPicker.CarouselViewAdapter dayAdapter = new CarouselPicker.CarouselViewAdapter(this, daysList, 0);
         dayPicker.setAdapter(dayAdapter);
 
@@ -45,6 +45,9 @@ public class TimetableScreen extends AppCompatActivity {
                     MyApplication.path + "/buildingPlan.json");
 
             final List<List<String>> schedule = databaseConn.selectClassroomSchedule(roomNumber);
+
+
+            writeInTable(days[0], schedule);
             dayPicker.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 
                 @Override
@@ -54,7 +57,8 @@ public class TimetableScreen extends AppCompatActivity {
 
                 @Override
                 public void onPageSelected(int i) {
-                    writeInTable(days[i - 1], schedule);
+                    //System.out.println("\n555555555555555555555555\n" + schedule + "\n555555555555555555555555\n");
+                    writeInTable(days[i], schedule);
                 }
 
                 @Override
