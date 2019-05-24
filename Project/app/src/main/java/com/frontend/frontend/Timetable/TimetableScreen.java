@@ -86,6 +86,7 @@ public class TimetableScreen extends AppCompatActivity {
                 for(int i=0;i<scheduleList.size();i+=4){
                     newSchedule.add(scheduleList.get(i));
                     if(day.equals(scheduleList.get(i))) {
+                        initDefaultValues();
                         TextView subject = findViewById(R.id.subject1);
                         switch (scheduleList.get(i + 1)) {
                             case ("08:00"):
@@ -110,5 +111,20 @@ public class TimetableScreen extends AppCompatActivity {
                         subject.setText(scheduleList.get(i + 3));
                     }
         }
+    }
+
+    private void initDefaultValues() {
+        TextView subject = findViewById(R.id.subject1);
+        subject.setText("Free room.");
+        subject = findViewById(R.id.subject2);
+        subject.setText("Free room.");
+        subject = findViewById(R.id.subject3);
+        subject.setText("Free room.");
+        subject = findViewById(R.id.subject4);
+        subject.setText("Free room.");
+        subject = findViewById(R.id.subject5);
+        subject.setText("Free room.");
+        subject = findViewById(R.id.subject6);
+        subject.setText("Free room.");
     }
 }
