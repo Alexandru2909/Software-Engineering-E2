@@ -33,6 +33,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.sql.SQLException;
+import java.time.Clock;
 import java.util.ArrayList;
 
 import com.frontend.backend.ARGuide.main.JSONResourceException;
@@ -63,6 +64,7 @@ public class SelectDestination extends AppCompatActivity implements SensorEventL
     private SurfaceView cameraView;
     private TextView ocrTextView;
     private ImageView arrowImg;
+    private Arrow arrow;
 
     private String room = null;
     private String finalText;
@@ -78,7 +80,6 @@ public class SelectDestination extends AppCompatActivity implements SensorEventL
 
     private boolean firstRun = true;
     private float firstAzimuth = 0f;
-    private float nextRoom = 90; // Change to next room degree angle
 
 
     @Override
@@ -94,7 +95,8 @@ public class SelectDestination extends AppCompatActivity implements SensorEventL
         ocrTextView = findViewById(R.id.ocrTextView);
 
         arrowImg = findViewById(R.id.imageViewCompass);
-        arrowImg.setVisibility(View.INVISIBLE);
+        arrowImg.setVisibility(View.VISIBLE);
+        arrow = new Arrow();
         mSensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
 
 
@@ -110,6 +112,8 @@ public class SelectDestination extends AppCompatActivity implements SensorEventL
                     MyApplication.path+"/buildingPlan.json");
 
             roomsList = databaseConn.selectAllClassroomNames();
+
+            roomsList.add("C309");
 
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("What room");
@@ -157,7 +161,7 @@ public class SelectDestination extends AppCompatActivity implements SensorEventL
                 }
             });
 
-        } catch (SQLException e) {
+        }catch (SQLException e) {
             e.printStackTrace();
         } catch (JSONResourceException e) {
             e.printStackTrace();
@@ -284,24 +288,35 @@ public class SelectDestination extends AppCompatActivity implements SensorEventL
                 float orientation[] = new float[3];
                 SensorManager.getOrientation(R,orientation);
                 azimuth = (float)Math.toDegrees(orientation[0]);
-                azimuth = (azimuth+360)%360;
+
                 if(firstRun == true){
                     firstAzimuth = azimuth;
                     firstRun = false;
                 }
+                azimuth = (azimuth+360 - firstAzimuth)%360;
+
                 System.out.println(azimuth);
-                System.out.println(firstAzimuth);
 
-                //Animation anim = new RotateAnimation(-currectAzimuth,-azimuth,Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF,0.5f);
-                Animation anim = new RotateAnimation(-currectAzimuth+firstAzimuth+nextRoom,-azimuth+firstAzimuth+nextRoom,Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF,0.5f);
 
+                if  ((azimuth >315 && azimuth <= 360)  || (azimuth >= 0 && azimuth <= 45) ) {
+                    arrow.setOrientation("N");
+                }
+                if  (azimuth >45 && azimuth <= 135 ) {
+                    arrow.setOrientation("W");
+                }
+                if  (azimuth >135 && azimuth <=225) {
+                    arrow.setOrientation("S");
+                }
+                if  (azimuth >225 && azimuth <=315) {
+                    arrow.setOrientation("E");
+                }
+
+
+
+                //System.out.println(arrow.getOrientation());
+                arrowImg.setRotation(arrow.update());
 
                 currectAzimuth = azimuth;
-                anim.setDuration(500);
-
-                anim.setRepeatCount(0);
-                anim.setFillAfter(true);
-                arrowImg.startAnimation(anim);
             }
         }
     }
