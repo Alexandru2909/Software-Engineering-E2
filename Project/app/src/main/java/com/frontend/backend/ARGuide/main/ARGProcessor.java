@@ -4,7 +4,6 @@
 package com.frontend.backend.ARGuide.main;
 
 import java.sql.SQLException;
-import java.util.List;
 
 /**
  * the main processor of the ARG application's Back-End module
@@ -22,9 +21,8 @@ public class ARGProcessor {
 	 * @param dbEmissary the database helper class that allows operations on and with the database
 	 * @param planPath the path to the JSON resource representing our building plan
 	 * @param schedulePath the path to the JSON resource representing our schedule
-	 * @throws JSONResourceException when the JRDecoder object fails the decoding process of the schedule
 	 */
-	public ARGProcessor(final DatabaseEmissary dbEmissary, final String schedulePath, final String planPath) throws JSONResourceException {
+	public ARGProcessor(final DatabaseEmissary dbEmissary, final String schedulePath, final String planPath) {
 		this.dbEmissary = dbEmissary;
 		Thread thread = new Thread(new Runnable() {
 			@Override
@@ -34,9 +32,9 @@ public class ARGProcessor {
 					bpResource = new JSONResource(dbEmissary, planPath, "BP");
 					wsResource = new JSONResource(dbEmissary, schedulePath, "WS");
 					pathGenerator = new PathGenerator(dbEmissary);
-				}catch (Exception e)
+				}catch (JSONResourceException e)
 				{
-					System.out.println(e);
+					e.printStackTrace();
 				}
 
 			}

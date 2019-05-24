@@ -28,7 +28,7 @@ public class DataRecord{
     }
     public String toString(){
         Set<String> keysSet = roomRecord.keySet();
-        String returnValue=new String(this.roomCode+"\n");
+        String returnValue=this.roomCode+"\n";
         for(String day:keysSet){
             DayRecord auxDayRecord=roomRecord.get(day);
             returnValue=returnValue+day+"\n"+auxDayRecord;

@@ -20,7 +20,7 @@ public class JRDecoder {
      */
     public JRDecoder(String jrPath)throws JSONResourceException{
         jrFile=new File(jrPath);
-        if(jrFile.exists()==false){
+        if(!jrFile.exists()){
             throw new JSONResourceException("Fisierul nu exista");
         }
         try{

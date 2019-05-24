@@ -16,7 +16,7 @@ public class DayRecord{
 
     public LinkedList<Eveniment> listaEvenimente=new LinkedList<Eveniment>();
     public String toString(){
-        String returnValue=new String("");
+        String returnValue="";
         for(Eveniment e:listaEvenimente){
             returnValue=returnValue+e;
         }

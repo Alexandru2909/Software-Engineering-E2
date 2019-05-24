@@ -3,7 +3,6 @@
  */
 package com.frontend.backend.ARGuide.webParserV3;
 
-import java.time.LocalTime;
 import java.util.LinkedList;
 
 /**
@@ -18,11 +17,11 @@ public class Eveniment{
     /**
      * ora de inceput a evenimentului
      */
-    public LocalTime oraStart;
+    public String oraStart;
     /**
      * ora de final a evenimentului
      */
-    public LocalTime oraFinal;
+    public String oraFinal;
     /**
      *numele evenimentului
      */
@@ -41,18 +40,18 @@ public class Eveniment{
 
     public LinkedList<String> listaGrupe=new LinkedList<>();
 
-    /**************************************************************/
-    /**
+
+    /*************************************************************
      * functia care returneaza ora de start
      */
-    public LocalTime getOraStart(){
+    public String getOraStart(){
         return this.oraStart;
     }
     /**
      * functia care returneaza ora de final
      */
 
-    public LocalTime getOraFinal(){
+    public String getOraFinal(){
         return this.oraFinal;
     }
     /**
@@ -83,7 +82,7 @@ public class Eveniment{
 
 
     /************************************************************/
-    public Eveniment(LocalTime oraStart,LocalTime oraFinal,String numeEveniment,String tipEveniment,LinkedList<String> listaProfesori,LinkedList<String> listaGrupe){
+    public Eveniment(String oraStart, String oraFinal, String numeEveniment, String tipEveniment, LinkedList<String> listaProfesori, LinkedList<String> listaGrupe){
         this.oraStart=oraStart;
         this.oraFinal=oraFinal;
         this.numeEveniment=numeEveniment;
@@ -91,11 +90,14 @@ public class Eveniment{
         this.listaProfesori=listaProfesori;
         this.listaGrupe=listaGrupe;
     }
+
     public Eveniment(){}
+
+
     public String toString(){
-        String returnString=new String("Ora de inceput :"+this.oraStart.toString()+"\n"+"Ora de terminare :"+this.oraFinal.toString()+"\n"+"Numele evenimentului :"+this.numeEveniment+"\n"+"Tipul evenimentului :"+this.tipEveniment+"\n");
-        String profesori=new String("");
-        String grupe=new String("");
+        String returnString="Ora de inceput :"+this.oraStart+"\n"+"Ora de terminare :"+this.oraFinal+"\n"+"Numele evenimentului :"+this.numeEveniment+"\n"+"Tipul evenimentului :"+this.tipEveniment+"\n";
+        String profesori="";
+        String grupe="";
         for(String name:listaProfesori){profesori=profesori+name;}
         for(String grupa:listaGrupe){grupe=grupe+grupa;}
         returnString=returnString+"lista profesori:"+profesori+"\nlista grupelor:"+grupe+"\n\n";

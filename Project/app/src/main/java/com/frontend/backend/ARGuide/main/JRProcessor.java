@@ -4,7 +4,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
 
 import java.lang.reflect.Type;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -196,8 +195,8 @@ public class JRProcessor {
                                 );
             					statement.bindLong(1, targetNode);
             					statement.bindLong(2, targetCourse);
-            					statement.bindString(3, event.getOraStart().toString());
-            					statement.bindString(4, event.getOraFinal().toString());
+            					statement.bindString(3, event.getOraStart());
+            					statement.bindString(4, event.getOraFinal());
             					statement.bindString(5, day);
 
                                 statement.executeInsert();
@@ -221,9 +220,8 @@ public class JRProcessor {
      * update the information w.r.t the current JSON resource in our database
      * @param jrDecoder the decoder holding information about the schedule or the building plan that is to replace the old one (if it existed)
      * @throws JSONResourceException upon failure of update operation
-     * @throws SQLException upon failed database DML operations
      */
-    public void updateJR (JRDecoder jrDecoder) throws JSONResourceException, SQLException {
+    public void updateJR (JRDecoder jrDecoder) throws JSONResourceException {
         switch (targetType) {
 	        case "BP": {
 	        	SQLiteDatabase db = dbEmissary.getWritableDatabase();

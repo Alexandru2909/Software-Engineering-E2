@@ -87,10 +87,10 @@ public class WebParser {
                 dataRecord.setValue(day,dayRecord);
             }else{
                 Eveniment eveniment=new Eveniment();
-                eveniment.oraStart=LocalTime.parse(tdTags.get(0).text());//extragem ora de inceput
-                eveniment.oraFinal=LocalTime.parse(tdTags.get(1).text());//extragem ora de final
-                eveniment.numeEveniment=new String(tdTags.get(2).text());//extragem numele disciplinei
-                eveniment.tipEveniment=new String(tdTags.get(3).text());//extragem tipul activitatii
+                eveniment.oraStart=tdTags.get(0).text();//extragem ora de inceput
+                eveniment.oraFinal=tdTags.get(1).text();//extragem ora de final
+                eveniment.numeEveniment=tdTags.get(2).text();//extragem numele disciplinei
+                eveniment.tipEveniment=tdTags.get(3).text();//extragem tipul activitatii
                 LinkedList<String> auxList=new LinkedList<>(); //extragem lista de profesori
                 Scanner scanner=new Scanner(tdTags.get(4).text());
                 scanner.useDelimiter("\n");
