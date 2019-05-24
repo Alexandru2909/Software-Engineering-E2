@@ -120,18 +120,18 @@ public class MyComponent extends JComponent {
                 G.drawString(String.valueOf(node.getName()),node.xPoint,node.yPoint+50);
             }
         }
-        G.setColor(Color.green);
-        G.drawString("Exit",getWidth()-140,getHeight()-90);
-        G.setColor(Color.cyan);
-        G.drawString("Stairs",getWidth()-140,getHeight()-77);
-        G.drawString("Elevator",getWidth()-140,getHeight()-64);
-        G.setColor(Color.orange);
-        G.drawString("Amphitheatre",getWidth()-140,getHeight()-51);
-        G.setColor(Color.magenta);
-        G.drawString("Administration office",getWidth()-140,getHeight()-37);
-        G.setColor(Color.red);
-        G.drawString("Classroom",getWidth()-140,getHeight()-24);
-        G.setColor(Color.gray);
-        G.drawString("Unidentified node",getWidth()-140,getHeight()-11);
+//        G.setColor(Color.green);
+//        G.drawString("Exit",getWidth()-120,getHeight()-90);
+//        G.setColor(Color.cyan);
+//        G.drawString("Stairs",getWidth()-120,getHeight()-77);
+//        G.drawString("Elevator",getWidth()-120,getHeight()-64);
+//        G.setColor(Color.orange);
+//        G.drawString("Amphitheatre",getWidth()-120,getHeight()-51);
+//        G.setColor(Color.magenta);
+//        G.drawString("Administration office",getWidth()-120,getHeight()-37);
+//        G.setColor(Color.red);
+//        G.drawString("Classroom",getWidth()-120,getHeight()-24);
+//        G.setColor(Color.gray);
+//        G.drawString("Unidentified node",getWidth()-120,getHeight()-11);
     }
 }
