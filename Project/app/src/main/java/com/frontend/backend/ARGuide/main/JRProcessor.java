@@ -167,7 +167,7 @@ public class JRProcessor {
 
             					int targetNode;
             					if (rs.getCount() >= 1)
-            						targetNode = rs.getInt(1);
+            						targetNode = rs.getInt(0);
             					else {
             						System.out.println("Node '" + data.getRoomCode() + "' does not exist in the database. "
             								+ "Its schedule has therefore NOT been introduced.");
@@ -181,7 +181,7 @@ public class JRProcessor {
 
             					int targetCourse;
             					if (rs.getCount() >= 1)
-            						targetCourse = rs.getInt(1);
+            						targetCourse = rs.getInt(0);
             					else {
             						System.out.println("Course '" + event.getNumeEveniment() + "' does not exist in the database. "
             								+ "Its schedule has therefore NOT been introduced.");

@@ -71,13 +71,13 @@ public class ARGuide extends AppCompatActivity {
 							try {
 								AutoUpdateClass autoUpdateClass = new AutoUpdateClass("https://profs.info.uaic.ro/~orar/orar_resurse.html",
 										MyApplication.path+"/lastUpdateTime.txt");
-
+								WebParser parser = new WebParser("https://profs.info.uaic.ro/~orar/",
+										"orar_resurse.html",
+										MyApplication.path+"/facultySchedule.json",
+										MyApplication.path+"/sectionsNames.txt");
+								parser.runParset();
 								if (!autoUpdateClass.runDataCollector()) {
-									WebParser parser = new WebParser("https://profs.info.uaic.ro/~orar/",
-											"orar_resurse.html",
-											MyApplication.path+"/facultySchedule.json",
-											MyApplication.path+"/sectionsNames.txt");
-									parser.runParset();
+
 									autoUpdateClass.setNewDate();
 								}
 

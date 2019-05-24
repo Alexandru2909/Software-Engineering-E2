@@ -23,8 +23,8 @@ import org.javatuples.Pair;
 public class PathGenerator {
     private List<Integer> nodes=new ArrayList<>();
     private List<Integer> path=new ArrayList<>();
-   // private Vector<Integer> adj[];
-    private Vector<Integer>[][] adj = new Vector<Integer>[][];
+    private Vector<Integer> adj[];
+    //private Vector<Integer>[][] adj = new Vector<Integer>[][];
     private int[] previous;
     private LinkedList<Edge>[] adjacencylist;
     private int vertices;
@@ -250,11 +250,11 @@ public class PathGenerator {
     
     //***************************************************************
     // bfs shortest path for unweighted graphs
-private void add_edge(int src, int dest)
-{
-	(adj.elementAt(src)).add(dest);
-	(adj.elementAt(dest)).add(src);
-}
+//private void add_edge(int src, int dest)
+//{
+//	(adj.elementAt(src)).add(dest);
+//	(adj.elementAt(dest)).add(src);
+//}
 
 private boolean BFS(int src, int dest, int[] pred, int[] dist)
 {

@@ -264,7 +264,7 @@ public class DatabaseEmissary extends SQLiteOpenHelper {
 
         rs.moveToFirst();
 
-        return rs.getInt(1);
+        return rs.getInt(0);
     }
 
     /**
@@ -281,7 +281,7 @@ public class DatabaseEmissary extends SQLiteOpenHelper {
 
         rs.moveToFirst();
 
-        return rs.getString(1);
+        return rs.getString(0);
     }
 
     /**
@@ -361,7 +361,7 @@ public class DatabaseEmissary extends SQLiteOpenHelper {
         rs.moveToFirst();
 
         while (!rs.isAfterLast()) {
-            queryResults.add(rs.getString(1));
+            queryResults.add(rs.getString(0));
             rs.moveToNext();
         }
 
