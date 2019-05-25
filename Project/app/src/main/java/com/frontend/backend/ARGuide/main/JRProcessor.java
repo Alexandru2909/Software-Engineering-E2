@@ -92,13 +92,15 @@ public class JRProcessor {
 		 		 */
 		 		for (BuildingPlan.Node node : buildingPlan.getNodes()) {
 		 		    SQLiteStatement statement = db.compileStatement(
-                            "INSERT INTO nodes(id, floor, name, type) VALUES(?, ?, ?, ?)"
+                            "INSERT INTO nodes(id, floor, name, type, lat, lon) VALUES(?, ?, ?, ?, ?, ?)"
                     );
 
 		 		    statement.bindLong(1, node.getId());
 		 		    statement.bindLong(2, node.getFloor());
 		 		    statement.bindString(3, node.getName());
 		 		    statement.bindString(4, node.getType());
+		 		    statement.bindDouble(5, node.getLat());
+		 		    statement.bindDouble(6, node.getLon());
 
 		 		    statement.executeInsert();
 				}

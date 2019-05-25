@@ -3,6 +3,7 @@ package com.frontend.backend.ARGuide.main;
 import android.app.Activity;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Pair;
 
 import java.io.File;
 import java.sql.SQLException;
@@ -227,5 +228,18 @@ public class ARGuide extends AppCompatActivity {
 	 */
     public List<String> selectAllNodes() {
         return dbEmissary.selectAllNodes();
+    }
+
+    /**
+     * computes the shortest path b/w two nodes, identified by the given source and destination indexes
+     * @param source the id of the source vertex
+     * @param destination the id of the destination vertex
+     * @return the list of (nodeId, bearing) tuples ; if the direction is upwards then the bearing will be -1 and if it is downwards then it will be -2,
+     *  otherwise it will be a real number \in [0, 360) (the bearing is b/w a particular node in the list and the consecutive one ; if this particular node
+     *  is the last one, then its associated bearing will be null)
+     * @throws DbEmissaryException upon database operation errors
+     */
+    public List<Pair<Integer, Double>> computeSP(Integer source, Integer destination) throws DbEmissaryException {
+        return argProcessor.computeSP(source, destination);
     }
 }

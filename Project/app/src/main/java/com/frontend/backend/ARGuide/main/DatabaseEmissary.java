@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteStatement;
+import android.util.Pair;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -55,7 +56,9 @@ public class DatabaseEmissary extends SQLiteOpenHelper {
                                 "  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\r\n" +
                                 "  floor INTEGER,\r\n" +
                                 "  name VARCHAR(50),\r\n" +
-                                "  type VARCHAR(15)\r\n" +
+                                "  type VARCHAR(15),\r\n" +
+                                "  lat DOUBLE,\r\n" +
+                                "  lon DOUBLE\r\n" +
                                 ")\r\n",
 
                         "CREATE TABLE edges (\r\n" +
@@ -106,7 +109,9 @@ public class DatabaseEmissary extends SQLiteOpenHelper {
                                 "  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\r\n" +
                                 "  floor INTEGER,\r\n" +
                                 "  name VARCHAR(50),\r\n" +
-                                "  type VARCHAR(15)\r\n" +
+                                "  type VARCHAR(15),\r\n" +
+                                "  lat DOUBLE,\r\n" +
+                                "  lon DOUBLE\r\n" +
                                 ")\r\n",
 
                         "CREATE TABLE edges (\r\n" +
@@ -370,4 +375,85 @@ public class DatabaseEmissary extends SQLiteOpenHelper {
         return queryResults;
     }
 
+    /**
+     * select the (latitude, longitude) tuple w.r.t the node identified by given id
+     * @param nodeId the id of the node to search for
+     * @return the (lat, lon) tuple of the node in question
+     * @throws DbEmissaryException upon the given node id not existing in our database
+     */
+    public Pair<Double, Double> selectLatLonById(Integer nodeId) throws DbEmissaryException {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor rs = db.rawQuery(
+                "SELECT lat, lon FROM nodes " +
+                        "WHERE id=?",
+
+                new String[] {String.valueOf(nodeId)}
+        );
+
+        if (rs.getCount() <= 0)
+            throw new DbEmissaryException("Given node id does not seem to exist in our database!");
+
+        rs.moveToFirst();
+
+        Pair<Double, Double> nodeCoord = new Pair<>(rs.getDouble(0), rs.getDouble(1));
+
+        rs.close();
+
+        return nodeCoord;
+    }
+
+    /**
+     * select the type of a node by its unique id
+     * @param nodeId the unique id of the node
+     * @return the type of the node identified by the given id
+     * @throws DbEmissaryException upon the given node id not existing in our database
+     */
+    public String selectNodeTypeById(Integer nodeId) throws DbEmissaryException {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor rs = db.rawQuery(
+                "SELECT type FROM nodes " +
+                        "WHERE id=?",
+                new String[] {String.valueOf(nodeId)}
+        );
+
+        if (rs.getCount() <= 0)
+            throw new DbEmissaryException("Given node id does not seem to exist in our database!");
+
+        rs.moveToFirst();
+
+        String nodeType = rs.getString(0);
+
+        rs.close();
+
+        return nodeType;
+    }
+
+    /**
+     * select the floor of a node by its unique id
+     * @param nodeId the unique id of the node
+     * @return the floor number of the node identified by the given id
+     * @throws DbEmissaryException upon the given node id not existing in our database
+     */
+    public Integer selectNodeFloorById(Integer nodeId) throws DbEmissaryException {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor rs = db.rawQuery(
+                "SELECT floor FROM nodes " +
+                        "WHERE id=?",
+                new String[] {String.valueOf(nodeId)}
+        );
+
+        if (rs.getCount() <= 0)
+            throw new DbEmissaryException("Given node id does not seem to exist in our database!");
+
+        rs.moveToFirst();
+
+        Integer nodeFloor = rs.getInt(0);
+
+        rs.close();
+
+        return nodeFloor;
+    }
 }

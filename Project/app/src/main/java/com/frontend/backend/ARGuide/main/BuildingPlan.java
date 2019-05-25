@@ -54,6 +54,8 @@ public class BuildingPlan {
 		private String name;
 		private String type;
 		private int floor;
+		private double lat;
+		private double lon;
 		/**
 		 * @return the id
 		 */
@@ -102,6 +104,14 @@ public class BuildingPlan {
 		public void setFloor(int floor) {
 			this.floor = floor;
 		}
+
+		public double getLat() { return lat; }
+
+		public void setLat(double lat) { this.lat = lat; }
+
+		public double getLon() { return lon; }
+
+		public void setLon(double lon) { this.lon = lon; }
 	}
 	
 	public class Edge {
