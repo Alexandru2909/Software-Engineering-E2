@@ -10,6 +10,8 @@ import java.util.List;
 
 import webParserV3.AutoUpdateClass;
 import webParserV3.WebParser;
+import webParserV3.AutoCheckClass;
+import webParserV3.FlagClas;
 
 /**
  * the object type that makes the connection to the Back-End functionalities of the ARG application
