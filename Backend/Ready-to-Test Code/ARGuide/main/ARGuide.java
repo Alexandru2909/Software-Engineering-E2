@@ -47,43 +47,34 @@ public class ARGuide {
 	 * @throws SQLException when a DB access error occurs
 	 * @throws JSONResourceException upon unknown request or WSProcessor operation failure
 	 */
-	public ARGuide(String dbPath, String schedulePath, String planPath,String lastUpdateFile,String docNames) throws ClassNotFoundException, SQLException, JSONResourceException {
+	public ARGuide(String dbPath, String schedulePath, String planPath,String lastUpdateFile,String docNames,FlagClass flag) throws ClassNotFoundException, SQLException, JSONResourceException {
 		this.dbPath = dbPath;
 		this.dbDriver = "jdbc:sqlite:" + dbPath;
 		this.schedulePath = schedulePath;
 		this.planPath = planPath;
 		
 		/****************** WEBPARSER CALL ****************************/
-		/*
-		try {
-		    AutoUpdateClass autoUpdateClass=new AutoUpdateClass("https://profs.info.uaic.ro/~orar/orar_resurse.html","ARGuide/schedules/lastUpdateTime.txt");
-		    if(autoUpdateClass.runDataCollector()==false){
-			System.out.println("parser-ul a rulat");
-			WebParser parser = new WebParser("https://profs.info.uaic.ro/~orar/", "orar_resurse.html", "ARGuide/schedules/facultySchedule.json","ARGuide/schedules/sectionsNames.txt");
-			parser.runParset();
-			autoUpdateClass.setNewDate();
-		    }else{
-			System.out.println("parserul nu a rulat, niciun update necesar");
-		    }
+		String webAddress="https://profs.info.uaic.ro/~orar/";
+		String pageName="orar_resurse.html";
 
-        }catch (Exception e){
-            System.out.println("problema la crearea fisielor" +e.getMessage());
-        }
-		*/
-		try {
-			AutoUpdateClass autoUpdateClass=new AutoUpdateClass("https://profs.info.uaic.ro/~orar/orar_resurse.html",lastUpdateFile);
-			if(autoUpdateClass.runDataCollector()==false){
-				System.out.println("parser-ul a rulat");
-				WebParser parser = new WebParser("https://profs.info.uaic.ro/~orar/", "orar_resurse.html", schedulePath,docNames);
+		AutoUpdateClass auto=new AutoUpdateClass(webAddress+pageName,"auxiliaries/lastUpdate.txt");
+		boolean state=auto.runDataCollector();
+		if(state==false){
+			System.out.println("S-a facut Update");
+			try {
+				WebParser parser = new WebParser(webAddress, pageName, "auxiliaries/resultFile.txt","auxiliaries/docNames.txt");
 				parser.runParset();
-				autoUpdateClass.setNewDate();
-			}else{
-				System.out.println("parserul nu a rulat, niciun update necesar");
+			}catch (Exception e){
+				System.out.println("problema la crearea fisielor" +e.getMessage());
 			}
-
-		}catch (Exception e){
-			System.out.println("problema la crearea fisielor" +e.getMessage());
+			auto.setNewDate();
+		}else{
+			System.out.println("Datele sunt actuale");
 		}
+		FlagClass flag=new FlagClass();
+		AutoCheckClass autoChecker=new AutoCheckClass(auto,flag);
+		autoChecker.setDaemon(true);
+		autoChecker.start();
 		/****************** WEBPARSER CALL ****************************/
 
 
