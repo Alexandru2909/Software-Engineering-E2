@@ -636,7 +636,9 @@ public class MainClass extends JFrame {
                             if(Line.availableLine(curentLine,linesList)){
                                 curentLine.setNode2(finalNode);
                                 Line newLine = new Line(curentLine);
-                                newLine.textBox();
+                                if (popupLine.isSelected()) {
+                                    newLine.textBox();
+                                }
                                 linesList.add(newLine);
                                 drawingSurface.repaint();
                                 drawingStage = false;
