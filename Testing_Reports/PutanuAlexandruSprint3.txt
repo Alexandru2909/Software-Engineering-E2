@@ -1,0 +1,131 @@
+//Until now:
+I've been testing the features implemented by front-end and made sure that the app was running the whole time so that none of the teams would have to wait for the other;
+With Cristian Tugui and Ghiran Andrei I developed some Espresso tests to ease my work;
+Also, manual tests were run to make sure the implementations of Beniamin Agarafine and Cristian Tugui would work as expected.
+
+//24May
+The problem with the app was that WebParser parser = new WebParser("https://profs.info.uaic.ro/~orar/","orar_resurse.html",MyApplication.path+"/facultySchedule.json",MyApplication.path+"/sectionsNames.txt");
+wasn't instantiated due to if (autoUpdateClass.runDataCollector()) returning false. Bug was fixed by creating the parser outside of if. The app is running again.
+I also helped Cristian Tugui with the Timetable. It now displays the mock data inserted by front end to test the lists that are expected by the backend to be brought.
+    
+//25May
+    Bug that doesnt allow the app to run on Android :
+    E/SQLiteLog: (1) 
+
+
+    E/hwaps: APS: SSR : The platform cannot support SSR !: 0x0,0x0,8
+I/hwaps: JNI_OnLoad
+E/HW-JPEG-DEC: [HME_JPEG_DEC_Delete](3298): HME_JPEG_DEC_Delete: decoder_ctx=null
+E/HW-JPEG-DEC: [HME_JPEG_DEC_Delete](3298): HME_JPEG_DEC_Delete: decoder_ctx=null
+I/System.out: /data/user/0/com.frontend.frontend/files/lastUpdateTime.txt (No such file or directory)
+I/System.out: <html>
+I/System.out:  <head> 
+      <meta name="author" content="Cristian Frasinaru"> 
+      <meta name="copyright" content="Ecosoft Iasi"> 
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+      <meta name="description" content="Orar Facultatea de Informatica Iasi generat cu eOra"> 
+      <meta name="keywords" content="eora, ecosoft, orar, universitate, facultate, scoala, aplicatie, software, generare"> 
+      <title> Orar sali </title> 
+      <link rel="stylesheet" type="text/css" href="style.css"> 
+     </head> 
+     <body> 
+      <h2> Orar sali si alte resurse </h2> 
+      <p> <small>Publicat la data <b> 24.05.2019 18:31 </b>, valabil in perioada <b> 18.02.2019 - 07.07.2019 </b>.</small> </p>
+      <ul> 
+       <li> Alte sali 
+        <ul> 
+         <li><a href="resurse/orar_Acvariu.html">Acvariu</a> </li>
+         <li><a href="resurse/orar_B3.html">B3</a> </li>
+         <li><a href="resurse/orar_III-22.html">III-22</a> </li>
+         <li><a href="resurse/orar_IV-13.html">IV-13</a> </li>
+        </ul> </li>
+       <li> Cabinet 
+        <ul> 
+         <li><a href="resurse/orar_C507.html">C507</a> </li>
+        </ul> </li>
+       <li> Calculator 
+        <ul> 
+         <li><a href="resurse/orar_laptop.html">laptop</a> </li>
+        </ul> </li>
+       <li> Laboratoare 
+        <ul> 
+         <li><a href="resurse/orar_C210.html">C210</a> </li>
+         <li><a href="resurse/orar_C401.html">C401</a> </li>
+         <li><a href="resurse/orar_C403.html">C403</a> </li>
+         <li><a href="resurse/orar_C405.html">C405</a> </li>
+         <li><a href="resurse/orar_C409.html">C409</a> </li>
+         <li><a href="resurse/orar_C411.html">C411</a> </li>
+         <li><a href="resurse/orar_C412.html">C412</a> </li>
+         <li><a href="resurse/orar_C413.html">C413</a> </li>
+        </ul> </li>
+       <li> Sali de curs 
+        <ul> 
+         <li><a href="resurse/orar_C112.html">C112</a> </li>
+         <li><a href="resurse/orar_C114.html">C114</a> </li>
+         <li><a href="resurse/orar_C2.html">C2</a> </li>
+         <li><a href="resurse/orar_C309.html">C309</a> </li>
+        </ul> </li>
+       <li> Sali de seminar 
+        <ul> 
+         <li><a href="resurse/orar_C308.html">C308</a> </li>
+         <li><a href="resurse/orar_C901.html">C901</a> </li>
+         <li><a href="resurse/orar_C903.html">C903</a> </li>
+         <li><a href="resurse/orar_C905.html">C905</a> </li>
+         <li><a href="resurse/orar_C909.html">C909</a> </li>
+        </ul> </li>
+       <li> Videoproiector 
+        <ul> 
+         <li><a href="resurse/orar_video.html">Videoproiector+Laptop</a> </li>
+        </ul> </li>
+      </ul> 
+      <br>
+      <br> 
+      <a href="globale/sali_libere.html">Sali ramase neocupate</a> 
+      <p><small>Generat cu <a href="http://profs.info.uaic.ro/~orar/app/"> eOra 2.1.1</a></small>  </p>
+     </body>
+I/art: Do partial code cache collection, code=11KB, data=20KB
+    After code cache collection, code=11KB, data=20KB
+    Increasing code cache capacity to 128KB
+I/art: Compiler allocated 5MB to compile boolean org.jsoup.parser.HtmlTreeBuilderState$7.process(org.jsoup.parser.Token, org.jsoup.parser.HtmlTreeBuilder)
+I/System.out: </html> probglema pe site HTTP error fetching URL B3
+I/System.out:  probglema pe site HTTP error fetching URL III-22
+I/System.out:  probglema pe site HTTP error fetching URL IV-13
+I/System.out:  probglema pe site HTTP error fetching URL C507
+I/art: Do partial code cache collection, code=62KB, data=61KB
+    After code cache collection, code=62KB, data=61KB
+    Increasing code cache capacity to 256KB
+I/System.out: rulare
+I/System.out: !!!!!!!!!!!!!!!!!!!!!!!!!!
+    File sectionsNames.txt
+    File facultySchedule.json
+    File lastUpdateTime.txt
+    !!!!!!!!!!!!!!!!!!!!!!!!!!
+
+//////////FAULTY CODE
+
+    E/hwaps: APS: SSR : The platform cannot support SSR !: 0x0,0x0,8
+I/hwaps: JNI_OnLoad
+E/HW-JPEG-DEC: [HME_JPEG_DEC_Delete](3298): HME_JPEG_DEC_Delete: decoder_ctx=null
+E/HW-JPEG-DEC: [HME_JPEG_DEC_Delete](3298): HME_JPEG_DEC_Delete: decoder_ctx=null
+I/System.out: rulare
+I/System.out: !!!!!!!!!!!!!!!!!!!!!!!!!!
+    File sectionsNames.txt
+    File facultySchedule.json
+    File lastUpdateTime.txt
+    File buildingPlan.json
+    File faculty.db
+    File faculty.db-journal
+    !!!!!!!!!!!!!!!!!!!!!!!!!!
+I/art: Do partial code cache collection, code=11KB, data=20KB
+    After code cache collection, code=11KB, data=20KB
+    Increasing code cache capacity to 128KB
+I/art: Compiler allocated 5MB to compile boolean org.jsoup.parser.HtmlTreeBuilderState$7.process(org.jsoup.parser.Token, org.jsoup.parser.HtmlTreeBuilder)
+I/System.out: rulare
+E/SQLiteLog: (1) 
+I/Process: Sending signal. PID: 32382 SIG: 9
+Application terminated.
+
+///Further errors:
+E/CursorWindow: Failed to read row 0, column 3 from a CursorWindow which has 154 rows, 3 columns.
+
+problem was that Cursor rs = db.rawQuery("SELECT id1, id2, cost FROM edges", null); at line 74 in PathGenerator.java requested floor,that doesn't exist in the DB.
