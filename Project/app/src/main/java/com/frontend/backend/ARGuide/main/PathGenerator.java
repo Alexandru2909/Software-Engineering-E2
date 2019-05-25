@@ -19,7 +19,7 @@ import org.javatuples.Pair;
  * @author Ioana-Balan
  *
  */
-
+@SuppressWarnings("unchecked")
 public class PathGenerator {
     private List<Integer> nodes=new ArrayList<>();
     private List<Integer> path=new ArrayList<>();
@@ -70,7 +70,8 @@ public class PathGenerator {
         int id1, id2;
         double cost,floor;
 
-        Cursor rs = db.rawQuery("SELECT id1, id2, cost,floor FROM edges", null);
+//        Cursor rs = db.rawQuery("SELECT id1, id2, cost,floor FROM edges", null);
+        Cursor rs = db.rawQuery("SELECT id1, id2, cost FROM edges", null);
 
         rs.moveToFirst();
 
@@ -79,7 +80,8 @@ public class PathGenerator {
             id1 = rs.getInt(0) - 1;
             id2 = rs.getInt(1) - 1;
             cost = rs.getDouble(2);
-            floor=rs.getDouble(3);
+//            floor=rs.getDouble(3);
+            floor=1.0d;
             Edge edge = new Edge(id1, id2, cost,floor );
             if(!adjacencylist[id1].contains(edge))
                 adjacencylist[id1].addFirst(edge);
