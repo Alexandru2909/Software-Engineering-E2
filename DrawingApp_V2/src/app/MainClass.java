@@ -282,6 +282,8 @@ public class MainClass extends JFrame {
         nodeEditorPanel.add(nodeLongitude);
         nodeEditorPanel.add(nodeSave);
         nodeEditorPanel.add(emptySpace);
+        for (int i=0; i < 9; i++)
+            nodeEditorPanel.add(new JLabel());
         exitLegend.setForeground(Color.green);
         nodeEditorPanel.add(exitLegend);
         stairsLegend.setForeground(Color.cyan);
