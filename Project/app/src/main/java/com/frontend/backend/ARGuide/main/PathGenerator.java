@@ -167,20 +167,14 @@ public class PathGenerator {
         }
         //compute actual path
 
-        for(int i=0;i<previous.length;i++)
-            System.out.print(previous[i]+" a ");
         path.add(destinationVertex);
         int i=destinationVertex;
-        System.out.println();
         while(sourceVertex!=i)
         {
             i=previous[i];
             path.add(i);
         }
         Collections.reverse(path);
-
-        for(int j=0;j<path.size();j++)
-            System.out.print(path.get(j)+"+");
         return path;
     }
 
