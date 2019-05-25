@@ -4,775 +4,1033 @@
       "id": 1,
       "name": "C902",
       "type": "Cabinet",
-      "floor": 7
+      "floor": 7,
+      "lat": 47.173827,
+      "log": 27.574812
     },
     {
       "id": 2,
       "name": "C903",
       "type": "Classroom",
-      "floor": 7
+      "floor": 7,
+      "lat": 47.173848,
+      "log": 27.574864
     },
     {
       "id": 3,
       "name": "Hallway7_8",
       "type": "Hallway",
-      "floor": 7
+      "floor": 7,
+      "lat": 47.173838,
+      "log": 27.574793
     },
     {
       "id": 4,
       "name": "Hallway7_2",
       "type": "Hallway",
-      "floor": 7
+      "floor": 7,
+      "lat": 47.173823,   
+      "log": 27.574740
     },
     {
       "id": 5,
       "name": "Hallway7_1",
       "type": "Hallway",
-      "floor": 7
+      "floor": 7,
+      "lat": 47.173865,
+      "log": 27.574712
     },
     {
       "id": 6,
       "name": "Hallway7_3",
       "type": "Hallway",
-      "floor": 7
+      "floor": 7,
+      "lat": 47.173887,
+      "log": 27.574683
     },
     {
       "id": 7,
       "name": "Hallway7_4",
       "type": "Hallway",
-      "floor": 7
+      "floor": 7,
+      "lat": 47.173913,
+      "log": 27.574740
     },
     {
       "id": 8,
       "name": "Hallway7_5",
       "type": "Hallway",
-      "floor": 7
+      "floor": 7,
+      "lat": 47.173923,
+      "log": 27.574772
     },
     {
       "id": 9,
       "name": "Hallway7_6",
       "type": "Hallway",
-      "floor": 7
+      "floor": 7,
+      "lat": 47.173896,
+      "log": 27.574805
     },
     {
       "id": 10,
       "name": "C902",
       "type": "Cabinet",
-      "floor": 7
+      "floor": 7,
+      "lat": 47.173921,
+      "log": 27.574839
     },
     {
       "id": 11,
       "name": "C901",
       "type": "Classroom",
-      "floor": 7
+      "floor": 7,
+      "lat": 47.173963,
+      "log": 27.574768
     },
     {
       "id": 12,
       "name": "Stairs7",
       "type": "Stairs",
-      "floor": 7
+      "floor": 7,
+      "lat": 47.173936,
+      "log": 27.574708
     },
     {
       "id": 13,
       "name": "C909",
       "type": "Classroom",
-      "floor": 7
+      "floor": 7,
+      "lat": 47.173913,
+      "log": 27.574634
     },
     {
       "id": 14,
       "name": "Elevator7",
       "type": "Elevator",
-      "floor": 7
+      "floor": 7,
+      "lat": 47.173882,
+      "log": 27.574636
     },
     {
       "id": 15,
       "name": "Bathroom7",
       "type": "Bathroom",
-      "floor": 7
+      "floor": 7,
+      "lat": 47.173844,
+      "log": 27.574663
     },
     {
       "id": 16,
       "name": "Stairs-1_1",
       "type": "Stairs",
-      "floor": -1
+      "floor": -1,
+      "lat": 47.173899,
+      "log": 27.574928
     },
     {
       "id": 17,
       "name": "Hallway-1_1",
       "type": "Hallway",
-      "floor": -1
+      "floor": -1,
+      "lat": 47.173925,
+      "log": 27.574914
     },
     {
       "id": 18,
       "name": "Hallway-1_2",
       "type": "Hallway",
-      "floor": -1
+      "floor": -1,
+      "lat": 47.173953,
+      "log": 27.574991
     },
     {
       "id": 19,
       "name": "Hallway-1_3",
       "type": "Hallway",
-      "floor": -1
+      "floor": -1,
+      "lat": 47.173980,
+      "log": 27.575059
     },
     {
       "id": 20,
       "name": "Hallway-1_4",
       "type": "Hallway",
-      "floor": -1
+      "floor": -1,
+      "lat": 47.174008,
+      "log": 27.575149
     },
     {
       "id": 21,
       "name": "Hallway-1_5",
       "type": "Hallway",
-      "floor": -1
+      "floor": -1,
+      "lat": 47.174034,
+      "log": 27.575207
     },
     {
       "id": 22,
       "name": "Hallway-1_6",
       "type": "Hallway",
-      "floor": -1
+      "floor": -1,
+      "lat": 47.174054,
+      "log": 27.575256
     },
     {
       "id": 23,
       "name": "Hallway-1_7",
       "type": "Hallway",
-      "floor": -1
+      "floor": -1,
+      "lat": 47.174071,
+      "log": 27.575236
     },
     {
       "id": 24,
       "name": "Hallway-1_8",
       "type": "Hallway",
-      "floor": -1
+      "floor": -1,
+      "lat": 47.174087,
+      "log": 27.575212
     },
     {
       "id": 25,
       "name": "C1",
       "type": "Classroom",
-      "floor": -1
+      "floor": -1,
+      "lat": 47.174118,
+      "log": 27.575302
     },
     {
       "id": 26,
       "name": "C114",
       "type": "Classroom",
-      "floor": -1
+      "floor": -1,
+      "lat": 47.174118,
+      "log": 27.575176
     },
     {
       "id": 27,
       "name": "Bathroom-1",
       "type": "Bathroom",
-      "floor": -1
+      "floor": -1,
+      "lat": 47.174165,
+      "log": 27.575184
     },
     {
       "id": 28,
       "name": "Stairs-1_2",
       "type": "Stairs",
-      "floor": -1
+      "floor": -1,
+      "lat": 47.174190,
+      "log": 27.575211
     },
     {
       "id": 29,
       "name": "Hallway-1_10",
       "type": "Hallway",
-      "floor": -1
+      "floor": -1,
+      "lat": 47.174071,
+      "log": 27.575157
     },
     {
       "id": 30,
       "name": "Hallway-1_11",
       "type": "Hallway",
-      "floor": -1
+      "floor": -1,
+      "lat": 47.174043,
+      "log": 27.575080
     },
     {
       "id": 31,
       "name": "C112",
       "type": "Classroom",
-      "floor": -1
+      "floor": -1,
+      "lat": 47.174035,
+      "log": 27.574976
     },
     {
       "id": 32,
       "name": "Exit2",
       "type": "Exit",
-      "floor": 0
+      "floor": 0,
+      "lat": 47.173695,
+      "log": 27.574749
     },
     {
       "id": 33,
       "name": "Hallway0_1",
       "type": "Hallway",
-      "floor": 0
+      "floor": 0,
+      "lat": 47.173718,
+      "log": 27.574775
     },
     {
       "id": 34,
       "name": "Hallway0_4",
       "type": "Hallway",
-      "floor": 0
+      "floor": 0,
+      "lat": 47.173756,
+      "log": 27.574869
     },
     {
       "id": 35,
       "name": "Hallway0_5",
       "type": "Hallway",
-      "floor": 0
+      "floor": 0,
+      "lat": 47.173792,
+      "log": 27.574925
     },
     {
       "id": 36,
       "name": "Hallway0_6",
       "type": "Hallway",
-      "floor": 0
+      "floor": 0,
+      "lat": 47.173829,
+      "log": 27.574995
     },
     {
       "id": 37,
       "name": "Hallway0_7",
       "type": "Hallway",
-      "floor": 0
+      "floor": 0,
+      "lat": 47.173863,
+      "log": 27.575098
     },
     {
       "id": 38,
       "name": "Hallway0_8",
       "type": "Hallway",
-      "floor": 0
+      "floor": 0,
+      "lat": 47.173891,
+      "log": 27.575204
     },
     {
       "id": 39,
       "name": "Hallway0_2",
       "type": "Hallway",
-      "floor": 0
+      "floor": 0,
+      "lat": 47.173731,
+      "log":27.574837
     },
     {
       "id": 40,
       "name": "Exit4",
       "type": "Exit",
-      "floor": 0
+      "floor": 0,
+      "lat": 47.173704,
+      "log": 27.574860
     },
     {
       "id": 41,
       "name": "Hallway0_9",
       "type": "Hallway",
-      "floor": 0
+      "floor": 0,
+      "lat": 47.173854,
+      "log": 27.575234
     },
     {
       "id": 42,
       "name": "Exit3",
       "type": "Exit",
-      "floor": 0
+      "floor": 0,
+      "lat": 47.173820,
+      "log": 27.575259
     },
     {
       "id": 43,
       "name": "Hallway0_10",
       "type": "Hallway",
-      "floor": 0
+      "floor": 0,
+      "lat": 47.173935,
+      "log": 27.575227
     },
     {
       "id": 44,
       "name": "Hallway0_11",
       "type": "Hallway",
-      "floor": 0
+      "floor": 0,
+      "lat": 47.173955,
+      "log": 27.575289
     },
     {
       "id": 45,
       "name": "Hallway0_12",
       "type": "Hallway",
-      "floor": 0
+      "floor": 0,
+      "lat": 47.173978,
+      "log": 27.575274
     },
     {
       "id": 46,
       "name": "Hallway0_13",
       "type": "Hallway",
-      "floor": 0
+      "floor": 0,
+      "lat": 47.174043,
+      "log": 27.575262
     },
     {
       "id": 47,
       "name": "Hallway0_15",
       "type": "Hallway",
-      "floor": 0
+      "floor": 0,
+      "lat": 47.174130,
+      "log": 27.575213
     },
     {
       "id": 48,
       "name": "Hallway0_16",
       "type": "Hallway",
-      "floor": 0
+      "floor": 0,
+      "lat": 47.174174,
+      "log": 27.575190
     },
     {
       "id": 49,
       "name": "Stairs0_2",
       "type": "Stairs",
-      "floor": 0
+      "floor": 0,
+      "lat": 47.174214,
+      "log": 27.575209
     },
     {
       "id": 50,
       "name": "Bathroom0",
       "type": "Bathroom",
-      "floor": 0
+      "floor": 0,
+      "lat": 47.174164,
+      "log": 27.575167
     },
     {
       "id": 51,
       "name": "C2",
       "type": "Amphitheatre",
-      "floor": 2
+      "floor": 2,
+      "lat": 47.174117,
+      "log": 27.575280
     },
     {
       "id": 52,
       "name": "Hallway0_3",
       "type": "Hallway",
-      "floor": 0
+      "floor": 0,
+      "lat": 47.173758,
+      "log": 27.574812
     },
     {
       "id": 53,
       "name": "Hallway0_17",
       "type": "Hallway",
-      "floor": 0
+      "floor": 0,
+      "lat": 47.173797,
+      "log": 27.574791
     },
     {
       "id": 54,
       "name": "Hallway0_18",
       "type": "Hallway",
-      "floor": 0
+      "floor": 0,
+      "lat": 47.173829,
+      "log": 27.574737
     },
     {
       "id": 55,
       "name": "Hallway0_19",
-      "type": "",
-      "floor": 0
+      "type": "Hallway",
+      "floor": 0,
+      "lat": 47.173867,
+      "log": 27.574704
     },
     {
       "id": 56,
       "name": "Stairs0_3",
       "type": "Stairs",
-      "floor": 0
+      "floor": 0,
+      "lat": 47.173860,
+      "log": 27.574974
     },
     {
       "id": 57,
       "name": "Secretary",
       "type": "Secretary",
-      "floor": 0
+      "floor": 0,
+      "lat": 47.173788,
+      "log": 27.574707
     },
     {
       "id": 58,
       "name": "Hallway0_20",
       "type": "Hallway",
-      "floor": 0
+      "floor": 0,
+      "lat": 47.173813,
+      "log": 27.574692
     },
     {
       "id": 59,
       "name": "Hallway0_21",
       "type": "Hallway",
-      "floor": 0
+      "floor": 0,
+      "lat": 47.173869,
+      "log": 27.574667
     },
     {
       "id": 60,
       "name": "C201",
       "type": "Cabinet",
-      "floor": 0
+      "floor": 0,
+      "lat": 47.173896,
+      "log": 27.574634
     },
     {
       "id": 61,
       "name": "Hallway0_23",
       "type": "Hallway",
-      "floor": 0
+      "floor": 0,
+      "lat": 47.173920,
+      "log": 27.574686
     },
     {
       "id": 62,
       "name": "C210",
       "type": "Classroom",
-      "floor": 0
+      "floor": 0,
+      "lat": 47.173938,
+      "log": 27.574732
     },
     {
       "id": 63,
       "name": "Stairs0_1",
       "type": "Stairs",
-      "floor": 0
+      "floor": 0,
+      "lat": 47.173911,
+      "log": 27.574644
     },
     {
       "id": 64,
       "name": "Hallway0_25",
       "type": "Hallway",
-      "floor": 0
+      "floor": 0,
+      "lat": 47.173917,
+      "log": 27.574586
     },
     {
       "id": 65,
       "name": "Exit1",
       "type": "Exit",
-      "floor": 0
+      "floor": 0,
+      "lat": 47.173937,
+      "log": 27.574562
     },
     {
       "id": 66,
       "name": "Hallway7_7",
       "type": "Hallway",
-      "floor": 7
+      "floor": 7,
+      "lat": 47.173847,
+      "log": 27.574832
     },
     {
       "id": 67,
       "name": "C905",
       "type": "Classroom",
-      "floor": 7
+      "floor": 7,
+      "lat": 47.173790,
+      "log": 27.574730
     },
     {
       "id": 68,
       "name": "Hallway-1_9",
       "type": "Hallway",
-      "floor": -1
+      "floor": -1,
+      "lat": 47.174127,
+      "log": 27.575240
     },
     {
       "id": 69,
       "name": "Hallway-1_12",
       "type": "Hallway",
-      "floor": -1
+      "floor": -1,
+      "lat": 47.174006,
+      "log": 27.575000
     },
     {
       "id": 70,
       "name": "Hallway0_14",
       "type": "Hallway",
-      "floor": 0
+      "floor": 0,
+      "lat": 47.174109,
+      "log": 27.575242
     },
     {
       "id": 71,
       "name": "Hallway0_22",
       "type": "Hallway",
-      "floor": 0
+      "floor": 0,
+      "lat": 47.173902,
+      "log": 27.574638
     },
     {
       "id": 72,
       "name": "Hallway0_24",
       "type": "Hallway",
-      "floor": 0
+      "floor": 0,
+      "lat": 47.173897,
+      "log": 27.574620
     },
     {
       "id": 73,
       "name": "Elevator0",
       "type": "Elevator",
-      "floor": 0
+      "floor": 0,
+      "lat": 47.173864,
+      "log": 27.574628
     },
     {
       "id": 74,
       "name": "C303",
       "type": "Cabinet",
-      "floor": 1
+      "floor": 1,
+      "lat": 47.173773,
+      "log": 27.574682
     },
     {
       "id": 75,
       "name": "Hallway1_1",
       "type": "Hallway",
-      "floor": 1
+      "floor": 1,
+      "lat": 47.173779,
+      "log": 27.574696
     },
     {
       "id": 76,
-      "name": "Acvariu",
-      "type": "Classroom",
-      "floor": 1
+      "name": "C302",
+      "type": "Cabinet",
+      "floor": 1,
+      "lat": 47.173792,
+      "log": 27.574747
     },
     {
       "id": 77,
       "name": "C304",
       "type": "Cabinet",
-      "floor": 1
+      "floor": 1,
+      "lat": 47.173807,
+      "log": 27.574651
     },
     {
       "id": 78,
       "name": "Hallway1_2",
       "type": "Hallway",
-      "floor": 1
+      "floor": 1,
+      "lat": 47.173831,
+      "log": 27.574667
     },
     {
       "id": 79,
       "name": "Hallway1_3",
       "type": "Hallway",
-      "floor": 1
+      "floor": 1,
+      "lat": 47.173881,
+      "log": 27.574638
     },
     {
       "id": 80,
       "name": "Elevator1",
       "type": "Elevator",
-      "floor": 1
+      "floor": 1,
+      "lat": 47.173876,
+      "log": 27.574605
     },
     {
       "id": 81,
       "name": "Hallway1_4",
       "type": "Hallway",
-      "floor": 1
+      "floor": 1,
+      "lat": 47.173896,
+      "log": 27.574634
     },
     {
       "id": 82,
       "name": "Hallway1_5",
       "type": "Hallway",
-      "floor": 1
+      "floor": 1,
+      "lat": 47.173909,
+      "log": 27.574612
     },
     {
       "id": 83,
       "name": "Bathroom1_2",
       "type": "Bathroom",
-      "floor": 1
+      "floor": 1,
+      "lat": 47.173899,
+      "log": 27.574584
     },
     {
       "id": 84,
       "name": "Hallway1_6",
       "type": "Hallway",
-      "floor": 1
+      "floor": 1,
+      "lat": 47.173904,
+      "log": 27.574625
     },
     {
       "id": 85,
       "name": "Stairs1_1",
       "type": "Stairs",
-      "floor": 1
+      "floor": 1,
+      "lat": 47.173929,
+      "log": 27.574599
     },
     {
       "id": 86,
       "name": "Hallway1_7",
       "type": "Hallway",
-      "floor": 1
+      "floor": 1,
+      "lat": 47.173942,
+      "log": 27.574746
     },
     {
       "id": 87,
       "name": "Hallway1_8",
       "type": "Hallway",
-      "floor": 1
+      "floor": 1,
+      "lat": 47.173959,
+      "log": 27.574761
     },
     {
       "id": 88,
       "name": "C301",
       "type": "Cabinet",
-      "floor": 1
+      "floor": 1,
+      "lat": 47.173961,
+      "log": 27.574720
     },
     {
       "id": 89,
       "name": "Hallway1_9",
       "type": "Hallway",
-      "floor": 1
+      "floor": 1,
+      "lat": 47.173928,
+      "log": 27.574801
     },
     {
       "id": 90,
       "name": "Hallway1_10",
       "type": "Hallway",
-      "floor": 1
+      "floor": 1,
+      "lat": 47.173962,
+      "log": 27.574924
     },
     {
       "id": 91,
       "name": "Hallway1_11",
       "type": "Hallway",
-      "floor": 1
+      "floor": 1,
+      "lat": 47.173971,
+      "log": 27.574950
     },
     {
       "id": 92,
       "name": "Hallway1_12",
       "type": "Hallway",
-      "floor": 1
+      "floor": 1,
+      "lat": 47.174025,
+      "log": 27.575037
     },
     {
       "id": 93,
       "name": "Hallway1_13",
       "type": "Hallway",
-      "floor": 1
+      "floor": 1,
+      "lat": 47.174058,
+      "log": 27.575107
     },
     {
       "id": 94,
       "name": "Hallway1_14",
       "type": "Hallway",
-      "floor": 1
+      "floor": 1,
+      "lat": 47.174081,
+      "log": 27.575173
     },
     {
       "id": 95,
       "name": "Hallway1_15",
       "type": "Hallway",
-      "floor": 1
+      "floor": 1,
+      "lat": 47.174117,
+      "log": 27.575266
     },
     {
       "id": 96,
       "name": "Hallway1_16",
       "type": "Hallway",
-      "floor": 1
+      "floor": 1,
+      "lat": 47.174143,
+      "log": 27.575198
     },
     {
       "id": 97,
       "name": "Hallway1_17",
       "type": "Hallway",
-      "floor": 1
+      "floor": 1,
+      "lat": 47.174168,
+      "log": 27.575200
     },
     {
       "id": 98,
       "name": "Stairs1_2",
       "type": "Stairs",
-      "floor": 1
+      "floor": 1,
+      "lat": 47.174202,
+      "log": 27.575208
     },
     {
       "id": 99,
       "name": "C308",
       "type": "Classroom",
-      "floor": 1
+      "floor": 1,
+      "lat": 47.174024,
+      "log": 27.574913
     },
     {
       "id": 100,
       "name": "C309",
       "type": "Classroom",
-      "floor": 1
+      "floor": 1,
+      "lat": 47.174052,
+      "log": 27.574966
     },
     {
       "id": 101,
       "name": "Bathroom1_1",
       "type": "Bathroom",
-      "floor": 1
+      "floor": 1,
+      "lat": 47.174162,
+      "log": 27.575135
     },
     {
       "id": 102,
       "name": "Stairs2_2",
       "type": "Stairs",
-      "floor": 2
+      "floor": 2,
+      "lat": 47.174188,
+      "log": 27.575213
     },
     {
       "id": 103,
       "name": "Hallway2_1",
       "type": "Hallway",
-      "floor": 2
+      "floor": 2,
+      "lat": 47.174159,
+      "log": 27.575187
     },
     {
       "id": 104,
       "name": "Hallway2_2",
       "type": "Hallway",
-      "floor": 2
+      "floor": 2,
+      "lat": 47.174127,
+      "log": 27.575184
     },
     {
       "id": 105,
       "name": "Hallway2_3",
       "type": "Hallway",
-      "floor": 2
+      "floor": 2,
+      "lat": 47.174088,
+      "log": 27.575198
     },
     {
       "id": 106,
       "name": "Hallway2_4",
       "type": "Hallway",
-      "floor": 2
+      "floor": 2,
+      "lat": 47.174073,
+      "log": 27.575165
     },
     {
       "id": 107,
       "name": "Hallway2_5",
       "type": "Hallway",
-      "floor": 2
+      "floor": 2,
+      "lat": 47.174054,
+      "log": 27.575106
     },
     {
       "id": 108,
       "name": "Hallway2_6",
       "type": "Hallway",
-      "floor": 2
+      "floor": 2,
+      "lat": 47.174042,
+      "log": 27.575055
     },
     {
       "id": 109,
       "name": "Hallway2_7",
       "type": "Hallway",
-      "floor": 2
+      "floor": 2,
+      "lat": 47.174010,
+      "log": 27.574977
     },
     {
       "id": 110,
       "name": "Hallway2_17",
       "type": "Hallway",
-      "floor": 2
+      "floor": 2,
+      "lat": 47.173893,
+      "log": 27.574635
     },
     {
       "id": 111,
       "name": "Hallway2_14",
       "type": "Hallway",
-      "floor": 2
+      "floor": 2,
+      "lat": 47.173875,
+      "log": 27.574736
     },
     {
       "id": 112,
       "name": "Hallway2_16",
       "type": "Hallway",
-      "floor": 2
+      "floor": 2,
+      "lat": 47.173862,
+      "log": 27.574668
     },
     {
       "id": 113,
       "name": "Stairs2_1",
       "type": "Stairs",
-      "floor": 2
+      "floor": 2,
+      "lat": 47.173928,
+      "log": 27.574659
     },
     {
       "id": 114,
       "name": "C409",
       "type": "Classroom",
-      "floor": 2
+      "floor": 2,
+      "lat": 47.173918,
+      "log": 27.574610
     },
     {
       "id": 115,
       "name": "Hallway2_15",
       "type": "Hallway",
-      "floor": 2
+      "floor": 2,
+      "lat": 47.173845,
+      "log": 27.574765
     },
     {
       "id": 116,
       "name": "C405",
       "type": "Classroom",
-      "floor": 2
+      "floor": 2,
+      "lat": 47.173804,
+      "log": 27.574723
     },
     {
       "id": 117,
       "name": "C404",
       "type": "Cabinet",
-      "floor": 2
+      "floor": 2,
+      "lat": 47.173818,
+      "log": 27.574791
     },
     {
       "id": 118,
       "name": "C403",
       "type": "Classroom",
-      "floor": 2
+      "floor": 2,
+      "lat": 47.173842,
+      "log": 27.574843
     },
     {
       "id": 119,
       "name": "C401",
       "type": "Classroom",
-      "floor": 2
+      "floor": 2,
+      "lat": 47.173953,
+      "log": 27.574710
     },
     {
       "id": 120,
       "name": "C402",
       "type": "Cabinet",
-      "floor": 2
+      "floor": 2,
+      "lat": 47.173906,
+      "log": 27.574747
     },
     {
       "id": 121,
       "name": "Bathroom2_1",
       "type": "Bathroom",
-      "floor": 2
+      "floor": 2,
+      "lat": 47.174151,
+      "log": 27.575136
     },
     {
       "id": 122,
       "name": "C413",
       "type": "Classroom",
-      "floor": 2
+      "floor": 2,
+      "lat": 47.174102,
+      "log": 27.575131
     },
     {
       "id": 123,
       "name": "C412",
       "type": "Classroom",
-      "floor": 2
+      "floor": 2,
+      "lat": 47.174074,
+      "log": 27.575016
     },
     {
       "id": 124,
       "name": "C411",
       "type": "Classroom",
-      "floor": 2
+      "floor": 2,
+      "lat": 47.174028,
+      "log": 27.574878
     },
     {
       "id": 125,
       "name": "C410",
       "type": "Cabinet",
-      "floor": 2
+      "floor": 2,
+      "lat": 47.173990,
+      "log": 27.574790
     },
     {
       "id": 126,
       "name": "Elevator2",
       "type": "Elevator",
-      "floor": 2
+      "floor": 2,
+      "lat": 47.173880,
+      "log": 27.574595
     },
     {
       "id": 127,
       "name": "Bathroom2_2",
       "type": "Bathroom",
-      "floor": 2
+      "floor": 2,
+      "lat": 47.173850,
+      "log": 27.574632
     },
     {
       "id": 128,
       "name": "Hallway2_13",
       "type": "Hallway",
-      "floor": 2
+      "floor": 2,
+      "lat": 47.173908,
+      "log": 27.574681
     },
     {
       "id": 129,
       "name": "Hallway2_12",
       "type": "Hallway",
-      "floor": 2
+      "floor": 2,
+      "lat": 47.173934,
+      "log": 27.574743
     },
     {
       "id": 130,
@@ -784,25 +1042,33 @@
       "id": 131,
       "name": "Hallway2_9",
       "type": "Hallway",
-      "floor": 2
+      "floor": 2,
+      "lat": 47.173962,
+      "log": 27.574850
     },
     {
       "id": 132,
       "name": "Hallway2_10",
       "type": "Hallway",
-      "floor": 2
+      "floor": 2,
+      "lat": 47.173962,
+      "log": 27.574828
     },
     {
       "id": 133,
       "name": "Hallway2_8",
       "type": "Hallway",
-      "floor": 2
+      "floor": 2,
+      "lat": 47.173996,
+      "log": 27.574917
     },
     {
       "id": 134,
       "name": "C307",
       "type": "Cabinet",
-      "floor": 1
+      "floor": 1,
+      "lat": 47.173915,
+      "log": 27.574600
     }
   ],
   "edges": [
