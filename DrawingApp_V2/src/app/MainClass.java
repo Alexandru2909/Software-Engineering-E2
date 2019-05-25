@@ -3,6 +3,7 @@ package app;
 
 import javax.swing.*;
 
+import auxiliaries.WrapLayout;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -230,7 +231,7 @@ public class MainClass extends JFrame {
         /**
          * setam layout-ul pentru buttonsPanel
          */
-        buttonsPanel.setLayout(new FlowLayout());
+        buttonsPanel.setLayout(new WrapLayout(WrapLayout.LEFT));
 
         /**
          * atasam butoanele panoului buttonsPanel
@@ -325,25 +326,26 @@ public class MainClass extends JFrame {
                 try {
                     firstNode.setFloor(Integer.parseInt(nodeFloor.getText()));
                 } catch (Exception e) {
-                    System.out.println(e);
-                    System.out.println("Floor: 0");
+                    String message = e + "\nFloor will be set to 0;";
+                    JOptionPane.showMessageDialog(null, message,"Alert", JOptionPane.WARNING_MESSAGE);
                     firstNode.setFloor(0);
                 }
                 try {
                     firstNode.setLatitude(Double.parseDouble(nodeLatitude.getText()));
                 } catch (Exception e) {
-                    System.out.println(e);
-                    System.out.println("Latitude: 0.00");
+                    String message = e + "\nLatitude will be set to 0;";
+                    JOptionPane.showMessageDialog(null, message,"Alert", JOptionPane.WARNING_MESSAGE);
                     firstNode.setLatitude(0.00);
                 }
                 try {
                     firstNode.setLongitude(Double.parseDouble(nodeLongitude.getText()));
                 } catch (Exception e) {
-                    System.out.println(e);
-                    System.out.println("Longitude: 0.00");
+                    String message = e + "\nLongitude will be set to 0;";
+                    JOptionPane.showMessageDialog(null, message,"Alert", JOptionPane.WARNING_MESSAGE);
                     firstNode.setLongitude(0.00);
                 }
                 drawingSurface.repaint();
+                nodeEditorUpdate();
             }
         });
         /**
@@ -369,11 +371,12 @@ public class MainClass extends JFrame {
                         writer.write(json);
                         writer.close();
                     } catch (Exception ex) {
-                        System.out.println("problem accessing file"+file.getAbsolutePath());
+                        String message="problem accessing file"+file.getAbsolutePath();
+                        JOptionPane.showMessageDialog(null, message,"Alert", JOptionPane.WARNING_MESSAGE);
                     }
                 }
                 else {
-                    System.out.println("File access cancelled by user.");
+                    JOptionPane.showMessageDialog(null, "File access cancelled by user.","Alert", JOptionPane.WARNING_MESSAGE);
                 }
             }
         });
@@ -398,11 +401,12 @@ public class MainClass extends JFrame {
                         Node.instNumber=nodesList.size();
                         drawingSurface.repaint();
                     } catch (Exception ex) {
-                        System.out.println("problem accessing file"+file.getAbsolutePath());
+                        String message = "problem accessing file"+file.getAbsolutePath();
+                        JOptionPane.showMessageDialog(null, message,"Alert", JOptionPane.WARNING_MESSAGE);
                     }
                 }
                 else {
-                    System.out.println("File access cancelled by user.");
+                    JOptionPane.showMessageDialog(null, "File access cancelled by user.","Alert", JOptionPane.WARNING_MESSAGE);
                 }
             }
         });
@@ -426,7 +430,7 @@ public class MainClass extends JFrame {
                             if (listOfFile.isFile()) {
                                 myGraph.getData(listOfFile.getPath());
 
-                                System.out.println(listOfFile.getPath());
+//                                System.out.println(listOfFile.getPath());
                             }
                         }
                     }
@@ -462,7 +466,7 @@ public class MainClass extends JFrame {
                     }
                     drawingSurface.repaint();
                 }else{
-                    System.out.println("documentul nu exista");
+                    JOptionPane.showMessageDialog(null, "documentul nu exista","Alert", JOptionPane.WARNING_MESSAGE);
                 }
             }
         });

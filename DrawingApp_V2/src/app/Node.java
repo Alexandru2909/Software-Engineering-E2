@@ -144,11 +144,10 @@ public class Node implements Serializable {
         try {
             this.setFloor(Integer.parseInt(floorTF.getText()));
         } catch (Exception e) {
-            System.out.println(e);
-            System.out.println("Floor: 0");
+            String message = e +"\nFloor will be set to 0.";
+            JOptionPane.showMessageDialog(null, message,"Alert", JOptionPane.WARNING_MESSAGE);
             this.setFloor(0);
         }
-        System.out.println();
 
     }
 

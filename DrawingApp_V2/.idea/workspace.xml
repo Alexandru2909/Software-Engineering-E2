@@ -2,8 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="added checkboxes;&#10;need to add the focus option;">
+      <change afterPath="$PROJECT_DIR$/src/auxiliaries/WrapLayout.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/GraphData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/GraphData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/Line.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/Line.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/MainClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/MainClass.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/Node.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/Node.java" afterDir="false" />
     </list>
     <ignored path="JavaFxApplication.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -56,22 +60,37 @@
     <breakpoint_rules converted="true" />
   </component>
   <component name="DefaultGradleProjectSettings">
-    <option name="testRunner" value="GRADLE" />
-    <option name="delegatedBuild" value="true" />
+    <option name="isMigrated" value="true" />
   </component>
   <component name="FavoritesManager">
     <favorites_list name="JavaFxApplication" />
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/app/MainClass.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="131">
-              <caret line="275" column="46" selection-start-line="275" selection-start-column="35" selection-end-line="275" selection-end-column="46" />
+            <state relative-caret-position="158">
+              <caret line="233" column="30" selection-start-line="233" selection-start-column="30" selection-end-line="233" selection-end-column="30" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/auxiliaries/WrapLayout.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="15">
+              <caret line="1" selection-start-line="1" selection-end-line="1" />
               <folding>
-                <element signature="e#32287#32288#0" expanded="true" />
-                <element signature="e#32318#32319#0" expanded="true" />
+                <element signature="imports" expanded="true" />
+                <element signature="e#444#445#0" expanded="true" />
+                <element signature="e#467#468#0" expanded="true" />
+                <element signature="e#847#848#0" expanded="true" />
+                <element signature="e#875#876#0" expanded="true" />
+                <element signature="e#1389#1390#0" expanded="true" />
+                <element signature="e#1429#1430#0" expanded="true" />
+                <element signature="e#1824#1825#0" expanded="true" />
+                <element signature="e#1871#1872#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -80,8 +99,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/app/GraphData.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="626">
-              <caret line="90" column="64" selection-start-line="90" selection-start-column="55" selection-end-line="90" selection-end-column="64" />
+            <state relative-caret-position="131">
+              <caret line="54" column="64" selection-start-line="54" selection-start-column="60" selection-end-line="54" selection-end-column="64" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -89,7 +108,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/app/MessageClass.java">
           <provider selected="true" editor-type-id="text-editor">
             <state>
@@ -101,8 +120,11 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/app/MyComponent.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1710">
-              <caret line="2" column="21" selection-start-line="2" selection-start-column="21" selection-end-line="2" selection-end-column="21" />
+            <state relative-caret-position="855">
+              <caret line="57" column="30" selection-start-line="57" selection-start-column="30" selection-end-line="57" selection-end-column="30" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -110,8 +132,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/app/Node.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-49">
-              <caret line="11" column="2" selection-start-line="11" selection-start-column="2" selection-end-line="11" selection-end-column="2" />
+            <state relative-caret-position="668">
+              <caret line="127" column="23" selection-start-line="127" selection-start-column="23" selection-end-line="127" selection-end-column="23" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -122,8 +144,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/app/Line.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="11" column="1" selection-start-line="11" selection-start-column="1" selection-end-line="11" selection-end-column="1" />
+            <state relative-caret-position="173">
+              <caret line="128" column="98" selection-start-line="128" selection-start-column="98" selection-end-line="128" selection-end-column="98" />
             </state>
           </provider>
         </entry>
@@ -139,13 +161,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>salvare</find>
-      <find>new Line</find>
-      <find>save</find>
-      <find>testG</find>
-      <find>cosmin</find>
-      <find>order</find>
-      <find>validLine</find>
       <find>pow</find>
       <find>.textBox</find>
       <find>popupNode</find>
@@ -153,7 +168,6 @@
       <find>textB</find>
       <find>popupPanel</find>
       <find>admini</find>
-      <find>flow</find>
       <find>administr</find>
       <find>validNode</find>
       <find>deletenode</find>
@@ -164,7 +178,25 @@
       <find>new Node</find>
       <find>initNode</find>
       <find>node</find>
+      <find>frame</find>
+      <find>null</find>
+      <find>try</find>
+      <find>System.out.println</find>
+      <find>System.out.println\((&quot;[A-z ]+&quot;)\);</find>
+      <find>System.out</find>
+      <find>System.out.</find>
+      <find>System,</find>
+      <find>Nodenr</find>
+      <find>nodeEditorPanel</find>
+      <find>x</find>
+      <find>flow</find>
+      <find>1920</find>
     </findStrings>
+    <replaceStrings>
+      <replace>JOptionPane.showMessageDialog(null, (),&quot;Alert&quot;, JOptionPane.WARNING_MESSAGE);</replace>
+      <replace>JOptionPane.showMessageDialog(null, (?),&quot;Alert&quot;, JOptionPane.WARNING_MESSAGE);</replace>
+      <replace>JOptionPane.showMessageDialog(null, (&quot;[A-z ]+&quot;),&quot;Alert&quot;, JOptionPane.WARNING_MESSAGE);</replace>
+    </replaceStrings>
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -185,11 +217,12 @@
       <list>
         <option value="$PROJECT_DIR$/src/app/MessageClass.java" />
         <option value="$PROJECT_DIR$/src/app/FileListAccessory.java" />
-        <option value="$PROJECT_DIR$/src/app/GraphData.java" />
         <option value="$PROJECT_DIR$/src/app/MyComponent.java" />
         <option value="$PROJECT_DIR$/src/app/RequestFocusListener.java" />
+        <option value="$PROJECT_DIR$/src/app/GraphData.java" />
         <option value="$PROJECT_DIR$/src/app/Line.java" />
         <option value="$PROJECT_DIR$/src/app/Node.java" />
+        <option value="$PROJECT_DIR$/src/auxiliaries/WrapLayout.java" />
         <option value="$PROJECT_DIR$/src/app/MainClass.java" />
       </list>
     </option>
@@ -215,7 +248,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -235,10 +267,17 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="app" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="DrawingApp_V2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="DrawingApp_V2" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="auxiliaries" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -406,7 +445,7 @@
     <frame x="0" y="0" width="1366" height="738" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6703755" weight="0.4609375" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.46072507" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Favorites" order="2" />
       <window_info id="Designer" order="3" />
@@ -416,7 +455,7 @@
       <window_info id="Learn" order="7" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.24025974" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.24025974" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -521,29 +560,26 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/app/Line.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="11" column="1" selection-start-line="11" selection-start-column="1" selection-end-line="11" selection-end-column="1" />
+        <state relative-caret-position="173">
+          <caret line="128" column="98" selection-start-line="128" selection-start-column="98" selection-end-line="128" selection-end-column="98" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/MessageClass.java">
+    <entry file="jar:///usr/lib/jvm/java-8-openjdk/jre/lib/rt.jar!/java/awt/Component.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="11" selection-start-column="11" selection-end-column="11" />
+        <state relative-caret-position="60">
+          <caret line="1394" column="16" selection-start-line="1394" selection-start-column="16" selection-end-line="1394" selection-end-column="16" />
+          <folding>
+            <element signature="e#42569#42570#0" expanded="true" />
+            <element signature="e#42632#42633#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/app/MyComponent.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1710">
-          <caret line="2" column="21" selection-start-line="2" selection-start-column="21" selection-end-line="2" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/GraphData.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="626">
-          <caret line="90" column="64" selection-start-line="90" selection-start-column="55" selection-end-line="90" selection-end-column="64" />
+        <state relative-caret-position="855">
+          <caret line="57" column="30" selection-start-line="57" selection-start-column="30" selection-end-line="57" selection-end-column="30" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -552,8 +588,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/app/Node.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-49">
-          <caret line="11" column="2" selection-start-line="11" selection-start-column="2" selection-end-line="11" selection-end-column="2" />
+        <state relative-caret-position="668">
+          <caret line="127" column="23" selection-start-line="127" selection-start-column="23" selection-end-line="127" selection-end-column="23" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -562,12 +598,43 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/app/MainClass.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="131">
-          <caret line="275" column="46" selection-start-line="275" selection-start-column="35" selection-end-line="275" selection-end-column="46" />
+        <state relative-caret-position="158">
+          <caret line="233" column="30" selection-start-line="233" selection-start-column="30" selection-end-line="233" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/auxiliaries/WrapLayout.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" selection-start-line="1" selection-end-line="1" />
           <folding>
-            <element signature="e#32287#32288#0" expanded="true" />
-            <element signature="e#32318#32319#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#444#445#0" expanded="true" />
+            <element signature="e#467#468#0" expanded="true" />
+            <element signature="e#847#848#0" expanded="true" />
+            <element signature="e#875#876#0" expanded="true" />
+            <element signature="e#1389#1390#0" expanded="true" />
+            <element signature="e#1429#1430#0" expanded="true" />
+            <element signature="e#1824#1825#0" expanded="true" />
+            <element signature="e#1871#1872#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/GraphData.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="131">
+          <caret line="54" column="64" selection-start-line="54" selection-start-column="60" selection-end-line="54" selection-end-column="64" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/MessageClass.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="11" selection-start-column="11" selection-end-column="11" />
         </state>
       </provider>
     </entry>

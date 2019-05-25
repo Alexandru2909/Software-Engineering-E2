@@ -3,6 +3,7 @@ package app;
 import com.google.gson.annotations.Expose;
 
 import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
@@ -119,13 +120,13 @@ public class GraphData  implements Serializable {
                     outputObject.close();
                     output.close();
                 }catch(Exception e){
-                    System.out.println("exceptie la salvare");
+                    JOptionPane.showMessageDialog(null, "exceptie la salvare","Alert", JOptionPane.WARNING_MESSAGE);;
                 }
             }else{
-                System.out.println("path-ul nu indica catre un director");
+                JOptionPane.showMessageDialog(null, "path-ul nu indica catre un director","Alert", JOptionPane.WARNING_MESSAGE);
             }
         }else{
-            System.out.println("path inexistent");
+            JOptionPane.showMessageDialog(null, "path inexistent","Alert", JOptionPane.WARNING_MESSAGE);
         }
     }
 
@@ -170,7 +171,7 @@ public class GraphData  implements Serializable {
             inputObjects.close();
             inputData.close();
         }catch(Exception e){
-            System.out.println("problema la citirea fisierului");
+            JOptionPane.showMessageDialog(null, "problema la citirea fisierului","Alert", JOptionPane.WARNING_MESSAGE);
         }
     }
 }

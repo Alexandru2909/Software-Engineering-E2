@@ -125,8 +125,8 @@ public class Line implements Serializable {
             try {
                 this.setWeight(java.lang.Double.parseDouble(weightTF.getText()));
             } catch (Exception e) {
-                System.out.println(e);
-                System.out.println("Weight: 0.00");
+                String message = e + "\nWeight will be set to 0.00";
+                JOptionPane.showMessageDialog(null, message,"Alert", JOptionPane.WARNING_MESSAGE);
                 this.setWeight(0.00);
             }
         }
