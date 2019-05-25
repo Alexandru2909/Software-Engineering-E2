@@ -31,15 +31,18 @@ public class PathGenerator {
     private SQLiteDatabase db;
 
 
-    static class Edge {
+    static class Edge
+    {
         int id1;
         int id2;
         double cost;
-        Edge(int id1, int id2,double cost)
+        double floor;
+        Edge(int id1, int id2,double cost, double floor)
         {
             this.id1=id1;
             this.id2=id2;
             this.cost=cost;
+            this.floor=floor;
         }
     }
 
@@ -65,9 +68,9 @@ public class PathGenerator {
 
         //creating the adjacency list
         int id1, id2;
-        double cost;
+        double cost,floor;
 
-        Cursor rs = db.rawQuery("SELECT id1, id2, cost FROM edges", null);
+        Cursor rs = db.rawQuery("SELECT id1, id2, cost,floor FROM edges", null);
 
         rs.moveToFirst();
 
@@ -76,8 +79,13 @@ public class PathGenerator {
             id1 = rs.getInt(0) - 1;
             id2 = rs.getInt(1) - 1;
             cost = rs.getDouble(2);
-            Edge edge = new Edge(id1, id2, cost);
-            adjacencylist[id1].addFirst(edge);
+            floor=rs.getDouble(3);
+            Edge edge = new Edge(id1, id2, cost,floor );
+            if(!adjacencylist[id1].contains(edge))
+                adjacencylist[id1].addFirst(edge);
+            Edge edge2=new Edge(id2,id1,cost,floor);
+            if(!adjacencylist[id2].contains(edge2))
+                adjacencylist[id2].addFirst(edge2);
             rs.moveToNext();
         }
 
@@ -99,8 +107,7 @@ public class PathGenerator {
     }
 
     public List<Integer> dijkstra(int sourceVertex, int destinationVertex) {
-        destinationVertex--;
-        sourceVertex--;
+
         boolean[] SPT = new boolean[vertices];
         //distance used to store the distance of vertex from a source
         int[] distance = new int[vertices];
@@ -120,7 +127,7 @@ public class PathGenerator {
                 return key1 - key2;
             }
         });
-        //create the pair for for the source index
+        //create the pair for for the first index, 0 distance 0 index
         distance[sourceVertex] = 0;
         Pair<Integer, Integer> p0 = new Pair<>(distance[sourceVertex], sourceVertex);
         //add it to pq
@@ -133,7 +140,7 @@ public class PathGenerator {
 
             //extracted vertex
             int extractedVertex = extractedPair.getValue1();
-            if (!SPT[extractedVertex]) {
+            if (SPT[extractedVertex] == false) {
                 SPT[extractedVertex] = true;
 
                 //iterate through all the adjacent vertices and update the keys
@@ -142,7 +149,7 @@ public class PathGenerator {
                     Edge edge = list.get(i);
                     int destination = edge.id2;
                     //only if edge destination is not present in mst
-                    if (!SPT[destination]) {
+                    if (SPT[destination] == false) {
                         ///check if distance needs an update or not
                         //means check total weight from source to vertex_V is less than
                         //the current distance value, if yes then update the distance
@@ -160,15 +167,20 @@ public class PathGenerator {
         }
         //compute actual path
 
-        path.add(destinationVertex+1);
+        for(int i=0;i<previous.length;i++)
+            System.out.print(previous[i]+" a ");
+        path.add(destinationVertex);
         int i=destinationVertex;
-        while(i!=sourceVertex)
+        System.out.println();
+        while(sourceVertex!=i)
         {
             i=previous[i];
-            path.add(i+1);
+            path.add(i);
         }
         Collections.reverse(path);
 
+        for(int j=0;j<path.size();j++)
+            System.out.print(path.get(j)+"+");
         return path;
     }
 
