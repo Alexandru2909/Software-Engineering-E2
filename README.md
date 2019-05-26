@@ -11,55 +11,58 @@ And make suggestive commit messages. (NO "Add files via upload" or any message o
 # Link to Trello Board 1 of Back-End Module Team: https://trello.com/b/WDHkhf5I/project-ar-guide-back-end-module
 
 List of students working in this module, as well as each one's completed tasks w.r.t the last iteration.
-Last iteration timeline: Apr 22 - May 13, 2019.
+Last iteration timeline: May 13 - May 27, 2019.
 
 # Definition of Done (for the last sprint)
-- The connection between the Back-End and the Front-End modules has been successfully made, and thus integration of the application is assured.
 
-- The Drawing App has been completed and has proven its use in aiding us engineer the Building Plan for our faculty.
+- Integration of the Back-End and the Front-End modules has been completed.
 
-- The Building Plan for the Faculty of Computer Science has been engineered.
+- The Drawing App has been upgraded with extra functionalities and has been made more user-friendly.
 
-- An optimized version of Dijkstra's Algorithm which allows O(E * log(V)) time complexity has been engineered. (where G := (V, E) is the undirected graph representing the building plan, w/ V being the set of vertices and E - the set of edges)
+- The geographic details of each node in the Building Plan of our faculty have been introduced to help compute the shortest path between any two points in our graph.
 
-- Several algorithms for computing relevant information w.r.t the building have been pondered upon and ultimately designed. (such as figuring out the closest location of a certain type in an efficient way)
+- Several handy algorithms have been made for our main application - such as the closest POI computation algorithm, the tweaked BFS algorithm that is run whenever a building plan's graph has all node pair distances equal etc.
 
-- Support for multiple buildings has been thought upon and designed in our application.
+- Above algorithms have been tested to make sure they function correctly.
+
+- General bug fixes and optimizations have been to the main application.
 
 # 1. Paul Alexandru Reftu (Scrum Master) (paul.reftu@outlook.de)
 Completed tasks:
 
-  a) Engineered a DAO (i.e, a Data Access Object) w.r.t the application's database. (namely, the DatabaseEmissary class)
+  a) Assured migration from the formerly used JDBC API to Android's Native SQLite Database API, to move closer towards integration.
   
-  b) Engineered the application's ARGuide, ARGProcessor, JSONResource, JRProcessor, JRDecoder and JSONResourceException classes.
+  b) Assured integration of the Back End and the Front End modules.
   
-  c) Merged the former application's WorkingSchedule and BuildingPlan classes into the universal JSONResource class.
+  c) Extended the DAO (Data Access Object) with more helper methods w.r.t the database.
   
-  d) Revised the UML Class Diagram due to the previous change on point c).
+  d) Engineered a method for computing the forward azimuth (a.k.a the bearing) b/w a source and a destination, taking into account their geographic coordinates.
   
-  e) Assured migration to a new SQLite database in converting the former PL/SQL packages w.r.t the Working Schedule and the Building Plan.
+  e) Helped split the Web Parser's activities into multiple threads.
   
-  f) Fixed several bugs in the Drawing App w.r.t the JSON output of the application.
+  f) Eliminated some redundancies found in the Web Parser.
   
-  g) Created an environment for testing w.r.t this module's functionalities in the Solution class - to prevent future changes that would break our application.
+  g) Improved the security of the application by protecting against SQL injection vulnerabilities.
   
-  h) Assured integration with the Front End module.
+  h) Solved a bug in the Drawing App that caused the incorrect final graph connection b/w all floors.
   
 # 2. Radu Mugur-Bogdan
 Completed tasks:
 
-  a) Helped integrate the Web Parser auxiliary application into our module.
+  a) Solved the bug in the Drawing App that caused the incorrect JSON output of the graph w.r.t its edges.
   
-  b) Helped fix the bug in the Web Parser that misinterpreted certain resources in the schedule (such as 'Videoproiector+Laptop') as being classrooms.
+  b) Fixed some bugs w.r.t the 'Delete Edge' functionality in the Drawing App.
   
-  c) Engineered a Daemon Thread that verifies at a certain time interval whether there is a pending update for our faculty's schedule and notifies the application with a proper signal of this fact.
+  c) Fixed some problems w.r.t the internal logic of the Web Parser that did not allow its proper execution.
   
-  d) Helped integrate the PathGenerator class into our application.
+  d) Engineered a Signal class, an Auto-update class and a Daemon Thread for the Web Parser that together notify the Front End module whenever an update is available for the faculty working schedule.
 
 # 3. Lungu Stefan
 Completed tasks:
 
-  a) Upgraded the application such that it can support multiple buildings - providing the basic functionalities to generic buildings, and augmented functionalities to our faculty in particular.
+  a) Engineered a method for the PathGenerator class that computes the closest node of type "Classroom"/"Amphitheater" which currently has no lecture/seminar taking place.
+  
+  b) Ran tests on the above method to assure that the algorithm functions correctly.
 
 # 4. Ilisei Bogdan-Razvan
 (transfered to the Testing Module)
@@ -67,44 +70,52 @@ Completed tasks:
 # 5. Balan Ioana Maria
 Completed tasks:
 
-  a) Engineered the PathGenerator class which uses an optimized version of Dijkstra's algorithm - tweaked specifically for sparse graphs.
+  a) Performed tests on the optimized Dijkstra algorithm part of the PathGenerator class to make sure it runs correctly.
   
-  b) Helped during the efforts to migrate to a new SQLite database by converting the former PL/SQL package for the path generator.
+  b) Helped finish the algorithm w.r.t the closest POI computation.
+  
+  c) Performed tests on the closest POI algorithm to test its capabilities.
 
 # 6. Gemeniuc Adrian-Gheorghita
 Completed tasks:
 
-  a) Helped integrate the Web Parser auxiliary application into our module.
+  a) Engineered an altered BFS algorithm that computes the shortest path b/w two points - algorithm that is executed whenever all distances in our building plan graph are *equal*.
   
-  b) Helped fix the bug in the Web Parser that misinterpreted certain resources in the schedule (such as 'Videoproiector+Laptop') as being classrooms.
-  
-  c) Engineered the ARGXHandler class.
-  
-  d) Helped integrate the PathGenerator class into our application.
+  b) Performed tests on the above algorithm to assert its abilities.
 
 # 7. Munteanu Cosmin
 Completed tasks:
 
-  a) Helped engineer the Drawing Application that aided us in creating the Building Plan for our faculty.
+  a) Adapted the Drawing App to the new structure of our Building Plan that includes the geographic coordinates of each node.
+
+  b) Added a color scheme to the Drawing App that classifies nodes according to their type & added a legend describing aforementioned colors and their meaning.
   
-  b) Added brief instructions w.r.t the usage of the Drawing App.
+  c) Generally helped make the Drawing App be more user-friendly.
   
-  c) Cleaned up the last version of the Drawing App for better readability, commented the code and methods of the app and generated proper JavaDoc in this light.
+  d) Helped extend the functionalities of the Drawing App. 
 
 # 8. Cristian Andrei (andreicristian6(at)protonmail(dot)com)
 Completed tasks:
 
-  a) Helped engineer the Drawing Application that aided us in creating the Building Plan for our faculty.
+  a) Added an extra panel in the EAST side of the Drawing App where the user can enter a node's details.
+
+  b) Added auto-popup functionalities w.r.t node & edge detail insertion.
+  
+  c) Added real-time descriptive popup alerts whenever an exception w.r.t what the user is trying to do occurs. 
+
+  d) Helped make the Drawing App more user-friendly.
+  
+  e) Ran several tests on the Drawing App to proof-test it.
+  
+  f) Helped fix bugs w.r.t the Drawing App.
   
 # 9. Caloian Andrei George
 (transfered from the Testing Module)
 
 Completed tasks:
 
-  a) Engineered the Building Plan for our faculty.
+  a) Fixed errors in the Building Plan of our faculty w.r.t its edges.
   
-  b) Helped engineer the optimized Dijkstra algorithm.
+  b) Upgraded the Building Plan of our faculty with the geographic coordinates w.r.t each node in the graph.
   
-  c) Presented several innovative ideas w.r.t certain services our application could offer.
-  
-  d) Engineered an algorithm for computing the closest POI of a particular type. (e.g the closest bathroom)
+  c) Kickstarted and developed most of the engineering of the algorithm w.r.t the closest POI computation.
