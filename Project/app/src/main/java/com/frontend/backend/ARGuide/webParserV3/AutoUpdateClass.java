@@ -1,4 +1,4 @@
-package com.frontend.backend.ARGuide.webParserV3;
+package webParserV3;
 
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
@@ -7,14 +7,17 @@ import org.jsoup.nodes.Element;
 
 import java.io.*;
 
+
+
+
+
+
 public class AutoUpdateClass{
     private String siteAddress;
     private String lastUpdateDate;
     private String data;
     private Document document;
     private String lastUpdateFilePath;
-
-
 
     public AutoUpdateClass(String siteAddress,String lastUpdateFilePath){
         this.siteAddress=siteAddress;
@@ -39,7 +42,7 @@ public class AutoUpdateClass{
             output.write(data);
             output.close();
         }catch(IOException e){
-            System.out.println("problema la conectare");
+            System.out.println("problema la conectare:"+e.getMessage());
         }
     }
 
@@ -53,7 +56,7 @@ public class AutoUpdateClass{
         }else if(lastUpdateDate.compareTo("")==0){
             return false;
         }
-        try {
+        try{
             document = Jsoup.connect(siteAddress).get();
             Element element = document.getElementsByTag("b").get(0);
             data = element.text();
@@ -69,3 +72,4 @@ public class AutoUpdateClass{
     }
 
 }
+
