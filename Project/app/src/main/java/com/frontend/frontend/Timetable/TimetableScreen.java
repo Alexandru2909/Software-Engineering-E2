@@ -3,6 +3,8 @@ package com.frontend.frontend.Timetable;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.frontend.backend.ARGuide.main.JSONResourceException;
@@ -18,6 +20,7 @@ import in.goodiebag.carouselpicker.CarouselPicker;
 import com.frontend.backend.ARGuide.main.ARGuide;
 
 public class TimetableScreen extends AppCompatActivity {
+    private Button exitButton;
     String roomNumber = new String();
     TextView text;
 
@@ -32,6 +35,8 @@ public class TimetableScreen extends AppCompatActivity {
         setContentView(R.layout.timetable);
 
         roomNumber = getIntent().getStringExtra("room");
+        exitButton = findViewById(R.id.search_close_btn);
+
 
         dayPicker = (CarouselPicker) findViewById(R.id.dayPicker);
         addDays("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" , "Sunday");
@@ -45,6 +50,13 @@ public class TimetableScreen extends AppCompatActivity {
                     MyApplication.path + "/buildingPlan.json");
 
             final List<List<String>> schedule = databaseConn.selectClassroomSchedule(roomNumber);
+
+            exitButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    finish();
+                }
+            });
 
 
             writeInTable(days[0], schedule);
