@@ -62,16 +62,16 @@ public class ARGuide {
 		AutoUpdateClass auto=new AutoUpdateClass(webAddress+pageName,"auxiliaries/lastUpdate.txt");
 		boolean state=auto.runDataCollector();
 		if(state==false){
-			System.out.println("S-a facut Update");
-			try {
-				WebParser parser = new WebParser(webAddress, pageName, "auxiliaries/resultFile.txt","auxiliaries/docNames.txt");
-				parser.runParset();
-			}catch (Exception e){
-				System.out.println("problema la crearea fisielor" +e.getMessage());
-			}
-			auto.setNewDate();
+		    System.out.println("S-a efectuat un  update");
+		    try {
+			WebParser parser = new WebParser(webAddress, pageName, "auxiliaries/resultFile.txt","auxiliaries/docNames.txt");
+			parser.runParset();
+		    }catch (Exception e){
+			System.out.println("problema la crearea fisielor" +e.getMessage());
+		    }
+		    auto.setNewDate();
 		}else{
-			System.out.println("Datele sunt actuale");
+		    System.out.println("Datele sunt actuale");
 		}
 		FlagClass flag=new FlagClass();
 		AutoCheckClass autoChecker=new AutoCheckClass(auto,flag);
