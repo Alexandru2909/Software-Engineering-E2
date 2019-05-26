@@ -81,12 +81,12 @@ public class TimetableScreen extends AppCompatActivity {
 
 
      private void writeInTable(String day, List<List<String>> schedule) {
-            List<String> newSchedule = new ArrayList<>();
+         initDefaultValues();
+         List<String> newSchedule = new ArrayList<>();
             for(List<String> scheduleList : schedule)
                 for(int i=0;i<scheduleList.size();i+=4){
                     newSchedule.add(scheduleList.get(i));
                     if(day.equals(scheduleList.get(i))) {
-                        initDefaultValues();
                         TextView subject = findViewById(R.id.subject1);
                         switch (scheduleList.get(i + 1)) {
                             case ("08:00"):
