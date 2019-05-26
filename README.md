@@ -81,7 +81,7 @@ Completed tasks:
 
   a) Engineered an altered BFS algorithm that computes the shortest path b/w two points - algorithm that is executed whenever all distances in our building plan graph are *equal*.
   
-  b) Performed tests on the above algorithm to assert its abilities.
+  b) Performed tests on the above algorithm to assert its capabilities.
 
 # 7. Munteanu Cosmin
 Completed tasks:
