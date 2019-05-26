@@ -16,9 +16,11 @@ import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Pair;
 import android.util.SparseArray;
 import android.view.Gravity;
 import android.view.SurfaceHolder;
@@ -36,8 +38,10 @@ import java.sql.SQLException;
 import java.time.Clock;
 import java.util.ArrayList;
 
+import com.frontend.backend.ARGuide.main.DbEmissaryException;
 import com.frontend.backend.ARGuide.main.JSONResourceException;
 import com.frontend.backend.ARGuide.main.MyApplication;
+import com.frontend.backend.ARGuide.main.PathGenerator;
 import com.frontend.frontend.Main.MainActivity;
 import com.frontend.frontend.Timetable.TimetableScreen;
 import com.google.android.gms.vision.CameraSource;
@@ -73,15 +77,21 @@ public class SelectDestination extends AppCompatActivity implements SensorEventL
     private float[] mGravity = new float[3];
     private float[] mGeomagnetic = new float[3];
     private float azimuth = 0f;
-    private float currectAzimuth = 0f;
     private SensorManager mSensorManager;
+    private SensorManager stepSensorManager;
 
     private List<String> roomsList = new ArrayList<>();
 
     private boolean firstRun = true;
     private float firstAzimuth = 0f;
+    private int counterSteps = 0;
 
-    private String target = "N";
+    private String target;
+    private boolean walking;
+    private int initialValue;
+    private boolean isFirstStep = true;
+    private List<Pair<Integer, Double>> path;
+    private int pathIndex;
 
 
     @Override
@@ -99,7 +109,8 @@ public class SelectDestination extends AppCompatActivity implements SensorEventL
         arrowImg = findViewById(R.id.imageViewCompass);
         arrowImg.setVisibility(View.VISIBLE);
         arrow = new Arrow();
-        mSensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
+        mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        stepSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 
 
         try {
@@ -109,13 +120,11 @@ public class SelectDestination extends AppCompatActivity implements SensorEventL
                 room = extras.getString("current_room");
             }
             ARGuide databaseConn = new ARGuide("faculty_uaic_cs",
-                    MyApplication.path+"/faculty.db",
-                    MyApplication.path+"/facultySchedule.json",
-                    MyApplication.path+"/buildingPlan.json");
+                    MyApplication.path + "/faculty.db",
+                    MyApplication.path + "/facultySchedule.json",
+                    MyApplication.path + "/buildingPlan.json");
 
             roomsList = databaseConn.selectAllClassroomNames();
-
-            roomsList.add("C309");
 
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("What room");
@@ -154,7 +163,7 @@ public class SelectDestination extends AppCompatActivity implements SensorEventL
             getRoomBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (roomsList.contains(finalText.trim()) ){
+                    if (roomsList.contains(finalText.trim())) {
                         getRoomBtn.setVisibility(View.INVISIBLE);
                         room = finalText;
                     } else {
@@ -163,11 +172,21 @@ public class SelectDestination extends AppCompatActivity implements SensorEventL
                 }
             });
 
-        }catch (SQLException e) {
+            path = databaseConn.computeSP(databaseConn.selectClassroomIdByName(room), databaseConn.selectClassroomIdByName(destRoom));
+            setTarget(path.get(0).second);
+            pathIndex = 0;
+
+        } catch (
+                SQLException e) {
             e.printStackTrace();
-        } catch (JSONResourceException e) {
+        } catch (
+                JSONResourceException e) {
+            e.printStackTrace();
+        } catch (
+                DbEmissaryException e) {
             e.printStackTrace();
         }
+
     }
 
     public void openMenu() {
@@ -187,7 +206,8 @@ public class SelectDestination extends AppCompatActivity implements SensorEventL
     private void startTextRecognizer() {
         textRecognizer = new TextRecognizer.Builder(getApplicationContext()).build();
         if (!textRecognizer.isOperational()) {
-            Toast.makeText(getApplicationContext(), "Oops ! Not able to start the text recognizer ...", Toast.LENGTH_LONG).show(); exit(0);
+            Toast.makeText(getApplicationContext(), "Oops ! Not able to start the text recognizer ...", Toast.LENGTH_LONG).show();
+            exit(0);
         }
         cameraSource = new CameraSource.Builder(getApplicationContext(), textRecognizer)
                 .setFacing(CameraSource.CAMERA_FACING_BACK)
@@ -252,8 +272,8 @@ public class SelectDestination extends AppCompatActivity implements SensorEventL
         });
     }
 
-    public int getAngle(String target){
-        switch(target) {
+    public int getAngle(String target) {
+        switch (target) {
             case "N":
                 return 0;
             case "S":
@@ -270,73 +290,138 @@ public class SelectDestination extends AppCompatActivity implements SensorEventL
     @Override
     protected void onResume() {
         super.onResume();
-        mSensorManager.registerListener( this,mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD),
+        mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD),
                 SensorManager.SENSOR_DELAY_FASTEST);
-        mSensorManager.registerListener( this,mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
+        mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
                 SensorManager.SENSOR_DELAY_FASTEST);
+        mSensorManager.registerListener(this, mSensorManager.getDefaultSensor((Sensor.TYPE_STEP_DETECTOR)),
+                SensorManager.SENSOR_DELAY_FASTEST);
+
+        walking = true;
+        Sensor countSensor = stepSensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
+        if (countSensor != null) {
+            stepSensorManager.registerListener(this, countSensor, SensorManager.SENSOR_DELAY_UI);
+        } else {
+            Toast.makeText(this, "Sensor not found", Toast.LENGTH_SHORT);
+        }
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         mSensorManager.unregisterListener(this);
+        walking = false;
+        stepSensorManager.unregisterListener(this);
     }
+
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
-        final float alpha=  0.97f;
-        synchronized (this){
-            if(sensorEvent.sensor.getType() == Sensor.TYPE_ACCELEROMETER)
-            {
-                mGravity[0] = alpha*mGravity[0]+(1-alpha)*sensorEvent.values[0];
-                mGravity[1] = alpha*mGravity[1]+(1-alpha)*sensorEvent.values[1];
-                mGravity[2] = alpha*mGravity[2]+(1-alpha)*sensorEvent.values[2];
+        final float alpha = 0.97f;
+        synchronized (this) {
+            if (sensorEvent.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
+                mGravity[0] = alpha * mGravity[0] + (1 - alpha) * sensorEvent.values[0];
+                mGravity[1] = alpha * mGravity[1] + (1 - alpha) * sensorEvent.values[1];
+                mGravity[2] = alpha * mGravity[2] + (1 - alpha) * sensorEvent.values[2];
             }
-            if(sensorEvent.sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD)
-            {
-                mGeomagnetic[0] = alpha*mGeomagnetic[0]+(1-alpha)*sensorEvent.values[0];
-                mGeomagnetic[1] = alpha*mGeomagnetic[1]+(1-alpha)*sensorEvent.values[1];
-                mGeomagnetic[2] = alpha*mGeomagnetic[2]+(1-alpha)*sensorEvent.values[2];
+            if (sensorEvent.sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD) {
+                mGeomagnetic[0] = alpha * mGeomagnetic[0] + (1 - alpha) * sensorEvent.values[0];
+                mGeomagnetic[1] = alpha * mGeomagnetic[1] + (1 - alpha) * sensorEvent.values[1];
+                mGeomagnetic[2] = alpha * mGeomagnetic[2] + (1 - alpha) * sensorEvent.values[2];
             }
             float R[] = new float[9];
             float I[] = new float[9];
-            boolean success = SensorManager.getRotationMatrix(R,I,mGravity,mGeomagnetic);
-            if(success)
-            {
-                float orientation[] = new float[3];
-                SensorManager.getOrientation(R,orientation);
-                azimuth = (float)Math.toDegrees(orientation[0]);
+            boolean success = SensorManager.getRotationMatrix(R, I, mGravity, mGeomagnetic);
 
-                if(firstRun == true){
+            if (success) {
+                float orientation[] = new float[3];
+                SensorManager.getOrientation(R, orientation);
+                azimuth = (float) Math.toDegrees(orientation[0]);
+
+                if (counterSteps > 5) {
+                    counterSteps = 0;
+                    firstRun = true;
+                    pathIndex++;
+                    setTarget(path.get(pathIndex).second);
+                }
+
+                if (firstRun == true) {
                     firstAzimuth = azimuth;
                     firstRun = false;
                 }
-                azimuth = (azimuth+360 - firstAzimuth + getAngle(target))%360;
+                azimuth = (azimuth + 360 - firstAzimuth + getAngle(target)) % 360;
 
-                System.out.println(azimuth);
+                //System.out.println(azimuth);
 
 
-                if  ((azimuth >315 && azimuth <= 360)  || (azimuth >= 0 && azimuth <= 45) ) {
+                if ((azimuth > 315 && azimuth <= 360) || (azimuth >= 0 && azimuth <= 45)) {
                     arrow.setOrientation("N");
                 }
-                if  (azimuth >45 && azimuth <= 135 ) {
+                if (azimuth > 45 && azimuth <= 135) {
                     arrow.setOrientation("W");
                 }
-                if  (azimuth >135 && azimuth <=225) {
+                if (azimuth > 135 && azimuth <= 225) {
                     arrow.setOrientation("S");
                 }
-                if  (azimuth >225 && azimuth <=315) {
+                if (azimuth > 225 && azimuth <= 315) {
                     arrow.setOrientation("E");
                 }
 
+//                System.out.println(counterSteps);
+                changeArrowImage(arrow.update());
+            }
 
-
-                //System.out.println(arrow.getOrientation());
-                arrowImg.setRotation(arrow.update());
-
-                currectAzimuth = azimuth;
+            if (sensorEvent.sensor.getType() == Sensor.TYPE_STEP_COUNTER) {
+                if (walking) {
+                    if (isFirstStep) {
+                        counterSteps = 1;
+                        initialValue = (int) sensorEvent.values[0];
+                        isFirstStep = false;
+                    } else {
+                        counterSteps = (int) sensorEvent.values[0] - initialValue;
+                    }
+                }
             }
         }
     }
+
+    private void changeArrowImage(int direction) {
+        switch (direction) {
+            case 0:
+                arrowImg.setImageResource(R.drawable.up_arrow);
+            case 180:
+                arrowImg.setImageResource(R.drawable.down_arrow);
+            case 270:
+                arrowImg.setImageResource(R.drawable.left_arrow);
+            case 90:
+                arrowImg.setImageResource(R.drawable.right_arrow);
+        }
+    }
+
     @Override
-    public void onAccuracyChanged(Sensor sensor, int i){ }
+    public void onAccuracyChanged(Sensor sensor, int i) {
+    }
+
+    public void setTarget(double direction) {
+
+        if ((direction > 315 && direction <= 360) || (direction >= 0 && direction <= 45)) {
+            target = "N";
+        }
+        if (direction > 45 && direction <= 135) {
+            target = "W";
+        }
+        if (direction > 135 && direction <= 225) {
+            target = "S";
+        }
+        if (direction > 225 && direction <= 315) {
+            target = "E";
+        }
+        if(direction == -1)
+            target = "Up";
+        if(direction == -2)
+            target = "Down";
+    }
+
+    public String getTarget() {
+        return target;
+    }
 }

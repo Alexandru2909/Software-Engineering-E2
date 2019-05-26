@@ -6,4 +6,5 @@
     <string name="time">Time</string>
     <string name="subject">Subject</string>
     <string name="title">FiiOrientat</string>
+    <string name="scan_room">Scan Room Number</string>
 </resources>
