@@ -39,6 +39,7 @@ public class PathGenerator {
         int id2;
         double cost;
         double floor;
+       
         Edge(int id1, int id2,double cost, double floor)
         {
             this.id1=id1;
@@ -309,13 +310,22 @@ public class PathGenerator {
     
     
     //***************************************************************
-    // bfs shortest path for unweighted graphs
+    // bfs shortest path for unweighted graphs, needs to be solved
 //private void add_edge(int src, int dest)
 //{
 //	(adj.elementAt(src)).add(dest);
 //	(adj.elementAt(dest)).add(src);
 //}
 
+    
+    
+/**
+ * @param src -- source node
+ * @param dest -- destination node
+ * @param pred	-- array of previous nodes 
+ * @param dist -- array of distances between nodes
+ * @return -- (if a shortest path can be created a.k.a there exists at least a path from src to dest)? true:false
+ */
 private boolean BFS(int src, int dest, int[] pred, int[] dist)
 {
 	LinkedList<Integer> queue = new LinkedList<Integer>();
@@ -358,6 +368,11 @@ private boolean BFS(int src, int dest, int[] pred, int[] dist)
 }
 
 
+/**
+ * @param src -- the beginning point of the path
+ * @param dest -- the ending point of the path
+ * @return -- an arraylist of integers, representing the actual Shortest Path between src and dest
+ */
 public ArrayList<Integer> bfsShortestDistance(int src, int dest)
 {
 		int[] pred = new int[vertices];
