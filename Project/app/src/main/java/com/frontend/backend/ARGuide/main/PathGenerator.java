@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.icu.text.SimpleDateFormat;
 
+import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Comparator;
@@ -29,6 +30,7 @@ public class PathGenerator {
     private LinkedList<Edge>[] adjacencylist;
     private int vertices;
     private SQLiteDatabase db;
+    private int[] distance;
 
 
     static class Edge
@@ -53,6 +55,8 @@ public class PathGenerator {
 
         vertices = nodes.size();
         adjacencylist = new LinkedList[vertices];
+
+        distance=new int[vertices];
 
         getAdjList();
 
@@ -111,8 +115,9 @@ public class PathGenerator {
     public List<Integer> dijkstra(int sourceVertex, int destinationVertex) {
 
         boolean[] SPT = new boolean[vertices];
+        path=new ArrayList<>();
         //distance used to store the distance of vertex from a source
-        int[] distance = new int[vertices];
+        distance = new int[vertices];
 
         //Initialize all the distance to infinity
         for (int i = 0; i < vertices; i++) {
@@ -179,6 +184,53 @@ public class PathGenerator {
         Collections.reverse(path);
         return path;
     }
+
+
+    //----------------------computing the closest poi-----------
+
+
+
+
+
+
+
+    public List<Integer> closest_poi(int sourceVertex, String destination) throws SQLException
+    {
+        int closestPOI,minDist=Integer.MAX_VALUE;
+        List<Integer> poi=new ArrayList<>();
+
+
+        //initialising a list of all the points of intrest of the given type
+        String sql="select id from nodes where type like '"+destination+"';";
+
+        Cursor rs = db.rawQuery(sql, null);
+
+        rs.moveToFirst();
+
+        //getting the source, destination and cost of each edge
+        while (!rs.isAfterLast()) {
+            poi.add(rs.getInt(0));
+        }
+        //initiasing the closest poi as the first poi in the list
+        closestPOI=poi.get(0);
+        //the only purpose of this call is to initialise the distance array
+        dijkstra(sourceVertex,closestPOI);
+
+        //generates the closest point of intrest of given type based in the distances in the distance array
+        for(int i=1;i<poi.size();i++)
+            if(distance[poi.get(i)]<distance[closestPOI])
+                closestPOI=poi.get(i);
+
+        path=dijkstra(sourceVertex,closestPOI);
+
+        return path;
+    }
+
+
+
+
+
+    //---------------------------------------------------------
 
 
     public boolean isFree(int classId){

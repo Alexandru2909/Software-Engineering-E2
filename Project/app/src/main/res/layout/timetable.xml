@@ -8,13 +8,23 @@
     android:background="#000000"
     android:orientation="vertical"
     tools:context=".Timetable.TimetableScreen">
+    
+       <Button
+        android:id="@+id/search_close_btn"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="360dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/close"
+        app:layout_constraintHorizontal_bias="0.043"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.028" />
 
     <in.goodiebag.carouselpicker.CarouselPicker
         android:id="@+id/dayPicker"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="50dp"
-        android:layout_marginBottom="20dp"
         android:background="@drawable/gradient_day_picker"
         app:items_visible="three">
 
