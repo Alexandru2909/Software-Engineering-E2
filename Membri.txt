@@ -5,6 +5,6 @@ Curea Paul -  back-end team
 Mihai Dumitru -  back-end team 
  nothing (0 pct)
 Putanu Alexandru - front-end team 
-  Am testat aplicatia cu mai multe telefoane si am verificat code coverage prin print-uri pentru ImageProcessing.java si MainActivity.java   (10 puncte)
+   Am lucrat la Integrare impreuna cu Cristian Tugui, am lucrat la timetable, am dezvoltat cu Espresso teste de tip unit, am rezolvat buguri care opreau aplicatia din a merge. Am testat clase propuse de Ioana Balan dpdv de coeziune cu front-endul. Clasele de test sunt in actual_code si raportul in Testing_Reports(18 p)
 Caloian Andrei - back-end team 
 Pricop George - back-end team 
