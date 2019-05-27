@@ -1,4 +1,4 @@
-package webParserV3;
+package com.frontend.backend.ARGuide.webParserV3;
 
 public class FlagClass {
     private boolean signal=false;

@@ -1,4 +1,4 @@
-package webParserV3;
+package com.frontend.backend.ARGuide.webParserV3;
 
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;

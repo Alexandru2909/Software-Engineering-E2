@@ -115,8 +115,6 @@ public class SelectDestination extends AppCompatActivity implements SensorEventL
 
             roomsList = databaseConn.selectAllClassroomNames();
 
-            roomsList.add("C309");
-
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("What room");
             final EditText input = new EditText(this);
